@@ -17,6 +17,7 @@ const Home: NextPage = () => {
 			<main>
 				<h1>Cloversy Store</h1>
 				<Button variant="outlined">Click me</Button>
+				<BigCarousel />
 			</main>
 		</div>
 	);
