@@ -1,7 +1,7 @@
 // Dependencies
 import { styled } from "@mui/system";
 
-export const BigCarouselContainer = styled("div")({
+export const BigCarouselContainer = styled("section")({
 	width: "100%",
 	backgroundColor: "#fff",
 	marginTop: "9rem",
@@ -22,15 +22,17 @@ export const CarouselImage = styled("div")<CarouselImageType>(props => ({
 }));
 
 type CarouselContentType = {
-	right?: Boolean;
+	alignRight?: Boolean;
 };
 
-export const CarouselContent = styled("div")<CarouselContentType>(props => ({
-	marginLeft: props.right ? "auto" : "10vw",
-	marginRight: props.right ? "10vw" : "auto",
+export const CarouselContent = styled("div", {
+	shouldForwardProp: prop => prop !== "alignRight"
+})<CarouselContentType>(props => ({
+	marginLeft: props.alignRight ? "auto" : "10vw",
+	marginRight: props.alignRight ? "10vw" : "auto",
 	display: "flex",
 	flexDirection: "column",
-	alignItems: props.right ? "flex-end" : "flex-start"
+	alignItems: props.alignRight ? "flex-end" : "flex-start"
 }));
 
 export const CarouselTitle = styled("h2")({

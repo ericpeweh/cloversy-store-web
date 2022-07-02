@@ -8,7 +8,7 @@ export const HeaderContainer = styled("header")({
 	display: "flex",
 	justifyContent: "space-between",
 	alignItems: "center",
-	boxShadow: "0 -0.2rem 4.5rem -2rem rgba(0 0 0 /30%)",
+	boxShadow: "var(--shadow-light)",
 	padding: "0 3rem",
 	position: "fixed",
 	top: 0,
@@ -46,7 +46,9 @@ type NavLinkType = {
 	active?: Boolean;
 };
 
-export const NavLink = styled("a")<NavLinkType>(({ theme, active }) => ({
+export const NavLink = styled("a", {
+	shouldForwardProp: prop => prop !== "active"
+})<NavLinkType>(({ theme, active }) => ({
 	position: "relative",
 	fontSize: "1.7rem",
 	textTransform: "uppercase",

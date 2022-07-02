@@ -20,6 +20,7 @@ a {
 :root {
 	--color-primary: #55904e;
 	--font-secondary: Jost, sans-serif;
+	--shadow-light: 0 -0.2rem 4.5rem -2rem rgba(0 0 0 /30%);
 }
 
 /* Swiper carousel - override using !important*/

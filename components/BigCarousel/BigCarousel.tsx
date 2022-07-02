@@ -36,7 +36,7 @@ const BigCarousel = () => {
 			<Swiper {...carouselOptions}>
 				<SwiperSlide>
 					<CarouselImage imageurl="/images/1.jpg">
-						<CarouselContent right>
+						<CarouselContent alignRight>
 							<CarouselTag>Special Edition</CarouselTag>
 							<CarouselTitle>Nike AF1 Homesick</CarouselTitle>
 							<CarouselDescription>
