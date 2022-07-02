@@ -5,6 +5,9 @@ import Head from "next/head";
 // MUI
 import { Button } from "@mui/material";
 
+// Components
+import BigCarousel from "../components/BigCarousel/BigCarousel";
+
 const Home: NextPage = () => {
 	return (
 		<div>
@@ -15,8 +18,6 @@ const Home: NextPage = () => {
 			</Head>
 
 			<main>
-				<h1>Cloversy Store</h1>
-				<Button variant="outlined">Click me</Button>
 				<BigCarousel />
 			</main>
 		</div>

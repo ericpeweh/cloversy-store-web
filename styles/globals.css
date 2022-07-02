@@ -13,4 +13,58 @@ a {
 
 * {
 	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+:root {
+	--color-primary: #55904e;
+	--font-secondary: Jost, sans-serif;
+}
+
+/* Swiper carousel - override using !important*/
+.swiper-button-next,
+.swiper-button-prev {
+	background-color: rgba(255 255 255 / 30%);
+	border-radius: 50%;
+	width: 4rem !important;
+	height: 4rem !important;
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 0.5;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+	opacity: 1;
+}
+
+.swiper-button-next {
+	background-image: url("/icons/next.svg");
+	right: 4rem !important;
+}
+.swiper-button-prev {
+	background-image: url("/icons/prev.svg");
+	left: 4rem !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	display: none;
+}
+
+.swiper-pagination {
+	width: auto !important;
+	left: 3rem !important;
+	bottom: 3rem !important;
+}
+
+.swiper-pagination-bullet {
+	background-color: #fff !important;
+	width: 1rem !important;
+	height: 1rem !important;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: var(--color-primary) !important ;
 }
