@@ -5,6 +5,7 @@ import Head from "next/head";
 
 // Styles
 import "../styles/globals.css";
+import "swiper/css/bundle";
 
 // Theme
 import mainTheme from "../styles/mainTheme";
@@ -12,7 +13,7 @@ import mainTheme from "../styles/mainTheme";
 // Components
 import Navbar from "../components/Navbar/Navbar";
 
-function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
 	return (
 		<>
 			<Head>
@@ -26,6 +27,6 @@ function App({ Component, pageProps }: AppProps) {
 			</StyledEngineProvider>
 		</>
 	);
-}
+};
 
 export default App;

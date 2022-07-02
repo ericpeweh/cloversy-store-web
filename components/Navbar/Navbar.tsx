@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // Styles
 import {
@@ -20,7 +21,17 @@ import { Search, ShoppingBagOutlined } from "@mui/icons-material";
 // Components
 import { Button, IconButton } from "@mui/material";
 
+const navigations = [
+	{ label: "Home", path: "/" },
+	{ label: "Products", path: "/products" },
+	{ label: "About us", path: "/about" },
+	{ label: "Contact us", path: "/contact" }
+];
+
 const Navbar = () => {
+	const router = useRouter();
+	const currentPath = router.pathname;
+
 	return (
 		<HeaderContainer>
 			<Link href="/">
@@ -30,26 +41,13 @@ const Navbar = () => {
 			</Link>
 			<NavLinks>
 				<NavLists>
-					<NavListItem>
-						<Link href="/">
-							<NavLink>Homepage</NavLink>
-						</Link>
-					</NavListItem>
-					<NavListItem>
-						<Link href="/products">
-							<NavLink>Products</NavLink>
-						</Link>
-					</NavListItem>
-					<NavListItem>
-						<Link href="/about">
-							<NavLink>About us</NavLink>
-						</Link>
-					</NavListItem>
-					<NavListItem>
-						<Link href="/contact">
-							<NavLink>Contact us</NavLink>
-						</Link>
-					</NavListItem>
+					{navigations.map(nav => (
+						<NavListItem key={nav.path}>
+							<Link href={nav.path}>
+								<NavLink active={currentPath === nav.path}>{nav.label}</NavLink>
+							</Link>
+						</NavListItem>
+					))}
 				</NavLists>
 			</NavLinks>
 			<HeaderActions>
