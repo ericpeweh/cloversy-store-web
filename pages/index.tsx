@@ -8,6 +8,7 @@ import { Button } from "@mui/material";
 // Components
 import BigCarousel from "../components/BigCarousel/BigCarousel";
 import BrandCardList from "../components/BrandCardList/BrandCardList";
+import Recommendations from "../components/Recommendations/Recommendations";
 
 const Home: NextPage = () => {
 	return (
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
 			<main>
 				<BigCarousel />
 				<BrandCardList />
+				<Recommendations />
 			</main>
 		</div>
 	);
