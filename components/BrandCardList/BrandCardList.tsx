@@ -3,16 +3,10 @@ import React from "react";
 
 // Components
 import Button from "../Button/Button";
+import Section from "../Section/Section";
 
 // Styles
-import {
-	BrandCard,
-	BrandCardListContainer,
-	BrandCards,
-	CardContent,
-	CardImage,
-	CardTitle
-} from "./BrandCardList.styles";
+import { BrandCard, BrandCards, CardContent, CardImage, CardTitle } from "./BrandCardList.styles";
 
 const brandCardData = [
 	{ label: "Custom Nike", image: "/images/1.jpg" },
@@ -22,7 +16,7 @@ const brandCardData = [
 
 const BrandCardList = () => {
 	return (
-		<BrandCardListContainer>
+		<Section>
 			<BrandCards container spacing={4}>
 				{brandCardData.map(data => (
 					<BrandCard item xs={4} key={data.label}>
@@ -34,7 +28,7 @@ const BrandCardList = () => {
 					</BrandCard>
 				))}
 			</BrandCards>
-		</BrandCardListContainer>
+		</Section>
 	);
 };
 

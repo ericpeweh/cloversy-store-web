@@ -1,6 +1,6 @@
 // Dependencies
 import React from "react";
-import { Pagination, Navigation, EffectFade, SwiperOptions } from "swiper";
+import { Pagination, Navigation, Autoplay, EffectFade, SwiperOptions } from "swiper";
 
 // Components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,11 +21,12 @@ const carouselOptions: SwiperOptions = {
 	spaceBetween: 30,
 	pagination: { clickable: true },
 	navigation: true,
-	modules: [Pagination, Navigation, EffectFade],
+	modules: [Pagination, Navigation, Autoplay, EffectFade],
 	loop: true,
 	effect: "fade",
 	autoplay: {
-		delay: 5000
+		delay: 10000,
+		disableOnInteraction: false
 	},
 	grabCursor: true
 };
