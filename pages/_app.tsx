@@ -1,6 +1,8 @@
 // Dependencies
 import type { AppProps } from "next/app";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import { Provider as ReduxProvider } from "react-redux";
+import reduxStore from "../store";
 import Head from "next/head";
 
 // Styles
@@ -21,8 +23,10 @@ const App = ({ Component, pageProps }: AppProps) => {
 			</Head>
 			<StyledEngineProvider injectFirst>
 				<ThemeProvider theme={mainTheme}>
-					<Navbar />
-					<Component {...pageProps} />
+					<ReduxProvider store={reduxStore}>
+						<Navbar />
+						<Component {...pageProps} />
+					</ReduxProvider>
 				</ThemeProvider>
 			</StyledEngineProvider>
 		</>
