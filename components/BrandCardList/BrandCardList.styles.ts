@@ -5,21 +5,12 @@ import Image from "next/image";
 // Components
 import { Grid } from "@mui/material";
 
-export const BrandCardListContainer = styled("section")({
-	width: "100%",
-	display: "flex",
-	justifyContent: "center",
-	alignItems: "center",
-	margin: "5rem 0"
-});
-
 export const BrandCards = styled(Grid)(({ theme }) => ({
 	width: "145rem"
 })) as typeof Grid;
 
 export const BrandCard = styled(Grid)({
 	height: "60rem",
-	width: "20rem",
 	borderRadius: "0.5rem"
 }) as typeof Grid;
 

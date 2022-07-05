@@ -23,6 +23,23 @@ a {
 	--shadow-light: 0 -0.2rem 4.5rem -2rem rgba(0 0 0 /30%);
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #55904e;
+}
+
 /* Swiper carousel - override using !important*/
 .swiper-button-next,
 .swiper-button-prev {
