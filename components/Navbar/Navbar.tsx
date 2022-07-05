@@ -21,7 +21,7 @@ import {
 } from "./Navbar.styles";
 
 // Actions
-import { openSearchDrawer } from "../../store/slices/homeSlice";
+import { openCartDrawer, openSearchDrawer } from "../../store/slices/homeSlice";
 
 // Icons
 import { Search, ShoppingBagOutlined } from "@mui/icons-material";
@@ -43,6 +43,10 @@ const Navbar = () => {
 
 	const openSearchDrawerHandler = () => {
 		dispatch(openSearchDrawer());
+	};
+
+	const openCartDrawerHandler = () => {
+		dispatch(openCartDrawer());
 	};
 
 	return (
@@ -70,7 +74,7 @@ const Navbar = () => {
 				<IconButton aria-label="search" onClick={openSearchDrawerHandler}>
 					<Search sx={{ fontSize: 30 }} color="secondary" />
 				</IconButton>
-				<IconButton aria-label="shopping-cart">
+				<IconButton aria-label="shopping-cart" onClick={openCartDrawerHandler}>
 					<ShoppingBagOutlined sx={{ fontSize: 30 }} color="secondary" />
 				</IconButton>
 			</HeaderActions>
