@@ -8,7 +8,6 @@ export const SearchDrawerContainer = styled(Drawer)({
 	position: "relative",
 	"& .MuiDrawer-paper": {
 		minHeight: "30vh",
-		boxShadow: "none",
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",

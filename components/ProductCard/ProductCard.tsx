@@ -28,7 +28,7 @@ const ProductCard = ({ size = "medium" }) => {
 			</ProductImageContainer>
 			<CardContent>
 				<ProductTitle>Nike AF1 Homesick</ProductTitle>
-				<ProductPrice>Rp.3.499.000</ProductPrice>
+				<ProductPrice>Rp3.499.000</ProductPrice>
 			</CardContent>
 		</ProductCardContainer>
 	);
