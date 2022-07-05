@@ -2,7 +2,7 @@
 import { styled } from "@mui/system";
 
 // Components
-import { Card, CardMedia, CardContent } from "@mui/material";
+import { Card, CardMedia } from "@mui/material";
 
 export const QuickViewButton = styled("button")(({ theme }) => ({
 	fontSize: "1.8rem",
@@ -23,7 +23,6 @@ export const QuickViewButton = styled("button")(({ theme }) => ({
 }));
 
 export const ProductCardContainer = styled(Card)({
-	height: "40rem",
 	boxShadow: "none",
 	transition: "0.4s ease",
 	"&:hover": {
@@ -44,8 +43,13 @@ export const ProductImageContainer = styled("div")({
 	borderRadius: "0.5rem"
 });
 
-export const ProductImage = styled(CardMedia)({
-	height: "32rem",
+interface ProductImageProps {
+	size?: string;
+}
+
+export const ProductImage = styled(CardMedia, {
+	shouldForwardProp: prop => prop !== "size"
+})<ProductImageProps>({
 	cursor: "pointer",
 	transformOrigin: "bottom center",
 	transition: "0.4s ease"

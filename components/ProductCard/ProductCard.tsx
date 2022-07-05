@@ -12,12 +12,19 @@ import {
 	QuickViewButton
 } from "./ProductCard.styles";
 
-const ProductCard = () => {
+const ProductCard = ({ size = "medium" }) => {
 	return (
 		<ProductCardContainer>
 			<ProductImageContainer>
 				<QuickViewButton>Quick View</QuickViewButton>
-				<ProductImage component="img" image="/images/product.jpg" alt="product name" />
+				<ProductImage
+					component="img"
+					image="/images/product.jpg"
+					alt="product name"
+					sx={{
+						height: size === "small" ? "14rem" : "32rem"
+					}}
+				/>
 			</ProductImageContainer>
 			<CardContent>
 				<ProductTitle>Nike AF1 Homesick</ProductTitle>

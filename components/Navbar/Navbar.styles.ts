@@ -42,9 +42,9 @@ export const NavListItem = styled("li")({
 	}
 });
 
-type NavLinkType = {
-	active?: Boolean;
-};
+interface NavLinkType {
+	active?: boolean;
+}
 
 export const NavLink = styled("a", {
 	shouldForwardProp: prop => prop !== "active"

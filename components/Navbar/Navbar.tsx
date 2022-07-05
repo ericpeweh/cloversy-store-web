@@ -3,6 +3,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { shallowEqual } from "react-redux";
+
+// Hooks
+import useDispatch from "../../hooks/useDispatch";
+import useSelector from "../../hooks/useSelector";
 
 // Styles
 import {
@@ -14,6 +19,9 @@ import {
 	NavListItem,
 	NavLists
 } from "./Navbar.styles";
+
+// Actions
+import { openSearchDrawer } from "../../store/slices/homeSlice";
 
 // Icons
 import { Search, ShoppingBagOutlined } from "@mui/icons-material";
@@ -31,6 +39,11 @@ const navigations = [
 const Navbar = () => {
 	const router = useRouter();
 	const currentPath = router.pathname;
+	const dispatch = useDispatch();
+
+	const openSearchDrawerHandler = () => {
+		dispatch(openSearchDrawer());
+	};
 
 	return (
 		<HeaderContainer>
@@ -54,7 +67,7 @@ const Navbar = () => {
 				<Button variant="text" size="large" disableFocusRipple color="secondary">
 					Login
 				</Button>
-				<IconButton aria-label="search">
+				<IconButton aria-label="search" onClick={openSearchDrawerHandler}>
 					<Search sx={{ fontSize: 30 }} color="secondary" />
 				</IconButton>
 				<IconButton aria-label="shopping-cart">
