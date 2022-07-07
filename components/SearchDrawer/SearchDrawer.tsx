@@ -4,13 +4,12 @@ import React, { useEffect, useRef } from "react";
 
 // Icons
 import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
 
 // Components
+import CloseButton from "../CloseButton/CloseButton";
 
 // Styles
 import {
-	CloseButton,
 	SearchBarContainer,
 	SearchDrawerContainer,
 	SearchInput,
@@ -51,9 +50,7 @@ const SearchDrawer = ({ open, onClose }: SearchDrawerProps) => {
 					variant="standard"
 					inputRef={searchInputRef}
 				/>
-				<CloseButton onClick={onClose}>
-					<CloseIcon />
-				</CloseButton>
+				<CloseButton onClick={onClose} sx={{ top: "3rem", right: "20vw" }} />
 			</SearchBarContainer>
 			<SearchResult>
 				<ProductsContainer columns={4}>

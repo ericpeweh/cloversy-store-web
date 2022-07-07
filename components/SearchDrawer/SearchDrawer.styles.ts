@@ -2,7 +2,7 @@
 import { styled } from "@mui/system";
 
 // Components
-import { Drawer, IconButton, Select, TextField } from "@mui/material";
+import { Drawer, TextField } from "@mui/material";
 
 export const SearchDrawerContainer = styled(Drawer)({
 	position: "relative",
@@ -29,13 +29,6 @@ export const SearchInput = styled(TextField)({
 		fontFamily: "var(--font-secondary)"
 	}
 }) as typeof TextField;
-
-export const CloseButton = styled(IconButton)(({ theme }) => ({
-	position: "absolute",
-	top: "3rem",
-	right: "20vw",
-	backgroundColor: theme.palette.grey[200]
-}));
 
 export const SearchResult = styled("div")({
 	width: "50vw",
