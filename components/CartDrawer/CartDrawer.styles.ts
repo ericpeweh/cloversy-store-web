@@ -69,38 +69,6 @@ export const CartItemInfo = styled("div")({
 	marginTop: "2rem"
 });
 
-export const CartItemQtyContainer = styled("div")({
-	display: "flex",
-	width: "max-content"
-});
-
-export const CartItemQtyInput = styled("input")(({ theme }) => ({
-	border: "none",
-	fontSize: "1.6rem",
-	width: "6rem",
-	outline: "none",
-	textAlign: "center",
-	borderWidth: "1px",
-	borderStyle: "solid",
-	borderColor: theme.palette.grey[400],
-	"&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-		"-webkit-appearance": "none",
-		"-moz-appearance": "textfield"
-	}
-}));
-
-export const CartItemQtyButton = styled("button")(({ theme }) => ({
-	fontSize: "2rem",
-	border: "0",
-	width: "3rem",
-	height: "3rem",
-	cursor: "pointer",
-	transition: "0.3s ease",
-	"&:hover": {
-		backgroundColor: theme.palette.grey[300]
-	}
-}));
-
 export const CartItemPrice = styled("p")({
 	fontSize: "1.6rem"
 });

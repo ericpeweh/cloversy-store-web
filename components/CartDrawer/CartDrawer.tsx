@@ -11,9 +11,6 @@ import {
 	CartItemImage,
 	CartItemInfo,
 	CartItemPrice,
-	CartItemQtyButton,
-	CartItemQtyContainer,
-	CartItemQtyInput,
 	CartLists,
 	HideCartButton,
 	Badge
@@ -25,6 +22,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // Components
 import { ListItemAvatar, Divider, Typography, Stack } from "@mui/material";
 import Button from "../Button/Button";
+import QuantityInput from "../QuantityInput/QuantityInput";
 
 interface CartDrawerProps {
 	open: boolean;
@@ -34,23 +32,23 @@ interface CartDrawerProps {
 const cartItems = [
 	{
 		name: "Nike AF1 Homesick",
-		sizeType: "US WOMEN",
-		size: "8.5",
+		sizeType: "EU",
+		size: "43",
 		sale: "50% OFF",
 		qty: 3,
 		price: "3.599.000"
 	},
 	{
 		name: "Vans Lost Angel",
-		sizeType: "US MEN",
-		size: "7",
+		sizeType: "EU",
+		size: "40",
 		qty: 12,
 		price: "12.399.000"
 	},
 	{
 		name: "Ventela Creation of Adam",
-		sizeType: "US MEN",
-		size: "9",
+		sizeType: "EU",
+		size: "39",
 		sale: "10% OFF",
 		qty: 5,
 		price: "24.399.000"
@@ -65,7 +63,7 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 			</HideCartButton>
 			<CartLists>
 				{[...cartItems, ...cartItems].map(item => (
-					<>
+					<React.Fragment key={item.name}>
 						<CartItem key={item.name}>
 							<ListItemAvatar sx={{ marginRight: "2rem" }}>
 								<Link href="#">
@@ -87,11 +85,7 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 										</Typography>
 										{`${item.sizeType} | ${item.size}`}
 										<CartItemInfo>
-											<CartItemQtyContainer>
-												<CartItemQtyButton>-</CartItemQtyButton>
-												<CartItemQtyInput type="number" value={item.qty} />
-												<CartItemQtyButton>+</CartItemQtyButton>
-											</CartItemQtyContainer>
+											<QuantityInput value={item.qty} />
 											<CartItemPrice>Rp{item.price}</CartItemPrice>
 										</CartItemInfo>
 									</>
@@ -99,7 +93,7 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 							/>
 						</CartItem>
 						<Divider variant="fullWidth" component="li" sx={{ mb: "2rem" }} />
-					</>
+					</React.Fragment>
 				))}
 			</CartLists>
 			<CartActionButtons>
