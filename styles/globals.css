@@ -40,7 +40,11 @@ a {
 	background: #55904e;
 }
 
-/* Swiper carousel - override using !important*/
+/* ======================== 
+Swiper carousel - override using !important
+=========================== */
+
+/* Big carousel */
 .swiper-button-next,
 .swiper-button-prev {
 	background-color: rgba(255 255 255 / 30%);
@@ -64,6 +68,13 @@ a {
 .swiper-button-prev {
 	background-image: url("/icons/prev.svg");
 	left: 4rem !important;
+}
+
+.left {
+	left: 2rem !important;
+}
+.right {
+	right: 2rem !important;
 }
 
 .swiper-button-next::after,

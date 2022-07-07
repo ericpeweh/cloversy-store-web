@@ -38,7 +38,7 @@ export const CardTitle = styled("h2")({
 	position: "relative",
 	top: 0,
 	left: 0,
-	zIndex: 1500
+	zIndex: 10
 });
 
 export const CardImage = styled(Image)({

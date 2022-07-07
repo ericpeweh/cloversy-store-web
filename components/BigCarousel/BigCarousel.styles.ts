@@ -10,7 +10,9 @@ export const BigCarouselContainer = styled("section")({
 
 type CarouselImageType = { imageurl: string };
 
-export const CarouselImage = styled("div")<CarouselImageType>(props => ({
+export const CarouselImage = styled("div", {
+	shouldForwardProp: prop => prop !== "imageurl"
+})<CarouselImageType>(props => ({
 	height: "calc(100vh - 9rem)",
 	backgroundImage: `url(${props.imageurl})`,
 	display: "flex",
