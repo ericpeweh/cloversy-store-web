@@ -8,12 +8,16 @@ import Head from "next/head";
 // Styles
 import "../styles/globals.css";
 import "swiper/css/bundle";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
 // Theme
 import mainTheme from "../styles/mainTheme";
 
 // Components
-import Navbar from "../components/Navbar/Navbar";
+import AppWrapper from "../components/AppWrapper/AppWrapper";
 
 const App = ({ Component, pageProps }: AppProps) => {
 	return (
@@ -24,8 +28,9 @@ const App = ({ Component, pageProps }: AppProps) => {
 			<StyledEngineProvider injectFirst>
 				<ThemeProvider theme={mainTheme}>
 					<ReduxProvider store={reduxStore}>
-						<Navbar />
-						<Component {...pageProps} />
+						<AppWrapper>
+							<Component {...pageProps} />
+						</AppWrapper>
 					</ReduxProvider>
 				</ThemeProvider>
 			</StyledEngineProvider>

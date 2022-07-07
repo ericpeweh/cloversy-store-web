@@ -1,17 +1,13 @@
 // Dependencies
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { shallowEqual } from "react-redux";
 
 // MUI
 import { Divider } from "@mui/material";
 
 // Hooks
-import useSelector from "../hooks/useSelector";
-import useDispatch from "../hooks/useDispatch";
-
-// Action
-import { closeSearchDrawer, closeCartDrawer } from "../store/slices/homeSlice";
+import useModal from "../hooks/useModal";
 
 // Components
 import BigCarousel from "../components/BigCarousel/BigCarousel";
@@ -19,12 +15,10 @@ import BrandCardList from "../components/BrandCardList/BrandCardList";
 import Recommendations from "../components/Recommendations/Recommendations";
 import LinkBanners from "../components/LinkBanners/LinkBanners";
 import Footer from "../components/Footer/Footer";
-import SearchDrawer from "../components/SearchDrawer/SearchDrawer";
-import CartDrawer from "../components/CartDrawer/CartDrawer";
+import ProductViewModal from "../components/ProductViewModal/ProductViewModal";
 
 const Home: NextPage = () => {
-	const { showSearchModal, showCartModal } = useSelector(state => state.home, shallowEqual);
-	const dispatch = useDispatch();
+	const { isOpen, openHandler, closeHandler } = useModal();
 
 	return (
 		<div>
@@ -35,8 +29,7 @@ const Home: NextPage = () => {
 			</Head>
 
 			<main>
-				<SearchDrawer open={showSearchModal} onClose={() => dispatch(closeSearchDrawer())} />
-				<CartDrawer open={showCartModal} onClose={() => dispatch(closeCartDrawer())} />
+				<ProductViewModal isOpen={isOpen} />
 				<BigCarousel />
 				<BrandCardList />
 				<Recommendations />
