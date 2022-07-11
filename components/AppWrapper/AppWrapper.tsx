@@ -10,6 +10,7 @@ import { closeSearchDrawer, closeCartDrawer } from "../../store/slices/homeSlice
 
 // Components
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 import CartDrawer from "../CartDrawer/CartDrawer";
 import SearchDrawer from "../SearchDrawer/SearchDrawer";
 
@@ -27,6 +28,7 @@ const AppWrapper = ({ children }: AppWrapperProps) => {
 			<SearchDrawer open={showSearchModal} onClose={() => dispatch(closeSearchDrawer())} />
 			<CartDrawer open={showCartModal} onClose={() => dispatch(closeCartDrawer())} />
 			{children}
+			<Footer />
 		</>
 	);
 };
