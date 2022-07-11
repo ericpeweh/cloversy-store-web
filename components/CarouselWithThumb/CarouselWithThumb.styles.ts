@@ -7,7 +7,7 @@ export const CarouselContainer = styled("div")({
 	width: "100%"
 });
 
-type ImageType = { imageurl: string };
+type ImageType = { imageurl: string; size: string };
 
 export const MainCarousel = styled(Swiper)({
 	marginBottom: "2rem",
@@ -24,18 +24,24 @@ const ImageBase = styled("div")({
 	backgroundPosition: "center"
 });
 
-export const CarouselImage = styled(ImageBase, {
-	shouldForwardProp: prop => prop !== "imageurl"
-})<ImageType>(props => ({
-	height: "35rem",
-	backgroundImage: `url(${props.imageurl})`
+const imagePropsForward = {
+	shouldForwardProp: (prop: any) => prop !== "imageurl" && prop !== "size"
+};
+
+export const CarouselImage = styled(
+	ImageBase,
+	imagePropsForward
+)<ImageType>(({ imageurl, size }) => ({
+	height: size === "small" ? "35rem" : size === "medium" ? "40rem" : "44rem",
+	backgroundImage: `url(${imageurl})`
 }));
 
-export const ThumbImage = styled(ImageBase, {
-	shouldForwardProp: prop => prop !== "imageurl"
-})<ImageType>(props => ({
-	height: "8rem",
-	backgroundImage: `url(${props.imageurl})`,
+export const ThumbImage = styled(
+	ImageBase,
+	imagePropsForward
+)<ImageType>(({ imageurl, size }) => ({
+	height: size === "small" ? "8rem" : size === "medium" ? "10rem" : "12rem",
+	backgroundImage: `url(${imageurl})`,
 	cursor: "pointer",
 	borderRadius: "0.5rem"
 }));

@@ -34,7 +34,13 @@ const thumbsOptions: SwiperOptions = {
 	}
 };
 
-const CarouselWithThumb = () => {
+const images = ["/images/product.jpg", "/images/1.jpg", "/images/2.jpg", "/images/3.jpg"];
+
+interface CarouselWithThumbProps {
+	size?: "small" | "medium" | "large";
+}
+
+const CarouselWithThumb = ({ size = "small" }: CarouselWithThumbProps) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType>();
 
 	return (
@@ -43,38 +49,18 @@ const CarouselWithThumb = () => {
 				{...carouselOptions}
 				thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
 			>
-				<SwiperSlide>
-					<CarouselImage imageurl="/images/product.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<CarouselImage imageurl="/images/1.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<CarouselImage imageurl="/images/2.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<CarouselImage imageurl="/images/3.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<CarouselImage imageurl="/images/2.jpg" />
-				</SwiperSlide>
+				{images.map(image => (
+					<SwiperSlide key={image}>
+						<CarouselImage imageurl={image} size={size} />
+					</SwiperSlide>
+				))}
 			</MainCarousel>
 			<ThumbsCarousel {...thumbsOptions} onSwiper={setThumbsSwiper}>
-				<SwiperSlide>
-					<ThumbImage imageurl="/images/product.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<ThumbImage imageurl="/images/1.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<ThumbImage imageurl="/images/2.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<ThumbImage imageurl="/images/3.jpg" />
-				</SwiperSlide>
-				<SwiperSlide>
-					<ThumbImage imageurl="/images/2.jpg" />
-				</SwiperSlide>
+				{images.map(image => (
+					<SwiperSlide key={image}>
+						<ThumbImage imageurl={image} size={size} />
+					</SwiperSlide>
+				))}
 				<CarouselPrevButton
 					className="custom_prev"
 					sx={{
