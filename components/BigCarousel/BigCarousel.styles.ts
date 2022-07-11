@@ -4,7 +4,6 @@ import { styled } from "@mui/system";
 export const BigCarouselContainer = styled("section")({
 	width: "100%",
 	backgroundColor: "#fff",
-	marginTop: "9rem",
 	height: "calc(100vh - 9rem)"
 });
 

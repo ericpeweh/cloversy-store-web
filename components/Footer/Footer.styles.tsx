@@ -29,7 +29,7 @@ export const FooterSection = styled("div")({
 });
 
 export const FooterSectionTitle = styled("h5")({
-	fontSize: "2rem",
+	fontSize: "1.8rem",
 	fontWeight: 500,
 	textTransform: "uppercase",
 	color: "#fff",
@@ -44,7 +44,7 @@ export const FooterList = styled("ul")({
 export const FooterListItem = styled("li")(({ theme }) => ({
 	color: theme.palette.grey[100],
 	fontWeight: 300,
-	fontSize: "1.8rem",
+	fontSize: "1.6rem",
 	paddingBottom: "2.5rem",
 	cursor: "pointer",
 	"&:hover > a::after": {

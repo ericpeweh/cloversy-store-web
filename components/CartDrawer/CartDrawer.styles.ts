@@ -23,7 +23,8 @@ export const CartLists = styled(List)(({ theme }) => ({
 })) as typeof List;
 
 export const CartItem = styled(ListItem)({
-	alignItems: "flex-start"
+	alignItems: "flex-start",
+	paddingRight: "0"
 });
 
 export const CartItemImage = styled(Avatar)({
