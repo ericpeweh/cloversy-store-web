@@ -25,7 +25,6 @@ import { closeProductView } from "../../store/slices/homeSlice";
 
 // Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 // Components
 import { Chip, Divider, Grid, Link, Rating, Stack } from "@mui/material";

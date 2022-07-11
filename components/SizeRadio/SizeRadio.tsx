@@ -11,9 +11,10 @@ const sizes = [
 interface SizeRadioProps {
 	value: number;
 	onChange: Dispatch<SetStateAction<number>>;
+	columns?: number;
 }
 
-const SizeRadio = ({ value = 36, onChange }: SizeRadioProps) => {
+const SizeRadio = ({ value = 36, onChange, columns = 4 }: SizeRadioProps) => {
 	const sizeButtonClickHandler = (newSize: number) => {
 		if (newSize === value) return;
 		onChange(newSize);
@@ -22,7 +23,7 @@ const SizeRadio = ({ value = 36, onChange }: SizeRadioProps) => {
 	return (
 		<SizeRadioContainer container spacing={1}>
 			{sizes.map(size => (
-				<SizeRadioItem item xs={3} key={size}>
+				<SizeRadioItem item xs={12 / columns} key={size}>
 					<SizeRadioButton
 						variant="outlined"
 						fullWidth
