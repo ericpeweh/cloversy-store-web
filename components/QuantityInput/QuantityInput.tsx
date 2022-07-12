@@ -6,7 +6,7 @@ interface QuantityInputProps {
 	size?: "small" | "medium";
 }
 
-const QuantityInput = ({ value, size = "small" }: QuantityInputProps) => {
+const QuantityInput = ({ value, size = "small", ...props }: QuantityInputProps) => {
 	const buttonSize = size === "small" ? "3rem" : "3.5rem";
 	const buttonProps = {
 		minWidth: buttonSize,

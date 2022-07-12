@@ -56,20 +56,6 @@ export const MainText = styled("p")(({ theme }) => ({
 	margin: "2rem 0"
 }));
 
-export const ProductNavigationContainer = styled("div")({
-	marginTop: "4rem",
-	width: "100%",
-	display: "flex",
-	justifyContent: "center"
-});
-
-export const ProductBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
-	width: "145rem",
-	backgroundColor: theme.palette.grey[100],
-	padding: "1.5rem 3rem",
-	borderRadius: "0.5rem"
-})) as typeof Breadcrumbs;
-
 export const ReviewsPagination = styled(Pagination)({
 	width: "100%",
 	marginTop: "4rem",

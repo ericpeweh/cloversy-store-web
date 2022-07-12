@@ -12,8 +12,6 @@ import {
 	ProductPrice,
 	ProductDesription,
 	MainText,
-	ProductNavigationContainer,
-	ProductBreadcrumbs,
 	ReviewsPagination
 } from "./ProductDetails.styles";
 
@@ -33,25 +31,20 @@ import QuantityInput from "../QuantityInput/QuantityInput";
 import TabsNavigation from "../TabsNavigation/TabsNavigation";
 import TabsPanel from "../TabsPanel/TabsPanel";
 import ReviewItem from "../ReviewItem/ReviewItem";
+import PageBreadcrumbs from "../PageBreadcrumbs/PageBreadcrumbs";
+
+const links = [
+	{ label: "Products", url: "#" },
+	{ label: "Nike AF1", url: "#" },
+	{ label: "Nike Air Force 1 Homesick", url: "current" }
+];
 
 const ProductDetails = () => {
 	const [shoesSize, setShoesSize] = useState(36);
 
 	return (
 		<ProductDetailsContainer>
-			<ProductNavigationContainer>
-				<ProductBreadcrumbs sx={{ fontSize: "1.6rem" }}>
-					<Link underline="hover" color="text.primary" href="#">
-						Products
-					</Link>
-					<Link underline="hover" color="text.primary" href="#">
-						Nike AF1
-					</Link>
-					<Typography color="primary" fontWeight={500}>
-						Nike Air Force 1 Homesick
-					</Typography>
-				</ProductBreadcrumbs>
-			</ProductNavigationContainer>
+			<PageBreadcrumbs links={links} />
 			<GridContainer container spacing={5}>
 				<ImageCarouselContainer item xs={6}>
 					<CarouselWithThumb size="medium" />

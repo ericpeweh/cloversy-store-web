@@ -85,15 +85,14 @@ const ProductViewModal = () => {
 							<MainText>Jumlah: </MainText>
 							<QuantityInput value={5} size="medium" />
 						</Stack>
+						<Button sx={{ mb: 1 }}>Tambahkan ke keranjang</Button>
 						<Button
 							variant="outlined"
-							sx={{ mb: 1 }}
 							color="primary"
 							endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
 						>
 							Tambahkan ke wishlist
 						</Button>
-						<Button>Tambahkan ke keranjang</Button>
 					</ProductDetails>
 				</Grid>
 			</ContentContainer>

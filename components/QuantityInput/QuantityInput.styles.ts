@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 
 export const QuantityInputContainer = styled("div")({
 	display: "flex",
-	width: "max-content"
+	justifyContent: "center"
 });
 
 export const QuantityInputField = styled("input")(({ theme }) => ({
