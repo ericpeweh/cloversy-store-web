@@ -59,7 +59,7 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 	return (
 		<CartDrawerContainer open={open} onClose={onClose} anchor="right">
 			<HideCartButton variant="text" endIcon={<ChevronRightIcon />} onClick={onClose}>
-				Hide Cart
+				Continue Shopping
 			</HideCartButton>
 			<CartLists>
 				{[...cartItems, ...cartItems].map(item => (
