@@ -1,9 +1,11 @@
 // Dependencies
 import React from "react";
+import Link from "next/link";
 import Zoom from "@mui/material/Zoom";
 
 // Components
-import { IconButton, Stack, Tooltip } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
+import Tooltip from "../Tooltip/Tooltip";
 import Table from "../Table/Table";
 
 // Styles
@@ -17,7 +19,6 @@ import {
 // Icons
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
-import Link from "next/link";
 
 const tableHeadData = ["Produk", "Harga", "Ukuran", "Tindakan"];
 
@@ -63,22 +64,12 @@ const WishlistTable = () => {
 					<TableCell align="center">{data.size}</TableCell>
 					<TableCell align="center">
 						<Stack gap={2} direction="row" justifyContent="center">
-							<Tooltip
-								title="Tambahkan ke keranjang"
-								arrow
-								sx={{ fontSize: "1.6rem" }}
-								TransitionComponent={Zoom}
-							>
+							<Tooltip title="Tambahkan ke keranjang">
 								<IconButton color="primary">
 									<ShoppingBagOutlinedIcon />
 								</IconButton>
 							</Tooltip>
-							<Tooltip
-								title="Hapus dari wishlist"
-								arrow
-								sx={{ fontSize: "1.6rem" }}
-								TransitionComponent={Zoom}
-							>
+							<Tooltip title="Hapus dari wishlist">
 								<IconButton color="error">
 									<ClearIcon />
 								</IconButton>

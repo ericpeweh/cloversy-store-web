@@ -18,6 +18,7 @@ import mainTheme from "../styles/mainTheme";
 
 // Components
 import AppWrapper from "../components/AppWrapper/AppWrapper";
+import { CssBaseline } from "@mui/material";
 
 const App = ({ Component, pageProps }: AppProps) => {
 	return (
@@ -26,6 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 				<meta name="viewport" content="initial-scale=1, width=device-width" />
 			</Head>
 			<StyledEngineProvider injectFirst>
+				<CssBaseline />
 				<ThemeProvider theme={mainTheme}>
 					<ReduxProvider store={reduxStore}>
 						<AppWrapper>

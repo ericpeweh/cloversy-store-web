@@ -24,7 +24,7 @@ const PageBreadcrumbs = ({ links }: PageBreadcrumbsProps) => {
 							{link.label}
 						</Typography>
 					) : (
-						<Link underline="hover" color="text.primary" href="#">
+						<Link underline="hover" color="text.primary" href={link.url}>
 							{link.label}
 						</Link>
 					);
