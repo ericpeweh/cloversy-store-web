@@ -21,7 +21,7 @@ import {
 } from "./Navbar.styles";
 
 // Actions
-import { openCartDrawer, openSearchDrawer } from "../../store/slices/homeSlice";
+import { openCartDrawer, openSearchDrawer } from "../../store/slices/globalSlice";
 
 // Icons
 import { Search, ShoppingBagOutlined } from "@mui/icons-material";

@@ -2,11 +2,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // Slices
-import homeReducer from "./slices/homeSlice";
+import globalReducer from "./slices/globalSlice";
+import productsReducer from "./slices/productsSlice";
 
 const store = configureStore({
 	reducer: {
-		home: homeReducer
+		global: globalReducer,
+		products: productsReducer
 	}
 });
 

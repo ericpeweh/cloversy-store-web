@@ -6,7 +6,7 @@ import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
 
 // Action
-import { closeSearchDrawer, closeCartDrawer } from "../../store/slices/homeSlice";
+import { closeSearchDrawer, closeCartDrawer } from "../../store/slices/globalSlice";
 
 // Components
 import Navbar from "../Navbar/Navbar";
@@ -19,7 +19,7 @@ interface AppWrapperProps {
 }
 
 const AppWrapper = ({ children }: AppWrapperProps) => {
-	const { showSearchModal, showCartModal } = useSelector(state => state.home, shallowEqual);
+	const { showSearchModal, showCartModal } = useSelector(state => state.global, shallowEqual);
 	const dispatch = useDispatch();
 
 	return (

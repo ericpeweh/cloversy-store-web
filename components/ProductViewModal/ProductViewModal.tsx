@@ -21,7 +21,7 @@ import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
 
 // Actions
-import { closeProductView } from "../../store/slices/homeSlice";
+import { closeProductView } from "../../store/slices/globalSlice";
 
 // Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -38,7 +38,7 @@ const ProductViewModal = () => {
 	const [shoesSize, setShoesSize] = useState(36);
 
 	const dispatch = useDispatch();
-	const { showProductView } = useSelector(state => state.home, shallowEqual);
+	const { showProductView } = useSelector(state => state.global, shallowEqual);
 
 	const closeProductViewHandler = () => {
 		dispatch(closeProductView());

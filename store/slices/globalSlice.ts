@@ -2,38 +2,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface HomeState {
+interface GlobalState {
 	showSearchModal: boolean;
 	showCartModal: boolean;
 	showProductView: boolean;
 }
 
-const initialState: HomeState = {
+const initialState: GlobalState = {
 	showSearchModal: false,
 	showCartModal: false,
 	showProductView: false
 };
 
-const homeSlice = createSlice({
-	name: "home",
+const globalSlice = createSlice({
+	name: "global",
 	initialState,
 	reducers: {
-		openSearchDrawer: (state: HomeState) => {
+		openSearchDrawer: (state: GlobalState) => {
 			state.showSearchModal = true;
 		},
-		closeSearchDrawer: (state: HomeState) => {
+		closeSearchDrawer: (state: GlobalState) => {
 			state.showSearchModal = false;
 		},
-		openCartDrawer: (state: HomeState) => {
+		openCartDrawer: (state: GlobalState) => {
 			state.showCartModal = true;
 		},
-		closeCartDrawer: (state: HomeState) => {
+		closeCartDrawer: (state: GlobalState) => {
 			state.showCartModal = false;
 		},
-		openProductView: (state: HomeState) => {
+		openProductView: (state: GlobalState) => {
 			state.showProductView = true;
 		},
-		closeProductView: (state: HomeState) => {
+		closeProductView: (state: GlobalState) => {
 			state.showProductView = false;
 		}
 	}
@@ -46,6 +46,6 @@ export const {
 	closeCartDrawer,
 	openProductView,
 	closeProductView
-} = homeSlice.actions;
+} = globalSlice.actions;
 
-export default homeSlice.reducer;
+export default globalSlice.reducer;
