@@ -2,7 +2,7 @@
 import React from "react";
 
 // Components
-import { GridSpacing, Grid } from "@mui/material";
+import { GridSpacing, Grid, Box } from "@mui/material";
 
 // Styles
 import { ProductsGrid } from "./ProductsContainer.styles";
@@ -26,11 +26,13 @@ const ProductsContainer = ({
 	};
 
 	return (
-		<ProductsGrid container spacing={spacing} rowSpacing={rowSpacing}>
-			{React.Children.map(children, child => {
-				return <Grid {...childProps}>{child}</Grid>;
-			})}
-		</ProductsGrid>
+		<Box sx={{ flexGrow: 1, mr: -spacing }}>
+			<ProductsGrid container spacing={spacing} rowSpacing={rowSpacing}>
+				{React.Children.map(children, child => {
+					return <Grid {...childProps}>{child}</Grid>;
+				})}
+			</ProductsGrid>
+		</Box>
 	);
 };
 

@@ -24,7 +24,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TelegramIcon from "@mui/icons-material/Telegram";
 
 // Components
-import { Button, Divider, Rating, Stack, Typography, Link, Grid, IconButton } from "@mui/material";
+import { Button, Divider, Rating, Stack, Grid, IconButton } from "@mui/material";
 import CarouselWithThumb from "../CarouselWithThumb/CarouselWithThumb";
 import SizeRadio from "../SizeRadio/SizeRadio";
 import QuantityInput from "../QuantityInput/QuantityInput";

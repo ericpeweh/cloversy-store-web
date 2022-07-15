@@ -1,13 +1,16 @@
 // Dependencies
-import { CardContent } from "@mui/material";
+import { CardContent, IconButton, Stack } from "@mui/material";
 import React from "react";
 
 // Actions
-import { openProductView } from "../../store/slices/homeSlice";
+import { openProductView } from "../../store/slices/globalSlice";
 
 // Hooks
 import useDispatch from "../../hooks/useDispatch";
 import useSelector from "../../hooks/useSelector";
+
+// Icons
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 // Styles
 import {
@@ -18,9 +21,10 @@ import {
 	ProductTitle,
 	QuickViewButton
 } from "./ProductCard.styles";
+import Tooltip from "../Tooltip/Tooltip";
 
 const ProductCard = ({ size = "medium" }) => {
-	const showProductView = useSelector(state => state.home.showProductView);
+	const showProductView = useSelector(state => state.global.showProductView);
 	const dispatch = useDispatch();
 
 	const openProductViewHandler = () => {
@@ -42,10 +46,19 @@ const ProductCard = ({ size = "medium" }) => {
 					}}
 				/>
 			</ProductImageContainer>
-			<CardContent>
-				<ProductTitle>Nike AF1 Homesick</ProductTitle>
-				<ProductPrice>Rp3.499.000</ProductPrice>
-			</CardContent>
+			<Stack direction="row" justifyContent="space-between" alignItems="center">
+				<CardContent>
+					<ProductTitle>Nike AF1 Homesick</ProductTitle>
+					<ProductPrice>Rp3.499.000</ProductPrice>
+				</CardContent>
+				<Stack direction="row" justifyContent="space-between" alignItems="center">
+					<Tooltip title="Tambahkan ke wishlist">
+						<IconButton>
+							<FavoriteBorderOutlinedIcon />
+						</IconButton>
+					</Tooltip>
+				</Stack>
+			</Stack>
 		</ProductCardContainer>
 	);
 };
