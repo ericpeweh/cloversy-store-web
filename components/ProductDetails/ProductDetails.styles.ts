@@ -62,3 +62,8 @@ export const ReviewsPagination = styled(Pagination)({
 	display: "flex",
 	justifyContent: "center"
 }) as typeof Pagination;
+
+export const ProductsRecommendation = styled("div")({
+	width: "140rem",
+	margin: "4rem auto 2rem"
+});

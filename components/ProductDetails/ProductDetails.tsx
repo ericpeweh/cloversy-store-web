@@ -12,7 +12,8 @@ import {
 	ProductPrice,
 	ProductDesription,
 	MainText,
-	ReviewsPagination
+	ReviewsPagination,
+	ProductsRecommendation
 } from "./ProductDetails.styles";
 
 // Icons
@@ -32,6 +33,9 @@ import TabsNavigation from "../TabsNavigation/TabsNavigation";
 import TabsPanel from "../TabsPanel/TabsPanel";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import PageBreadcrumbs from "../PageBreadcrumbs/PageBreadcrumbs";
+import ProductCard from "../ProductCard/ProductCard";
+import ProductsContainer from "../ProductsContainer/ProductsContainer";
+import ProductViewModal from "../ProductViewModal/ProductViewModal";
 
 const links = [
 	{ label: "Products", url: "#" },
@@ -44,6 +48,7 @@ const ProductDetails = () => {
 
 	return (
 		<ProductDetailsContainer>
+			<ProductViewModal />
 			<PageBreadcrumbs links={links} />
 			<GridContainer container spacing={5}>
 				<ImageCarouselContainer item xs={6}>
@@ -142,6 +147,15 @@ const ProductDetails = () => {
 					</TabsNavigation>
 				</Grid>
 			</GridContainer>
+			<ProductsRecommendation>
+				<MainText>Produk lainnya</MainText>
+				<ProductsContainer spacing={2} columns={4}>
+					<ProductCard size="small" />
+					<ProductCard size="small" />
+					<ProductCard size="small" />
+					<ProductCard size="small" />
+				</ProductsContainer>
+			</ProductsRecommendation>
 		</ProductDetailsContainer>
 	);
 };

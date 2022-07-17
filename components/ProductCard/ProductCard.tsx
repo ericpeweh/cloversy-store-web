@@ -23,7 +23,11 @@ import {
 } from "./ProductCard.styles";
 import Tooltip from "../Tooltip/Tooltip";
 
-const ProductCard = ({ size = "medium" }) => {
+interface ProductCardProps {
+	size?: "small" | "medium";
+}
+
+const ProductCard = ({ size = "medium" }: ProductCardProps) => {
 	const showProductView = useSelector(state => state.global.showProductView);
 	const dispatch = useDispatch();
 
