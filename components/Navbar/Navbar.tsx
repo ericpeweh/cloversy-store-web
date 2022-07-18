@@ -33,7 +33,7 @@ const navigations = [
 	{ label: "Home", path: "/" },
 	{ label: "Products", path: "/products" },
 	{ label: "About us", path: "/about-us" },
-	{ label: "Contact us", path: "/contact" }
+	{ label: "Contact us", path: "/contact-us" }
 ];
 
 const Navbar = () => {

@@ -9,7 +9,7 @@ const TitleTextBase = {
 	fontFamily: "var(--font-secondary)"
 };
 
-export const AboutUsContainer = styled("div")({
+export const AboutUsContainer = styled("section")({
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center"
