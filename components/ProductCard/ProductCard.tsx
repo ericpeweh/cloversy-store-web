@@ -22,6 +22,7 @@ import {
 	QuickViewButton
 } from "./ProductCard.styles";
 import Tooltip from "../Tooltip/Tooltip";
+import Link from "next/link";
 
 interface ProductCardProps {
 	size?: "small" | "medium";
@@ -41,18 +42,22 @@ const ProductCard = ({ size = "medium" }: ProductCardProps) => {
 				{!showProductView && (
 					<QuickViewButton onClick={openProductViewHandler}>Quick View</QuickViewButton>
 				)}
-				<ProductImage
-					component="img"
-					image="/images/product.jpg"
-					alt="product name"
-					sx={{
-						height: size === "small" ? "14rem" : "32rem"
-					}}
-				/>
+				<Link href="/products/abc">
+					<ProductImage
+						component="img"
+						image="/images/product.jpg"
+						alt="product name"
+						sx={{
+							height: size === "small" ? "14rem" : "32rem"
+						}}
+					/>
+				</Link>
 			</ProductImageContainer>
 			<Stack direction="row" justifyContent="space-between" alignItems="center">
 				<CardContent>
-					<ProductTitle>Nike AF1 Homesick</ProductTitle>
+					<Link href="/products/abc">
+						<ProductTitle>Nike AF1 Homesick</ProductTitle>
+					</Link>
 					<ProductPrice>Rp3.499.000</ProductPrice>
 				</CardContent>
 				<Stack direction="row" justifyContent="space-between" alignItems="center">
