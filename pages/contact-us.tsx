@@ -11,7 +11,7 @@ const ContactUsPage: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Cloversy | Kontak Kami</title>
+				<title>Hubungi Kami</title>
 				<meta name="description" content="Customize your shoes, be special!" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

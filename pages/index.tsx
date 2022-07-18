@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Cloversy Store</title>
+				<title>Cloversy Web Store - Be Special!</title>
 				<meta name="description" content="Customize your shoes, be special!" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

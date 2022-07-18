@@ -11,7 +11,7 @@ const CartPage: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Cloversy | Keranjang Belanja</title>
+				<title>Keranjang Belanja</title>
 				<meta name="description" content="Customize your shoes, be special!" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

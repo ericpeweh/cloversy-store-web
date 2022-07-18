@@ -28,7 +28,7 @@ const ProductsList: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Cloversy | Produk</title>
+				<title>Daftar Produk</title>
 				<meta name="description" content="Customize your shoes, be special!" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
