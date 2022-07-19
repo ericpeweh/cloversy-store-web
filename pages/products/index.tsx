@@ -13,7 +13,7 @@ import { closeFilterDrawer } from "../../store/slices/productsSlice";
 
 // Components
 import MainWrapper from "../../components/PageWrapper/MainWrapper";
-import Products from "../../components/Products/Products";
+import Products from "../../parts/Products/Products";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
 import FilterDrawer from "../../components/FilterDrawer/FilterDrawer";
 

@@ -19,8 +19,6 @@ import {
 	SignatureContainer
 } from "./AboutUs.styles";
 
-// Components
-
 const AboutUs = () => {
 	return (
 		<AboutUsContainer>

@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import TermsConditions from "../components/TermsConditions/TermsConditions";
+import TermsConditions from "../parts/TermsConditions/TermsConditions";
 
 const TermsConditionsPage: NextPage = () => {
 	return (

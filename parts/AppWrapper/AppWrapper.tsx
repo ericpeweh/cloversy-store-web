@@ -11,8 +11,8 @@ import { closeSearchDrawer, closeCartDrawer } from "../../store/slices/globalSli
 // Components
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import CartDrawer from "../CartDrawer/CartDrawer";
-import SearchDrawer from "../SearchDrawer/SearchDrawer";
+import CartDrawer from "../../components/CartDrawer/CartDrawer";
+import SearchDrawer from "../../components/SearchDrawer/SearchDrawer";
 
 interface AppWrapperProps {
 	children: React.ReactNode;

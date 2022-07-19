@@ -11,13 +11,13 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 
 // Components
 import { Badge, Divider, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import PageTitle from "../PageTitle/PageTitle";
-import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
-import Button from "../Button/Button";
-import SelectInput from "../SelectInput/SelectInput";
-import ProductsContainerComponent from "../ProductsContainer/ProductsContainer";
-import ProductCard from "../ProductCard/ProductCard";
-import ProductListItem from "../ProductListItem/ProductListItem";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+import Button from "../../components/Button/Button";
+import SelectInput from "../../components/SelectInput/SelectInput";
+import ProductsContainerComponent from "../../components/ProductsContainer/ProductsContainer";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import ProductListItem from "../../components/ProductListItem/ProductListItem";
 import useDispatch from "../../hooks/useDispatch";
 import { openFilterDrawer } from "../../store/slices/productsSlice";
 

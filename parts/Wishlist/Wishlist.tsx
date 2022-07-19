@@ -2,11 +2,11 @@
 import React from "react";
 
 // Components
-import PageBreadcrumbs from "../PageBreadcrumbs/PageBreadcrumbs";
-import WishlistTable from "../WishlistTable/WishlistTable";
+import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
+import WishlistTable from "../../components/WishlistTable/WishlistTable";
 import { Stack } from "@mui/material";
-import Button from "../Button/Button";
-import PageTitle from "../PageTitle/PageTitle";
+import Button from "../../components/Button/Button";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";

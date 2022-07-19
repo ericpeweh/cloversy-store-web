@@ -1,10 +1,10 @@
 // Dependencies
 import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import React from "react";
-import Button from "../Button/Button";
-import PageTitle from "../PageTitle/PageTitle";
-import RadioInput from "../RadioInput/RadioInput";
-import TextInput from "../TextInput/TextInput";
+import Button from "../../components/Button/Button";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import RadioInput from "../../components/RadioInput/RadioInput";
+import TextInput from "../../components/TextInput/TextInput";
 
 // Icons
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";

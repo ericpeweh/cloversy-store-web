@@ -1,13 +1,13 @@
 // Dependencies
 import React from "react";
-import PageTitle from "../PageTitle/PageTitle";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 // Styles
 import { TermsConditionsContainer, Lists, ListContainer, ListItem } from "./TermsConditions.styles";
 
-import ContentContainer from "../ContentContainer/ContentContainer";
-import ContentTitle from "../ContentTitle/ContentTitle";
-import ContentDescription from "../ContentDescription/ContentDescription";
+import ContentContainer from "../../components/ContentContainer/ContentContainer";
+import ContentTitle from "../../components/ContentTitle/ContentTitle";
+import ContentDescription from "../../components/ContentDescription/ContentDescription";
 
 const TermsConditions = () => {
 	return (

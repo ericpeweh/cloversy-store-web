@@ -26,16 +26,16 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 
 // Components
 import { Button, Divider, Rating, Stack, Grid, IconButton } from "@mui/material";
-import CarouselWithThumb from "../CarouselWithThumb/CarouselWithThumb";
-import SizeRadio from "../SizeRadio/SizeRadio";
-import QuantityInput from "../QuantityInput/QuantityInput";
-import TabsNavigation from "../TabsNavigation/TabsNavigation";
-import TabsPanel from "../TabsPanel/TabsPanel";
-import ReviewItem from "../ReviewItem/ReviewItem";
-import PageBreadcrumbs from "../PageBreadcrumbs/PageBreadcrumbs";
-import ProductCard from "../ProductCard/ProductCard";
-import ProductsContainer from "../ProductsContainer/ProductsContainer";
-import ProductViewModal from "../ProductViewModal/ProductViewModal";
+import CarouselWithThumb from "../../components/CarouselWithThumb/CarouselWithThumb";
+import SizeRadio from "../../components/SizeRadio/SizeRadio";
+import QuantityInput from "../../components/QuantityInput/QuantityInput";
+import TabsNavigation from "../../components/TabsNavigation/TabsNavigation";
+import TabsPanel from "../../components/TabsPanel/TabsPanel";
+import ReviewItem from "../../components/ReviewItem/ReviewItem";
+import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
+import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
 
 const links = [
 	{ label: "Products", url: "#" },

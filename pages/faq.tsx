@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import Faq from "../components/Faq/Faq";
+import Faq from "../parts/Faq/Faq";
 
 const FaqPage: NextPage = () => {
 	return (

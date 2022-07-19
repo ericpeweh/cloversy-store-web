@@ -1,7 +1,7 @@
 // Dependencies
 import React from "react";
-import Accordion from "../Accordion/Accordion";
-import PageTitle from "../PageTitle/PageTitle";
+import Accordion from "../../components/Accordion/Accordion";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 // Styles
 import { ContentContainer, FaqContainer, FaqSubtitle } from "./Faq.styles";

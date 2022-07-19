@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../../components/PageWrapper/MainWrapper";
-import ProductDetails from "../../components/ProductDetails/ProductDetails";
+import ProductDetails from "../../parts/ProductDetails/ProductDetails";
 
 const ProductDetailsPage: NextPage = () => {
 	return (

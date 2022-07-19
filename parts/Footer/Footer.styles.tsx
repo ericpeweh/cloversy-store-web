@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 
 // Components
 import { Grid, IconButton, TextField } from "@mui/material";
-import Button from "../Button/Button";
+import Button from "../../components/Button/Button";
 
 export const FooterContainer = styled("footer")(({ theme }) => ({
 	backgroundColor: theme.palette.secondary.dark,

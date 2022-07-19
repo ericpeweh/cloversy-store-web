@@ -18,13 +18,13 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Components
-import PageTitle from "../PageTitle/PageTitle";
-import PageBreadcrumbs from "../PageBreadcrumbs/PageBreadcrumbs";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
 import { Divider, Grid, Stack, Typography } from "@mui/material";
-import CartTable from "../CartTable/CartTable";
-import SelectInput from "../SelectInput/SelectInput";
-import Button from "../Button/Button";
-import TextInput from "../TextInput/TextInput";
+import CartTable from "../../components/CartTable/CartTable";
+import SelectInput from "../../components/SelectInput/SelectInput";
+import Button from "../../components/Button/Button";
+import TextInput from "../../components/TextInput/TextInput";
 import { Box } from "@mui/system";
 
 const links = [

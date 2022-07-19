@@ -17,7 +17,7 @@ import "swiper/css/thumbs";
 import mainTheme from "../styles/mainTheme";
 
 // Components
-import AppWrapper from "../components/AppWrapper/AppWrapper";
+import AppWrapper from "../parts/AppWrapper/AppWrapper";
 import { CssBaseline } from "@mui/material";
 
 const App = ({ Component, pageProps }: AppProps) => {

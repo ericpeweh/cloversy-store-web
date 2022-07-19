@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import AboutUs from "../components/AboutUs/AboutUs";
+import AboutUs from "../parts/AboutUs/AboutUs";
 
 const AboutUsPage: NextPage = () => {
 	return (

@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import Cart from "../components/Cart/Cart";
+import Cart from "../parts/Cart/Cart";
 
 const CartPage: NextPage = () => {
 	return (

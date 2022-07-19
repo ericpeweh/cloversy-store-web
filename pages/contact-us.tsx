@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import ContactUs from "../components/ContactUs/ContactUs";
+import ContactUs from "../parts/ContactUs/ContactUs";
 
 const ContactUsPage: NextPage = () => {
 	return (
