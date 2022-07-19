@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import PrivacyPolicy from "../components/PrivacyPolicy/PrivacyPolicy";
+import PrivacyPolicy from "../parts/PrivacyPolicy/PrivacyPolicy";
 
 const PrivacyPolicyPage: NextPage = () => {
 	return (

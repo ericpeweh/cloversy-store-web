@@ -5,7 +5,7 @@ import { NextPage } from "next";
 
 // Components
 import MainWrapper from "../components/PageWrapper/MainWrapper";
-import ReturnPolicy from "../components/ReturnPolicy/ReturnPolicy";
+import ReturnPolicy from "../parts/ReturnPolicy/ReturnPolicy";
 
 const ReturnPolicyPage: NextPage = () => {
 	return (
