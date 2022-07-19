@@ -3,15 +3,11 @@ import React from "react";
 import PageTitle from "../PageTitle/PageTitle";
 
 // Styles
-import {
-	ContentTitle,
-	ContentDescription,
-	TermsConditionsContainer,
-	ContentContainer,
-	Lists,
-	ListContainer,
-	ListItem
-} from "./TermsConditions.styles";
+import { TermsConditionsContainer, Lists, ListContainer, ListItem } from "./TermsConditions.styles";
+
+import ContentContainer from "../ContentContainer/ContentContainer";
+import ContentTitle from "../ContentTitle/ContentTitle";
+import ContentDescription from "../ContentDescription/ContentDescription";
 
 const TermsConditions = () => {
 	return (
