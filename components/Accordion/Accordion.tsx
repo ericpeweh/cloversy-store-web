@@ -2,13 +2,11 @@
 import React, { useState } from "react";
 
 // Styles
-import {
-	AccordionContainer,
-	AccordionDescription,
-	AccordionTitle,
-	Details,
-	Summary
-} from "./Accordion.styles";
+import { AccordionContainer, Details, Summary } from "./Accordion.styles";
+
+// Components
+import ContentTitle from "../ContentTitle/ContentTitle";
+import ContentDescription from "../ContentDescription/ContentDescription";
 
 // Icons
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -28,10 +26,10 @@ const Accordion = ({ title, description }: AccordionProps) => {
 	return (
 		<AccordionContainer expanded={isExpanded} onChange={expandChangeHandler}>
 			<Summary expandIcon={<ExpandMoreIcon />}>
-				<AccordionTitle>{title}</AccordionTitle>
+				<ContentTitle color={isExpanded ? "primary" : "black"}>{title}</ContentTitle>
 			</Summary>
 			<Details>
-				<AccordionDescription>{description}</AccordionDescription>
+				<ContentDescription>{description}</ContentDescription>
 			</Details>
 		</AccordionContainer>
 	);

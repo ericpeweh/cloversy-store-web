@@ -18,19 +18,4 @@ export const AccordionContainer = styled(Accordion, {
 
 export const Summary = styled(AccordionSummary)({}) as typeof AccordionSummary;
 
-export const AccordionTitle = styled("h2")(({ theme }) => ({
-	fontSize: "2rem",
-	fontWeight: 600,
-	marginBottom: "2.5rem",
-	fontFamily: "var(--font-secondary)",
-	color: theme.palette.primary.main
-}));
-
 export const Details = styled(AccordionDetails)({}) as typeof AccordionDetails;
-
-export const AccordionDescription = styled("p")({
-	fontSize: "1.6rem",
-	fontWeight: 400,
-	lineHeight: "3rem",
-	marginBottom: "1.5rem"
-});
