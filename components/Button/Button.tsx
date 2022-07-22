@@ -11,7 +11,7 @@ interface ButtonProps extends MuiButtonProps {
 
 const Button = ({ children, ...props }: ButtonProps) => {
 	return (
-		<CustomButton color="secondary" variant="contained" {...props}>
+		<CustomButton color="secondary" variant="contained" {...{ size: "large", ...props }}>
 			{children}
 		</CustomButton>
 	);

@@ -26,9 +26,10 @@ import Link from "next/link";
 
 interface ProductCardProps {
 	size?: "small" | "medium";
+	disableActionButtons?: boolean;
 }
 
-const ProductCard = ({ size = "medium" }: ProductCardProps) => {
+const ProductCard = ({ size = "medium", disableActionButtons = false }: ProductCardProps) => {
 	const showProductView = useSelector(state => state.global.showProductView);
 	const dispatch = useDispatch();
 
@@ -39,7 +40,7 @@ const ProductCard = ({ size = "medium" }: ProductCardProps) => {
 	return (
 		<ProductCardContainer>
 			<ProductImageContainer>
-				{!showProductView && (
+				{!showProductView && !disableActionButtons && (
 					<QuickViewButton onClick={openProductViewHandler}>Quick View</QuickViewButton>
 				)}
 				<Link href="/products/abc">
@@ -60,13 +61,15 @@ const ProductCard = ({ size = "medium" }: ProductCardProps) => {
 					</Link>
 					<ProductPrice>Rp3.499.000</ProductPrice>
 				</CardContent>
-				<Stack direction="row" justifyContent="space-between" alignItems="center">
-					<Tooltip title="Tambahkan ke wishlist">
-						<IconButton>
-							<FavoriteBorderOutlinedIcon />
-						</IconButton>
-					</Tooltip>
-				</Stack>
+				{!disableActionButtons && (
+					<Stack direction="row" justifyContent="space-between" alignItems="center">
+						<Tooltip title="Tambahkan ke wishlist">
+							<IconButton>
+								<FavoriteBorderOutlinedIcon />
+							</IconButton>
+						</Tooltip>
+					</Stack>
+				)}
 			</Stack>
 		</ProductCardContainer>
 	);
