@@ -50,7 +50,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<HeaderContainer>
+		<HeaderContainer id="navbar">
 			<Link href="/">
 				<HeaderLogo>
 					<Image src="/images/logo.png" alt="logo" layout="responsive" width={200} height={80} />
