@@ -14,9 +14,10 @@ interface TabsNavigationProps {
 	children:
 		| React.ReactElement<TabsNavigationChildProps>
 		| React.ReactElement<TabsNavigationChildProps>[];
+	variant?: "standard" | "scrollable" | "fullWidth" | undefined;
 }
 
-const TabsNavigation = ({ children }: TabsNavigationProps) => {
+const TabsNavigation = ({ children, variant = "standard" }: TabsNavigationProps) => {
 	const [tabsValue, setTabsValue] = useState(0);
 
 	const tabsChangeHandler = (_: React.SyntheticEvent, newValue: number) => {
@@ -25,7 +26,7 @@ const TabsNavigation = ({ children }: TabsNavigationProps) => {
 
 	return (
 		<>
-			<TabsNavigationContainer onChange={tabsChangeHandler} value={tabsValue}>
+			<TabsNavigationContainer onChange={tabsChangeHandler} value={tabsValue} variant={variant}>
 				{React.Children.map(children, element => (
 					<Tab {...element.props} label={element.props.label} />
 				))}
