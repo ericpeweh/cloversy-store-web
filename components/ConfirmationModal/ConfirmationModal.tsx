@@ -26,10 +26,10 @@ const ConfirmationModal = ({
 				<DialogContentText>{modalDescription}</DialogContentText>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onClose} variant="outlined" color="primary">
+				<Button onClick={onClose} variant="outlined" color="primary" size="small">
 					Batal
 				</Button>
-				<Button onClick={() => {}} color="primary">
+				<Button onClick={() => {}} color="primary" size="small">
 					Hapus
 				</Button>
 			</DialogActions>

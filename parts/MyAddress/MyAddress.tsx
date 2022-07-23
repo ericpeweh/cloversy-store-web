@@ -63,7 +63,7 @@ const MyAddress = () => {
 				<AddressContent>
 					<AddressInfo>
 						<AddressLabel>
-							<StatusBadge color="secondary">Utama</StatusBadge>Alamat 1
+							<StatusBadge color="primary">Utama</StatusBadge>Alamat 1
 						</AddressLabel>
 						<RecipientName>Eric Prima Wijaya</RecipientName>
 						<AddressText>+62 878 1234 5678</AddressText>

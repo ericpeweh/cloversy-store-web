@@ -11,6 +11,7 @@ interface TextInputProps {
 	placeholder?: string;
 	multiline?: boolean;
 	rows?: number;
+	type?: string;
 }
 
 const TextInput = ({
@@ -19,7 +20,8 @@ const TextInput = ({
 	variant = "outlined",
 	placeholder,
 	multiline,
-	rows
+	rows,
+	type = "text"
 }: TextInputProps) => {
 	return (
 		<TextInputContainer
@@ -31,6 +33,7 @@ const TextInput = ({
 			autoComplete="off"
 			multiline={multiline}
 			rows={rows}
+			type={type}
 		/>
 	);
 };
