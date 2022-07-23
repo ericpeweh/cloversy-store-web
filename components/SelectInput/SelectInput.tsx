@@ -15,7 +15,15 @@ const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
 	return (
 		<SelectInputContainer fullWidth>
 			{label && <InputLabel id={label}>{label}</InputLabel>}
-			<Select labelId={label} id={label} value={value} label={label} onChange={() => {}} {...props}>
+			<Select
+				labelId={label}
+				id={label}
+				value={value}
+				label={label}
+				onChange={() => {}}
+				{...props}
+				MenuProps={{ sx: { maxHeight: "20rem" } }}
+			>
 				{options.map(option => (
 					<MenuItem value={option} key={option}>
 						{option}

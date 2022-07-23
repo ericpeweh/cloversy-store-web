@@ -6,10 +6,11 @@ import { StatusBadgeContainer } from "./StatusBadge.styles";
 
 interface StatusBadgeProps {
 	children: string | React.ReactElement | React.ReactElement[];
+	color?: "primary" | "secondary";
 }
 
-const StatusBadge = ({ children }: StatusBadgeProps) => {
-	return <StatusBadgeContainer>{children}</StatusBadgeContainer>;
+const StatusBadge = ({ children, color = "primary" }: StatusBadgeProps) => {
+	return <StatusBadgeContainer color={color}>{children}</StatusBadgeContainer>;
 };
 
 export default StatusBadge;
