@@ -1,5 +1,6 @@
 // Dependencies
 import { ThemeOptions, createTheme } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
 
 const themeOptions: ThemeOptions = {
 	palette: {
@@ -8,7 +9,13 @@ const themeOptions: ThemeOptions = {
 		},
 		secondary: {
 			main: "#282828"
+		},
+		grey: {
+			...grey
 		}
+	},
+	typography: {
+		htmlFontSize: 10
 	},
 	components: {
 		MuiAppBar: {

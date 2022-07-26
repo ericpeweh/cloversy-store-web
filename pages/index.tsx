@@ -3,22 +3,34 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 // MUI
-import { Button } from "@mui/material";
+import { Divider } from "@mui/material";
+
+// Components
+import MainWrapper from "../components/PageWrapper/MainWrapper";
+import BigCarousel from "../components/BigCarousel/BigCarousel";
+import BrandCardList from "../components/BrandCardList/BrandCardList";
+import Recommendations from "../components/Recommendations/Recommendations";
+import LinkBanners from "../components/LinkBanners/LinkBanners";
+import ProductViewModal from "../components/ProductViewModal/ProductViewModal";
 
 const Home: NextPage = () => {
 	return (
-		<div>
+		<>
 			<Head>
-				<title>Cloversy Store</title>
+				<title>Cloversy Web Store - Be Special!</title>
 				<meta name="description" content="Customize your shoes, be special!" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main>
-				<h1>Cloversy Store</h1>
-				<Button variant="outlined">Click me</Button>
-			</main>
-		</div>
+			<MainWrapper>
+				<ProductViewModal />
+				<BigCarousel />
+				<BrandCardList />
+				<Recommendations />
+				<Divider />
+				<LinkBanners />
+			</MainWrapper>
+		</>
 	);
 };
 
