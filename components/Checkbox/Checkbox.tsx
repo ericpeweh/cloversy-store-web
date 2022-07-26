@@ -6,7 +6,7 @@ import React from "react";
 import { CheckboxContainer } from "./Checkbox.styles";
 
 interface CheckboxProps {
-	label: string;
+	label: string | React.ReactElement;
 	checked: boolean;
 	onChange: (value: boolean) => void;
 }
