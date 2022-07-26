@@ -37,16 +37,16 @@ const AddAddressModal = ({ open, onClose, modalTitle }: AddAddressModalProps) =>
 			<Divider />
 			<FormContainer>
 				<Grid container spacing={3}>
-					<InputContainer item xs={6}>
+					<InputContainer item xs={12}>
 						<TextInput label="Nama Penerima" id="namaPenerima" />
 					</InputContainer>
-					<InputContainer item xs={6}>
+					<InputContainer item xs={12}>
 						<TextInput label="Nomor HP" id="nomorHP" />
 					</InputContainer>
-					<InputContainer item xs={6}>
+					<InputContainer item xs={12}>
 						<TextInput label="Label Alamat" id="labelAlamat" />
 					</InputContainer>
-					<InputContainer item xs={6}>
+					<InputContainer item xs={12}>
 						<TextInput label="Catatan Pengiriman" id="catatan" />
 					</InputContainer>
 					<Grid item xs={12}>

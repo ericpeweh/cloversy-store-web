@@ -1,5 +1,6 @@
 // Dependencies
 import React from "react";
+import QuantityInput from "../QuantityInput/QuantityInput";
 
 // Styles
 import {
@@ -8,6 +9,7 @@ import {
 	CardImage,
 	CardPrice,
 	CardTitle,
+	InputContainer,
 	OrderCardContainer
 } from "./OrderCard.styles";
 
@@ -16,17 +18,23 @@ interface OrderCardProps {
 	sizeDesc: string;
 	qtyDesc: string;
 	price: string;
+	showInput?: boolean;
 }
 
-const OrderCard = ({ title, sizeDesc, qtyDesc, price }: OrderCardProps) => {
+const OrderCard = ({ title, sizeDesc, qtyDesc, price, showInput = false }: OrderCardProps) => {
 	return (
 		<OrderCardContainer>
 			<CardImage />
 			<CardContent>
 				<CardTitle>{title}</CardTitle>
 				<CardDescription>Ukuran: {sizeDesc}</CardDescription>
-				<CardDescription>Jumlah: {qtyDesc}</CardDescription>
+				{!showInput && <CardDescription>Jumlah: {qtyDesc}</CardDescription>}
 			</CardContent>
+			{showInput && (
+				<InputContainer>
+					<QuantityInput value={4} size="small" />
+				</InputContainer>
+			)}
 			<CardPrice>Rp {price}</CardPrice>
 		</OrderCardContainer>
 	);

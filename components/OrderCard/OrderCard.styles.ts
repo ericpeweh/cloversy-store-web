@@ -21,7 +21,8 @@ export const CardImage = styled("div")({
 export const CardContent = styled("div")({
 	display: "flex",
 	flexDirection: "column",
-	flex: "1"
+	width: "max-content",
+	marginRight: "auto"
 });
 
 export const CardTitle = styled("h3")({
@@ -45,3 +46,15 @@ export const CardPrice = styled("p")(({ theme }) => ({
 	alignSelf: "center",
 	fontWeight: 500
 }));
+
+export const InputContainer = styled("div")({
+	flex: 1,
+	marginRight: "auto",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	gap: "1rem",
+	"& > div": {
+		width: "max-content"
+	}
+});

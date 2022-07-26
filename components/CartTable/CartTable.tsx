@@ -41,9 +41,13 @@ const cartData = [
 	}
 ];
 
-const CartTable = () => {
+interface CartTableProps {
+	readOnly?: boolean;
+}
+
+const CartTable = ({ readOnly = false }: CartTableProps) => {
 	return (
-		<Table headData={tableHeadData}>
+		<Table headData={readOnly ? tableHeadData.slice(0, -1) : tableHeadData}>
 			{cartData.map(data => (
 				<TableRow key={data.harga}>
 					<TableCell component="th" scope="row">
@@ -59,23 +63,23 @@ const CartTable = () => {
 						</Stack>
 					</TableCell>
 					<TableCell align="center">{data.size}</TableCell>
-					<TableCell align="center">
-						<QuantityInput value={1} />
-					</TableCell>
+					<TableCell align="center">{readOnly ? "x 1" : <QuantityInput value={1} />}</TableCell>
 					<TableCell align="center">{data.harga}</TableCell>
 					<TableCell align="center">{data.jumlah}</TableCell>
-					<TableCell align="center">
-						<Tooltip
-							title="Hapus dari Cart"
-							arrow
-							sx={{ fontSize: "1.6rem" }}
-							TransitionComponent={Zoom}
-						>
-							<IconButton color="error">
-								<ClearIcon />
-							</IconButton>
-						</Tooltip>
-					</TableCell>
+					{!readOnly && (
+						<TableCell align="center">
+							<Tooltip
+								title="Hapus dari Cart"
+								arrow
+								sx={{ fontSize: "1.6rem" }}
+								TransitionComponent={Zoom}
+							>
+								<IconButton color="error">
+									<ClearIcon />
+								</IconButton>
+							</Tooltip>
+						</TableCell>
+					)}
 				</TableRow>
 			))}
 		</Table>

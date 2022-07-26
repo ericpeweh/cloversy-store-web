@@ -1,31 +1,23 @@
 // Dependencies
 import React from "react";
+import { useRouter } from "next/router";
 
 // Styles
-import {
-	CartContainer,
-	CartContentContainer,
-	ContentContainer,
-	ContentTitle,
-	InputContainer,
-	ResultInfo
-} from "./Cart.styles";
+import { CartContainer, CartContentContainer } from "./Cart.styles";
 
 // Icons
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Components
+import { Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
-import { Divider, Grid, Stack, Typography } from "@mui/material";
 import CartTable from "../../components/CartTable/CartTable";
-import SelectInput from "../../components/SelectInput/SelectInput";
 import Button from "../../components/Button/Button";
-import TextInput from "../../components/TextInput/TextInput";
-import { Box } from "@mui/system";
+import ShippingInput from "../../components/ShippingInput/ShippingInput";
+import VoucherInput from "../../components/VoucherInput/VoucherInput";
 
 const links = [
 	{ label: "Beranda", url: "#" },
@@ -33,6 +25,10 @@ const links = [
 ];
 
 const Cart = () => {
+	const router = useRouter();
+
+	const checkoutHandler = () => router.push("/checkout");
+
 	return (
 		<CartContainer>
 			<PageBreadcrumbs links={links} />
@@ -41,79 +37,10 @@ const Cart = () => {
 				<CartTable />
 				<Grid container spacing={3}>
 					<Grid item xs={6}>
-						<ContentContainer>
-							<ContentTitle>Estimasi Biaya Pengiriman</ContentTitle>
-							<InputContainer direction="row" alignItems="center" spacing={2}>
-								<SelectInput
-									label="Kabupaten / Kota"
-									value={"Pontianak"}
-									options={["Pontianak", "Jakarta", "Yogyakarta"]}
-								/>
-								<SelectInput
-									label="Kecamatan"
-									value={"Pontianak Kota"}
-									options={[
-										"Pontianak Kota",
-										"Pontianak Utara",
-										"Pontianak Timur",
-										"Pontianak Selatan",
-										"Pontianak Barat",
-										"Pontianak Tenggara"
-									]}
-								/>
-							</InputContainer>
-							<InputContainer sx={{ pt: 0 }} direction="row" spacing={2}>
-								<Button fullWidth>Kalkulasi</Button>
-								<Button fullWidth color="primary" startIcon={<LocalShippingOutlinedIcon />}>
-									Ganti Ekspedisi
-								</Button>
-							</InputContainer>
-							<Divider />
-							<ResultInfo container spacing={3}>
-								<Grid item xs={6}>
-									<Typography>
-										<strong>Ekspedisi:</strong> JNE OKE (3-6 hari)
-									</Typography>
-								</Grid>
-								<Grid item xs={6}>
-									<Typography>
-										<strong>Biaya kirim:</strong> Rp120.000
-									</Typography>
-								</Grid>
-							</ResultInfo>
-						</ContentContainer>
+						<ShippingInput />
 					</Grid>
 					<Grid item xs={6}>
-						<ContentContainer>
-							<ContentTitle>Kode / Voucher Diskon</ContentTitle>
-							<InputContainer direction="row" alignItems="center" spacing={2}>
-								<TextInput label="Kode Voucher" id="input-voucher" />
-								<Button fullWidth sx={{ width: "30rem", alignSelf: "stretch" }}>
-									Gunakan kode
-								</Button>
-							</InputContainer>
-							<Divider variant="middle">
-								<Typography variant="body2">ATAU</Typography>
-							</Divider>
-							<InputContainer direction="row" spacing={2}>
-								<Button fullWidth color="primary" startIcon={<ConfirmationNumberOutlinedIcon />}>
-									Pilih voucher
-								</Button>
-							</InputContainer>
-							<Divider />
-							<ResultInfo container spacing={3}>
-								<Grid item xs={6}>
-									<Typography>
-										<strong>Nama voucher:</strong> Diskon Lebaran 2022
-									</Typography>
-								</Grid>
-								<Grid item xs={6}>
-									<Typography>
-										<strong>Promo:</strong> - Rp20.000
-									</Typography>
-								</Grid>
-							</ResultInfo>
-						</ContentContainer>
+						<VoucherInput />
 					</Grid>
 				</Grid>
 				<Box sx={{ width: "100%" }}>
@@ -146,7 +73,9 @@ const Cart = () => {
 						<Button variant="outlined" startIcon={<ArrowBackIcon />}>
 							Lanjutkan berbelanja
 						</Button>
-						<Button startIcon={<ShoppingCartCheckoutIcon />}>Checkout</Button>
+						<Button startIcon={<ShoppingCartCheckoutIcon />} onClick={checkoutHandler}>
+							Checkout
+						</Button>
 					</Stack>
 				</Box>
 			</CartContentContainer>

@@ -50,7 +50,7 @@ export const TransactionDate = styled("p")({
 });
 
 export const TransactionCode = styled("h4")({
-	fontsize: "1.7rem",
+	fontSize: "1.6rem",
 	textTransform: "uppercase",
 	fontFamily: "var(--font-secondary)"
 });

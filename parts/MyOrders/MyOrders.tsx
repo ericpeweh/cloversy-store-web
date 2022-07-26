@@ -46,9 +46,8 @@ const TemporaryTransactionsComponent = () => (
 				<Button size="small" variant="text" endIcon={<DescriptionOutlinedIcon />}>
 					Lihat detail pesanan
 				</Button>
-				<Button size="small">Beri ulasan</Button>
 				<Button size="small" color="primary">
-					Beli lagi
+					Bayar sekarang
 				</Button>
 			</TransactionActions>
 		</Transaction>
