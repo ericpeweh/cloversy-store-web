@@ -4,7 +4,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 
 // Components
-import MainWrapper from "../../components/PageWrapper/MainWrapper";
+import MainWrapper from "../../components/MainWrapper/MainWrapper";
 import MyAccountDetails from "../../parts/MyAccountDetails/MyAccountDetails";
 import AccountWrapper from "../../parts/AccountWrapper/AccountWrapper";
 

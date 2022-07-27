@@ -4,7 +4,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 
 // Components
-import MainWrapper from "../components/PageWrapper/MainWrapper";
+import MainWrapper from "../components/MainWrapper/MainWrapper";
 import Checkout from "../parts/Checkout/Checkout";
 
 const CheckoutPage: NextPage = () => {
