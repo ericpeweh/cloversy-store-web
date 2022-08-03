@@ -4,14 +4,7 @@ import React from "react";
 // Styles
 import {
 	MyVoucherContainer,
-	VoucherImage,
 	VoucherContainer,
-	VoucherContent,
-	VoucherTitle,
-	VoucherExpiry,
-	Voucher,
-	VoucherCode,
-	VoucherInfo,
 	UsageList,
 	InfoTitle,
 	InfoText
@@ -19,8 +12,6 @@ import {
 
 // Icons
 import InfoIcon from "@mui/icons-material/Info";
-import DiscountIcon from "@mui/icons-material/Discount";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 // Hooks
 import useModal from "../../hooks/useModal";
@@ -37,6 +28,7 @@ import {
 } from "@mui/material";
 import Button from "../../components/Button/Button";
 import Tooltip from "../../components/Tooltip/Tooltip";
+import Voucher from "../../components/Voucher/Voucher";
 import CloseButton from "../../components/CloseButton/CloseButton";
 
 const MyVoucher = () => {
@@ -99,67 +91,13 @@ const MyVoucher = () => {
 			</Dialog>
 			<VoucherContainer container spacing={2}>
 				<Grid item xs={6}>
-					<Voucher>
-						<VoucherImage>
-							<DiscountIcon fontSize="large" />
-						</VoucherImage>
-						<VoucherInfo>
-							<VoucherContent>
-								<VoucherTitle>Diskon Rp 25.000</VoucherTitle>
-								<VoucherExpiry>Berlaku hingga 23 Jul 2022</VoucherExpiry>
-							</VoucherContent>
-							<VoucherCode>
-								<Tooltip title="Salin kode">
-									<IconButton>
-										<ContentCopyIcon />
-									</IconButton>
-								</Tooltip>
-								ACBD98DC88
-							</VoucherCode>
-						</VoucherInfo>
-					</Voucher>
+					<Voucher title={"Diskon Rp 25.000"} expiryDate={"23 Jul 2022"} code={"ACBD98DC88"} />
 				</Grid>
 				<Grid item xs={6}>
-					<Voucher>
-						<VoucherImage>
-							<DiscountIcon fontSize="large" />
-						</VoucherImage>
-						<VoucherInfo>
-							<VoucherContent>
-								<VoucherTitle>Diskon Rp 25.000</VoucherTitle>
-								<VoucherExpiry>Berlaku hingga 23 Jul 2022</VoucherExpiry>
-							</VoucherContent>
-							<VoucherCode>
-								<Tooltip title="Salin kode">
-									<IconButton>
-										<ContentCopyIcon />
-									</IconButton>
-								</Tooltip>
-								ACBD98DC88
-							</VoucherCode>
-						</VoucherInfo>
-					</Voucher>
+					<Voucher title={"Diskon Rp 25.000"} expiryDate={"26 Jul 2022"} code={"FF3298DC88"} />
 				</Grid>
 				<Grid item xs={6}>
-					<Voucher>
-						<VoucherImage>
-							<DiscountIcon fontSize="large" />
-						</VoucherImage>
-						<VoucherInfo>
-							<VoucherContent>
-								<VoucherTitle>Diskon Rp 25.000</VoucherTitle>
-								<VoucherExpiry>Berlaku hingga 23 Jul 2022</VoucherExpiry>
-							</VoucherContent>
-							<VoucherCode>
-								<Tooltip title="Salin kode">
-									<IconButton>
-										<ContentCopyIcon />
-									</IconButton>
-								</Tooltip>
-								ACBD98DC88
-							</VoucherCode>
-						</VoucherInfo>
-					</Voucher>
+					<Voucher title={"Diskon Rp 25.000"} expiryDate={"3 Aug 2022"} code={"BAAD98D828"} />
 				</Grid>
 			</VoucherContainer>
 			<Divider flexItem />
