@@ -17,6 +17,15 @@ const themeOptions: ThemeOptions = {
 	typography: {
 		htmlFontSize: 10
 	},
+	breakpoints: {
+		values: {
+			xl: 1920,
+			lg: 1600,
+			md: 1300,
+			sm: 900,
+			xs: 600
+		}
+	},
 	components: {
 		MuiAppBar: {
 			styleOverrides: {
