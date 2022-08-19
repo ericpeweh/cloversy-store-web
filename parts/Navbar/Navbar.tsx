@@ -3,11 +3,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { shallowEqual } from "react-redux";
 
 // Hooks
 import useDispatch from "../../hooks/useDispatch";
-import useSelector from "../../hooks/useSelector";
 
 // Styles
 import {
@@ -24,10 +22,14 @@ import {
 import { openCartDrawer, openSearchDrawer } from "../../store/slices/globalSlice";
 
 // Icons
-import { Search, ShoppingBagOutlined } from "@mui/icons-material";
+import { Search, ShoppingBagOutlined, Menu as MenuIcon } from "@mui/icons-material";
 
 // Components
 import { Button, IconButton } from "@mui/material";
+import MobileMenuDrawer from "../../components/MobileMenuDrawer/MobileMenuDrawer";
+
+// Hooks
+import useModal from "../../hooks/useModal";
 
 const navigations = [
 	{ label: "Home", path: "/" },
@@ -41,6 +43,12 @@ const Navbar = () => {
 	const currentPath = router.pathname;
 	const dispatch = useDispatch();
 
+	const {
+		isOpen: isMobileMenuOpen,
+		openHandler: openMobileMenuHandler,
+		closeHandler: closeMobileMenuHandler
+	} = useModal();
+
 	const openSearchDrawerHandler = () => {
 		dispatch(openSearchDrawer());
 	};
@@ -51,6 +59,24 @@ const Navbar = () => {
 
 	return (
 		<HeaderContainer id="navbar">
+			<MobileMenuDrawer open={isMobileMenuOpen} onClose={closeMobileMenuHandler} />
+			<IconButton
+				aria-label="mobile-menu"
+				onClick={openMobileMenuHandler}
+				sx={{
+					display: {
+						xs: "flex",
+						sm: "none"
+					}
+				}}
+			>
+				<MenuIcon
+					sx={{
+						fontSize: 30
+					}}
+					color="secondary"
+				/>
+			</IconButton>
 			<Link href="/">
 				<HeaderLogo>
 					<Image src="/images/logo.png" alt="logo" layout="responsive" width={200} height={80} />
