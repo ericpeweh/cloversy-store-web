@@ -2,7 +2,7 @@
 import Section from "../Section/Section";
 
 // Styles
-import { RecommendationContainer, SectionContent } from "./Recommendation.styles";
+import { SectionContent } from "./Recommendation.styles";
 
 // Components
 import ProductsContainer from "../ProductsContainer/ProductsContainer";
@@ -12,7 +12,11 @@ const Recommendations = () => {
 	return (
 		<Section title="Produk terlaris">
 			<SectionContent>
-				<ProductsContainer spacing={4} rowSpacing={6}>
+				<ProductsContainer
+					spacing={{ sm: 2, md: 2, xl: 4 }}
+					rowSpacing={{ xs: 0, sm: 2, md: 4, xl: 6 }}
+					size={{ xs: 12, sm: 6, lg: 4 }}
+				>
 					<ProductCard />
 					<ProductCard />
 					<ProductCard />

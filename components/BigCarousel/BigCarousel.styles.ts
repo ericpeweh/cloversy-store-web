@@ -1,25 +1,37 @@
 // Dependencies
 import { styled } from "@mui/system";
 
-export const BigCarouselContainer = styled("section")({
+export const BigCarouselContainer = styled("section")(({ theme }) => ({
 	width: "100%",
 	backgroundColor: "#fff",
-	height: "calc(100vh - 9rem)"
-});
+	height: "calc(100vh - 9rem)",
+	[theme.breakpoints.down("md")]: {
+		height: "calc(100vh - 8rem)"
+	},
+	[theme.breakpoints.down("sm")]: {
+		height: "calc(100vh - 7rem)"
+	}
+}));
 
 type CarouselImageType = { imageurl: string };
 
 export const CarouselImage = styled("div", {
 	shouldForwardProp: prop => prop !== "imageurl"
-})<CarouselImageType>(props => ({
+})<CarouselImageType>(({ imageurl, theme }) => ({
 	height: "calc(100vh - 9rem)",
-	backgroundImage: `url(${props.imageurl})`,
+	backgroundImage: `url(${imageurl})`,
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "flex-start",
 	backgroundSize: "cover",
 	backgroundPosition: "center",
-	flexDirection: "column"
+	flexDirection: "column",
+	[theme.breakpoints.down("md")]: {
+		height: "calc(100vh - 8rem)"
+	},
+	[theme.breakpoints.down("sm")]: {
+		height: "calc(100vh - 7rem)"
+	}
 }));
 
 type CarouselContentType = {
@@ -36,13 +48,22 @@ export const CarouselContent = styled("div", {
 	alignItems: props.alignRight ? "flex-end" : "flex-start"
 }));
 
-export const CarouselTitle = styled("h2")({
+export const CarouselTitle = styled("h2")(({ theme }) => ({
 	fontSize: "6rem",
 	color: "#fff",
 	letterSpacing: "2px",
 	fontWeight: "normal",
-	fontFamily: "var(--font-secondary)"
-});
+	fontFamily: "var(--font-secondary)",
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "5rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		fontSize: "4rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "3.2rem"
+	}
+}));
 
 export const CarouselTag = styled("h3")(({ theme }) => ({
 	backgroundColor: theme.palette.secondary.dark,
@@ -58,7 +79,18 @@ export const CarouselTag = styled("h3")(({ theme }) => ({
 	fontFamily: "var(--font-secondary)"
 }));
 
-export const CarouselDescription = styled("p")({
+type CarouselDescriptionType = {
+	alignRight?: Boolean;
+};
+
+export const CarouselDescription = styled("p", {
+	shouldForwardProp: prop => prop !== "alignRight"
+})<CarouselDescriptionType>(({ alignRight, theme }) => ({
 	color: "#fff",
-	fontSize: "1.5rem"
-});
+	fontSize: "1.5rem",
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem",
+		width: "80%",
+		textAlign: alignRight ? "right" : "left"
+	}
+}));

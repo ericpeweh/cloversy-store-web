@@ -17,9 +17,9 @@ const brandCardData = [
 const BrandCardList = () => {
 	return (
 		<Section>
-			<BrandCards container spacing={4}>
+			<BrandCards container spacing={{ xl: 4, lg: 3, xs: 2 }}>
 				{brandCardData.map(data => (
-					<BrandCard item xs={4} key={data.label}>
+					<BrandCard item xs={12} md={4} key={data.label}>
 						<CardContent>
 							<CardTitle>{data.label}</CardTitle>
 							<CardImage src={data.image} layout="fill" alt={data.label} />

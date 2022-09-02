@@ -9,7 +9,7 @@ export const MobileMenuDrawerContainer = styled(Drawer)(({ theme }) => ({
 		display: "flex",
 		flexDirection: "column",
 		padding: "2rem 3rem 3rem",
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 			width: "100%"
 		}
 	}
