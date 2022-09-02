@@ -2,6 +2,14 @@
 import { ThemeOptions, createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 
+/* Breakpoints
+  xs: 0
+  sm: 600
+  md: 900
+  lg: 1200
+  xl: 1536
+*/
+
 const themeOptions: ThemeOptions = {
 	palette: {
 		primary: {
@@ -16,15 +24,6 @@ const themeOptions: ThemeOptions = {
 	},
 	typography: {
 		htmlFontSize: 10
-	},
-	breakpoints: {
-		values: {
-			xl: 1920,
-			lg: 1600,
-			md: 1300,
-			sm: 900,
-			xs: 600
-		}
 	},
 	components: {
 		MuiAppBar: {
