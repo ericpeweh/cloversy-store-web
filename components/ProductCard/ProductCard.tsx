@@ -49,7 +49,12 @@ const ProductCard = ({ size = "medium", disableActionButtons = false }: ProductC
 						image="/images/product.jpg"
 						alt="product name"
 						sx={{
-							height: size === "small" ? "14rem" : "32rem"
+							height: {
+								xs: size === "small" ? "11rem" : "24rem",
+								sm: size === "small" ? "12rem" : "26rem",
+								md: size === "small" ? "13rem" : "28rem",
+								lg: size === "small" ? "14rem" : "32rem"
+							}
 						}}
 					/>
 				</Link>

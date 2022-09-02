@@ -19,23 +19,32 @@ export const QuickViewButton = styled("button")(({ theme }) => ({
 	cursor: "pointer",
 	background: theme.palette.secondary.dark,
 	color: "#fff",
-	opacity: "0"
+	opacity: "0",
+	[theme.breakpoints.down("md")]: {
+		display: "none"
+	}
 }));
 
-export const ProductCardContainer = styled(Card)({
+export const ProductCardContainer = styled(Card)(({ theme }) => ({
 	boxShadow: "none",
 	transition: "0.4s ease",
 	"&:hover": {
-		transform: "translateY(-0.5rem)"
+		transform: "translateY(-0.5rem)",
+		[theme.breakpoints.down("sm")]: {
+			transform: "translateY(0)"
+		}
 	},
 	"&:hover img": {
-		transform: "scale(1.03)"
+		transform: "scale(1.03)",
+		[theme.breakpoints.down("sm")]: {
+			transform: "scale(1)"
+		}
 	},
 	"&:hover button": {
 		bottom: "0",
 		opacity: "1"
 	}
-}) as typeof Card;
+})) as typeof Card;
 
 export const ProductImageContainer = styled("div")({
 	position: "relative",

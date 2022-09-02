@@ -15,6 +15,9 @@ export const HeaderContainer = styled("header")(({ theme }) => ({
 	left: 0,
 	zIndex: 1000,
 	width: "100%",
+	[theme.breakpoints.down("md")]: {
+		height: "8rem"
+	},
 	[theme.breakpoints.down("sm")]: {
 		height: "7rem",
 		padding: "0 2rem"
@@ -25,7 +28,7 @@ export const HeaderLogo = styled("a")(({ theme }) => ({
 	display: "block",
 	width: "16rem",
 	cursor: "pointer",
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("md")]: {
 		width: "12rem"
 	}
 }));
@@ -34,7 +37,7 @@ export const HeaderLogo = styled("a")(({ theme }) => ({
 export const NavLinks = styled("nav")(({ theme }) => ({
 	display: "flex",
 	justifyContent: "space-between",
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("md")]: {
 		display: "none"
 	}
 }));
@@ -80,7 +83,7 @@ export const HeaderActions = styled("div")(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
 	gap: "1rem",
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("md")]: {
 		"& > button:not(:last-child)": {
 			display: "none"
 		}

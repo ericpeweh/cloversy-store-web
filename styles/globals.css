@@ -101,9 +101,20 @@ Swiper carousel - override using !important
 	background-image: url("/icons/next.svg");
 	right: 4rem !important;
 }
+
 .swiper-button-prev {
 	background-image: url("/icons/prev.svg");
 	left: 4rem !important;
+}
+
+@media screen and (max-width: 600px) {
+	.swiper-button-next {
+		right: 2rem !important;
+	}
+
+	.swiper-button-prev {
+		left: 2rem !important;
+	}
 }
 
 .left {

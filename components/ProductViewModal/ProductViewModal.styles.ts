@@ -4,13 +4,28 @@ import { styled } from "@mui/system";
 // Components
 import { Dialog, Grid } from "@mui/material";
 
-export const ProductViewContainer = styled(Dialog)({
+export const ProductViewContainer = styled(Dialog)(({ theme }) => ({
+	[theme.breakpoints.down("md")]: {
+		display: "none"
+	},
 	"& .MuiDialog-paper": {
-		minHeight: "60vh",
-		minWidth: "48vw",
-		padding: "4rem 2rem 3rem"
+		padding: "4rem 2rem 3rem",
+		[theme.breakpoints.up("xl")]: {
+			minWidth: "50vw",
+			minHeight: "60vh"
+		},
+		"@media screen and (max-width: 1700px)": {
+			minWidth: "55vw"
+		},
+		[theme.breakpoints.down("xl")]: {
+			minWidth: "75vw",
+			minHeight: "65vh"
+		},
+		[theme.breakpoints.down("lg")]: {
+			minWidth: "90vw"
+		}
 	}
-}) as typeof Dialog;
+})) as typeof Dialog;
 
 export const ContentContainer = styled(Grid)({
 	height: "100%",
@@ -25,18 +40,21 @@ export const ImageCarousel = styled("div")({
 });
 
 // Right side
-export const ProductDetails = styled("div")({
+export const ProductDetails = styled("div")(({ theme }) => ({
 	display: "flex",
 	flexDirection: "column",
 	height: "100%",
 	width: "100%",
 	fontSize: "1.6rem",
 	overflow: "auto",
-	maxHeight: "calc(60vh - 4rem)",
 	paddingRight: "1rem",
 	paddingBottom: "3rem",
-	marginTop: "1rem"
-});
+	marginTop: "1rem",
+	maxHeight: "calc(60vh - 4rem)",
+	[theme.breakpoints.down("xl")]: {
+		maxHeight: "calc(65vh - 4rem)"
+	}
+}));
 
 export const ProductTitle = styled("h3")({
 	fontFamily: "var(--font-secondary)",

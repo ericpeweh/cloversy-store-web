@@ -2,20 +2,25 @@
 import { Avatar, Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { styled } from "@mui/system";
 
-export const CartDrawerContainer = styled(Drawer)({
+export const CartDrawerContainer = styled(Drawer)(({ theme }) => ({
 	position: "relative",
 	"& .MuiDrawer-paper": {
 		width: "50rem",
 		display: "flex",
 		flexDirection: "column",
-		padding: "2rem 3rem 3rem"
+		padding: "2rem 3rem 3rem 4rem",
+		[theme.breakpoints.down("sm")]: {
+			width: "100%",
+			padding: "2rem 3rem 3rem"
+		}
 	}
-}) as typeof Drawer;
+})) as typeof Drawer;
 
 export const HideCartButton = styled(Button)(({ theme }) => ({
 	color: theme.palette.grey[500],
 	fontSize: "1.4rem",
-	alignSelf: "flex-start"
+	alignSelf: "flex-start",
+	paddingLeft: "0"
 }));
 
 export const CartLists = styled(List)(({ theme }) => ({
@@ -24,7 +29,8 @@ export const CartLists = styled(List)(({ theme }) => ({
 
 export const CartItem = styled(ListItem)({
 	alignItems: "flex-start",
-	paddingRight: "0"
+	paddingRight: "0",
+	paddingLeft: "0"
 });
 
 export const CartItemImage = styled(Avatar)({

@@ -7,18 +7,28 @@ import { GridSpacing, Grid, Box } from "@mui/material";
 // Styles
 import { ProductsGrid } from "./ProductsContainer.styles";
 
+type ResponsiveSizing = {
+	xs?: number;
+	sm?: number;
+	md?: number;
+	lg?: number;
+	xl?: number;
+};
+
 interface ProductsContainerProps {
 	children: React.ReactElement[];
-	spacing?: GridSpacing;
+	spacing?: GridSpacing | ResponsiveSizing;
 	columns?: number;
-	rowSpacing?: number;
+	rowSpacing?: number | ResponsiveSizing;
+	size?: ResponsiveSizing;
 }
 
 const ProductsContainer = ({
 	children,
 	spacing = 2,
 	columns = 3,
-	rowSpacing
+	rowSpacing,
+	size
 }: ProductsContainerProps) => {
 	const childProps = {
 		xs: 12 / columns,
@@ -29,7 +39,11 @@ const ProductsContainer = ({
 		<Box sx={{ flexGrow: 1, mr: -spacing }}>
 			<ProductsGrid container spacing={spacing} rowSpacing={rowSpacing}>
 				{React.Children.map(children, child => {
-					return <Grid {...childProps}>{child}</Grid>;
+					return (
+						<Grid {...childProps} {...size}>
+							{child}
+						</Grid>
+					);
 				})}
 			</ProductsGrid>
 		</Box>

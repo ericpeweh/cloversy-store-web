@@ -62,9 +62,9 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 				Continue Shopping
 			</HideCartButton>
 			<CartLists>
-				{[...cartItems, ...cartItems].map(item => (
-					<React.Fragment key={item.name}>
-						<CartItem key={item.name}>
+				{[...cartItems, ...cartItems].map((item, i) => (
+					<React.Fragment key={item.name + i}>
+						<CartItem>
 							<ListItemAvatar sx={{ marginRight: "2rem" }}>
 								<Link href="#">
 									<CartItemImage alt={item.name} src="/images/product.jpg" variant="rounded" />

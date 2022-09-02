@@ -65,8 +65,8 @@ const Navbar = () => {
 				onClick={openMobileMenuHandler}
 				sx={{
 					display: {
-						xs: "flex",
-						sm: "none"
+						sm: "flex",
+						md: "none"
 					}
 				}}
 			>
