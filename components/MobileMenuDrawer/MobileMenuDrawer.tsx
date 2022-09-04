@@ -12,7 +12,6 @@ import {
 } from "./MobileMenuDrawer.styles";
 
 // Icons
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -21,9 +20,8 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 // Components
-import { ListItemAvatar, Divider, Typography, Stack, InputAdornment } from "@mui/material";
+import { Divider, Typography, Stack, InputAdornment } from "@mui/material";
 import Button from "../Button/Button";
-import QuantityInput from "../QuantityInput/QuantityInput";
 import CloseButton from "../CloseButton/CloseButton";
 
 interface MobileMenuDrawerProps {
@@ -73,7 +71,7 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 				/>
 				{navigations.map(item => (
 					<Link href={item.path} key={item.label}>
-						<MobileMenuItem>{item.label}</MobileMenuItem>
+						<MobileMenuItem onClick={onClose}>{item.label}</MobileMenuItem>
 					</Link>
 				))}
 			</MobileMenuLists>

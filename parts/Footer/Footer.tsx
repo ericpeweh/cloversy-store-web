@@ -28,9 +28,9 @@ import Link from "next/link";
 
 const Footer = () => {
 	return (
-		<FooterContainer>
-			<FooterContent container spacing={4}>
-				<Grid item xs={4}>
+		<FooterContainer sx={{ ml: { xs: -4, lg: -6 } }}>
+			<FooterContent container spacing={{ xs: 4, lg: 6 }}>
+				<Grid item xs={12} md={6} lg={4}>
 					<FooterSection>
 						<FooterSectionTitle>Informasi</FooterSectionTitle>
 						<FooterList>
@@ -47,7 +47,7 @@ const Footer = () => {
 						</FooterList>
 					</FooterSection>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} md={6} lg={4}>
 					<FooterSection>
 						<FooterSectionTitle>Layanan</FooterSectionTitle>
 						<FooterList>
@@ -74,12 +74,12 @@ const Footer = () => {
 						</FooterList>
 					</FooterSection>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12} lg={4}>
 					<FooterSection>
 						<FooterSectionTitle>Langganan Berita Terbaru</FooterSectionTitle>
 						<FooterSubscribeForm>
 							<EmailInput variant="outlined" color="primary" placeholder="Masukkan alamat email" />
-							<SubscribeButton>Berlangganan</SubscribeButton>
+							<SubscribeButton size="small">Berlangganan</SubscribeButton>
 						</FooterSubscribeForm>
 					</FooterSection>
 				</Grid>

@@ -1,5 +1,5 @@
 // Dependencies
-import { Avatar, Button, Drawer, List, ListItem, ListItemText, TextField } from "@mui/material";
+import { Drawer, TextField } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const MobileMenuDrawerContainer = styled(Drawer)(({ theme }) => ({
@@ -22,27 +22,53 @@ export const MobileMenuLists = styled("nav")(({ theme }) => ({
 	flexDirection: "column"
 }));
 
-export const MobileMenuItem = styled("a")({
+export const MobileMenuItem = styled("a")(({ theme }) => ({
 	marginTop: "0",
 	fontWeight: 400,
 	textTransform: "uppercase",
 	fontSize: "2rem",
 	cursor: "pointer",
-	padding: "1.7rem 0"
-});
+	padding: "1.7rem 0",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.8rem",
+		padding: "1.5rem 0"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.6rem",
+		padding: "1.4rem 0"
+	}
+}));
 
-export const MobileMenuActionButtons = styled("div")({
+export const MobileMenuActionButtons = styled("div")(({ theme }) => ({
 	justifySelf: "flex-end",
 	display: "flex",
 	flexDirection: "column",
-	marginTop: "auto"
-});
+	marginTop: "auto",
+	fontSize: "1.9rem",
+	"& p": {
+		[theme.breakpoints.down("md")]: {
+			fontSize: "1.8rem"
+		},
+		[theme.breakpoints.down("sm")]: {
+			fontSize: "1.7rem"
+		}
+	}
+}));
 
-export const SearchInput = styled(TextField)({
+export const SearchInput = styled(TextField)(({ theme }) => ({
 	"& input": {
 		fontSize: "2.2rem",
 		fontFamily: "var(--font-secondary)",
-		padding: "1.5rem"
+		padding: "1.5rem",
+		[theme.breakpoints.down("lg")]: {
+			fontSize: "2rem"
+		},
+		[theme.breakpoints.down("md")]: {
+			fontSize: "1.8rem"
+		},
+		[theme.breakpoints.down("sm")]: {
+			fontSize: "1.6rem"
+		}
 	},
 	marginBottom: "4rem"
-}) as typeof TextField;
+})) as typeof TextField;
