@@ -64,16 +64,31 @@ export const ProductImage = styled(CardMedia, {
 	transition: "0.4s ease"
 }) as typeof CardMedia;
 
-export const ProductTitle = styled("h4")({
+export const ProductTitle = styled("h4")(({ theme }) => ({
 	fontSize: "1.8rem",
 	fontWeight: 500,
 	marginBottom: "1rem",
 	textTransform: "uppercase",
-	cursor: "pointer"
-});
+	cursor: "pointer",
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "1.7rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
 export const ProductPrice = styled("p")(({ theme }) => ({
 	fontSize: "1.6rem",
 	fontWeight: 400,
-	color: theme.palette.grey[600]
+	color: theme.palette.grey[600],
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
 }));
