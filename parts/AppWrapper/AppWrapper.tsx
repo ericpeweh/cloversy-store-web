@@ -28,7 +28,7 @@ const AppWrapper = ({ children }: AppWrapperProps) => {
 			<SearchDrawer open={showSearchModal} onClose={() => dispatch(closeSearchDrawer())} />
 			<CartDrawer open={showCartModal} onClose={() => dispatch(closeCartDrawer())} />
 			{children}
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 };

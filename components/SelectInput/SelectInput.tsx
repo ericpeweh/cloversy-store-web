@@ -23,6 +23,17 @@ const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
 				onChange={() => {}}
 				{...props}
 				MenuProps={{ sx: { maxHeight: "20rem" } }}
+				sx={{
+					fontSize: {
+						xs: "1.4rem",
+						sm: "1.5rem",
+						md: "1.6rem"
+					},
+					height: {
+						xs: "5rem",
+						sm: "6rem"
+					}
+				}}
 			>
 				{options.map(option => (
 					<MenuItem value={option} key={option}>

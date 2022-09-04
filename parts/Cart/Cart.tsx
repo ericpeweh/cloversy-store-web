@@ -36,10 +36,10 @@ const Cart = () => {
 			<CartContentContainer container>
 				<CartTable />
 				<Grid container spacing={3}>
-					<Grid item xs={6}>
+					<Grid item xs={12} sm={6}>
 						<ShippingInput />
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} sm={6}>
 						<VoucherInput />
 					</Grid>
 				</Grid>
