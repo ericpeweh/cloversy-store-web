@@ -2,17 +2,18 @@
 import React from "react";
 
 // Styles
-import { ContentContainer, ReturnPolicyContainer } from "./ReturnPolicy.styles";
+import { ReturnPolicyContainer } from "./ReturnPolicy.styles";
 
 // Components
 import PageTitle from "../../components/PageTitle/PageTitle";
+import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import ContentDescription from "../../components/ContentDescription/ContentDescription";
 
 const ReturnPolicy = () => {
 	return (
 		<ReturnPolicyContainer>
 			<PageTitle>Aturan Pengembalian</PageTitle>
-			<ContentContainer>
+			<ContentContainer sx={{ mb: { xs: 4, sm: 6, lg: 8, xl: 10 } }}>
 				<ContentDescription>
 					Lorem ipsum dolor <strong>sit amet consectetur</strong> adipisicing elit. Enim ex optio
 					eligendi nesciunt eius quisquam iusto sapiente iure officiis laborum eum, ratione possimus

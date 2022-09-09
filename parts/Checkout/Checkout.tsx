@@ -85,7 +85,7 @@ const Checkout = () => {
 						<>
 							<Grid item md={12} lg={7} xl={8}>
 								<FormContainer>
-									<Grid container spacing={{ xs: 2, md: 3 }}>
+									<Grid container spacing={{ xs: 2.5, md: 3 }}>
 										<Grid item xs={12} sm={6}>
 											<TextInput label="Nama Penerima" id="namaPenerima" />
 										</Grid>
@@ -205,7 +205,14 @@ const Checkout = () => {
 						<>
 							<Grid item xs={12}>
 								<ConfirmationContainer>
-									<CheckCircleIcon sx={{ width: 200, height: 200 }} color="primary" />
+									<CheckCircleIcon
+										sx={{
+											width: { xs: 100, md: 150, lg: 200 },
+											height: { xs: 100, md: 150, lg: 200 },
+											mt: { xs: 4, sm: 0 }
+										}}
+										color="primary"
+									/>
 									<ConfirmationTitle>Terima Kasih!</ConfirmationTitle>
 									<ConfirmationDesc>
 										Pesanan telah berhasil dibuat. Detail pesanan akan dikirimkan ke alamat email

@@ -8,12 +8,15 @@ export const ContactUsContainer = styled("section")({
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
-	height: "100vh"
+	minHeight: "100vh"
 });
 
 export const ContactContainer = styled(Grid)({
 	width: "160rem",
-	marginBottom: "5rem"
+	marginBottom: "5rem",
+	"@media screen and (max-width: 1700px)": {
+		width: "95vw"
+	}
 });
 
 // Contact Information
@@ -25,22 +28,40 @@ export const ContactInformation = styled("div")(({ theme }) => ({
 	backgroundSize: "cover",
 	backgroundPosition: "center",
 	borderRadius: "0.5rem",
-	height: "100%"
+	height: "100%",
+	[theme.breakpoints.down("md")]: {
+		padding: "3rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		padding: "2rem"
+	}
 }));
 
-export const ContactInformationTitle = styled("h1")({
+export const ContactInformationTitle = styled("h1")(({ theme }) => ({
 	fontSize: "2.5rem",
 	fontWeight: 500,
 	marginBottom: "1rem",
 	fontFamily: "var(--font-secondary)",
-	color: "#fff"
-});
+	color: "#fff",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "2.3rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "2rem"
+	}
+}));
 
-export const ContactInformationDesc = styled("p")({
+export const ContactInformationDesc = styled("p")(({ theme }) => ({
 	fontSize: "1.7rem",
 	fontWeight: 400,
-	color: "#fff"
-});
+	color: "#fff",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
 export const ContactInformationList = styled(List)({
 	marginTop: "1rem",
@@ -49,24 +70,31 @@ export const ContactInformationList = styled(List)({
 	alignItems: "flex-start"
 }) as typeof List;
 
-export const ContactInformationListItem = styled(ListItem)({
+export const ContactInformationListItem = styled(ListItem)(({ theme }) => ({
 	paddingLeft: "0",
 	cursor: "pointer",
 	width: "max-content",
-	marginBottom: "1rem"
-});
+	marginBottom: "1rem",
+	[theme.breakpoints.down("sm")]: {
+		marginBottom: 0
+	}
+}));
 
 export const ContactAvatar = styled(Avatar)({
 	backgroundColor: "transparent"
 });
 
 export const ContactInformationText = styled(ListItemText)({
-	color: "#fff"
+	color: "#fff",
+	fontSize: "1.6rem"
 }) as typeof ListItemText;
 
 // Contact Form
-export const ContactForm = styled("form")({
+export const ContactForm = styled("form")(({ theme }) => ({
 	padding: "4rem 2rem",
 	backgroundColor: "#fff",
-	borderRadius: "0.5rem"
-});
+	borderRadius: "0.5rem",
+	[theme.breakpoints.down("sm")]: {
+		padding: "3rem 1rem"
+	}
+}));

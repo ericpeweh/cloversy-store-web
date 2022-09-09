@@ -8,13 +8,28 @@ export const FaqContainer = styled("section")({
 	minHeight: "100vh"
 });
 
-export const FaqSubtitle = styled("p")({
+export const FaqSubtitle = styled("p")(({ theme }) => ({
 	fontSize: "1.7rem",
 	marginBottom: "5rem",
-	textAlign: "center"
-});
+	textAlign: "center",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
-export const ContentContainer = styled("div")({
+export const ContentContainer = styled("div")(({ theme }) => ({
 	width: "120rem",
-	marginBottom: "10rem"
-});
+	marginBottom: "10rem",
+	[theme.breakpoints.down("lg")]: {
+		width: "90vw",
+		marginBottom: "7rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		width: "100vw",
+		padding: "2rem",
+		marginBottom: "5rem"
+	}
+}));

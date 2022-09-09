@@ -14,6 +14,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 
+// Hooks
+import useWindowSize from "../../hooks/useWindowSize";
+
 // Components
 import {
 	ContactAvatar,
@@ -37,11 +40,13 @@ const contacts = [
 ];
 
 const ContactUs = () => {
+	const { wWidth } = useWindowSize();
+
 	return (
 		<ContactUsContainer>
 			<PageTitle>Kontak Kami</PageTitle>
-			<ContactContainer container spacing={4}>
-				<Grid item xs={5}>
+			<ContactContainer container spacing={{ md: 2, lg: 3, xl: 4 }}>
+				<Grid item xs={12} md={5}>
 					<ContactInformation>
 						<ContactInformationTitle>Informasi Kontak</ContactInformationTitle>
 						<ContactInformationDesc>
@@ -62,20 +67,20 @@ const ContactUs = () => {
 						</ContactInformationList>
 					</ContactInformation>
 				</Grid>
-				<Grid item xs={7}>
+				<Grid item xs={12} md={7}>
 					<ContactForm>
-						<Grid container spacing={5}>
-							<Grid item xs={6}>
+						<Grid container spacing={{ xs: 2, md: 3, lg: 4, xl: 5 }}>
+							<Grid item xs={12} sm={6}>
 								<TextInput id="name" label="Nama anda" />
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<TextInput id="name" label="Email anda" placeholder="abc@gmail.com" />
 							</Grid>
 							<Grid item xs={12}>
 								<RadioInput
-									label="Keperluan atau pertanyaan mengenai"
+									label="Keperluan atau pertanyaan mengenai: "
 									options={["Produk", "Website / Store", "Partnership", "Lainnya"]}
-									row
+									row={wWidth > 600}
 								/>
 							</Grid>
 							<Grid item xs={12}>

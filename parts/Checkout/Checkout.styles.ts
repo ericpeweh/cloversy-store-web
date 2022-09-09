@@ -75,16 +75,37 @@ export const ConfirmationContainer = styled("div")({
 	alignItems: "center"
 });
 
-export const ConfirmationTitle = styled("h3")({
+export const ConfirmationTitle = styled("h3")(({ theme }) => ({
 	fontSize: "3rem",
 	fontWeight: 400,
 	fontFamily: "var(--font-secondary)",
-	marginBottom: "2rem"
-});
+	marginBottom: "8rem",
+	[theme.breakpoints.down("xl")]: {
+		fontSize: "2.8rem"
+	},
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "2.7rem",
+		marginBottom: "6rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		fontSize: "2.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "2.5rem",
+		marginBottom: "4rem"
+	}
+}));
 
 export const ConfirmationDesc = styled("p")(({ theme }) => ({
 	fontSize: "1.7rem",
 	fontWeight: 400,
 	color: theme.palette.grey[500],
-	marginBottom: "1rem"
+	marginBottom: "1rem",
+	textAlign: "center",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
 }));
