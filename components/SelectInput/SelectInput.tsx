@@ -3,7 +3,7 @@ import { InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
 import React from "react";
 
 // Styles
-import { SelectInputContainer } from "./SelectInput.styles";
+import { SelectInputContainer, SelectMenuItem } from "./SelectInput.styles";
 
 interface SelectInputProps extends SelectProps {
 	options: string[];
@@ -21,8 +21,7 @@ const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
 				value={value}
 				label={label}
 				onChange={() => {}}
-				{...props}
-				MenuProps={{ sx: { maxHeight: "20rem" } }}
+				MenuProps={{ sx: { maxHeight: { xs: "40rem", sm: "20rem" } } }}
 				sx={{
 					fontSize: {
 						xs: "1.4rem",
@@ -34,11 +33,12 @@ const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
 						sm: "6rem"
 					}
 				}}
+				{...props}
 			>
 				{options.map(option => (
-					<MenuItem value={option} key={option}>
+					<SelectMenuItem value={option} key={option}>
 						{option}
-					</MenuItem>
+					</SelectMenuItem>
 				))}
 			</Select>
 		</SelectInputContainer>

@@ -1,5 +1,6 @@
 // Dependencies
 import React from "react";
+import useWindowSize from "../../hooks/useWindowSize";
 
 // Styles
 import { TextInputContainer } from "./TextInput.styles";
@@ -23,6 +24,8 @@ const TextInput = ({
 	rows,
 	type = "text"
 }: TextInputProps) => {
+	const { wWidth } = useWindowSize();
+
 	return (
 		<TextInputContainer
 			id={id}
@@ -34,6 +37,7 @@ const TextInput = ({
 			multiline={multiline}
 			rows={rows}
 			type={type}
+			size={wWidth <= 600 ? "small" : "medium"}
 		/>
 	);
 };

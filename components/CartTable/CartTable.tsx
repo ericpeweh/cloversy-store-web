@@ -64,15 +64,17 @@ const CartTable = ({ readOnly = false }: CartTableProps) => {
 
 	useEffect(() => {
 		if (wWidth <= 700) {
-			setTableHeadData(["Produk", "Jumlah"]);
+			setTableHeadData(readOnly ? ["Produk", "Jumlah", ""] : ["Produk", "Jumlah"]);
 		} else if (wWidth <= 1050) {
-			setTableHeadData(["Produk", "Tindakan", "Jumlah"]);
+			setTableHeadData(
+				readOnly ? ["Produk", "Kuantitas", "Jumlah", ""] : ["Produk", "Tindakan", "Jumlah"]
+			);
 		} else if (wWidth <= 1350) {
 			setTableHeadData(["Produk", "Ukuran", "Kuantitas", "Jumlah", "Tindakan"]);
 		} else {
-			setTableHeadData(["Produk", "Ukuran", "Kuantitas", "Jumlah", "Harga", "Tindakan"]);
+			setTableHeadData(["Produk", "Ukuran", "Kuantitas", "Harga", "Jumlah", "Tindakan"]);
 		}
-	}, [wWidth]);
+	}, [wWidth, readOnly]);
 
 	return (
 		<Table headData={readOnly ? tableHeadData.slice(0, -1) : tableHeadData}>
@@ -91,7 +93,7 @@ const CartTable = ({ readOnly = false }: CartTableProps) => {
 									{wWidth <= 1050 && <CartItemDesc>{data.size}</CartItemDesc>}
 									{wWidth <= 700 && (
 										<Stack direction="row" gap={1} alignItems="center">
-											<QuantityInput value={1} />
+											{readOnly ? "x 1" : <QuantityInput value={1} />}
 											{!readOnly && wWidth <= 1050 && (
 												<Tooltip
 													title="Hapus dari Cart"
@@ -113,11 +115,11 @@ const CartTable = ({ readOnly = false }: CartTableProps) => {
 					{wWidth > 1050 && <TableCell align="center">{data.size}</TableCell>}
 					{wWidth > 700 && (
 						<TableCell align="center">
-							{readOnly ? (
+							{readOnly && wWidth >= 1050 ? (
 								"x 1"
 							) : (
 								<Stack direction="row" gap={2} justifyContent="center" alignItems="center">
-									<QuantityInput value={1} />
+									{readOnly ? "x 1" : <QuantityInput value={1} />}
 									{!readOnly && wWidth <= 1050 && (
 										<Tooltip
 											title="Hapus dari Cart"

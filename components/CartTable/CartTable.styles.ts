@@ -5,11 +5,11 @@ export const CartItemImageContainer = styled("div")(({ theme }) => ({
 	borderRadius: "0.5rem",
 	overflow: "hidden",
 	height: "9rem",
-	width: "16rem",
+	width: "14rem",
 	cursor: "pointer",
 	[theme.breakpoints.down("lg")]: {
 		height: "7rem",
-		width: "14rem"
+		width: "12rem"
 	},
 	[theme.breakpoints.down("md")]: {
 		height: "7rem",
@@ -28,11 +28,10 @@ export const CartItemTitle = styled("h2")(({ theme }) => ({
 	fontWeight: 500,
 	width: "100%",
 	cursor: "pointer",
-
 	[theme.breakpoints.down("md")]: {
 		fontSize: "1.5rem"
 	},
-	[theme.breakpoints.down("md")]: {
+	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.4rem"
 	}
 }));
@@ -43,7 +42,7 @@ export const CartItemDesc = styled("p")(({ theme }) => ({
 	[theme.breakpoints.down("md")]: {
 		fontSize: "1.4rem"
 	},
-	[theme.breakpoints.down("md")]: {
+	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.3rem"
 	}
 }));
