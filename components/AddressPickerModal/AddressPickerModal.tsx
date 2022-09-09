@@ -32,7 +32,12 @@ const AddressPickerModal = ({ open, onClose }: AddressPickerModalProps) => {
 		<AddressPickerModalContainer open={open} onClose={onClose}>
 			<CloseButton
 				onClick={onClose}
-				sx={{ top: "2.5rem", right: "3rem", width: "3rem", height: "3rem" }}
+				sx={{
+					top: { xs: "1.5rem", sm: "2.5rem" },
+					right: { xs: "2rem", sm: "3rem" },
+					width: "3rem",
+					height: "3rem"
+				}}
 			/>
 			<ModalTitle>Pilih alamat</ModalTitle>
 			<Divider />
