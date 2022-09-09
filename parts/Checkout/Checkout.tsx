@@ -67,33 +67,33 @@ const Checkout = () => {
 				/>
 			</StepperContainer>
 			<ContentContainer>
-				<Grid container spacing={3}>
+				<Grid container spacing={{ xs: 1, lg: 2, xl: 3 }}>
 					{isOrderSummary && (
 						<>
 							<Grid item xs={12}>
 								<CartTable readOnly />
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<ShippingInput />
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<VoucherInput />
 							</Grid>
 						</>
 					)}
 					{isAddressInfo && (
 						<>
-							<Grid item xs={8}>
+							<Grid item md={12} lg={7} xl={8}>
 								<FormContainer>
-									<Grid container spacing={3}>
-										<Grid item xs={6}>
+									<Grid container spacing={{ xs: 2, md: 3 }}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Nama Penerima" id="namaPenerima" />
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Nomor HP" id="nomorHP" />
 										</Grid>
 
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<SelectInput
 												options={[
 													"Kalimantan Barat",
@@ -106,7 +106,7 @@ const Checkout = () => {
 												label="Kabupaten / Kota"
 											/>
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<SelectInput
 												options={[
 													"Pontianak Barat",
@@ -120,10 +120,10 @@ const Checkout = () => {
 												label="Kecamatan"
 											/>
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Kode Pos" id="kodePos" />
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Catatan Pengiriman" id="catatan" />
 										</Grid>
 										<Grid item xs={12}>
@@ -152,7 +152,9 @@ const Checkout = () => {
 											<Checkbox
 												label={
 													<Stack direction="row" alignItems="center" gap={1}>
-														Kirim sebagai hadiah
+														<Typography sx={{ fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
+															Kirim sebagai hadiah
+														</Typography>
 														<CardGiftcardIcon />
 													</Stack>
 												}
@@ -173,7 +175,7 @@ const Checkout = () => {
 									</Grid>
 								</FormContainer>
 							</Grid>
-							<Grid item xs={4}>
+							<Grid item xs={12} md={12} lg={5} xl={4}>
 								<OrderCardsContainer>
 									<OrderCard
 										title="Nike AF1 Homesick"
@@ -255,7 +257,12 @@ const Checkout = () => {
 								mt={3}
 							>
 								{!isOrderSummary && (
-									<Button variant="outlined" startIcon={<ArrowBackIcon />} onClick={backHandler}>
+									<Button
+										variant="outlined"
+										startIcon={<ArrowBackIcon />}
+										onClick={backHandler}
+										sx={{ ml: { xs: 2, sm: 0 } }}
+									>
 										Kembali
 									</Button>
 								)}

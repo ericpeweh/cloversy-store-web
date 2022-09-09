@@ -12,10 +12,13 @@ export const StepperContainer = styled("div")({
 	marginTop: "-2rem"
 });
 
-export const ContentContainer = styled("div")({
+export const ContentContainer = styled("div")(({ theme }) => ({
 	width: "160rem",
-	margin: "5rem auto 2rem"
-});
+	margin: "5rem auto 2rem",
+	"@media screen and (max-width: 1700px)": {
+		width: "95vw"
+	}
+}));
 
 export const TransactionDetails = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -50,12 +53,15 @@ export const TransactionTotal = styled("p")(({ theme }) => ({
 	marginLeft: "1rem"
 }));
 
-export const FormContainer = styled("form")({
+export const FormContainer = styled("form")(({ theme }) => ({
 	display: "flex",
 	flexDirection: "column",
 	overflow: "auto",
-	padding: "2rem 2rem 2rem 0"
-});
+	padding: "2rem 2rem 2rem 0",
+	[theme.breakpoints.down("sm")]: {
+		padding: "1rem 1rem 2rem 1rem"
+	}
+}));
 
 export const OrderCardsContainer = styled("div")({
 	display: "flex",
