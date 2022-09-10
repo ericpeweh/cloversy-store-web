@@ -61,7 +61,7 @@ const ProductListItem = () => {
 					rem odit nemo ea, ut fugiat porro nostrum corrupti maxime repellendus rerum...
 				</ProductDesription>
 				<ProductActionsContainer>
-					<Button color="primary" endIcon={<ChevronRightIcon />}>
+					<Button color="primary" endIcon={<ChevronRightIcon />} size="small">
 						Lihat detail produk
 					</Button>
 				</ProductActionsContainer>
