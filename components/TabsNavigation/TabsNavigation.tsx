@@ -1,9 +1,8 @@
 // Dependencies
-import { Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 
 // Styles
-import { TabsNavigationContainer } from "./TabsNavigation.styles";
+import { TabHeader, TabsNavigationContainer } from "./TabsNavigation.styles";
 
 interface TabsNavigationChildProps {
 	label: string;
@@ -28,7 +27,7 @@ const TabsNavigation = ({ children, variant = "standard" }: TabsNavigationProps)
 		<>
 			<TabsNavigationContainer onChange={tabsChangeHandler} value={tabsValue} variant={variant}>
 				{React.Children.map(children, element => (
-					<Tab {...element.props} label={element.props.label} />
+					<TabHeader {...element.props} label={element.props.label} />
 				))}
 			</TabsNavigationContainer>
 			{React.Children.map(children, (element, i) => {

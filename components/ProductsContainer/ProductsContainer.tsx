@@ -7,7 +7,7 @@ import { GridSpacing, Grid, Box } from "@mui/material";
 // Styles
 import { ProductsGrid } from "./ProductsContainer.styles";
 
-type ResponsiveSizing = {
+export type ResponsiveSizing = {
 	xs?: number;
 	sm?: number;
 	md?: number;

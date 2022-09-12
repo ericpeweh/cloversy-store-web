@@ -20,11 +20,11 @@ const PageBreadcrumbs = ({ links }: PageBreadcrumbsProps) => {
 			<BreadcrumbsContainer>
 				{links.map(link => {
 					return link.url === "current" ? (
-						<Typography color="primary" fontWeight={500}>
+						<Typography color="primary" fontWeight={500} key={link.url}>
 							{link.label}
 						</Typography>
 					) : (
-						<Link underline="hover" color="text.primary" href={link.url}>
+						<Link underline="hover" color="text.primary" href={link.url} key={link.url}>
 							{link.label}
 						</Link>
 					);

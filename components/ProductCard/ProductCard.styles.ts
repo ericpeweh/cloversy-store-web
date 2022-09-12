@@ -70,14 +70,17 @@ export const ProductTitle = styled("h4")(({ theme }) => ({
 	marginBottom: "1rem",
 	textTransform: "uppercase",
 	cursor: "pointer",
-	[theme.breakpoints.down("lg")]: {
+	[theme.breakpoints.down("xl")]: {
 		fontSize: "1.7rem"
 	},
-	[theme.breakpoints.down("md")]: {
+	[theme.breakpoints.down("lg")]: {
 		fontSize: "1.6rem"
 	},
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("md")]: {
 		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
 	}
 }));
 

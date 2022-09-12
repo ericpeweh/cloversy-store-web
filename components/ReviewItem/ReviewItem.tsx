@@ -12,7 +12,7 @@ import {
 
 const ReviewItem = () => {
 	return (
-		<ReviewItemContainer item xs={6}>
+		<ReviewItemContainer item xs={12} md={6}>
 			<ListItem
 				alignItems="flex-start"
 				sx={{ padding: 0 }}
@@ -22,7 +22,7 @@ const ReviewItem = () => {
 					<Avatar alt="review name" src="/images/1.jpg" sx={{ width: "5rem", height: "5rem" }} />
 				</ListItemAvatar>
 				<ListItemText
-					sx={{ ml: 2 }}
+					sx={{ ml: { xs: 0, sm: 1, lg: 2 } }}
 					primary={<ReviewerName>Mikici Mud</ReviewerName>}
 					secondary={<ReviewDate>10 July 2022</ReviewDate>}
 				/>

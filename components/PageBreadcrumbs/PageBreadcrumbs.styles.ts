@@ -9,8 +9,17 @@ export const BreadcrumbsOuterContainer = styled("div")(({ theme }) => ({
 	width: "100%",
 	display: "flex",
 	justifyContent: "center",
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("xl")]: {
+		marginTop: "3rem"
+	},
+	[theme.breakpoints.down("lg")]: {
 		marginTop: "2rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		marginTop: "1rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		marginTop: "0rem"
 	}
 }));
 
