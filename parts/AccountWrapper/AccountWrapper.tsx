@@ -26,8 +26,11 @@ import {
 	ContentContainer
 } from "./AccountWrapper.styles";
 
+// Hooks
+import useWindowSize from "../../hooks/useWindowSize";
+
 // Components
-import { Avatar } from "@mui/material";
+import { Avatar, Divider, Grid } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
 
 interface AccountWrapperProps {
@@ -38,55 +41,56 @@ interface AccountWrapperProps {
 const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 	const router = useRouter();
 	const currentPath = router.asPath;
+	const { wWidth } = useWindowSize();
 
 	return (
 		<MyAccountContainer>
 			<PageTitle>{title}</PageTitle>
 			<OuterContainer>
-				<GridContainer container spacing={4}>
-					<AccountMenu item xs={3}>
+				<GridContainer container spacing={{ xs: 2, md: 3, lg: 4 }}>
+					<AccountMenu item xs={12} lg={3}>
 						<Avatar alt="profile icon" src="/images/1.jpg" sx={{ width: 60, height: 60 }} />
 						<AccountName>Hello, Mikici Cimol</AccountName>
 						<MenuContainer>
 							<MenuList>
 								<Link href="/account">
-									<MenuItem active={currentPath === "/account"}>
+									<MenuItem isActive={currentPath === "/account"}>
 										<DashboardOutlinedIcon />
 										<MenuLabel>Dashboard</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/orders">
-									<MenuItem active={currentPath === "/account/orders"}>
+									<MenuItem isActive={currentPath === "/account/orders"}>
 										<ShoppingBasketOutlinedIcon />
 										<MenuLabel>Pesanan saya</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/wishlist">
-									<MenuItem active={currentPath === "/account/wishlist"}>
+									<MenuItem isActive={currentPath === "/account/wishlist"}>
 										<FavoriteBorderOutlinedIcon />
 										<MenuLabel>Wishlist</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/voucher">
-									<MenuItem active={currentPath === "/account/voucher"}>
+									<MenuItem isActive={currentPath === "/account/voucher"}>
 										<ConfirmationNumberOutlinedIcon />
 										<MenuLabel>Voucher</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/address">
-									<MenuItem active={currentPath === "/account/address"}>
+									<MenuItem isActive={currentPath === "/account/address"}>
 										<RoomOutlinedIcon />
 										<MenuLabel>Alamat pengiriman</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/chat">
-									<MenuItem active={currentPath === "/account/chat"}>
+									<MenuItem isActive={currentPath === "/account/chat"}>
 										<ChatOutlinedIcon />
 										<MenuLabel>Pesan</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/details">
-									<MenuItem active={currentPath === "/account/details"}>
+									<MenuItem isActive={currentPath === "/account/details"}>
 										<PermIdentityOutlinedIcon />
 										<MenuLabel>Detail akun</MenuLabel>
 									</MenuItem>
@@ -98,7 +102,12 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 							</MenuList>
 						</MenuContainer>
 					</AccountMenu>
-					<ContentContainer item xs={9}>
+					{wWidth <= 1200 && (
+						<Grid item xs={12}>
+							<Divider />
+						</Grid>
+					)}
+					<ContentContainer item xs={12} lg={9}>
 						{children}
 					</ContentContainer>
 				</GridContainer>

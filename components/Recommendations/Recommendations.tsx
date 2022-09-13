@@ -13,7 +13,7 @@ const Recommendations = () => {
 		<Section title="Produk terlaris">
 			<SectionContent>
 				<ProductsContainer
-					spacing={{ xs: 1, sm: 4, md: 2, xl: 4 }}
+					spacing={{ xs: 1, sm: 2, xl: 4 }}
 					rowSpacing={{ xs: 1, sm: 2, md: 4, xl: 6 }}
 					size={{ xs: 6, sm: 6, lg: 4 }}
 				>

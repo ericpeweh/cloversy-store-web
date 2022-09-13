@@ -83,14 +83,14 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 						direction="row"
 						justifyContent="space-between"
 						alignItems="center"
-						sx={{ cursor: "pointer", p: "2rem 0" }}
+						sx={{ cursor: "pointer", p: { xs: "1.5rem 0", sm: "2rem 0" } }}
 					>
-						<Typography fontSize="1.8rem">{item.title}</Typography>
+						<Typography>{item.title}</Typography>
 						{item.icon}
 					</Stack>
 				))}
 				<Divider sx={{ mb: "2rem" }} />
-				<Typography fontSize="1.7rem" mb="1rem" sx={{ mt: 2 }}>
+				<Typography sx={{ mt: 1, mb: 2, textAlign: "center" }}>
 					Please login to access wishlist & cart
 				</Typography>
 				<Button endIcon={<LoginIcon />}>Login</Button>

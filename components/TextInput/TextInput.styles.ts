@@ -11,7 +11,8 @@ export const TextInputContainer = styled(TextField)(({ theme }) => ({
 			fontSize: "1.5rem"
 		},
 		[theme.breakpoints.down("sm")]: {
-			fontSize: "1.4rem"
+			fontSize: "1.4rem",
+			paddingBottom: "1.4rem"
 		}
 	}
 })) as typeof TextField;

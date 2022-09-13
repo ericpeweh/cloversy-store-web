@@ -3,10 +3,16 @@ import { styled } from "@mui/system";
 
 export const MyAccountDetailsContainer = styled("div")({});
 
-export const SectionTitle = styled("h2")({
+export const SectionTitle = styled("h2")(({ theme }) => ({
 	fontSize: "1.8rem",
-	marginBottom: "1rem"
-});
+	marginBottom: "1rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.7rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.6rem"
+	}
+}));
 
 export const ProfilePictureInputContainer = styled("div")({
 	display: "flex",
@@ -19,6 +25,9 @@ export const InputContainer = styled("div")({
 	marginBottom: "0.5rem"
 });
 
-export const FormContainer = styled("form")({
-	marginBottom: "5rem"
-});
+export const FormContainer = styled("form")(({ theme }) => ({
+	marginBottom: "5rem",
+	[theme.breakpoints.down("md")]: {
+		marginBottom: "4rem"
+	}
+}));

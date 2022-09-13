@@ -89,10 +89,10 @@ const Footer = () => {
 				<CopyrightText>&copy;2022 Clovesry.id - All Rights Reserved</CopyrightText>
 				<Stack direction="row">
 					<SocialIcon>
-						<InstagramIcon fontSize="large" />
+						<InstagramIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />
 					</SocialIcon>
 					<SocialIcon>
-						<WhatsAppIcon fontSize="large" />
+						<WhatsAppIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />
 					</SocialIcon>
 				</Stack>
 			</FooterBottom>

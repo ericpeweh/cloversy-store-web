@@ -30,7 +30,7 @@ const Voucher = ({ title, expiryDate, code }: VoucherProps) => {
 	return (
 		<VoucherContainer>
 			<VoucherImage>
-				<DiscountIcon fontSize="large" />
+				<DiscountIcon sx={{ fontSize: { xs: "2.4rem", sm: "2.6rem", md: "3rem", lg: "3.4" } }} />
 			</VoucherImage>
 			<VoucherInfo>
 				<VoucherContent>

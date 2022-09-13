@@ -32,7 +32,13 @@ export const TransactionSummary = styled("div")(({ theme }) => ({
 	backgroundColor: theme.palette.grey[100],
 	justifyContent: "flex-end",
 	padding: "1rem",
-	fontSize: "1.6rem"
+	fontSize: "1.6rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
 }));
 
 export const TransactionActions = styled("div")(({ theme }) => ({
@@ -41,24 +47,58 @@ export const TransactionActions = styled("div")(({ theme }) => ({
 	justifyContent: "flex-end",
 	padding: "1rem",
 	fontSize: "1.6rem",
-	gap: "1rem"
+	gap: "1rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem",
+		flexDirection: "column"
+	}
 }));
 
-export const TransactionDate = styled("p")({
+export const TransactionDate = styled("p")(({ theme }) => ({
 	fontSize: "1.7rem",
-	marginLeft: "auto"
-});
+	marginLeft: "auto",
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
+}));
 
-export const TransactionCode = styled("h4")({
+export const TransactionCode = styled("h4")(({ theme }) => ({
 	fontSize: "1.6rem",
 	textTransform: "uppercase",
-	fontFamily: "var(--font-secondary)"
-});
+	fontFamily: "var(--font-secondary)",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
+}));
 
 export const TransactionTotal = styled("p")(({ theme }) => ({
 	fontSize: "2rem",
 	color: theme.palette.primary.main,
 	alignSelf: "center",
 	fontWeight: 500,
-	marginLeft: "1rem"
+	marginLeft: "1rem",
+	[theme.breakpoints.down("xl")]: {
+		fontSize: "1.9rem"
+	},
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "1.8rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.7rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.6rem"
+	}
 }));

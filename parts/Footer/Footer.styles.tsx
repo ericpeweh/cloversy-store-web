@@ -53,26 +53,26 @@ export const FooterSection = styled("div")(({ theme }) => ({
 }));
 
 export const FooterSectionTitle = styled("h5")(({ theme }) => ({
-	fontSize: "1.8rem",
+	fontSize: "1.7rem",
 	fontWeight: 500,
 	textTransform: "uppercase",
 	color: "#fff",
 	letterSpacing: "2px",
 	marginBottom: "4rem",
 	[theme.breakpoints.down("xl")]: {
-		fontSize: "1.7rem",
+		fontSize: "1.6rem",
 		marginBottom: "3.5rem"
 	},
 	[theme.breakpoints.down("lg")]: {
-		fontSize: "1.6rem",
+		fontSize: "1.5rem",
 		marginBottom: "3rem"
 	},
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.5rem",
+		fontSize: "1.4rem",
 		marginBottom: "2.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.4rem",
+		fontSize: "1.3rem",
 		marginBottom: "2rem"
 	}
 }));
@@ -84,18 +84,18 @@ export const FooterList = styled("ul")({
 export const FooterListItem = styled("li")(({ theme }) => ({
 	color: theme.palette.grey[100],
 	fontWeight: 300,
-	fontSize: "1.6rem",
+	fontSize: "1.5rem",
 	paddingBottom: "2.5rem",
 	cursor: "pointer",
 	"&:hover > a::after": {
 		width: "100%"
 	},
 	[theme.breakpoints.down("lg")]: {
-		fontSize: "1.5rem",
+		fontSize: "1.4rem",
 		paddingBottom: "2rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.4rem",
+		fontSize: "1.3rem",
 		paddingBottom: "1.8rem"
 	}
 }));
@@ -126,13 +126,13 @@ export const EmailInput = styled(TextField)(({ theme }) => ({
 	background: "#fff",
 	borderRadius: "0.5rem",
 	"& input": {
-		fontSize: "1.7rem !important",
+		fontSize: "1.6rem !important",
 		[theme.breakpoints.down("lg")]: {
-			fontSize: "1.6rem !important",
+			fontSize: "1.5rem !important",
 			padding: "1.8rem 2.2rem !important"
 		},
 		[theme.breakpoints.down("sm")]: {
-			fontSize: "1.5rem !important",
+			fontSize: "1.4rem !important",
 			padding: "1.5rem 2rem !important"
 		}
 	},
@@ -179,6 +179,9 @@ export const FooterBottom = styled("div")(({ theme }) => ({
 export const CopyrightText = styled("p")(({ theme }) => ({
 	fontSize: "1.6rem",
 	color: theme.palette.grey[500],
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.4rem"
 	}

@@ -31,7 +31,7 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Pesanan saya</MenuTitle>
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item xs={6} md={3}>
 					<ContentCard>
 						<AccountBalanceWalletOutlinedIcon />
 						<ContentTitle>
@@ -39,13 +39,13 @@ const MyAccount = () => {
 						</ContentTitle>
 					</ContentCard>
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item xs={6} md={3}>
 					<ContentCard>
 						<Inventory2OutlinedIcon />
 						<ContentTitle>Dikemas</ContentTitle>
 					</ContentCard>
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item xs={6} md={3}>
 					<ContentCard>
 						<LocalShippingOutlinedIcon />
 						<ContentTitle>
@@ -53,7 +53,7 @@ const MyAccount = () => {
 						</ContentTitle>
 					</ContentCard>
 				</Grid>
-				<Grid item xs={3}>
+				<Grid item xs={6} md={3}>
 					<ContentCard>
 						<StarsOutlinedIcon />
 						<ContentTitle>
@@ -88,13 +88,16 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Terakhir dilihat</MenuTitle>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={6} sm={3}>
 					<ProductCard size="small" disableActionButtons />
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={6} sm={3}>
 					<ProductCard size="small" disableActionButtons />
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={6} sm={3} sx={{ mt: { xs: -2, sm: 0 } }}>
+					<ProductCard size="small" disableActionButtons />
+				</Grid>
+				<Grid item xs={6} sm={3} sx={{ mt: { xs: -2, sm: 0 } }}>
 					<ProductCard size="small" disableActionButtons />
 				</Grid>
 			</MenuContent>

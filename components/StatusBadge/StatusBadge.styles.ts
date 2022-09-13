@@ -10,6 +10,12 @@ export const StatusBadgeContainer = styled("p", { shouldForwardProp: props => pr
 			color === "primary" ? theme.palette.primary.main : theme.palette.secondary.main,
 		color: "#fff",
 		alignSelf: "flex-start",
-		textTransform: "uppercase"
+		textTransform: "uppercase",
+		[theme.breakpoints.down("md")]: {
+			fontSize: "1.3rem"
+		},
+		[theme.breakpoints.down("sm")]: {
+			fontSize: "1.2rem"
+		}
 	})
 );

@@ -26,16 +26,16 @@ export const MobileMenuItem = styled("a")(({ theme }) => ({
 	marginTop: "0",
 	fontWeight: 400,
 	textTransform: "uppercase",
-	fontSize: "2rem",
+	fontSize: "1.8rem",
 	cursor: "pointer",
 	padding: "1.7rem 0",
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.8rem",
-		padding: "1.5rem 0"
+		fontSize: "1.7rem",
+		padding: "1.4rem 0"
 	},
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.6rem",
-		padding: "1.4rem 0"
+		padding: "1.3rem 0"
 	}
 }));
 
@@ -47,10 +47,10 @@ export const MobileMenuActionButtons = styled("div")(({ theme }) => ({
 	fontSize: "1.9rem",
 	"& p": {
 		[theme.breakpoints.down("md")]: {
-			fontSize: "1.8rem"
+			fontSize: "1.7rem"
 		},
 		[theme.breakpoints.down("sm")]: {
-			fontSize: "1.7rem"
+			fontSize: "1.5rem"
 		}
 	}
 }));

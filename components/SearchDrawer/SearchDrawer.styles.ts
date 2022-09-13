@@ -38,12 +38,18 @@ export const SearchBarContainer = styled("div")(({ theme }) => ({
 	}
 }));
 
-export const SearchInput = styled(TextField)({
+export const SearchInput = styled(TextField)(({ theme }) => ({
 	"& input": {
 		fontSize: "3.5rem",
-		fontFamily: "var(--font-secondary)"
+		fontFamily: "var(--font-secondary)",
+		[theme.breakpoints.down("xl")]: {
+			fontSize: "3rem"
+		},
+		[theme.breakpoints.down("lg")]: {
+			fontSize: "2.5rem"
+		}
 	}
-}) as typeof TextField;
+})) as typeof TextField;
 
 export const SearchResult = styled("div")(({ theme }) => ({
 	width: "50vw",

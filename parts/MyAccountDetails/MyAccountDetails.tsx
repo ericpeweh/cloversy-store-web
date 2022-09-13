@@ -26,7 +26,10 @@ const MyAccountDetails = () => {
 					<Grid item xs={12}>
 						<InputContainer>
 							<ProfilePictureInputContainer>
-								<Avatar sx={{ width: 80, height: 80 }} src="/images/1.jpg" />
+								<Avatar
+									sx={{ width: { xs: 55, sm: 65, md: 75 }, height: { xs: 55, sm: 65, md: 75 } }}
+									src="/images/1.jpg"
+								/>
 								<Button size="small" variant="outlined">
 									Ganti foto profil
 								</Button>
@@ -41,18 +44,18 @@ const MyAccountDetails = () => {
 							<TextInput label="Nama Lengkap" id="namaLengkap" />
 						</InputContainer>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} sm={6}>
 						<InputContainer>
 							<TextInput label="Email" id="email" type="email" />
 						</InputContainer>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} sm={6}>
 						<InputContainer>
 							<TextInput label="Telepon" id="telepon" type="tel" />
 						</InputContainer>
 					</Grid>
 					<Grid item xs={12}>
-						<Grid item xs={3} mt={1}>
+						<Grid item mt={1} xs={6} sm={3}>
 							<Button color="primary" fullWidth size="small">
 								Simpan
 							</Button>
@@ -67,15 +70,15 @@ const MyAccountDetails = () => {
 					</Grid>
 					<Grid item xs={12}>
 						<InputContainer>
-							<TextInput label="Password lama" id="namaLengkap" type="password" />
+							<TextInput label="Password lama" id="passwordLama" type="password" />
 						</InputContainer>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} sm={6}>
 						<InputContainer>
 							<TextInput label="Password Baru" id="passwordBaru" type="password" />
 						</InputContainer>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} sm={6}>
 						<InputContainer>
 							<TextInput
 								label="Konfirmasi Password Baru"
@@ -85,7 +88,7 @@ const MyAccountDetails = () => {
 						</InputContainer>
 					</Grid>
 					<Grid item xs={12}>
-						<Grid item xs={3} mt={1}>
+						<Grid item mt={1} xs={6} sm={3}>
 							<Button fullWidth size="small">
 								Ganti password
 							</Button>

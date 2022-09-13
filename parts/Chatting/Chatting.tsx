@@ -37,7 +37,10 @@ const Chatting = () => {
 		<ChattingContainer>
 			<ChattingHeader>
 				<Badge color="primary" overlap="circular" badgeContent=" " variant="dot">
-					<Avatar sx={{ width: 60, height: 60 }} src="/images/2.jpg" />
+					<Avatar
+						sx={{ width: { xs: 45, sm: 52, md: 60 }, height: { xs: 45, sm: 52, md: 60 } }}
+						src="/images/2.jpg"
+					/>
 				</Badge>
 				<NameContainer>
 					<Name>Cloversy Admin</Name>
@@ -99,9 +102,11 @@ const Chatting = () => {
 						<CloseIcon />
 					</IconButton>
 				)}
-				<IconButton onClick={showEmojiPickerHandler}>
-					<EmojiEmotionsOutlinedIcon />
-				</IconButton>
+				{!showEmojiPicker && (
+					<IconButton onClick={showEmojiPickerHandler}>
+						<EmojiEmotionsOutlinedIcon />
+					</IconButton>
+				)}
 				<ChatInput placeholder="Ketik pesan" />
 				<IconButton>
 					<SendIcon />

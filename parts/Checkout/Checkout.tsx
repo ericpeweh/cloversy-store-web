@@ -14,7 +14,9 @@ import {
 	ContentContainer,
 	FormContainer,
 	OrderCardsContainer,
-	StepperContainer
+	StepperContainer,
+	SummaryDesc,
+	SummaryTitle
 } from "./Checkout.styles";
 
 // Icons
@@ -235,28 +237,16 @@ const Checkout = () => {
 						<Box sx={{ width: "100%" }}>
 							<Divider flexItem sx={{ my: 4 }} />
 							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<Typography textAlign="right" fontWeight="bold">
-									Subtotal:
-								</Typography>
-								<Typography textAlign="right" sx={{ minWidth: "13rem" }}>
-									Rp123.000.000
-								</Typography>
+								<SummaryTitle>Subtotal:</SummaryTitle>
+								<SummaryDesc>Rp123.000.000</SummaryDesc>
 							</Stack>
 							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<Typography textAlign="right" fontWeight="bold">
-									Pengiriman:
-								</Typography>
-								<Typography textAlign="right" sx={{ minWidth: "13rem" }}>
-									Rp120.000
-								</Typography>
+								<SummaryTitle>Pengiriman:</SummaryTitle>
+								<SummaryDesc>Rp120.000</SummaryDesc>
 							</Stack>
 							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<Typography textAlign="right" fontWeight="bold">
-									Jumlah:
-								</Typography>
-								<Typography textAlign="right" sx={{ minWidth: "13rem" }}>
-									Rp123.120.000
-								</Typography>
+								<SummaryTitle>Jumlah:</SummaryTitle>
+								<SummaryDesc>Rp123.120.000</SummaryDesc>
 							</Stack>
 							<Stack
 								direction="row"
