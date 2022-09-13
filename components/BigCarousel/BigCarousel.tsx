@@ -40,7 +40,7 @@ const BigCarousel = () => {
 						<CarouselContent alignRight>
 							<CarouselTag>Special Edition</CarouselTag>
 							<CarouselTitle>Nike AF1 Homesick</CarouselTitle>
-							<CarouselDescription>
+							<CarouselDescription alignRight>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, eaque.
 							</CarouselDescription>
 							<Button size="large" sx={{ marginTop: "3rem" }}>

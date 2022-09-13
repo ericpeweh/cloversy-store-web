@@ -1,21 +1,27 @@
 // Dependencies
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Zoom from "@mui/material/Zoom";
+
+// Hooks
+import useWindowSize from "../../hooks/useWindowSize";
+
+// Styles
+import { TableCell, TableRow } from "../Table/Table.styles";
+import {
+	CartItemDesc,
+	CartItemImage,
+	CartItemImageContainer,
+	CartItemTitle
+} from "./CartTable.styles";
+
+// Icons
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Components
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import Table from "../Table/Table";
 import QuantityInput from "../QuantityInput/QuantityInput";
-
-// Styles
-import { TableCell, TableRow } from "../Table/Table.styles";
-import { CartItemImage, CartItemImageContainer, CartItemTitle } from "./CartTable.styles";
-
-// Icons
-import ClearIcon from "@mui/icons-material/Clear";
-
-const tableHeadData = ["Produk", "Ukuran", "Kuantitas", "Harga", "Jumlah", "Tindakan"];
 
 const cartData = [
 	{
@@ -46,27 +52,93 @@ interface CartTableProps {
 }
 
 const CartTable = ({ readOnly = false }: CartTableProps) => {
+	const [tableHeadData, setTableHeadData] = useState([
+		"Produk",
+		"Ukuran",
+		"Kuantitas",
+		"Harga",
+		"Jumlah",
+		"Tindakan"
+	]);
+	const { wWidth } = useWindowSize();
+
+	useEffect(() => {
+		if (wWidth <= 700) {
+			setTableHeadData(readOnly ? ["Produk", "Jumlah", ""] : ["Produk", "Jumlah"]);
+		} else if (wWidth <= 1050) {
+			setTableHeadData(
+				readOnly ? ["Produk", "Kuantitas", "Jumlah", ""] : ["Produk", "Tindakan", "Jumlah"]
+			);
+		} else if (wWidth <= 1350) {
+			setTableHeadData(["Produk", "Ukuran", "Kuantitas", "Jumlah", "Tindakan"]);
+		} else {
+			setTableHeadData(["Produk", "Ukuran", "Kuantitas", "Harga", "Jumlah", "Tindakan"]);
+		}
+	}, [wWidth, readOnly]);
+
 	return (
 		<Table headData={readOnly ? tableHeadData.slice(0, -1) : tableHeadData}>
 			{cartData.map(data => (
 				<TableRow key={data.harga}>
 					<TableCell component="th" scope="row">
-						<Stack direction="row" alignItems="center" gap={3}>
+						<Stack direction="row" alignItems="center" gap={{ xs: 1.5, sm: 2, lg: 3 }}>
 							<Link href="#">
-								<CartItemImageContainer>
+								<CartItemImageContainer sx={{ alignSelf: "flex-start" }}>
 									<CartItemImage src={data.image} />
 								</CartItemImageContainer>
 							</Link>
 							<Link href="#">
-								<CartItemTitle>{data.title}</CartItemTitle>
+								<Stack direction="column" justifyContent="center" gap="0.5rem" sx={{ flex: 1 }}>
+									<CartItemTitle>{data.title}</CartItemTitle>
+									{wWidth <= 1050 && <CartItemDesc>{data.size}</CartItemDesc>}
+									{wWidth <= 700 && (
+										<Stack direction="row" gap={1} alignItems="center">
+											{readOnly ? "x 1" : <QuantityInput value={1} />}
+											{!readOnly && wWidth <= 1050 && (
+												<Tooltip
+													title="Hapus dari Cart"
+													arrow
+													sx={{ fontSize: "1.6rem" }}
+													TransitionComponent={Zoom}
+												>
+													<IconButton color="error">
+														<ClearIcon />
+													</IconButton>
+												</Tooltip>
+											)}
+										</Stack>
+									)}
+								</Stack>
 							</Link>
 						</Stack>
 					</TableCell>
-					<TableCell align="center">{data.size}</TableCell>
-					<TableCell align="center">{readOnly ? "x 1" : <QuantityInput value={1} />}</TableCell>
-					<TableCell align="center">{data.harga}</TableCell>
+					{wWidth > 1050 && <TableCell align="center">{data.size}</TableCell>}
+					{wWidth > 700 && (
+						<TableCell align="center">
+							{readOnly && wWidth >= 1050 ? (
+								"x 1"
+							) : (
+								<Stack direction="row" gap={2} justifyContent="center" alignItems="center">
+									{readOnly ? "x 1" : <QuantityInput value={1} />}
+									{!readOnly && wWidth <= 1050 && (
+										<Tooltip
+											title="Hapus dari Cart"
+											arrow
+											sx={{ fontSize: "1.6rem" }}
+											TransitionComponent={Zoom}
+										>
+											<IconButton color="error">
+												<ClearIcon />
+											</IconButton>
+										</Tooltip>
+									)}
+								</Stack>
+							)}
+						</TableCell>
+					)}
+					{wWidth > 1350 && <TableCell align="center">{data.harga}</TableCell>}
 					<TableCell align="center">{data.jumlah}</TableCell>
-					{!readOnly && (
+					{wWidth > 1050 && !readOnly && (
 						<TableCell align="center">
 							<Tooltip
 								title="Hapus dari Cart"

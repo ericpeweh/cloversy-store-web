@@ -50,7 +50,16 @@ const Products = () => {
 			<PageTitle>Daftar Produk</PageTitle>
 			<ProductsHeader>
 				<Breadcrumbs links={links} />
-				<Stack direction="row" gap={2} alignItems="center">
+				<Stack
+					direction="row"
+					gap={2}
+					sx={{
+						alignItems: "center",
+						justifyContent: { xs: "space-between", sm: "flex-end" },
+						width: { xs: "100%", sm: "auto" },
+						ml: { xs: 1, sm: 0 }
+					}}
+				>
 					<Button
 						sx={{ pr: 6, pl: 5 }}
 						variant="text"
@@ -100,7 +109,15 @@ const Products = () => {
 			</ProductsHeader>
 			<ProductsContent>
 				{isDisplayModeCard ? (
-					<ProductsContainerComponent spacing={4} rowSpacing={6} columns={4}>
+					<ProductsContainerComponent
+						spacing={{ xs: 1, sm: 4, md: 2, xl: 4 }}
+						rowSpacing={{ xs: 1, sm: 2, md: 4, xl: 6 }}
+						size={{ xs: 6, lg: 4, xl: 3 }}
+					>
+						<ProductCard />
+						<ProductCard />
+						<ProductCard />
+						<ProductCard />
 						<ProductCard />
 						<ProductCard />
 						<ProductCard />
@@ -111,7 +128,13 @@ const Products = () => {
 						<ProductCard />
 					</ProductsContainerComponent>
 				) : (
-					<ProductsContainerComponent spacing={4} rowSpacing={6} columns={2}>
+					<ProductsContainerComponent
+						spacing={{ xs: 1, md: 3, xl: 4 }}
+						rowSpacing={{ xs: 1, md: 1, xl: 6 }}
+						size={{ xs: 12, lg: 6 }}
+					>
+						<ProductListItem />
+						<ProductListItem />
 						<ProductListItem />
 						<ProductListItem />
 						<ProductListItem />

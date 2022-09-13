@@ -1,9 +1,51 @@
+:root {
+	--color-primary: #55904e;
+	--font-secondary: Jost, sans-serif;
+	--shadow-xs: 0.5rem 0.5rem 1rem 0rem rgba(0 0 0 / 5%);
+	--shadow-light: 0 -0.2rem 4.5rem -2rem rgba(0 0 0 / 30%);
+
+	/* Endpoints */
+	--xl: 1920px;
+	--lg: 1600px;
+	--md: 1300px;
+	--sm: 900px;
+	--xs: 600px;
+}
+
 html,
 body {
 	padding: 0;
 	margin: 0;
 	font-family: Roboto, sans-serif;
 	font-size: 62.5%;
+}
+
+@media screen and (max-width: 1600px) {
+	html,
+	body {
+		font-size: 60%;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	html,
+	body {
+		font-size: 57.5%;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	html,
+	body {
+		font-size: 55%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	html,
+	body {
+		font-size: 52.5%;
+	}
 }
 
 a {
@@ -17,16 +59,10 @@ a {
 	margin: 0;
 }
 
-:root {
-	--color-primary: #55904e;
-	--font-secondary: Jost, sans-serif;
-	--shadow-xs: 0.5rem 0.5rem 1rem 0rem rgba(0 0 0 / 5%);
-	--shadow-light: 0 -0.2rem 4.5rem -2rem rgba(0 0 0 / 30%);
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
 	width: 10px;
+	height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -66,9 +102,20 @@ Swiper carousel - override using !important
 	background-image: url("/icons/next.svg");
 	right: 4rem !important;
 }
+
 .swiper-button-prev {
 	background-image: url("/icons/prev.svg");
 	left: 4rem !important;
+}
+
+@media screen and (max-width: 600px) {
+	.swiper-button-next {
+		right: 2rem !important;
+	}
+
+	.swiper-button-prev {
+		left: 2rem !important;
+	}
 }
 
 .left {

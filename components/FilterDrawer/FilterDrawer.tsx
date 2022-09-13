@@ -56,7 +56,13 @@ const FilterDrawer = ({ isOpen, onClose }: FilterDrawerProps) => {
 			<Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 5 }}>
 				<Stack direction="row" justifyContent="space-between" alignItems="center" gap={2}>
 					<TuneOutlinedIcon />
-					<Typography fontWeight="500" fontSize="1.8rem" textTransform="uppercase">
+					<Typography
+						sx={{
+							fontWeight: 500,
+							textTransform: "uppercase",
+							fontSize: { xs: "1.6rem", md: "1.7rem", lg: "1.8rem" }
+						}}
+					>
 						Filters
 					</Typography>
 				</Stack>
@@ -100,9 +106,12 @@ const FilterDrawer = ({ isOpen, onClose }: FilterDrawerProps) => {
 					</AmountFilterText>
 				</Stack>
 			</FilterContainer>
-			<Button variant="outlined" sx={{ mt: "auto" }} endIcon={<RestartAltOutlinedIcon />}>
-				Reset filters
-			</Button>
+			<Stack direction="column" gap={1} sx={{ mt: "auto" }}>
+				<Button endIcon={<RestartAltOutlinedIcon />}>Reset filters</Button>
+				<Button variant="outlined" onClick={onClose}>
+					Cancel
+				</Button>
+			</Stack>
 		</FilterDrawerContainer>
 	);
 };

@@ -24,8 +24,12 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TelegramIcon from "@mui/icons-material/Telegram";
 
+// Hooks
+import useWindowSize from "../../hooks/useWindowSize";
+
 // Components
-import { Button, Divider, Rating, Stack, Grid, IconButton } from "@mui/material";
+import { Divider, Rating, Stack, Grid, IconButton } from "@mui/material";
+import Button from "../../components/Button/Button";
 import CarouselWithThumb from "../../components/CarouselWithThumb/CarouselWithThumb";
 import SizeRadio from "../../components/SizeRadio/SizeRadio";
 import QuantityInput from "../../components/QuantityInput/QuantityInput";
@@ -44,17 +48,18 @@ const links = [
 ];
 
 const ProductDetails = () => {
+	const { wWidth } = useWindowSize();
 	const [shoesSize, setShoesSize] = useState(36);
 
 	return (
 		<ProductDetailsContainer>
 			<ProductViewModal />
 			<PageBreadcrumbs links={links} />
-			<GridContainer container spacing={5}>
-				<ImageCarouselContainer item xs={6}>
+			<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }}>
+				<ImageCarouselContainer item xs={12} md={6}>
 					<CarouselWithThumb size="medium" />
 				</ImageCarouselContainer>
-				<ProductInfoContainer item xs={6}>
+				<ProductInfoContainer item xs={12} md={6}>
 					<ProductTitle>Nike AF1 Homesick</ProductTitle>
 					<Stack direction="row" alignItems="center" gap="1rem">
 						<Rating value={4.5} readOnly precision={0.5} />
@@ -68,24 +73,33 @@ const ProductDetails = () => {
 						praesentium, quo nisi culpa odit molestias dolor suscipit alias illum ut sed iusto
 						quidem est. Officiis eligendi illo doloremque quibusdam praesentium incidunt
 					</ProductDesription>
-					<Divider />
+					<Divider sx={{ mb: { xs: 2, sm: 0 } }} />
 					<MainText>Ukuran: EU</MainText>
-					<SizeRadio value={shoesSize} onChange={setShoesSize} columns={6} />
+					<SizeRadio
+						value={shoesSize}
+						onChange={setShoesSize}
+						size={{ xs: 3, sm: 2, md: 3, lg: 2 }}
+					/>
 					<Divider sx={{ mt: 2 }} />
 					<Stack direction="row" alignItems="center" mt={3} mb={5} gap={2}>
 						<MainText>Jumlah barang: </MainText>
-						<QuantityInput value={5} size="medium" />
+						<QuantityInput value={5} size={wWidth <= 600 ? "small" : "medium"} />
 					</Stack>
-					<Button variant="contained" fullWidth size="large">
+					<Button
+						variant="contained"
+						fullWidth
+						size={wWidth <= 600 ? "small" : "large"}
+						color="primary"
+					>
 						Tambahkan ke keranjang
 					</Button>
 					<Button
 						variant="outlined"
-						sx={{ mt: 2 }}
+						sx={{ mt: { xs: 1.5, sm: 2 } }}
 						fullWidth
 						color="primary"
 						endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
-						size="large"
+						size={wWidth <= 600 ? "small" : "large"}
 					>
 						Tambahkan ke wishlist
 					</Button>
@@ -111,7 +125,7 @@ const ProductDetails = () => {
 					</Stack>
 				</ProductInfoContainer>
 			</GridContainer>
-			<GridContainer container spacing={5} rowSpacing={1} pt={5}>
+			<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }} rowSpacing={1} pt={5}>
 				<Grid item xs={12}>
 					<TabsNavigation>
 						<TabsPanel label="Deskripsi">
@@ -137,7 +151,7 @@ const ProductDetails = () => {
 							</p>
 						</TabsPanel>
 						<TabsPanel label="Ulasan (5)">
-							<Grid container spacing={4}>
+							<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
 								<ReviewItem />
 								<ReviewItem />
 								<ReviewItem />
@@ -149,7 +163,7 @@ const ProductDetails = () => {
 			</GridContainer>
 			<ProductsRecommendation>
 				<MainText>Produk lainnya</MainText>
-				<ProductsContainer spacing={2} columns={4}>
+				<ProductsContainer spacing={{ xs: 1, sm: 2, lg: 3 }} size={{ xs: 6, md: 3, xl: 3 }}>
 					<ProductCard size="small" />
 					<ProductCard size="small" />
 					<ProductCard size="small" />

@@ -8,6 +8,7 @@ export const RadioInputLabel = styled(FormLabel)({}) as typeof FormLabel;
 
 export const RadioContainer = styled(RadioGroup)({
 	gap: "4rem",
+	rowGap: "0rem",
 	marginTop: "1rem"
 }) as typeof RadioGroup;
 

@@ -10,7 +10,10 @@ export const CartContainer = styled("div")({
 	marginBottom: "10rem"
 });
 
-export const CartContentContainer = styled(Grid)({
+export const CartContentContainer = styled(Grid)(({ theme }) => ({
 	width: "145rem",
-	marginTop: "2rem"
-}) as typeof Grid;
+	marginTop: "2rem",
+	[theme.breakpoints.down("xl")]: {
+		width: "95vw"
+	}
+})) as typeof Grid;

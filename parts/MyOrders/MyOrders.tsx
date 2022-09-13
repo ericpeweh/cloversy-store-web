@@ -1,7 +1,5 @@
 // Dependencies
-import { Divider } from "@mui/material";
 import React from "react";
-import Button from "../../components/Button/Button";
 
 // Styles
 import {
@@ -19,13 +17,18 @@ import {
 // Icon
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 
+// Hooks
+import useWindowSize from "../../hooks/useWindowSize";
+
 // Components
+import { Divider } from "@mui/material";
+import Button from "../../components/Button/Button";
 import TabsNavigation from "../../components/TabsNavigation/TabsNavigation";
 import TabsPanel from "../../components/TabsPanel/TabsPanel";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import StatusBadge from "../../components/StatusBadge/StatusBadge";
 
-const TemporaryTransactionsComponent = () => (
+const TemporaryTransactionsComponent: React.FC = () => (
 	<>
 		<Transaction>
 			<TransactionDetails>
@@ -79,9 +82,11 @@ const TemporaryTransactionsComponent = () => (
 );
 
 const MyOrders = () => {
+	const { wWidth } = useWindowSize();
+
 	return (
 		<MyOrdersContainer>
-			<TabsNavigation variant="fullWidth">
+			<TabsNavigation variant={wWidth <= 600 ? "scrollable" : "fullWidth"}>
 				<TabsPanel label="Semua" noHorizontalSpacing>
 					<TemporaryTransactionsComponent />
 				</TabsPanel>

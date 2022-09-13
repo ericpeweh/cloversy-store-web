@@ -6,7 +6,7 @@ import Head from "next/head";
 import { Divider } from "@mui/material";
 
 // Components
-import MainWrapper from "../components/PageWrapper/MainWrapper";
+import MainWrapper from "../components/MainWrapper/MainWrapper";
 import BigCarousel from "../components/BigCarousel/BigCarousel";
 import BrandCardList from "../components/BrandCardList/BrandCardList";
 import Recommendations from "../components/Recommendations/Recommendations";

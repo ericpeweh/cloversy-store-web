@@ -37,13 +37,13 @@ const OrderDetails = () => {
 		<OrderDetailsContainer>
 			<DetailsContainer>
 				<PageTitle>Detail Pesanan</PageTitle>
-				<Grid container spacing={2}>
+				<Grid container spacing={{ xs: 1, xl: 2 }}>
 					<Grid item xs={12}>
 						<Button variant="text" size="small" startIcon={<ArrowBackIosNewIcon />}>
 							Kembali
 						</Button>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} md={6}>
 						<Details>
 							<Section>
 								<SectionTitle>Informasi pesanan</SectionTitle>
@@ -122,8 +122,8 @@ const OrderDetails = () => {
 							</Section>
 						</Details>
 					</Grid>
-					<Grid item xs={6}>
-						<Details>
+					<Grid item xs={12} md={6}>
+						<Details sx={{ mt: { xs: -3, md: 0 } }}>
 							<Section>
 								<SectionTitle>Pengiriman</SectionTitle>
 								<InfoContainer>

@@ -6,11 +6,3 @@ export const ReturnPolicyContainer = styled("section")({
 	flexDirection: "column",
 	alignItems: "center"
 });
-
-export const ContentContainer = styled("div")({
-	width: "120rem",
-	margin: "3rem 0 10rem",
-	"& > p": {
-		marginBottom: "3rem"
-	}
-});

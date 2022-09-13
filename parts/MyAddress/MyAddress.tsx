@@ -58,6 +58,7 @@ const MyAddress = () => {
 				onClose={closeDeleteAddressModalHandler}
 				modalTitle="Hapus Alamat"
 				modalDescription="Apakah Anda yakin untuk menghapus alamat 'Rumah'? Alamat yang sudah dihapus tidak dapat dikembalikan."
+				isDeleteConfirmation
 			/>
 			<AddressContainer>
 				<AddressContent>
@@ -99,6 +100,9 @@ const MyAddress = () => {
 						</AddressText>
 					</AddressInfo>
 					<AddressActions>
+						<Button size="small" color="primary">
+							Jadikan Utama
+						</Button>
 						<Button size="small" variant="outlined" onClick={openEditAddressModalHandler}>
 							Ubah alamat
 						</Button>
@@ -112,9 +116,6 @@ const MyAddress = () => {
 						</Button>
 					</AddressActions>
 				</AddressContent>
-				<Button size="small" color="primary">
-					Pilih
-				</Button>
 			</AddressContainer>
 			<Divider flexItem />
 			<Button

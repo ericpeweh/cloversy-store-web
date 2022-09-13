@@ -30,8 +30,8 @@ const AboutUs = () => {
 					odio. Voluptates perspiciatis quo eos.
 				</HeroDescription>
 			</AboutUsHero>
-			<ContentContainer container spacing={6}>
-				<ContentItem item xs={6}>
+			<ContentContainer container spacing={{ xs: 2, md: 3, xl: 6 }}>
+				<ContentItem item xs={12} md={6}>
 					<ContentImage>
 						<Image
 							src="/images/2.jpg"
@@ -42,7 +42,7 @@ const AboutUs = () => {
 						/>
 					</ContentImage>
 				</ContentItem>
-				<ContentItem item xs={6}>
+				<ContentItem item xs={12} md={6}>
 					<Content textLeft>
 						<ContentTag>Informasi</ContentTag>
 						<ContentTitle>Lorem ipsum dolor sit amet consectetur adipisicing elit</ContentTitle>
@@ -55,8 +55,8 @@ const AboutUs = () => {
 					</Content>
 				</ContentItem>
 			</ContentContainer>
-			<ContentContainer container spacing={6}>
-				<ContentItem item xs={6}>
+			<ContentContainer container spacing={{ xs: 2, md: 3, xl: 6 }}>
+				<ContentItem item xs={12} md={6}>
 					<Content textLeft>
 						<ContentTag>Hello world</ContentTag>
 						<ContentTitle>Dolor sit amet consectetur adipisicing elit</ContentTitle>
@@ -69,7 +69,7 @@ const AboutUs = () => {
 						</ContentDescription>
 					</Content>
 				</ContentItem>
-				<ContentItem item xs={6}>
+				<ContentItem item xs={12} md={6}>
 					<ContentImage>
 						<Image
 							src="/images/3.jpg"
@@ -85,7 +85,7 @@ const AboutUs = () => {
 				<Divider flexItem>
 					<ContentTitle>Cerita Kami</ContentTitle>
 				</Divider>
-				<ContentItem item xs={12} sx={{ mt: 7, mb: 4 }}>
+				<ContentItem item xs={12} sx={{ mt: { xs: 3, sm: 7 }, mb: 4 }}>
 					<ContentDescription align="center">
 						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum dolore aliquid quod nemo
 						iure earum blanditiis obcaecati ab alias, laudantium aliquam officia id? Cumque

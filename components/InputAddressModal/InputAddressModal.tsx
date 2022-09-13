@@ -31,10 +31,15 @@ const AddAddressModal = ({ open, onClose, modalTitle }: AddAddressModalProps) =>
 		<AddAddressModalContainer open={open} onClose={onClose}>
 			<CloseButton
 				onClick={onClose}
-				sx={{ top: "2rem", right: "2rem", width: "3rem", height: "3rem" }}
+				sx={{
+					top: { xs: "1.5rem", sm: "2.5rem" },
+					right: { xs: "2rem", sm: "3rem" },
+					width: "3rem",
+					height: "3rem"
+				}}
 			/>
 			<ModalTitle>{modalTitle}</ModalTitle>
-			<Divider />
+			<Divider sx={{ mb: 1 }} />
 			<FormContainer>
 				<Grid container spacing={3}>
 					<InputContainer item xs={12}>
@@ -87,6 +92,7 @@ const AddAddressModal = ({ open, onClose, modalTitle }: AddAddressModalProps) =>
 					</InputContainer>
 					<InputContainer item xs={12}>
 						<Checkbox
+							sx={{ mt: { xs: -2, sm: -1, md: 0 } }}
 							label="Atur sebagai alamat utama"
 							checked={saveAsMainAddress}
 							onChange={setSaveAsMainAddress}

@@ -2,7 +2,7 @@
 import { styled } from "@mui/system";
 
 // Components
-import { Button, ButtonBase, ButtonProps, Grid } from "@mui/material";
+import { Button, ButtonProps, Grid } from "@mui/material";
 
 export const SizeRadioContainer = styled(Grid)({}) as typeof Grid;
 
@@ -22,5 +22,11 @@ export const SizeRadioButton = styled(Button, {
 	"&:hover": {
 		color: selected ? "#fff" : theme.palette.primary.dark,
 		backgroundColor: selected ? theme.palette.primary.main : "#fff"
+	},
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "1.4rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.3rem"
 	}
 }));

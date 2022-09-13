@@ -26,7 +26,12 @@ const Accordion = ({ title, description }: AccordionProps) => {
 	return (
 		<AccordionContainer expanded={isExpanded} onChange={expandChangeHandler}>
 			<Summary expandIcon={<ExpandMoreIcon />}>
-				<ContentTitle color={isExpanded ? "primary" : "black"}>{title}</ContentTitle>
+				<ContentTitle
+					color={isExpanded ? "primary" : "black"}
+					sx={{ mb: { xs: 0, md: 1, xl: 1.5 } }}
+				>
+					{title}
+				</ContentTitle>
 			</Summary>
 			<Details>
 				<ContentDescription>{description}</ContentDescription>

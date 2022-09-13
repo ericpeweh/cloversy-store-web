@@ -28,8 +28,18 @@ const Wishlist = () => {
 			<PageTitle>Wishlist anda</PageTitle>
 			<WishlistTableContainer>
 				<WishlistTable />
-				<Stack mt={6} direction="row" justifyContent="flex-end" alignSelf="stretch">
-					<Stack direction="row" spacing={2}>
+				<Stack
+					mt={{ xs: 4, sm: 5, lg: 6 }}
+					direction="row"
+					justifyContent="flex-end"
+					alignSelf="stretch"
+				>
+					<Stack
+						spacing={{ xs: 1, sm: 2 }}
+						direction={{ xs: "column", sm: "row" }}
+						flex={1}
+						justifyContent={{ xs: "stretch", sm: "flex-end" }}
+					>
 						<Button endIcon={<DeleteIcon />}>Kosongkan wishlist</Button>
 						<Button color="primary" endIcon={<LocalMallOutlinedIcon />}>
 							Pindahkan semua ke keranjang

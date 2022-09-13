@@ -21,7 +21,7 @@ const ShippingInput = () => {
 	return (
 		<ShippingInputContainer>
 			<ContentTitle>Estimasi Biaya Pengiriman</ContentTitle>
-			<InputContainer direction="row" alignItems="center" spacing={2}>
+			<InputContainer direction={{ xs: "column", md: "row" }} alignItems="center" spacing={2}>
 				<SelectInput
 					label="Kabupaten / Kota"
 					value={"Pontianak"}
@@ -40,20 +40,20 @@ const ShippingInput = () => {
 					]}
 				/>
 			</InputContainer>
-			<InputContainer sx={{ pt: 0 }} direction="row" spacing={2}>
+			<InputContainer sx={{ pt: 0 }} direction={{ xs: "column", md: "row" }} spacing={2}>
 				<Button fullWidth>Kalkulasi</Button>
 				<Button fullWidth color="primary" startIcon={<LocalShippingOutlinedIcon />}>
 					Ganti Ekspedisi
 				</Button>
 			</InputContainer>
 			<Divider />
-			<ResultInfo container spacing={3}>
-				<Grid item xs={6}>
+			<ResultInfo container spacing={{ xs: 1, md: 3 }}>
+				<Grid item xs={12} md={6}>
 					<Typography>
 						<strong>Ekspedisi:</strong> JNE OKE (3-6 hari)
 					</Typography>
 				</Grid>
-				<Grid item xs={6}>
+				<Grid item xs={12} md={6}>
 					<Typography>
 						<strong>Biaya kirim:</strong> Rp120.000
 					</Typography>

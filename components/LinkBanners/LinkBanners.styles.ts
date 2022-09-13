@@ -4,12 +4,28 @@ import { styled } from "@mui/system";
 // Components
 import { CardMedia, Grid } from "@mui/material";
 
-export const LinkBannersContainer = styled(Grid)({
+export const LinkBannersContainer = styled(Grid)(({ theme }) => ({
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
-	width: "145rem"
-}) as typeof Grid;
+	[theme.breakpoints.up("xl")]: {
+		width: "145rem"
+	},
+	[theme.breakpoints.down("xl")]: {
+		width: "134rem"
+	},
+	"@media screen and (max-width: 1250px)": {
+		width: "126rem"
+	},
+	[theme.breakpoints.down("lg")]: {
+		width: "118rem",
+		padding: "0 1rem"
+	},
+	"@media screen and (max-width: 1150px)": {
+		width: "100%",
+		marginTop: "3rem"
+	}
+})) as typeof Grid;
 
 export const Banner = styled(Grid)({
 	height: "100%",

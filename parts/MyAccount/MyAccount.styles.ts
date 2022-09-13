@@ -27,34 +27,64 @@ export const ContentCard = styled("div", {
 	cursor: clickable ? "pointer" : "default",
 	gap: "1.5rem",
 	"& svg": {
-		fontSize: "3rem"
+		fontSize: "3rem",
+		[theme.breakpoints.down("md")]: {
+			fontSize: "2.8rem"
+		},
+		[theme.breakpoints.down("sm")]: {
+			fontSize: "2.6rem"
+		}
 	}
 }));
 
-export const MenuTitleContainer = styled("div")({
+export const MenuTitleContainer = styled("div")(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
 	gap: "1rem",
 	fontSize: "1.7rem",
-	fontWeight: 500
-});
+	fontWeight: 500,
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
-export const MenuTitle = styled("h2")({
+export const MenuTitle = styled("h2")(({ theme }) => ({
 	fontSize: "1.7rem",
-	fontWeight: 500
-});
+	fontWeight: 500,
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
-export const ContentTitle = styled("h3")({
+export const ContentTitle = styled("h3")(({ theme }) => ({
 	fontSize: "1.6rem",
 	fontWeight: 400,
 	display: "flex",
 	alignItems: "center",
-	gap: "1rem"
-});
+	gap: "1rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
+}));
 
 export const InformationText = styled("p")(({ theme }) => ({
 	fontSize: "1.5rem",
-	color: theme.palette.grey[600]
+	color: theme.palette.grey[600],
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.4rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.3rem"
+	}
 }));
 
 export const ContentBadge = styled("span")(({ theme }) => ({
@@ -63,5 +93,11 @@ export const ContentBadge = styled("span")(({ theme }) => ({
 	fontSize: "1.5rem",
 	width: "max-content",
 	color: "#fff",
-	padding: "0.2rem 1rem"
+	padding: "0.2rem 1rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.4rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.3rem"
+	}
 }));

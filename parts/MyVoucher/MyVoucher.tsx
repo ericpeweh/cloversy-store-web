@@ -4,14 +4,7 @@ import React from "react";
 // Styles
 import {
 	MyVoucherContainer,
-	VoucherImage,
 	VoucherContainer,
-	VoucherContent,
-	VoucherTitle,
-	VoucherExpiry,
-	Voucher,
-	VoucherCode,
-	VoucherInfo,
 	UsageList,
 	InfoTitle,
 	InfoText
@@ -19,8 +12,6 @@ import {
 
 // Icons
 import InfoIcon from "@mui/icons-material/Info";
-import DiscountIcon from "@mui/icons-material/Discount";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 // Hooks
 import useModal from "../../hooks/useModal";
@@ -32,11 +23,10 @@ import {
 	DialogContentText,
 	DialogTitle,
 	Divider,
-	Grid,
-	IconButton
+	Grid
 } from "@mui/material";
 import Button from "../../components/Button/Button";
-import Tooltip from "../../components/Tooltip/Tooltip";
+import Voucher from "../../components/Voucher/Voucher";
 import CloseButton from "../../components/CloseButton/CloseButton";
 
 const MyVoucher = () => {
@@ -51,12 +41,24 @@ const MyVoucher = () => {
 			<Dialog open={isInfoVoucherModalOpen} onClose={closeInfoVoucherModalHandler}>
 				<CloseButton
 					onClick={closeInfoVoucherModalHandler}
-					sx={{ top: "1.5rem", right: "1.5rem", width: "3rem", height: "3rem" }}
+					sx={{
+						top: { xs: "1.5rem" },
+						right: { xs: "2rem", sm: "2.5rem" },
+						width: "3rem",
+						height: "3rem"
+					}}
 				/>
-				<DialogTitle>Penggunaan Voucher</DialogTitle>
+				<DialogTitle
+					sx={{
+						fontSize: { xs: "1.7rem", sm: "1.8rem", md: "1.9rem" },
+						p: { xs: "1.5rem 2rem", sm: "1.5rem 2.5rem" }
+					}}
+				>
+					Penggunaan Voucher
+				</DialogTitle>
 				<Divider />
-				<DialogContent>
-					<DialogContentText sx={{ mb: 3 }}>
+				<DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
+					<DialogContentText sx={{ mb: 3 }} component="div">
 						<InfoTitle>Syarat & Ketentuan</InfoTitle>
 						<InfoText>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, aut! Nemo id tempore a
@@ -72,7 +74,7 @@ const MyVoucher = () => {
 							sapiente iure odio nulla?
 						</InfoText>
 					</DialogContentText>
-					<DialogContentText>
+					<DialogContentText component="div">
 						<InfoTitle>Cara Pakai</InfoTitle>
 						<UsageList>
 							<li>
@@ -98,68 +100,14 @@ const MyVoucher = () => {
 				</DialogContent>
 			</Dialog>
 			<VoucherContainer container spacing={2}>
-				<Grid item xs={6}>
-					<Voucher>
-						<VoucherImage>
-							<DiscountIcon fontSize="large" />
-						</VoucherImage>
-						<VoucherInfo>
-							<VoucherContent>
-								<VoucherTitle>Diskon Rp 25.000</VoucherTitle>
-								<VoucherExpiry>Berlaku hingga 23 Jul 2022</VoucherExpiry>
-							</VoucherContent>
-							<VoucherCode>
-								<Tooltip title="Salin kode">
-									<IconButton>
-										<ContentCopyIcon />
-									</IconButton>
-								</Tooltip>
-								ACBD98DC88
-							</VoucherCode>
-						</VoucherInfo>
-					</Voucher>
+				<Grid item xs={12} md={6}>
+					<Voucher title={"Diskon Rp 25.000"} expiryDate={"23 Jul 2022"} code={"ACBD98DC88"} />
 				</Grid>
-				<Grid item xs={6}>
-					<Voucher>
-						<VoucherImage>
-							<DiscountIcon fontSize="large" />
-						</VoucherImage>
-						<VoucherInfo>
-							<VoucherContent>
-								<VoucherTitle>Diskon Rp 25.000</VoucherTitle>
-								<VoucherExpiry>Berlaku hingga 23 Jul 2022</VoucherExpiry>
-							</VoucherContent>
-							<VoucherCode>
-								<Tooltip title="Salin kode">
-									<IconButton>
-										<ContentCopyIcon />
-									</IconButton>
-								</Tooltip>
-								ACBD98DC88
-							</VoucherCode>
-						</VoucherInfo>
-					</Voucher>
+				<Grid item xs={12} md={6}>
+					<Voucher title={"Diskon Rp 25.000"} expiryDate={"26 Jul 2022"} code={"FF3298DC88"} />
 				</Grid>
-				<Grid item xs={6}>
-					<Voucher>
-						<VoucherImage>
-							<DiscountIcon fontSize="large" />
-						</VoucherImage>
-						<VoucherInfo>
-							<VoucherContent>
-								<VoucherTitle>Diskon Rp 25.000</VoucherTitle>
-								<VoucherExpiry>Berlaku hingga 23 Jul 2022</VoucherExpiry>
-							</VoucherContent>
-							<VoucherCode>
-								<Tooltip title="Salin kode">
-									<IconButton>
-										<ContentCopyIcon />
-									</IconButton>
-								</Tooltip>
-								ACBD98DC88
-							</VoucherCode>
-						</VoucherInfo>
-					</Voucher>
+				<Grid item xs={12} md={6}>
+					<Voucher title={"Diskon Rp 25.000"} expiryDate={"3 Aug 2022"} code={"BAAD98D828"} />
 				</Grid>
 			</VoucherContainer>
 			<Divider flexItem />

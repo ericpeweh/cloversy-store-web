@@ -2,20 +2,28 @@
 import { Avatar, Button, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { styled } from "@mui/system";
 
-export const CartDrawerContainer = styled(Drawer)({
+export const CartDrawerContainer = styled(Drawer)(({ theme }) => ({
 	position: "relative",
 	"& .MuiDrawer-paper": {
 		width: "50rem",
 		display: "flex",
 		flexDirection: "column",
-		padding: "2rem 3rem 3rem"
+		padding: "2rem 3rem 3rem 4rem",
+		[theme.breakpoints.down("sm")]: {
+			width: "100%",
+			padding: "2rem 3rem 3rem"
+		}
 	}
-}) as typeof Drawer;
+})) as typeof Drawer;
 
 export const HideCartButton = styled(Button)(({ theme }) => ({
 	color: theme.palette.grey[500],
 	fontSize: "1.4rem",
-	alignSelf: "flex-start"
+	alignSelf: "flex-start",
+	paddingLeft: "0",
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.3rem"
+	}
 }));
 
 export const CartLists = styled(List)(({ theme }) => ({
@@ -24,7 +32,8 @@ export const CartLists = styled(List)(({ theme }) => ({
 
 export const CartItem = styled(ListItem)({
 	alignItems: "flex-start",
-	paddingRight: "0"
+	paddingRight: "0",
+	paddingLeft: "0"
 });
 
 export const CartItemImage = styled(Avatar)({
@@ -33,16 +42,35 @@ export const CartItemImage = styled(Avatar)({
 	cursor: "pointer"
 }) as typeof Avatar;
 
-export const CartItemContent = styled(ListItemText)({
+export const CartItemContent = styled(ListItemText)(({ theme }) => ({
 	marginTop: "0",
 	"& .MuiListItemText-primary": {
 		fontWeight: 600,
 		textTransform: "uppercase",
 		fontSize: "1.7rem",
-		cursor: "pointer"
+		cursor: "pointer",
+		[theme.breakpoints.down("lg")]: {
+			fontSize: "1.6rem"
+		},
+		[theme.breakpoints.down("md")]: {
+			fontSize: "1.5rem"
+		},
+		[theme.breakpoints.down("sm")]: {
+			fontSize: "1.4rem"
+		}
 	},
-	"& .MuiListItemText-secondary": {}
-}) as typeof ListItemText;
+	"& .MuiListItemText-secondary": {
+		[theme.breakpoints.down("lg")]: {
+			fontSize: "1.5rem"
+		},
+		[theme.breakpoints.down("md")]: {
+			fontSize: "1.4rem"
+		},
+		[theme.breakpoints.down("sm")]: {
+			fontSize: "1.3rem"
+		}
+	}
+})) as typeof ListItemText;
 
 export const Badge = styled("div")(({ theme }) => ({
 	fontSize: "1.5rem",
@@ -52,7 +80,13 @@ export const Badge = styled("div")(({ theme }) => ({
 	textAlign: "center",
 	fontFamily: "var(--font-secondary)",
 	padding: "0.3rem",
-	margin: "1rem 0"
+	margin: "1rem 0",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
 }));
 
 export const CartActionButtons = styled("div")({
@@ -70,6 +104,12 @@ export const CartItemInfo = styled("div")({
 	marginTop: "2rem"
 });
 
-export const CartItemPrice = styled("p")({
-	fontSize: "1.6rem"
-});
+export const CartItemPrice = styled("p")(({ theme }) => ({
+	fontSize: "1.6rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.5rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
+}));

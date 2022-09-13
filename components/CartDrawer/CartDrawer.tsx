@@ -62,9 +62,9 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 				Continue Shopping
 			</HideCartButton>
 			<CartLists>
-				{[...cartItems, ...cartItems].map(item => (
-					<React.Fragment key={item.name}>
-						<CartItem key={item.name}>
+				{[...cartItems, ...cartItems].map((item, i) => (
+					<React.Fragment key={item.name + i}>
+						<CartItem>
 							<ListItemAvatar sx={{ marginRight: "2rem" }}>
 								<Link href="#">
 									<CartItemImage alt={item.name} src="/images/product.jpg" variant="rounded" />
@@ -98,10 +98,12 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 			</CartLists>
 			<CartActionButtons>
 				<Stack direction="row" justifyContent="space-between" mb="1rem">
-					<Typography fontWeight={500} fontSize="1.7rem">
+					<Typography fontWeight={500} sx={{ fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
 						Subtotal:
 					</Typography>
-					<Typography>Rp35.880.000</Typography>
+					<Typography sx={{ fontWeight: 500, fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
+						Rp35.880.000
+					</Typography>
 				</Stack>
 				<Button variant="outlined">Lihat Keranjang</Button>
 				<Button color="primary">Checkout</Button>

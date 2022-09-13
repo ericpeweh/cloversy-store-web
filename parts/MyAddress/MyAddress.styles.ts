@@ -12,7 +12,10 @@ export const AddressContainer = styled("div")(({ theme }) => ({
 	borderRadius: "0.5rem",
 	display: "flex",
 	justifyContent: "space-between",
-	alignItems: "center"
+	alignItems: "center",
+	[theme.breakpoints.down("sm")]: {
+		padding: "1rem 0"
+	}
 }));
 
 export const AddressContent = styled("div")({
@@ -22,22 +25,41 @@ export const AddressContent = styled("div")({
 
 export const AddressInfo = styled("div")({});
 
-export const AddressLabel = styled("h2")({
+export const AddressLabel = styled("h2")(({ theme }) => ({
 	fontSize: "1.8rem",
 	fontFamily: "var(--font-secondary)",
 	fontWeight: 500,
 	display: "flex",
 	gap: "1rem",
-	marginBottom: "1rem"
-});
+	marginBottom: "1rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.7rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.6rem",
+		marginBottom: "0.7rem"
+	}
+}));
 
-export const RecipientName = styled("h3")({
-	fontSize: "1.7rem"
-});
+export const RecipientName = styled("h3")(({ theme }) => ({
+	fontSize: "1.7rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
-export const AddressText = styled("p")({
-	fontSize: "1.6rem"
-});
+export const AddressText = styled("p")(({ theme }) => ({
+	fontSize: "1.6rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
 
 export const AddressActions = styled("div")({
 	display: "flex",

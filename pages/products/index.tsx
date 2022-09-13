@@ -12,7 +12,7 @@ import useDispatch from "../../hooks/useDispatch";
 import { closeFilterDrawer } from "../../store/slices/productsSlice";
 
 // Components
-import MainWrapper from "../../components/PageWrapper/MainWrapper";
+import MainWrapper from "../../components/MainWrapper/MainWrapper";
 import Products from "../../parts/Products/Products";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
 import FilterDrawer from "../../components/FilterDrawer/FilterDrawer";

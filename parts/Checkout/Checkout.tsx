@@ -14,7 +14,9 @@ import {
 	ContentContainer,
 	FormContainer,
 	OrderCardsContainer,
-	StepperContainer
+	StepperContainer,
+	SummaryDesc,
+	SummaryTitle
 } from "./Checkout.styles";
 
 // Icons
@@ -67,33 +69,33 @@ const Checkout = () => {
 				/>
 			</StepperContainer>
 			<ContentContainer>
-				<Grid container spacing={3}>
+				<Grid container spacing={{ xs: 1, lg: 2, xl: 3 }}>
 					{isOrderSummary && (
 						<>
 							<Grid item xs={12}>
 								<CartTable readOnly />
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<ShippingInput />
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6}>
 								<VoucherInput />
 							</Grid>
 						</>
 					)}
 					{isAddressInfo && (
 						<>
-							<Grid item xs={8}>
+							<Grid item md={12} lg={7} xl={8}>
 								<FormContainer>
-									<Grid container spacing={3}>
-										<Grid item xs={6}>
+									<Grid container spacing={{ xs: 2.5, md: 3 }}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Nama Penerima" id="namaPenerima" />
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Nomor HP" id="nomorHP" />
 										</Grid>
 
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<SelectInput
 												options={[
 													"Kalimantan Barat",
@@ -106,7 +108,7 @@ const Checkout = () => {
 												label="Kabupaten / Kota"
 											/>
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<SelectInput
 												options={[
 													"Pontianak Barat",
@@ -120,10 +122,10 @@ const Checkout = () => {
 												label="Kecamatan"
 											/>
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Kode Pos" id="kodePos" />
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6}>
 											<TextInput label="Catatan Pengiriman" id="catatan" />
 										</Grid>
 										<Grid item xs={12}>
@@ -152,7 +154,9 @@ const Checkout = () => {
 											<Checkbox
 												label={
 													<Stack direction="row" alignItems="center" gap={1}>
-														Kirim sebagai hadiah
+														<Typography sx={{ fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
+															Kirim sebagai hadiah
+														</Typography>
 														<CardGiftcardIcon />
 													</Stack>
 												}
@@ -173,7 +177,7 @@ const Checkout = () => {
 									</Grid>
 								</FormContainer>
 							</Grid>
-							<Grid item xs={4}>
+							<Grid item xs={12} md={12} lg={5} xl={4}>
 								<OrderCardsContainer>
 									<OrderCard
 										title="Nike AF1 Homesick"
@@ -203,7 +207,14 @@ const Checkout = () => {
 						<>
 							<Grid item xs={12}>
 								<ConfirmationContainer>
-									<CheckCircleIcon sx={{ width: 200, height: 200 }} color="primary" />
+									<CheckCircleIcon
+										sx={{
+											width: { xs: 100, md: 150, lg: 200 },
+											height: { xs: 100, md: 150, lg: 200 },
+											mt: { xs: 4, sm: 0 }
+										}}
+										color="primary"
+									/>
 									<ConfirmationTitle>Terima Kasih!</ConfirmationTitle>
 									<ConfirmationDesc>
 										Pesanan telah berhasil dibuat. Detail pesanan akan dikirimkan ke alamat email
@@ -226,28 +237,16 @@ const Checkout = () => {
 						<Box sx={{ width: "100%" }}>
 							<Divider flexItem sx={{ my: 4 }} />
 							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<Typography textAlign="right" fontWeight="bold">
-									Subtotal:
-								</Typography>
-								<Typography textAlign="right" sx={{ minWidth: "13rem" }}>
-									Rp123.000.000
-								</Typography>
+								<SummaryTitle>Subtotal:</SummaryTitle>
+								<SummaryDesc>Rp123.000.000</SummaryDesc>
 							</Stack>
 							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<Typography textAlign="right" fontWeight="bold">
-									Pengiriman:
-								</Typography>
-								<Typography textAlign="right" sx={{ minWidth: "13rem" }}>
-									Rp120.000
-								</Typography>
+								<SummaryTitle>Pengiriman:</SummaryTitle>
+								<SummaryDesc>Rp120.000</SummaryDesc>
 							</Stack>
 							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<Typography textAlign="right" fontWeight="bold">
-									Jumlah:
-								</Typography>
-								<Typography textAlign="right" sx={{ minWidth: "13rem" }}>
-									Rp123.120.000
-								</Typography>
+								<SummaryTitle>Jumlah:</SummaryTitle>
+								<SummaryDesc>Rp123.120.000</SummaryDesc>
 							</Stack>
 							<Stack
 								direction="row"
@@ -255,7 +254,12 @@ const Checkout = () => {
 								mt={3}
 							>
 								{!isOrderSummary && (
-									<Button variant="outlined" startIcon={<ArrowBackIcon />} onClick={backHandler}>
+									<Button
+										variant="outlined"
+										startIcon={<ArrowBackIcon />}
+										onClick={backHandler}
+										sx={{ ml: { xs: 2, sm: 0 } }}
+									>
 										Kembali
 									</Button>
 								)}

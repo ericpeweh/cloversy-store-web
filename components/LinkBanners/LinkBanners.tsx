@@ -17,9 +17,13 @@ const banners = [
 const LinkBanners = () => {
 	return (
 		<Section>
-			<LinkBannersContainer container spacing={4}>
+			<LinkBannersContainer
+				container
+				rowSpacing={{ xs: 1, sm: 2, xl: 4 }}
+				spacing={{ xs: 2, xl: 4 }}
+			>
 				{banners.map(data => (
-					<Banner item xs={4} key={data.name}>
+					<Banner item xs={12} lg={4} key={data.name}>
 						<Card>
 							<BannerImage component="img" image={data.image} alt={data.name} />
 						</Card>

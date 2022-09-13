@@ -1,7 +1,7 @@
 // Dependencies
 import { styled } from "@mui/system";
 
-export const HeaderContainer = styled("header")({
+export const HeaderContainer = styled("header")(({ theme }) => ({
 	height: "9rem",
 	background: "#fff",
 	fontSize: "1.8rem",
@@ -14,20 +14,33 @@ export const HeaderContainer = styled("header")({
 	top: 0,
 	left: 0,
 	zIndex: 1000,
-	width: "100%"
-});
+	width: "100%",
+	[theme.breakpoints.down("md")]: {
+		height: "8rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		height: "7rem",
+		padding: "0 2rem"
+	}
+}));
 
-export const HeaderLogo = styled("a")({
+export const HeaderLogo = styled("a")(({ theme }) => ({
 	display: "block",
 	width: "16rem",
-	cursor: "pointer"
-});
+	cursor: "pointer",
+	[theme.breakpoints.down("md")]: {
+		width: "12rem"
+	}
+}));
 
 // Navigation
-export const NavLinks = styled("nav")({
+export const NavLinks = styled("nav")(({ theme }) => ({
 	display: "flex",
-	justifyContent: "space-between"
-});
+	justifyContent: "space-between",
+	[theme.breakpoints.down("md")]: {
+		display: "none"
+	}
+}));
 
 export const NavLists = styled("ul")({
 	listStyleType: "none"
@@ -66,8 +79,13 @@ export const NavLink = styled("a", {
 }));
 
 // Action buttons
-export const HeaderActions = styled("div")({
+export const HeaderActions = styled("div")(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
-	gap: "1rem"
-});
+	gap: "1rem",
+	[theme.breakpoints.down("md")]: {
+		"& > button:not(:last-child)": {
+			display: "none"
+		}
+	}
+}));

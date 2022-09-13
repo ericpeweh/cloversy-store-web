@@ -21,9 +21,9 @@ const VoucherInput = () => {
 	return (
 		<VoucherInputContainer>
 			<ContentTitle>Kode / Voucher Diskon</ContentTitle>
-			<InputContainer direction="row" alignItems="center" spacing={2}>
+			<InputContainer direction={{ xs: "column", md: "row" }} alignItems="center" spacing={2}>
 				<TextInput label="Kode Voucher" id="input-voucher" />
-				<Button fullWidth sx={{ width: "30rem", alignSelf: "stretch" }}>
+				<Button fullWidth sx={{ width: { xs: "100%", md: "30rem" }, alignSelf: "stretch" }}>
 					Gunakan kode
 				</Button>
 			</InputContainer>
@@ -36,13 +36,13 @@ const VoucherInput = () => {
 				</Button>
 			</InputContainer>
 			<Divider />
-			<ResultInfo container spacing={3}>
-				<Grid item xs={6}>
+			<ResultInfo container spacing={{ xs: 1, md: 3 }}>
+				<Grid item xs={12} md={6}>
 					<Typography>
 						<strong>Nama voucher:</strong> Diskon Lebaran 2022
 					</Typography>
 				</Grid>
-				<Grid item xs={6}>
+				<Grid item xs={12} md={6}>
 					<Typography>
 						<strong>Promo:</strong> - Rp20.000
 					</Typography>
