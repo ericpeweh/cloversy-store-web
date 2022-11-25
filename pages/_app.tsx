@@ -5,6 +5,7 @@ import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { Provider as ReduxProvider } from "react-redux";
 import reduxStore from "../store";
 import Head from "next/head";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 // Styles
 import "../styles/globals.css";
@@ -49,9 +50,17 @@ const App = ({ Component, pageProps }: AppProps) => {
 				<CssBaseline />
 				<ThemeProvider theme={mainTheme}>
 					<ReduxProvider store={reduxStore}>
-						<AppWrapper>
-							<Component {...pageProps} />
-						</AppWrapper>
+						<Auth0Provider
+							domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
+							clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENTID!}
+							audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE!}
+							redirectUri="http://localhost:3000/"
+							scope="openid profile email"
+						>
+							<AppWrapper>
+								<Component {...pageProps} />
+							</AppWrapper>
+						</Auth0Provider>
 					</ReduxProvider>
 				</ThemeProvider>
 			</StyledEngineProvider>

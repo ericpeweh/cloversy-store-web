@@ -21,8 +21,11 @@ export const HideCartButton = styled(Button)(({ theme }) => ({
 	fontSize: "1.4rem",
 	alignSelf: "flex-start",
 	paddingLeft: "0",
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("md")]: {
 		fontSize: "1.3rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.2rem"
 	}
 }));
 

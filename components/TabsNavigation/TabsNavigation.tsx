@@ -27,7 +27,7 @@ const TabsNavigation = ({ children, variant = "standard" }: TabsNavigationProps)
 		<>
 			<TabsNavigationContainer onChange={tabsChangeHandler} value={tabsValue} variant={variant}>
 				{React.Children.map(children, element => (
-					<TabHeader {...element.props} label={element.props.label} />
+					<TabHeader label={element.props.label} />
 				))}
 			</TabsNavigationContainer>
 			{React.Children.map(children, (element, i) => {

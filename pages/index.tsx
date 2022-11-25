@@ -1,11 +1,16 @@
 // Dependencies
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import axios from "axios";
 
-// MUI
-import { Divider } from "@mui/material";
+// Config
+import { BASE_URL } from "../api";
+
+// Types
+import { Product, ResponseWithPagination } from "../interfaces";
 
 // Components
+import { Divider } from "@mui/material";
 import MainWrapper from "../components/MainWrapper/MainWrapper";
 import BigCarousel from "../components/BigCarousel/BigCarousel";
 import BrandCardList from "../components/BrandCardList/BrandCardList";
@@ -13,7 +18,11 @@ import Recommendations from "../components/Recommendations/Recommendations";
 import LinkBanners from "../components/LinkBanners/LinkBanners";
 import ProductViewModal from "../components/ProductViewModal/ProductViewModal";
 
-const Home: NextPage = () => {
+interface HomePageProps {
+	recommendedProducts: Product[];
+}
+
+const Home: NextPage<HomePageProps> = ({ recommendedProducts }) => {
 	return (
 		<>
 			<Head>
@@ -26,12 +35,23 @@ const Home: NextPage = () => {
 				<ProductViewModal />
 				<BigCarousel />
 				<BrandCardList />
-				<Recommendations />
+				<Recommendations products={recommendedProducts} />
 				<Divider />
 				<LinkBanners />
 			</MainWrapper>
 		</>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	const response = await axios.get(`${BASE_URL}/products?count=6&page=1`); // should add &sortBy=popularity later
+	const result: ResponseWithPagination<{ products: Product[] }> = response.data;
+
+	return {
+		props: {
+			recommendedProducts: result.data.products
+		}
+	};
 };
 
 export default Home;

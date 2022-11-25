@@ -116,10 +116,8 @@ const Navbar = () => {
 			<NavLinks>
 				<NavLists>
 					{navigations.map(nav => (
-						<NavListItem key={nav.path}>
-							<Link href={nav.path}>
-								<NavLink active={currentPath === nav.path}>{nav.label}</NavLink>
-							</Link>
+						<NavListItem key={nav.path} onClick={() => router.push(nav.path)}>
+							<NavLink active={currentPath === nav.path}>{nav.label}</NavLink>
 						</NavListItem>
 					))}
 				</NavLists>

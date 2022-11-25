@@ -1,5 +1,7 @@
 // Dependencies
 import React from "react";
+
+// Hooks
 import useWindowSize from "../../hooks/useWindowSize";
 
 // Styles
