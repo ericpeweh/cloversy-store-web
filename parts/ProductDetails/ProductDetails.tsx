@@ -1,5 +1,6 @@
 // Dependencies
 import React, { useState } from "react";
+import Head from "next/head";
 
 // Styles
 import {
@@ -24,11 +25,18 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TelegramIcon from "@mui/icons-material/Telegram";
 
+// Utils
+import formatToRupiah from "../../utils/formatToRupiah";
+
+// Types
+import { Product } from "../../interfaces";
+
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
+import useSelector from "../../hooks/useSelector";
 
 // Components
-import { Divider, Rating, Stack, Grid, IconButton } from "@mui/material";
+import { Divider, Rating, Stack, Grid, IconButton, Typography } from "@mui/material";
 import Button from "../../components/Button/Button";
 import CarouselWithThumb from "../../components/CarouselWithThumb/CarouselWithThumb";
 import SizeRadio from "../../components/SizeRadio/SizeRadio";
@@ -41,136 +49,141 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
 
-const links = [
-	{ label: "Products", url: "#" },
-	{ label: "Nike AF1", url: "#" },
-	{ label: "Nike Air Force 1 Homesick", url: "current" }
-];
+interface ProductDetailsProps {
+	productData: Product;
+}
 
-const ProductDetails = () => {
+const ProductDetails = ({ productData }: ProductDetailsProps) => {
+	const isAuth = useSelector(state => state.auth.isAuth);
 	const { wWidth } = useWindowSize();
 	const [shoesSize, setShoesSize] = useState(36);
+	const [quantity, setQuantity] = useState(1);
+
+	const links = [
+		{ label: "Products", url: "/products" },
+		{ label: productData?.brand, url: "#" },
+		{ label: productData?.title, url: "current" }
+	];
 
 	return (
-		<ProductDetailsContainer>
-			<ProductViewModal />
-			<PageBreadcrumbs links={links} />
-			<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }}>
-				<ImageCarouselContainer item xs={12} md={6}>
-					<CarouselWithThumb size="medium" />
-				</ImageCarouselContainer>
-				<ProductInfoContainer item xs={12} md={6}>
-					<ProductTitle>Nike AF1 Homesick</ProductTitle>
-					<Stack direction="row" alignItems="center" gap="1rem">
-						<Rating value={4.5} readOnly precision={0.5} />
-						<RatingText>4.8 | 24 Reviews</RatingText>
-					</Stack>
-					<ProductPrice>Rp3.899.000</ProductPrice>
-					<ProductDesription>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur officia odio
-						molestiae consectetur nemo maiores commodi, eveniet mollitia? Obcaecati delectus libero
-						ratione dolorem dignissimos, ab officiis officia similique omnis harum animi in,
-						praesentium, quo nisi culpa odit molestias dolor suscipit alias illum ut sed iusto
-						quidem est. Officiis eligendi illo doloremque quibusdam praesentium incidunt
-					</ProductDesription>
-					<Divider sx={{ mb: { xs: 2, sm: 0 } }} />
-					<MainText>Ukuran: EU</MainText>
-					<SizeRadio
-						value={shoesSize}
-						onChange={setShoesSize}
-						size={{ xs: 3, sm: 2, md: 3, lg: 2 }}
-					/>
-					<Divider sx={{ mt: 2 }} />
-					<Stack direction="row" alignItems="center" mt={3} mb={5} gap={2}>
-						<MainText>Jumlah barang: </MainText>
-						<QuantityInput value={5} size={wWidth <= 600 ? "small" : "medium"} />
-					</Stack>
-					<Button
-						variant="contained"
-						fullWidth
-						size={wWidth <= 600 ? "small" : "large"}
-						color="primary"
-					>
-						Tambahkan ke keranjang
-					</Button>
-					<Button
-						variant="outlined"
-						sx={{ mt: { xs: 1.5, sm: 2 } }}
-						fullWidth
-						color="primary"
-						endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
-						size={wWidth <= 600 ? "small" : "large"}
-					>
-						Tambahkan ke wishlist
-					</Button>
-					<Stack direction="row" alignItems="center" mt={2} gap={2}>
-						<MainText>Share: </MainText>
-						<Stack direction="row">
-							<IconButton>
-								<FacebookIcon />
-							</IconButton>
-							<IconButton>
-								<TwitterIcon />
-							</IconButton>
-							<IconButton>
-								<WhatsAppIcon />
-							</IconButton>
-							<IconButton>
-								<InstagramIcon />
-							</IconButton>
-							<IconButton>
-								<TelegramIcon />
-							</IconButton>
+		<>
+			<Head>
+				{" "}
+				<title>Product Details | {productData?.title}</title>
+			</Head>
+
+			<ProductDetailsContainer>
+				<ProductViewModal />
+				<PageBreadcrumbs links={links} />
+				<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }}>
+					<ImageCarouselContainer item xs={12} md={6}>
+						<CarouselWithThumb
+							size="medium"
+							images={
+								productData?.images?.length !== 0 ? productData?.images! : ["/images/no-image.png"]
+							}
+						/>
+					</ImageCarouselContainer>
+					<ProductInfoContainer item xs={12} md={6}>
+						<ProductTitle>{productData?.title}</ProductTitle>
+						<Stack direction="row" alignItems="center" gap="1rem">
+							<Rating value={4.5} readOnly precision={0.5} />
+							<RatingText>4.8 | 24 Reviews</RatingText>
 						</Stack>
-					</Stack>
-				</ProductInfoContainer>
-			</GridContainer>
-			<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }} rowSpacing={1} pt={5}>
-				<Grid item xs={12}>
-					<TabsNavigation>
-						<TabsPanel label="Deskripsi">
-							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem debitis, itaque nobis
-								accusamus perspiciatis exercitationem, soluta quisquam eum sed hic neque excepturi,
-								nam iusto tenetur quibusdam necessitatibus quia. Nesciunt dolore voluptate eligendi
-								sed blanditiis corrupti? Ratione autem et nihil eveniet explicabo ad culpa
-								perferendis architecto. Ipsam ducimus amet optio culpa!
-							</p>
-							<br />
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, eveniet libero
-								labore corporis tempora consequatur iure amet dignissimos accusamus provident ad ut
-								possimus nihil sapiente perspiciatis quis commodi vitae qui. Ipsa quia quisquam
-								beatae excepturi. Fuga earum nihil voluptatibus modi perspiciatis omnis temporibus,
-								doloremque aliquid hic illo laboriosam, possimus quibusdam unde blanditiis
-								repellendus vel dolor ducimus molestiae amet ex optio ad fugiat obcaecati.
-								Accusantium porro itaque hic! Harum voluptas hic doloremque neque aspernatur fugit,
-								atque modi aut sit soluta saepe tempora assumenda eius recusandae corporis?
-								Molestiae perferendis nobis debitis dolore cupiditate! Ducimus aspernatur quidem
-								fuga cum porro! Expedita, ad veritatis!
-							</p>
-						</TabsPanel>
-						<TabsPanel label="Ulasan (5)">
-							<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-								<ReviewItem />
-								<ReviewItem />
-								<ReviewItem />
-							</Grid>
-							<ReviewsPagination count={5} shape="rounded" color="primary" />
-						</TabsPanel>
-					</TabsNavigation>
-				</Grid>
-			</GridContainer>
-			<ProductsRecommendation>
-				<MainText>Produk lainnya</MainText>
-				<ProductsContainer spacing={{ xs: 1, sm: 2, lg: 3 }} size={{ xs: 6, md: 3, xl: 3 }}>
-					<ProductCard size="small" />
-					<ProductCard size="small" />
-					<ProductCard size="small" />
-					<ProductCard size="small" />
-				</ProductsContainer>
-			</ProductsRecommendation>
-		</ProductDetailsContainer>
+						<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
+						<ProductDesription>
+							{productData?.description.split("\n\r")[0] || "No description provided."}
+						</ProductDesription>
+						<Divider sx={{ mb: { xs: 2, sm: 0 } }} />
+						<MainText>Ukuran: EU</MainText>
+						<SizeRadio
+							value={shoesSize}
+							onChange={setShoesSize}
+							size={{ xs: 3, sm: 2, md: 3, lg: 2 }}
+							sizeOptions={productData?.sizes ?? []}
+						/>
+						<Divider sx={{ mt: 2 }} />
+						<Stack direction="row" alignItems="center" mt={3} mb={5} gap={2}>
+							<MainText>Jumlah barang: </MainText>
+							<QuantityInput
+								size={wWidth <= 600 ? "small" : "medium"}
+								value={quantity}
+								onChangeQuantity={setQuantity}
+							/>
+						</Stack>
+						<Button
+							variant="contained"
+							fullWidth
+							size={wWidth <= 600 ? "small" : "large"}
+							color="primary"
+						>
+							Tambahkan ke keranjang
+						</Button>
+						{isAuth && (
+							<Button
+								variant="outlined"
+								sx={{ mt: { xs: 1.5, sm: 2 } }}
+								fullWidth
+								color="primary"
+								endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
+								size={wWidth <= 600 ? "small" : "large"}
+							>
+								Tambahkan ke wishlist
+							</Button>
+						)}
+						<Stack direction="row" alignItems="center" mt={2} gap={2}>
+							<MainText>Share: </MainText>
+							<Stack direction="row">
+								<IconButton>
+									<FacebookIcon />
+								</IconButton>
+								<IconButton>
+									<TwitterIcon />
+								</IconButton>
+								<IconButton>
+									<WhatsAppIcon />
+								</IconButton>
+								<IconButton>
+									<InstagramIcon />
+								</IconButton>
+								<IconButton>
+									<TelegramIcon />
+								</IconButton>
+							</Stack>
+						</Stack>
+					</ProductInfoContainer>
+				</GridContainer>
+				<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }} rowSpacing={1} pt={5}>
+					<Grid item xs={12}>
+						<TabsNavigation>
+							<TabsPanel label="Deskripsi">
+								<Typography sx={{ whiteSpace: "pre-wrap" }}>
+									{productData?.description || "No description provided."}
+								</Typography>
+							</TabsPanel>
+							<TabsPanel label="Ulasan (5)">
+								<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+									<ReviewItem />
+									<ReviewItem />
+									<ReviewItem />
+								</Grid>
+								<ReviewsPagination count={5} shape="rounded" color="primary" />
+							</TabsPanel>
+						</TabsNavigation>
+					</Grid>
+				</GridContainer>
+				{productData?.recommendations.length > 0 && (
+					<ProductsRecommendation>
+						<MainText>Produk lainnya</MainText>
+						<ProductsContainer spacing={{ xs: 1, sm: 2, lg: 3 }} size={{ xs: 6, md: 3, xl: 3 }}>
+							{productData?.recommendations.map(productData => (
+								<ProductCard size="small" productData={productData} key={productData.id} />
+							))}
+						</ProductsContainer>
+					</ProductsRecommendation>
+				)}
+			</ProductDetailsContainer>
+		</>
 	);
 };
 

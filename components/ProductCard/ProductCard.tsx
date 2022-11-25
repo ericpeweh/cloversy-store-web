@@ -12,6 +12,12 @@ import useSelector from "../../hooks/useSelector";
 // Icons
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
+// Utils
+import formatToRupiah from "../../utils/formatToRupiah";
+
+// Types
+import { Product } from "../../interfaces";
+
 // Styles
 import {
 	ProductCardContainer,
@@ -27,14 +33,20 @@ import Link from "next/link";
 interface ProductCardProps {
 	size?: "small" | "medium";
 	disableActionButtons?: boolean;
+	productData: Product;
 }
 
-const ProductCard = ({ size = "medium", disableActionButtons = false }: ProductCardProps) => {
+const ProductCard = ({
+	size = "medium",
+	disableActionButtons = false,
+	productData
+}: ProductCardProps) => {
+	const isAuth = useSelector(state => state.auth.isAuth);
 	const showProductView = useSelector(state => state.global.showProductView);
 	const dispatch = useDispatch();
 
 	const openProductViewHandler = () => {
-		dispatch(openProductView());
+		dispatch(openProductView(productData));
 	};
 
 	return (
@@ -43,10 +55,10 @@ const ProductCard = ({ size = "medium", disableActionButtons = false }: ProductC
 				{!showProductView && !disableActionButtons && (
 					<QuickViewButton onClick={openProductViewHandler}>Quick View</QuickViewButton>
 				)}
-				<Link href="/products/abc">
+				<Link href={`/products/${productData?.slug}`}>
 					<ProductImage
 						component="img"
-						image="/images/product.jpg"
+						image={(productData?.images || [])[0] || "/images/no-image.png"}
 						alt="product name"
 						sx={{
 							height: {
@@ -61,12 +73,12 @@ const ProductCard = ({ size = "medium", disableActionButtons = false }: ProductC
 			</ProductImageContainer>
 			<Stack direction="row" justifyContent="space-between" alignItems="center">
 				<CardContent>
-					<Link href="/products/abc">
-						<ProductTitle>Nike AF1 Homesick</ProductTitle>
+					<Link href={`/products/${productData?.slug}`}>
+						<ProductTitle>{productData?.title}</ProductTitle>
 					</Link>
-					<ProductPrice>Rp3.499.000</ProductPrice>
+					<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
 				</CardContent>
-				{!disableActionButtons && (
+				{!disableActionButtons && isAuth && (
 					<Stack direction="row" justifyContent="space-between" alignItems="center">
 						<Tooltip title="Tambahkan ke wishlist">
 							<IconButton>

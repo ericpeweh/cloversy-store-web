@@ -9,7 +9,7 @@ export const CustomButton = styled(Button)(({ theme, ...props }) => ({
 	padding: props.size === "large" ? "1rem 2.8rem" : "0.6rem 2rem",
 	fontFamily: "var(--font-secondary)",
 	[theme.breakpoints.down("lg")]: {
-		fontSize: props.size === "large" ? "1.5rem" : "1.5rem",
+		fontSize: props.size === "large" ? "1.5rem" : "1.4rem",
 		padding: props.size === "large" ? "0.8rem 2.4rem" : "0.5rem 1.8rem"
 	},
 	[theme.breakpoints.down("sm")]: {

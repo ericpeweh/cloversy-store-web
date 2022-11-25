@@ -40,6 +40,9 @@ export const CarouselImage = styled(
 )<ImageType>(({ imageurl, size, theme }) => ({
 	height: size === "small" ? "35rem" : size === "medium" ? "40rem" : "44rem",
 	backgroundImage: `url(${imageurl})`,
+	[theme.breakpoints.down("xl")]: {
+		height: size === "small" ? "26rem" : size === "medium" ? "30rem" : "34rem"
+	},
 	"@media screen and (max-width: 1100px)": {
 		height: size === "small" ? "30rem" : size === "medium" ? "35rem" : "39rem"
 	},
@@ -59,6 +62,9 @@ export const ThumbImage = styled(
 	backgroundImage: `url(${imageurl})`,
 	cursor: "pointer",
 	borderRadius: "0.5rem",
+	[theme.breakpoints.down("xl")]: {
+		height: size === "small" ? "6rem" : size === "medium" ? "9rem" : "11rem"
+	},
 	"@media screen and (max-width: 1100px)": {
 		height: size === "small" ? "6.5rem" : size === "medium" ? "8.5rem" : "10.5rem"
 	},

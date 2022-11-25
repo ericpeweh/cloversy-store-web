@@ -19,8 +19,12 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
+// Hooks
+import { useAuth0 } from "@auth0/auth0-react";
+import { useRouter } from "next/router";
+
 // Components
-import { Divider, Typography, Stack, InputAdornment } from "@mui/material";
+import { Divider, Typography, Stack, InputAdornment, ButtonBase } from "@mui/material";
 import Button from "../Button/Button";
 import CloseButton from "../CloseButton/CloseButton";
 
@@ -28,12 +32,6 @@ interface MobileMenuDrawerProps {
 	open: boolean;
 	onClose: () => void;
 }
-
-const mobileMenuActions = [
-	{ title: "My Profile", icon: <PermIdentityOutlinedIcon />, action: () => {} },
-	{ title: "Cart", icon: <ShoppingBagOutlinedIcon />, action: () => {} },
-	{ title: "Wishlist", icon: <FavoriteBorderOutlinedIcon />, action: () => {} }
-];
 
 const navigations = [
 	{ label: "Home", path: "/" },
@@ -43,7 +41,23 @@ const navigations = [
 ];
 
 const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
+	const router = useRouter();
+	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 	const searchInputRef = useRef<HTMLInputElement>(null);
+
+	const mobileMenuActions = [
+		{
+			title: "My Profile",
+			icon: <PermIdentityOutlinedIcon />,
+			action: () => router.push("/account")
+		},
+		{ title: "Cart", icon: <ShoppingBagOutlinedIcon />, action: () => router.push("/cart") },
+		{
+			title: "Wishlist",
+			icon: <FavoriteBorderOutlinedIcon />,
+			action: () => router.push("/account/wishlist")
+		}
+	];
 
 	useEffect(() => {
 		if (open) {
@@ -77,24 +91,46 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 			</MobileMenuLists>
 			<MobileMenuActionButtons>
 				<Divider sx={{ mb: "2rem" }} />
-				{mobileMenuActions.map(item => (
-					<Stack
-						key={item.title}
-						direction="row"
-						justifyContent="space-between"
-						alignItems="center"
-						sx={{ cursor: "pointer", p: { xs: "1.5rem 0", sm: "2rem 0" } }}
-					>
-						<Typography>{item.title}</Typography>
-						{item.icon}
-					</Stack>
-				))}
+				{mobileMenuActions.map(item => {
+					if (!isAuthenticated && item.title !== "Cart") return null;
+
+					return (
+						<ButtonBase
+							key={item.title}
+							disableTouchRipple={true}
+							onClick={() => {
+								onClose();
+								item.action();
+							}}
+						>
+							<Stack
+								direction="row"
+								justifyContent="space-between"
+								alignItems="center"
+								sx={{ p: { xs: "1.5rem 0", sm: "2rem 0" }, width: "100%" }}
+							>
+								<Typography>{item.title}</Typography>
+								{item.icon}
+							</Stack>
+						</ButtonBase>
+					);
+				})}
 				<Divider sx={{ mb: "2rem" }} />
-				<Typography sx={{ mt: 1, mb: 2, textAlign: "center" }}>
-					Please login to access wishlist & cart
-				</Typography>
-				<Button endIcon={<LoginIcon />}>Login</Button>
-				{false && <Button endIcon={<LogoutIcon />}>Logout</Button>}
+				{!isAuthenticated && (
+					<Typography sx={{ mt: 1, mb: 2, textAlign: "center" }}>
+						Please login to access wishlist & more menu
+					</Typography>
+				)}
+				{!isAuthenticated && (
+					<Button endIcon={<LoginIcon />} onClick={loginWithRedirect}>
+						Login
+					</Button>
+				)}
+				{isAuthenticated && (
+					<Button endIcon={<LogoutIcon />} onClick={() => logout()}>
+						Logout
+					</Button>
+				)}
 			</MobileMenuActionButtons>
 		</MobileMenuDrawerContainer>
 	);

@@ -2,16 +2,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+// Types
+import { Product } from "../../interfaces";
+
 interface GlobalState {
 	showSearchModal: boolean;
 	showCartModal: boolean;
 	showProductView: boolean;
+	productViewData: Product | null;
 }
 
 const initialState: GlobalState = {
 	showSearchModal: false,
 	showCartModal: false,
-	showProductView: false
+	showProductView: false,
+	productViewData: null
 };
 
 const globalSlice = createSlice({
@@ -30,8 +35,9 @@ const globalSlice = createSlice({
 		closeCartDrawer: (state: GlobalState) => {
 			state.showCartModal = false;
 		},
-		openProductView: (state: GlobalState) => {
+		openProductView: (state: GlobalState, { payload }: PayloadAction<Product>) => {
 			state.showProductView = true;
+			state.productViewData = payload;
 		},
 		closeProductView: (state: GlobalState) => {
 			state.showProductView = false;

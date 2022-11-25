@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Styles
 import { ProductsContainer, ProductsContent, ProductsHeader } from "./Products.styles";
@@ -9,8 +9,29 @@ import TuneIcon from "@mui/icons-material/Tune";
 import GridViewIcon from "@mui/icons-material/GridView";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 
+// Actions
+import { openFilterDrawer, setPriceFilter, setPriceRange } from "../../store/slices/productsSlice";
+
+// Types
+import { Product, ProductsSortValues } from "../../interfaces";
+
+// Hooks
+import { useGetProductsQuery } from "../../api/product.api";
+import { shallowEqual } from "react-redux";
+import useDispatch from "../../hooks/useDispatch";
+import useSelector from "../../hooks/useSelector";
+
 // Components
-import { Badge, Divider, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import {
+	Badge,
+	CircularProgress,
+	Divider,
+	SelectChangeEvent,
+	Stack,
+	ToggleButton,
+	ToggleButtonGroup,
+	Typography
+} from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Button from "../../components/Button/Button";
@@ -18,11 +39,13 @@ import SelectInput from "../../components/SelectInput/SelectInput";
 import ProductsContainerComponent from "../../components/ProductsContainer/ProductsContainer";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductListItem from "../../components/ProductListItem/ProductListItem";
-import useDispatch from "../../hooks/useDispatch";
-import { openFilterDrawer } from "../../store/slices/productsSlice";
+import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import BoxButton from "../../components/BoxButton/BoxButton";
+import InfiniteScroller from "react-infinite-scroll-component";
 
 const links = [
-	{ label: "Beranda", url: "#" },
+	{ label: "Beranda", url: "/" },
 	{ label: "Produk", url: "current" }
 ];
 
@@ -30,10 +53,60 @@ type DisplayModeType = "list" | "card";
 
 const Products = () => {
 	const dispatch = useDispatch();
-
+	const { brandFilter, priceFilter, isInitialized, priceRange } = useSelector(
+		state => state.products,
+		shallowEqual
+	);
+	const [products, setProducts] = useState<Product[]>([]);
+	const [sortBy, setSortBy] = useState<ProductsSortValues>("id");
+	const [currentPage, setCurrentPage] = useState(0);
+	const [page, setPage] = useState(1);
 	const [displayMode, setDisplayMode] = useState<DisplayModeType>("card");
-
 	const isDisplayModeCard = displayMode === "card";
+
+	const {
+		data: productsData,
+		isFetching: isGetProductsFetching,
+		isLoading: isGetProductsLoading,
+		isSuccess: isGetProductsSuccess,
+		error: getProductsError,
+		refetch: refetchProducts
+	} = useGetProductsQuery({ q: "", page, brandFilter, sortBy, priceFilter });
+	const productsError: any = getProductsError;
+	const noDataFound = productsData?.data.products.length === 0;
+
+	let filterCount = 0;
+	if (brandFilter !== -1) filterCount += 1;
+	if (priceFilter[0] !== priceRange[0] || priceFilter[1] !== priceRange[1]) filterCount += 1;
+	console.log(filterCount);
+
+	useEffect(() => {
+		if (isGetProductsSuccess) {
+			if (!isInitialized) {
+				dispatch(setPriceFilter(productsData.data.priceRange));
+				dispatch(setPriceRange(productsData.data.priceRange));
+			}
+		}
+	}, [productsData, isGetProductsSuccess, dispatch, isInitialized]);
+
+	useEffect(() => {
+		setProducts([]);
+		setCurrentPage(0);
+		setPage(1);
+	}, [brandFilter, sortBy, priceFilter]);
+
+	useEffect(() => {
+		if (productsData && isGetProductsSuccess && !isGetProductsFetching) {
+			if (currentPage < productsData.page) {
+				setProducts(prev => [...prev, ...productsData.data.products]);
+				setCurrentPage(productsData.page);
+			}
+		}
+	}, [productsData, currentPage, isGetProductsSuccess, isGetProductsFetching]);
+
+	const loadMoreHandler = () => {
+		setPage(prev => prev + 1);
+	};
 
 	const displayModeChangeHandler = (_: React.SyntheticEvent, newDisplayMode: DisplayModeType) => {
 		if (newDisplayMode !== null) {
@@ -43,6 +116,10 @@ const Products = () => {
 
 	const showFilterDrawerHandler = () => {
 		dispatch(openFilterDrawer());
+	};
+
+	const sortByChangeHandler = (e: SelectChangeEvent<unknown>) => {
+		setSortBy(e.target.value as ProductsSortValues);
 	};
 
 	return (
@@ -61,10 +138,10 @@ const Products = () => {
 					}}
 				>
 					<Button
-						sx={{ pr: 6, pl: 5 }}
+						sx={{ pr: "5rem !important", pl: 5 }}
 						variant="text"
 						startIcon={<TuneIcon />}
-						endIcon={<Badge badgeContent={2} color="primary" sx={{ ml: 1 }}></Badge>}
+						endIcon={<Badge badgeContent={filterCount + ""} color="primary" sx={{ ml: 1 }}></Badge>}
 						onClick={showFilterDrawerHandler}
 					>
 						Filters
@@ -72,14 +149,14 @@ const Products = () => {
 					<Divider orientation="vertical" variant="middle" flexItem />
 					<SelectInput
 						options={[
-							"Default sorting",
-							"Sort by popularity",
-							"Sort by rating",
-							"Sort by latest",
-							"Sort by price: low to high",
-							"Sort by price: high to low"
+							{ label: "Default sorting", value: "id" },
+							{ label: "Sort by popularity", value: "popularity" },
+							{ label: "Sort by rating", value: "rating" },
+							{ label: "Sort by price: low to high", value: "low-to-high" },
+							{ label: "Sort by price: high to low", value: "high-to-low" }
 						]}
-						value="Default sorting"
+						value={sortBy}
+						onChange={sortByChangeHandler}
 						variant="standard"
 						sx={{
 							"&::before": {
@@ -107,47 +184,60 @@ const Products = () => {
 					</ToggleButtonGroup>
 				</Stack>
 			</ProductsHeader>
-			<ProductsContent>
-				{isDisplayModeCard ? (
-					<ProductsContainerComponent
-						spacing={{ xs: 1, sm: 4, md: 2, xl: 4 }}
-						rowSpacing={{ xs: 1, sm: 2, md: 4, xl: 6 }}
-						size={{ xs: 6, lg: 4, xl: 3 }}
-					>
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-						<ProductCard />
-					</ProductsContainerComponent>
-				) : (
-					<ProductsContainerComponent
-						spacing={{ xs: 1, md: 3, xl: 4 }}
-						rowSpacing={{ xs: 1, md: 1, xl: 6 }}
-						size={{ xs: 12, lg: 6 }}
-					>
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-						<ProductListItem />
-					</ProductsContainerComponent>
-				)}
-			</ProductsContent>
+			{isGetProductsFetching && (
+				<FallbackContainer>
+					<CircularProgress />
+				</FallbackContainer>
+			)}
+			{!isGetProductsLoading && !isGetProductsFetching && getProductsError && (
+				<FallbackContainer>
+					<ErrorMessage>{productsError.data?.message}</ErrorMessage>
+					<BoxButton onClick={refetchProducts}>Try again</BoxButton>
+				</FallbackContainer>
+			)}
+			{!isGetProductsLoading && isGetProductsSuccess && noDataFound && (
+				<FallbackContainer>
+					<Typography>No product found!</Typography>
+				</FallbackContainer>
+			)}
+			<InfiniteScroller
+				dataLength={products.length}
+				style={{ height: "100%" }}
+				next={loadMoreHandler}
+				hasMore={page < (productsData?.totalPages || 0)}
+				loader={
+					currentPage !== 0 && (
+						<FallbackContainer size="small">
+							<CircularProgress />
+						</FallbackContainer>
+					)
+				}
+				scrollableTarget="scroller"
+			>
+				<ProductsContent>
+					{isDisplayModeCard ? (
+						<ProductsContainerComponent
+							spacing={{ xs: 1, sm: 4, md: 2, xl: 4 }}
+							rowSpacing={{ xs: 1, sm: 2, md: 4, xl: 6 }}
+							size={{ xs: 6, lg: 4, xl: 3 }}
+						>
+							{products.map(productData => (
+								<ProductCard productData={productData} key={productData.id} />
+							))}
+						</ProductsContainerComponent>
+					) : (
+						<ProductsContainerComponent
+							spacing={{ xs: 1, md: 3, xl: 4 }}
+							rowSpacing={{ xs: 1, md: 1, xl: 6 }}
+							size={{ xs: 12, lg: 6 }}
+						>
+							{products.map(productData => (
+								<ProductListItem productData={productData} key={productData.id} />
+							))}
+						</ProductsContainerComponent>
+					)}
+				</ProductsContent>
+			</InfiniteScroller>
 		</ProductsContainer>
 	);
 };
