@@ -7,12 +7,21 @@ import { SelectInputContainer, SelectMenuItem } from "./SelectInput.styles";
 
 interface SelectInputProps extends SelectProps {
 	options: { label: string; value: string | number }[];
+	onOptionClick?: Function;
 	label?: string;
 	value: string | number;
 	sx?: SxProps;
 }
 
-const SelectInput = ({ options, label, value, sx, ...props }: SelectInputProps) => {
+const SelectInput = ({
+	options,
+	label,
+	value,
+	sx,
+	onChange,
+	onOptionClick,
+	...props
+}: SelectInputProps) => {
 	return (
 		<SelectInputContainer fullWidth>
 			{label && <InputLabel id={label}>{label}</InputLabel>}
@@ -21,7 +30,7 @@ const SelectInput = ({ options, label, value, sx, ...props }: SelectInputProps) 
 				id={label}
 				value={value}
 				label={label}
-				onChange={() => {}}
+				onChange={onChange}
 				MenuProps={{ sx: { maxHeight: { xs: "40rem", sm: "20rem" } } }}
 				sx={{
 					fontSize: {
@@ -38,7 +47,14 @@ const SelectInput = ({ options, label, value, sx, ...props }: SelectInputProps) 
 				{...props}
 			>
 				{options.map(({ label, value }) => (
-					<SelectMenuItem value={value} key={value}>
+					<SelectMenuItem
+						value={value}
+						key={value}
+						onClick={() => {
+							if (!onOptionClick) return;
+							onOptionClick(label);
+						}}
+					>
 						{label}
 					</SelectMenuItem>
 				))}

@@ -6,20 +6,45 @@ import Button from "../Button/Button";
 // Styles
 import { ConfirmationModalContainer } from "./ConfirmationModal.styles";
 
+// Components
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+
+type ColorType =
+	| "primary"
+	| "inherit"
+	| "secondary"
+	| "success"
+	| "error"
+	| "info"
+	| "warning"
+	| undefined;
+
 interface ConfirmationModalProps {
 	modalTitle: string;
 	modalDescription: string;
 	open: boolean;
-	isDeleteConfirmation?: boolean;
+	cancelText?: string;
+	confirmText?: string;
+	cancelColor?: ColorType;
+	confirmColor?: ColorType;
+	isLoading?: boolean;
+	error?: any;
+	onConfirm: () => void;
 	onClose: () => void;
 }
 
 const ConfirmationModal = ({
 	open,
 	onClose,
+	onConfirm,
 	modalTitle,
 	modalDescription,
-	isDeleteConfirmation = false
+	isLoading,
+	error,
+	cancelText = "Batal",
+	confirmText = "Hapus",
+	cancelColor = "primary",
+	confirmColor = "primary"
 }: ConfirmationModalProps) => {
 	return (
 		<ConfirmationModalContainer open={open} onClose={onClose}>
@@ -34,12 +59,15 @@ const ConfirmationModal = ({
 			<DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
 				<DialogContentText>{modalDescription}</DialogContentText>
 			</DialogContent>
+			<DialogContent sx={{ py: 0 }}>
+				{error && <ErrorMessage>{error.data.message}</ErrorMessage>}
+			</DialogContent>
 			<DialogActions>
-				<Button onClick={onClose} variant="outlined" color="secondary" size="small">
-					Batal
+				<Button onClick={onClose} variant="outlined" color={cancelColor} size="small">
+					{cancelText}
 				</Button>
-				<Button onClick={() => {}} color={isDeleteConfirmation ? "error" : "primary"} size="small">
-					Hapus
+				<Button onClick={onConfirm} color={confirmColor} size="small" loading={isLoading}>
+					{confirmText}
 				</Button>
 			</DialogActions>
 		</ConfirmationModalContainer>

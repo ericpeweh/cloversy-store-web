@@ -24,9 +24,10 @@ interface VoucherProps {
 	title: string;
 	expiryDate: string;
 	code: string;
+	onCopyCode: (voucherCode: string) => void;
 }
 
-const Voucher = ({ title, expiryDate, code }: VoucherProps) => {
+const Voucher = ({ title, expiryDate, code, onCopyCode }: VoucherProps) => {
 	return (
 		<VoucherContainer>
 			<VoucherImage>
@@ -39,7 +40,7 @@ const Voucher = ({ title, expiryDate, code }: VoucherProps) => {
 				</VoucherContent>
 				<VoucherCode>
 					<Tooltip title="Salin kode">
-						<IconButton>
+						<IconButton onClick={() => onCopyCode(code)}>
 							<ContentCopyIcon />
 						</IconButton>
 					</Tooltip>

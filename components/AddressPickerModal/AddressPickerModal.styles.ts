@@ -96,9 +96,6 @@ export const RecipientName = styled("h3")(({ theme }) => ({
 
 export const AddressText = styled("p")(({ theme }) => ({
 	fontSize: "1.6rem",
-	[theme.breakpoints.down("md")]: {
-		fontSize: "1.6rem"
-	},
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.5rem"
 	}
