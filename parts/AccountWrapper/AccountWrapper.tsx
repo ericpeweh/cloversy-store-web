@@ -1,6 +1,7 @@
 // Dependencies
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { shallowEqual } from "react-redux";
 
 // Icons
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
@@ -32,6 +33,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 // Components
 import { Avatar, Divider, Grid } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import useSelector from "../../hooks/useSelector";
 
 interface AccountWrapperProps {
 	children: React.ReactElement | React.ReactElement[];
@@ -39,6 +41,7 @@ interface AccountWrapperProps {
 }
 
 const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
+	const { full_name, profile_picture } = useSelector(state => state.auth, shallowEqual);
 	const router = useRouter();
 	const currentPath = router.asPath;
 	const { wWidth } = useWindowSize();
@@ -49,8 +52,8 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 			<OuterContainer>
 				<GridContainer container spacing={{ xs: 2, md: 3, lg: 4 }}>
 					<AccountMenu item xs={12} lg={3}>
-						<Avatar alt="profile icon" src="/images/1.jpg" sx={{ width: 60, height: 60 }} />
-						<AccountName>Hello, Mikici Cimol</AccountName>
+						<Avatar alt="profile icon" src={profile_picture} sx={{ width: 60, height: 60 }} />
+						<AccountName>Hello, {full_name}</AccountName>
 						<MenuContainer>
 							<MenuList>
 								<Link href="/account">
@@ -102,11 +105,17 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 							</MenuList>
 						</MenuContainer>
 					</AccountMenu>
-					{wWidth <= 1200 && (
-						<Grid item xs={12}>
-							<Divider />
-						</Grid>
-					)}
+					<Grid
+						item
+						xs={12}
+						sx={{
+							"@media screen and (min-width: 1200px)": {
+								display: "none"
+							}
+						}}
+					>
+						<Divider />
+					</Grid>
 					<ContentContainer item xs={12} lg={9}>
 						{children}
 					</ContentContainer>

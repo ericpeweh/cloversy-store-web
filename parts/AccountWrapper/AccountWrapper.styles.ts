@@ -58,7 +58,9 @@ export const AccountMenu = styled(Grid)(({ theme }) => ({
 export const AccountName = styled("h2")(({ theme }) => ({
 	fontSize: "2rem",
 	fontWeight: 500,
+	paddingRight: "2rem",
 	marginTop: "1rem",
+	wordWrap: "break-word",
 	[theme.breakpoints.down("lg")]: {
 		marginTop: "2rem"
 	},
