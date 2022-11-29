@@ -1,6 +1,7 @@
 // Dependencies
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { UpdateAccountDetailsBody } from "../../interfaces";
 
 interface AuthState {
 	isAuth: boolean;
@@ -9,6 +10,8 @@ interface AuthState {
 	email: string;
 	profile_picture: string;
 	email_verified: boolean;
+	contact: string | null;
+	birth_date: string | null;
 }
 
 const initialState: AuthState = {
@@ -17,7 +20,9 @@ const initialState: AuthState = {
 	full_name: "",
 	email: "",
 	profile_picture: "",
-	email_verified: false
+	email_verified: false,
+	contact: "",
+	birth_date: ""
 };
 
 const authSlice = createSlice({
@@ -27,7 +32,16 @@ const authSlice = createSlice({
 		setCredentials: (
 			state,
 			{
-				payload: { isAuth, token, full_name, email, profile_picture, email_verified }
+				payload: {
+					isAuth,
+					token,
+					full_name,
+					email,
+					profile_picture,
+					email_verified,
+					contact,
+					birth_date
+				}
 			}: PayloadAction<AuthState>
 		) => {
 			state.isAuth = isAuth;
@@ -36,10 +50,26 @@ const authSlice = createSlice({
 			state.email = email;
 			state.profile_picture = profile_picture;
 			state.email_verified = email_verified;
+			state.contact = contact;
+			state.birth_date = birth_date;
+		},
+		setUserDetails: (
+			state,
+			{ payload: { full_name, contact, birth_date } }: PayloadAction<UpdateAccountDetailsBody>
+		) => {
+			state.full_name = full_name;
+			state.contact = contact;
+			state.birth_date = birth_date;
+		},
+		setUserProfilePicture: (
+			state,
+			{ payload: { profile_picture } }: PayloadAction<{ profile_picture: string }>
+		) => {
+			state.profile_picture = profile_picture;
 		}
 	}
 });
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, setUserDetails, setUserProfilePicture } = authSlice.actions;
 
 export default authSlice.reducer;

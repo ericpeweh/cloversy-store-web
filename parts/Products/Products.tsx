@@ -78,7 +78,6 @@ const Products = () => {
 	let filterCount = 0;
 	if (brandFilter !== -1) filterCount += 1;
 	if (priceFilter[0] !== priceRange[0] || priceFilter[1] !== priceRange[1]) filterCount += 1;
-	console.log(filterCount);
 
 	useEffect(() => {
 		if (isGetProductsSuccess) {

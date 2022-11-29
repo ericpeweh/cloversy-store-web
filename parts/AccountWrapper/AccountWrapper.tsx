@@ -28,12 +28,12 @@ import {
 } from "./AccountWrapper.styles";
 
 // Hooks
-import useWindowSize from "../../hooks/useWindowSize";
+import useSelector from "../../hooks/useSelector";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Components
 import { Avatar, Divider, Grid } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import useSelector from "../../hooks/useSelector";
 
 interface AccountWrapperProps {
 	children: React.ReactElement | React.ReactElement[];
@@ -41,10 +41,12 @@ interface AccountWrapperProps {
 }
 
 const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
+	const { logout } = useAuth0();
 	const { full_name, profile_picture } = useSelector(state => state.auth, shallowEqual);
 	const router = useRouter();
 	const currentPath = router.asPath;
-	const { wWidth } = useWindowSize();
+
+	const logoutHandler = () => logout({ returnTo: "http://localhost:3000/" });
 
 	return (
 		<MyAccountContainer>
@@ -98,7 +100,7 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 										<MenuLabel>Detail akun</MenuLabel>
 									</MenuItem>
 								</Link>
-								<MenuItem>
+								<MenuItem onClick={logoutHandler}>
 									<LogoutOutlinedIcon />
 									<MenuLabel>Logout</MenuLabel>
 								</MenuItem>

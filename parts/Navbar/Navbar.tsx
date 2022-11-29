@@ -5,8 +5,12 @@ import Link from "next/link";
 
 // Hooks
 import useDispatch from "../../hooks/useDispatch";
+import useSelector from "../../hooks/useSelector";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
+import useModal from "../../hooks/useModal";
+import useMenu from "../../hooks/useMenu";
+import useWindowSize from "../../hooks/useWindowSize";
 
 // Styles
 import {
@@ -26,11 +30,6 @@ import { openCartDrawer, openSearchDrawer } from "../../store/slices/globalSlice
 import { Search, ShoppingBagOutlined, Menu as MenuIcon } from "@mui/icons-material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-// Hooks
-import useModal from "../../hooks/useModal";
-import useMenu from "../../hooks/useMenu";
-import useWindowSize from "../../hooks/useWindowSize";
-
 // Components
 import { Avatar, Button, ButtonBase, IconButton } from "@mui/material";
 import MobileMenuDrawer from "../../components/MobileMenuDrawer/MobileMenuDrawer";
@@ -49,7 +48,8 @@ const Navbar = () => {
 	const dispatch = useDispatch();
 	const { wWidth } = useWindowSize();
 
-	const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
+	const profilePicture = useSelector(state => state.auth.profile_picture);
+	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
 	const {
 		isOpen: isMobileMenuOpen,
@@ -144,7 +144,7 @@ const Navbar = () => {
 				{wWidth >= 900 && isAuthenticated && (
 					<ButtonBase sx={{ borderRadius: "0.5rem", p: "0.5rem" }} onClick={openAccountMenuHandler}>
 						<Avatar
-							src={`${user?.picture}` || "/images/1.jpg"}
+							src={profilePicture}
 							alt="user profile"
 							sx={{
 								width: { xs: "3rem", sm: "4rem", md: "5rem" },

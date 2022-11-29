@@ -19,6 +19,7 @@ import Footer from "../Footer/Footer";
 import CartDrawer from "../../components/CartDrawer/CartDrawer";
 import SearchDrawer from "../../components/SearchDrawer/SearchDrawer";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+import { User } from "../../interfaces";
 
 interface AppWrapperProps {
 	children: React.ReactNode;
@@ -40,22 +41,29 @@ const AppWrapper = ({ children }: AppWrapperProps) => {
 			const getToken = async () => {
 				const token = await getAccessTokenSilently();
 
-				dispatch(
-					setCredentials({
-						isAuth: true,
-						token,
-						full_name: user?.name ?? "",
-						email: user?.email ?? "",
-						profile_picture: user?.picture ?? "",
-						email_verified: user?.email_verified ?? false
-					})
-				);
-
-				await axios.get("http://localhost:5000/auth", {
+				const res = await axios.get<
+					void,
+					{ data: { data: { user: User } }; status: "success" | "error" }
+				>("http://localhost:5000/auth", {
 					headers: {
 						Authorization: `Bearer ${token}`
 					}
 				});
+
+				const userData = res.data.data.user;
+
+				dispatch(
+					setCredentials({
+						isAuth: true,
+						token,
+						email: user?.email ?? "",
+						email_verified: user?.email_verified ?? false,
+						full_name: userData?.full_name ?? "",
+						contact: userData?.contact ?? "",
+						profile_picture: userData?.profile_picture ?? "",
+						birth_date: userData?.birth_date ?? ""
+					})
+				);
 			};
 			getToken();
 		}
