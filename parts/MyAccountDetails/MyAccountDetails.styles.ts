@@ -14,6 +14,17 @@ export const SectionTitle = styled("h2")(({ theme }) => ({
 	}
 }));
 
+export const UserEmail = styled("p")(({ theme }) => ({
+	fontSize: "1.7rem",
+	marginBottom: "1rem",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
+
 export const ProfilePictureInputContainer = styled("div")({
 	display: "flex",
 	alignItems: "center",
