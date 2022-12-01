@@ -2,7 +2,13 @@
 import API from "./index";
 
 // Types
-import { Product, ResponseWithPagination, ResponseBody, GetProductsQuery } from "../interfaces";
+import {
+	Product,
+	ResponseWithPagination,
+	ResponseBody,
+	GetProductsQuery,
+	SearchProductsQuery
+} from "../interfaces";
 
 const productApi = API.injectEndpoints({
 	endpoints: build => ({
@@ -22,11 +28,17 @@ const productApi = API.injectEndpoints({
 				return `products?${params.toString()}`;
 			},
 			providesTags: ["Products"]
+		}),
+		searchProducts: build.query<
+			ResponseWithPagination<{ products: Product[] }>,
+			SearchProductsQuery
+		>({
+			query: ({ q: searchQuery }) => `products?q=${searchQuery}&count=4&page=1`
 		})
 	}),
 	overrideExisting: false
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useSearchProductsQuery } = productApi;
 
 export default productApi;

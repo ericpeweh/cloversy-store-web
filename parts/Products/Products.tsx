@@ -18,6 +18,7 @@ import { Product, ProductsSortValues } from "../../interfaces";
 // Hooks
 import { useGetProductsQuery } from "../../api/product.api";
 import { shallowEqual } from "react-redux";
+import { useRouter } from "next/router";
 import useDispatch from "../../hooks/useDispatch";
 import useSelector from "../../hooks/useSelector";
 
@@ -52,6 +53,9 @@ const links = [
 type DisplayModeType = "list" | "card";
 
 const Products = () => {
+	const { query } = useRouter();
+	const { q: searchQuery = "" } = query;
+
 	const dispatch = useDispatch();
 	const { brandFilter, priceFilter, isInitialized, priceRange } = useSelector(
 		state => state.products,
@@ -71,7 +75,7 @@ const Products = () => {
 		isSuccess: isGetProductsSuccess,
 		error: getProductsError,
 		refetch: refetchProducts
-	} = useGetProductsQuery({ q: "", page, brandFilter, sortBy, priceFilter });
+	} = useGetProductsQuery({ q: searchQuery as string, page, brandFilter, sortBy, priceFilter });
 	const productsError: any = getProductsError;
 	const noDataFound = productsData?.data.products.length === 0;
 
@@ -92,7 +96,7 @@ const Products = () => {
 		setProducts([]);
 		setCurrentPage(0);
 		setPage(1);
-	}, [brandFilter, sortBy, priceFilter]);
+	}, [brandFilter, sortBy, priceFilter, searchQuery]);
 
 	useEffect(() => {
 		if (productsData && isGetProductsSuccess && !isGetProductsFetching) {

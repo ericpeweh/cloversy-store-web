@@ -58,6 +58,12 @@ export const SearchResult = styled("div")(({ theme }) => ({
 	flexDirection: "column",
 	alignItems: "center",
 	gap: "2rem",
+	[theme.breakpoints.down(1700)]: {
+		width: "60vw"
+	},
+	[theme.breakpoints.down("xl")]: {
+		width: "70vw"
+	},
 	[theme.breakpoints.down("lg")]: {
 		width: "70vw"
 	},
