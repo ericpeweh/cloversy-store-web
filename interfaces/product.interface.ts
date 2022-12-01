@@ -23,6 +23,10 @@ export interface Product {
 	recommendations: Product[];
 }
 
+export interface SearchProductsQuery {
+	q: string;
+}
+
 export interface GetProductsQuery {
 	page: number | string;
 	brandFilter: number;
