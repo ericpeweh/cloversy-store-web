@@ -3,14 +3,16 @@ import { CardContent, IconButton, Stack } from "@mui/material";
 import React from "react";
 
 // Actions
-import { openProductView } from "../../store/slices/globalSlice";
+import { openProductView, closeSearchDrawer } from "../../store/slices/globalSlice";
 
 // Hooks
 import useDispatch from "../../hooks/useDispatch";
 import useSelector from "../../hooks/useSelector";
+import useWishlisted from "../../hooks/useWishlist";
 
 // Icons
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 // Utils
 import formatToRupiah from "../../utils/formatToRupiah";
@@ -41,6 +43,13 @@ const ProductCard = ({
 	disableActionButtons = false,
 	productData
 }: ProductCardProps) => {
+	const {
+		isWishlisted,
+		addToWishlistHandler,
+		isAddToWishlistLoading,
+		deleteFromWishlistHandler,
+		isDeleteFromWishlistLoading
+	} = useWishlisted(productData);
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const showProductView = useSelector(state => state.global.showProductView);
 	const dispatch = useDispatch();
@@ -68,21 +77,30 @@ const ProductCard = ({
 								lg: size === "small" ? "14rem" : "32rem"
 							}
 						}}
+						onClick={() => dispatch(closeSearchDrawer())}
 					/>
 				</Link>
 			</ProductImageContainer>
 			<Stack direction="row" justifyContent="space-between" alignItems="center">
 				<CardContent>
 					<Link href={`/products/${productData?.slug}`}>
-						<ProductTitle>{productData?.title}</ProductTitle>
+						<ProductTitle onClick={() => dispatch(closeSearchDrawer())}>
+							{productData?.title}
+						</ProductTitle>
 					</Link>
 					<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
 				</CardContent>
 				{!disableActionButtons && isAuth && (
 					<Stack direction="row" justifyContent="space-between" alignItems="center">
-						<Tooltip title="Tambahkan ke wishlist">
-							<IconButton>
-								<FavoriteBorderOutlinedIcon />
+						<Tooltip title={isWishlisted ? "Hapus dari wishlist" : "Tambahkan ke wishlist"}>
+							<IconButton
+								onClick={() =>
+									isWishlisted
+										? deleteFromWishlistHandler(productData.id)
+										: addToWishlistHandler(productData.id)
+								}
+							>
+								{isWishlisted ? <FavoriteIcon color="error" /> : <FavoriteBorderOutlinedIcon />}
 							</IconButton>
 						</Tooltip>
 					</Stack>

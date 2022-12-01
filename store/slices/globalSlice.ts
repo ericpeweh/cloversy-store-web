@@ -10,37 +10,42 @@ interface GlobalState {
 	showCartModal: boolean;
 	showProductView: boolean;
 	productViewData: Product | null;
+	userWishlist: number[];
 }
 
 const initialState: GlobalState = {
 	showSearchModal: false,
 	showCartModal: false,
 	showProductView: false,
-	productViewData: null
+	productViewData: null,
+	userWishlist: []
 };
 
 const globalSlice = createSlice({
 	name: "global",
 	initialState,
 	reducers: {
-		openSearchDrawer: (state: GlobalState) => {
+		openSearchDrawer: state => {
 			state.showSearchModal = true;
 		},
-		closeSearchDrawer: (state: GlobalState) => {
+		closeSearchDrawer: state => {
 			state.showSearchModal = false;
 		},
-		openCartDrawer: (state: GlobalState) => {
+		openCartDrawer: state => {
 			state.showCartModal = true;
 		},
-		closeCartDrawer: (state: GlobalState) => {
+		closeCartDrawer: state => {
 			state.showCartModal = false;
 		},
-		openProductView: (state: GlobalState, { payload }: PayloadAction<Product>) => {
+		openProductView: (state, { payload }: PayloadAction<Product>) => {
 			state.showProductView = true;
 			state.productViewData = payload;
 		},
-		closeProductView: (state: GlobalState) => {
+		closeProductView: state => {
 			state.showProductView = false;
+		},
+		setUserWishlist: (state, { payload }: PayloadAction<number[]>) => {
+			state.userWishlist = payload;
 		}
 	}
 });
@@ -51,7 +56,8 @@ export const {
 	openCartDrawer,
 	closeCartDrawer,
 	openProductView,
-	closeProductView
+	closeProductView,
+	setUserWishlist
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

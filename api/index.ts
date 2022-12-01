@@ -29,7 +29,8 @@ export const API = createApi({
 		"Addresses",
 		"Provinces",
 		"Cities",
-		"Subdistricts"
+		"Subdistricts",
+		"Wishlist"
 	],
 	endpoints: () => ({})
 });

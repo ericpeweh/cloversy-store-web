@@ -88,7 +88,7 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Terakhir dilihat</MenuTitle>
 				</Grid>
-				<Grid item xs={6} sm={3}>
+				{/* <Grid item xs={6} sm={3}>
 					<ProductCard size="small" disableActionButtons />
 				</Grid>
 				<Grid item xs={6} sm={3}>
@@ -99,7 +99,7 @@ const MyAccount = () => {
 				</Grid>
 				<Grid item xs={6} sm={3} sx={{ mt: { xs: -2, sm: 0 } }}>
 					<ProductCard size="small" disableActionButtons />
-				</Grid>
+				</Grid> */}
 			</MenuContent>
 		</>
 	);

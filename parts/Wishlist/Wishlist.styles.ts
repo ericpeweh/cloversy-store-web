@@ -3,6 +3,7 @@ import { styled } from "@mui/system";
 
 export const WishlistTableContainer = styled("div")(({ theme }) => ({
 	width: "145rem",
+	marginBottom: "5rem",
 	[theme.breakpoints.down("xl")]: {
 		width: "95vw"
 	}

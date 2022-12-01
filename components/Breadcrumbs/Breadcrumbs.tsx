@@ -24,11 +24,12 @@ const Breadcrumbs = ({ links }: BreadcrumbsProps) => {
 		<BreadcrumbsContainer>
 			{links.map(link => {
 				return link.url === "current" ? (
-					<Typography color="primary" fontWeight={500}>
+					<Typography color="primary" fontWeight={500} key={link.url}>
 						{link.label}
 					</Typography>
 				) : (
 					<Link
+						key={link.label}
 						underline="hover"
 						color="text.primary"
 						onClick={() => router.push(link.url)}
