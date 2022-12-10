@@ -8,19 +8,22 @@ import { CustomIconButton, DotLoader } from "./IconButton.styles";
 interface IconButtonProps extends MuiIconButtonProps {
 	children: React.ReactNode;
 	component?: any;
-}
-
-interface IconButtonProps {
 	loading?: boolean;
 }
 
-const IconButton = ({ children, loading = false, ...props }: IconButtonProps) => {
-	return (
-		<CustomIconButton {...props}>
-			{loading && <DotLoader />}
-			{children}
-		</CustomIconButton>
-	);
-};
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+	(props: IconButtonProps, ref) => {
+		const { children, loading = false, ...otherProps } = props;
+
+		return (
+			<CustomIconButton {...otherProps} ref={ref}>
+				{loading && <DotLoader />}
+				{children}
+			</CustomIconButton>
+		);
+	}
+);
+
+IconButton.displayName = "IconButton";
 
 export default IconButton;

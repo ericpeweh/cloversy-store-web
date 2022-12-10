@@ -8,8 +8,13 @@ import SearchIcon from "@mui/icons-material/Search";
 // Components
 import CloseButton from "../CloseButton/CloseButton";
 
+// Actions
+import { closeSearchDrawer } from "../../store/slices/globalSlice";
+
 // Hooks
 import useDebounce from "../../hooks/useDebounce";
+import useSelector from "../../hooks/useSelector";
+import useDispatch from "../../hooks/useDispatch";
 import { useRouter } from "next/router";
 
 // Styles
@@ -27,13 +32,10 @@ import FallbackContainer from "../FallbackContainer/FallbackContainer";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import BoxButton from "../BoxButton/BoxButton";
 
-interface SearchDrawerProps {
-	open: boolean;
-	onClose: () => void;
-}
-
-const SearchDrawer = ({ open, onClose }: SearchDrawerProps) => {
+const SearchDrawer = () => {
+	const dispatch = useDispatch();
 	const router = useRouter();
+	const showSearchModal = useSelector(state => state.global.showSearchModal);
 	const [searchInput, setSearchInput] = useState("");
 	const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -51,21 +53,28 @@ const SearchDrawer = ({ open, onClose }: SearchDrawerProps) => {
 	const noDataFound = searchProductsData?.data.products.length === 0;
 
 	useEffect(() => {
-		if (open) {
+		if (showSearchModal) {
 			searchInputRef.current?.focus();
 		}
-	}, [open]);
+	}, [showSearchModal]);
+
+	const closeSearchDrawerHandler = () => dispatch(closeSearchDrawer());
 
 	const searchInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
 		setSearchInput(e.target.value);
 
 	const showAllClickHandler = () => {
 		router.push(`/products?q=${searchInputDebounced}`);
-		onClose();
+		closeSearchDrawerHandler();
 	};
 
 	return (
-		<SearchDrawerContainer open={open} anchor="top" onClose={onClose} keepMounted>
+		<SearchDrawerContainer
+			open={showSearchModal}
+			anchor="top"
+			onClose={closeSearchDrawerHandler}
+			keepMounted
+		>
 			<SearchBarContainer>
 				<SearchInput
 					fullWidth
@@ -82,8 +91,9 @@ const SearchDrawer = ({ open, onClose }: SearchDrawerProps) => {
 					inputRef={searchInputRef}
 					value={searchInput}
 					onChange={searchInputChangeHandler}
+					autoComplete="off"
 				/>
-				<CloseButton onClick={onClose} sx={{ top: "3rem", right: "20vw" }} />
+				<CloseButton onClick={closeSearchDrawerHandler} sx={{ top: "3rem", right: "20vw" }} />
 			</SearchBarContainer>
 			<SearchResult>
 				{isSearchProductsFetching && (

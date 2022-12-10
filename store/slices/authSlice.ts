@@ -12,6 +12,7 @@ interface AuthState {
 	email_verified: boolean;
 	contact: string | null;
 	birth_date: string | null;
+	status: string;
 }
 
 const initialState: AuthState = {
@@ -22,7 +23,8 @@ const initialState: AuthState = {
 	profile_picture: "",
 	email_verified: false,
 	contact: "",
-	birth_date: ""
+	birth_date: "",
+	status: "idle"
 };
 
 const authSlice = createSlice({
@@ -40,7 +42,8 @@ const authSlice = createSlice({
 					profile_picture,
 					email_verified,
 					contact,
-					birth_date
+					birth_date,
+					status
 				}
 			}: PayloadAction<AuthState>
 		) => {
@@ -52,6 +55,10 @@ const authSlice = createSlice({
 			state.email_verified = email_verified;
 			state.contact = contact;
 			state.birth_date = birth_date;
+			state.status = status;
+		},
+		setAuthStatus: (state, { payload }: PayloadAction<string>) => {
+			state.status = payload;
 		},
 		setUserDetails: (
 			state,
@@ -70,6 +77,7 @@ const authSlice = createSlice({
 	}
 });
 
-export const { setCredentials, setUserDetails, setUserProfilePicture } = authSlice.actions;
+export const { setCredentials, setUserDetails, setUserProfilePicture, setAuthStatus } =
+	authSlice.actions;
 
 export default authSlice.reducer;

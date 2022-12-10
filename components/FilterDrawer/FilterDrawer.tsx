@@ -23,6 +23,7 @@ import { setPriceFilter, changeBrandFilter, resetFilter } from "../../store/slic
 import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
 import { useGetBrandsQuery } from "../../api/brand.api";
+import { useRouter } from "next/router";
 
 // Types
 import { Brand } from "../../interfaces";
@@ -41,6 +42,7 @@ interface FilterDrawerProps {
 }
 
 const FilterDrawer = ({ isOpen, onClose }: FilterDrawerProps) => {
+	const router = useRouter();
 	const dispatch = useDispatch();
 	const { priceFilter, brandFilter, priceRange, isInitialized } = useSelector(
 		state => state.products,

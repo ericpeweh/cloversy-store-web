@@ -31,7 +31,7 @@ import { Search, ShoppingBagOutlined, Menu as MenuIcon } from "@mui/icons-materi
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 // Components
-import { Avatar, Button, ButtonBase, IconButton } from "@mui/material";
+import { Avatar, Badge, Button, ButtonBase, IconButton } from "@mui/material";
 import MobileMenuDrawer from "../../components/MobileMenuDrawer/MobileMenuDrawer";
 import Menu from "../../components/Menu/Menu";
 
@@ -49,7 +49,9 @@ const Navbar = () => {
 	const { wWidth } = useWindowSize();
 
 	const profilePicture = useSelector(state => state.auth.profile_picture);
+	const cartItems = useSelector(state => state.global.userCart);
 	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+	const cartQuantityCount = cartItems.reduce((totalQty, item) => (totalQty += item.quantity), 0);
 
 	const {
 		isOpen: isMobileMenuOpen,
@@ -79,7 +81,10 @@ const Navbar = () => {
 					id="account-menu"
 					isOpen={isAccountMenuOpen}
 					items={[
-						{ label: "Profil saya", action: () => router.push("/account"), id: "profil" },
+						{ label: "Dashboard", action: () => router.push("/account"), id: "dashboard" },
+						{ label: "Pesanan saya", action: () => router.push("/account/orders"), id: "orders" },
+						{ label: "Wishlist", action: () => router.push("/account/wishlist"), id: "wishlist" },
+						{ label: "Detail akun", action: () => router.push("/account/details"), id: "account" },
 						{
 							label: "Logout",
 							action: () => logout({ returnTo: "http://localhost:3000/" }),
@@ -90,7 +95,9 @@ const Navbar = () => {
 					onClose={closeAccountMenuHandler}
 				/>
 			)}
-			<MobileMenuDrawer open={isMobileMenuOpen} onClose={closeMobileMenuHandler} />
+			{wWidth < 900 && (
+				<MobileMenuDrawer open={isMobileMenuOpen} onClose={closeMobileMenuHandler} />
+			)}
 			<IconButton
 				aria-label="mobile-menu"
 				onClick={openMobileMenuHandler}
@@ -129,7 +136,13 @@ const Navbar = () => {
 						size="large"
 						disableFocusRipple
 						color="secondary"
-						onClick={loginWithRedirect}
+						onClick={() =>
+							loginWithRedirect({
+								appState: {
+									returnTo: router.asPath
+								}
+							})
+						}
 					>
 						Login
 					</Button>
@@ -139,7 +152,9 @@ const Navbar = () => {
 					<Search sx={{ fontSize: 30 }} color="secondary" />
 				</IconButton>
 				<IconButton aria-label="shopping-cart" onClick={openCartDrawerHandler}>
-					<ShoppingBagOutlined sx={{ fontSize: 30 }} color="secondary" />
+					<Badge badgeContent={cartQuantityCount} color="primary">
+						<ShoppingBagOutlined sx={{ fontSize: 30 }} color="secondary" />
+					</Badge>
 				</IconButton>
 				{wWidth >= 900 && isAuthenticated && (
 					<ButtonBase sx={{ borderRadius: "0.5rem", p: "0.5rem" }} onClick={openAccountMenuHandler}>

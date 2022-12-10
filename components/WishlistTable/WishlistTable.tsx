@@ -18,8 +18,10 @@ import { Product } from "../../interfaces";
 import { openProductView } from "../../store/slices/globalSlice";
 
 // Hooks
+import { useRouter } from "next/router";
 import useWindowSize from "../../hooks/useWindowSize";
 import useDispatch from "../../hooks/useDispatch";
+import useWishlist from "../../hooks/useWishlist";
 
 // Utils
 import formatToRupiah from "../../utils/formatToRupiah";
@@ -33,13 +35,13 @@ import { Stack } from "@mui/material";
 import IconButton from "../IconButton/IconButton";
 import Tooltip from "../Tooltip/Tooltip";
 import Table from "../Table/Table";
-import useWishlist from "../../hooks/useWishlist";
 
 interface WishlistTableProps {
 	wishlistData: Product[];
 }
 
 const WishlistTable = ({ wishlistData }: WishlistTableProps) => {
+	const router = useRouter();
 	const [productIdToDelete, setProductIdToDelete] = useState(-1);
 
 	const { deleteFromWishlistHandler, isDeleteFromWishlistLoading } = useWishlist();
@@ -94,11 +96,11 @@ const WishlistTable = ({ wishlistData }: WishlistTableProps) => {
 									alignItems="center"
 									justifyContent="center"
 								>
-									<Tooltip title="Quickview produk">
+									<Tooltip title="Detail produk">
 										<IconButton
 											color="primary"
 											size="small"
-											onClick={() => openProductViewHandler(data)}
+											onClick={() => router.push(`/products/${data.slug}`)}
 										>
 											<VisibilityIcon />
 										</IconButton>

@@ -8,21 +8,21 @@ import { SizeRadioContainer, SizeRadioItem, SizeRadioButton } from "./SizeRadio.
 import { ResponsiveSizing } from "../ProductsContainer/ProductsContainer";
 
 interface SizeRadioProps {
-	value: number;
-	onChange: Dispatch<SetStateAction<number>>;
+	value: string;
+	onChange: Dispatch<SetStateAction<string>>;
 	columns?: number;
 	size?: ResponsiveSizing;
 	sizeOptions: string[];
 }
 
 const SizeRadio = ({
-	value = 36,
+	value = "36",
 	onChange,
 	columns = 4,
 	size: radioSelectSize,
 	sizeOptions
 }: SizeRadioProps) => {
-	const sizeButtonClickHandler = (newSize: number) => {
+	const sizeButtonClickHandler = (newSize: string) => {
 		if (newSize === value) return;
 		onChange(newSize);
 	};
@@ -35,8 +35,8 @@ const SizeRadio = ({
 						variant="outlined"
 						fullWidth
 						color="primary"
-						selected={Boolean(value === +size)}
-						onClick={() => sizeButtonClickHandler(+size)}
+						selected={Boolean(value === size)}
+						onClick={() => sizeButtonClickHandler(size)}
 					>
 						{size}
 					</SizeRadioButton>

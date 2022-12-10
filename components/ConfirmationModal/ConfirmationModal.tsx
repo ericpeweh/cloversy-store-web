@@ -31,6 +31,7 @@ interface ConfirmationModalProps {
 	error?: any;
 	onConfirm: () => void;
 	onClose: () => void;
+	onlyCloseWithButton?: boolean;
 }
 
 const ConfirmationModal = ({
@@ -44,10 +45,14 @@ const ConfirmationModal = ({
 	cancelText = "Batal",
 	confirmText = "Hapus",
 	cancelColor = "primary",
-	confirmColor = "primary"
+	confirmColor = "primary",
+	onlyCloseWithButton = false
 }: ConfirmationModalProps) => {
 	return (
-		<ConfirmationModalContainer open={open} onClose={onClose}>
+		<ConfirmationModalContainer
+			open={open}
+			onClose={isLoading || onlyCloseWithButton ? () => {} : onClose}
+		>
 			<DialogTitle
 				sx={{
 					fontSize: { xs: "1.7rem", sm: "1.8rem", md: "1.9rem" },
@@ -63,7 +68,12 @@ const ConfirmationModal = ({
 				{error && <ErrorMessage>{error.data.message}</ErrorMessage>}
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onClose} variant="outlined" color={cancelColor} size="small">
+				<Button
+					onClick={isLoading ? () => {} : onClose}
+					variant="outlined"
+					color={cancelColor}
+					size="small"
+				>
 					{cancelText}
 				</Button>
 				<Button onClick={onConfirm} color={confirmColor} size="small" loading={isLoading}>

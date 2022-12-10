@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual } from "react-redux";
 
 // Styles
@@ -16,21 +16,24 @@ import {
 } from "./ProductViewModal.styles";
 
 // Hooks
+import { useRouter } from "next/router";
 import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
-import { useRouter } from "next/router";
+import useWishlist from "../../hooks/useWishlist";
+import useCart from "../../hooks/useCart";
 
 // Actions
 import { closeProductView } from "../../store/slices/globalSlice";
 
 // Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Utils
 import formatToRupiah from "../../utils/formatToRupiah";
 
 // Components
-import { Chip, Divider, Grid, Link, Rating, Stack } from "@mui/material";
+import { Divider, Grid, Link, Rating, Stack } from "@mui/material";
 import CarouselWithThumb from "../CarouselWithThumb/CarouselWithThumb";
 import CloseButton from "../CloseButton/CloseButton";
 import SizeRadio from "../SizeRadio/SizeRadio";
@@ -38,16 +41,38 @@ import QuantityInput from "../QuantityInput/QuantityInput";
 import Button from "../Button/Button";
 
 const ProductViewModal = () => {
-	const [shoesSize, setShoesSize] = useState(36);
-	const [quantity, setQuantity] = useState(1);
-
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const { showProductView, productViewData } = useSelector(state => state.global, shallowEqual);
 
+	const [shoesSize, setShoesSize] = useState(productViewData?.sizes[0] || "36");
+	const [quantity, setQuantity] = useState(1);
+
+	const { addToCartHandler, isAddToCartLoading } = useCart();
+
+	useEffect(() => {
+		setShoesSize(productViewData?.sizes[0] || "36");
+	}, [productViewData?.sizes]);
+
+	const {
+		isWishlisted,
+		addToWishlistHandler,
+		isAddToWishlistLoading,
+		deleteFromWishlistHandler,
+		isDeleteFromWishlistLoading
+	} = useWishlist(productViewData!);
+
 	const closeProductViewHandler = () => {
 		dispatch(closeProductView());
+	};
+
+	const addProductToCartHandler = () => {
+		if (!shoesSize || !quantity || !productViewData) return;
+
+		const newCartItem = { product_id: productViewData.id, size: shoesSize, quantity };
+
+		addToCartHandler(newCartItem, productViewData);
 	};
 
 	let productDescription = "No description provided.";
@@ -102,14 +127,28 @@ const ProductViewModal = () => {
 							<MainText>Jumlah: </MainText>
 							<QuantityInput value={quantity} size="medium" onChangeQuantity={setQuantity} />
 						</Stack>
-						<Button sx={{ mb: 1 }}>Tambahkan ke keranjang</Button>
-						{isAuth && (
+						<Button sx={{ mb: 1 }} onClick={addProductToCartHandler} loading={isAddToCartLoading}>
+							Tambahkan ke keranjang
+						</Button>
+						{isAuth && productViewData && (
 							<Button
 								variant="outlined"
-								color="primary"
-								endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
+								color={isWishlisted ? "error" : "primary"}
+								endIcon={
+									isDeleteFromWishlistLoading || isAddToWishlistLoading ? null : isWishlisted ? (
+										<ClearIcon sx={{ color: "error.primary" }} />
+									) : (
+										<FavoriteIcon sx={{ color: "primary.light" }} />
+									)
+								}
+								onClick={() =>
+									isWishlisted
+										? deleteFromWishlistHandler(productViewData?.id)
+										: addToWishlistHandler(productViewData?.id)
+								}
+								loading={isDeleteFromWishlistLoading || isAddToWishlistLoading}
 							>
-								Tambahkan ke wishlist
+								{isWishlisted ? "Hapus dari wishlist" : "Tambahkan ke wishlist"}
 							</Button>
 						)}
 					</ProductDetails>

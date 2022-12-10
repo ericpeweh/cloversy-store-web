@@ -8,9 +8,15 @@ interface QuantityInputProps {
 	value: number;
 	size?: "small" | "medium";
 	onChangeQuantity: React.Dispatch<React.SetStateAction<number>>;
+	onChangeCallback?: Function;
 }
 
-const QuantityInput = ({ value, size = "small", onChangeQuantity }: QuantityInputProps) => {
+const QuantityInput = ({
+	value,
+	size = "small",
+	onChangeQuantity,
+	onChangeCallback
+}: QuantityInputProps) => {
 	const buttonSize = size === "small" ? "3rem" : "3.5rem";
 	const buttonProps = {
 		minWidth: buttonSize,
@@ -19,11 +25,17 @@ const QuantityInput = ({ value, size = "small", onChangeQuantity }: QuantityInpu
 	};
 
 	const quantityIncrementHandler = () => {
-		onChangeQuantity(prevQty => prevQty + 1);
+		onChangeQuantity(prevQty => {
+			if (onChangeCallback) onChangeCallback(prevQty + 1);
+			return prevQty + 1;
+		});
 	};
 
 	const quantityDecrementHandler = () => {
-		onChangeQuantity(prevQty => (prevQty > 0 ? prevQty - 1 : prevQty));
+		onChangeQuantity(prevQty => {
+			if (onChangeCallback) onChangeCallback(prevQty > 0 ? prevQty - 1 : prevQty);
+			return prevQty > 0 ? prevQty - 1 : prevQty;
+		});
 	};
 
 	const quantityChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +44,7 @@ const QuantityInput = ({ value, size = "small", onChangeQuantity }: QuantityInpu
 		if (isNaN(parseInt(e.target.value))) onChangeQuantity(0);
 
 		onChangeQuantity(_ => +e.target.value.toString());
+		if (onChangeCallback) onChangeCallback(+e.target.value.toString());
 	};
 
 	return (

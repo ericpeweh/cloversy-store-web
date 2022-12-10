@@ -1,5 +1,4 @@
 // Dependencies
-import { CardContent, IconButton, Stack } from "@mui/material";
 import React from "react";
 
 // Actions
@@ -8,7 +7,7 @@ import { openProductView, closeSearchDrawer } from "../../store/slices/globalSli
 // Hooks
 import useDispatch from "../../hooks/useDispatch";
 import useSelector from "../../hooks/useSelector";
-import useWishlisted from "../../hooks/useWishlist";
+import useWishlist from "../../hooks/useWishlist";
 
 // Icons
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -29,6 +28,9 @@ import {
 	ProductTitle,
 	QuickViewButton
 } from "./ProductCard.styles";
+
+// Components
+import { CardContent, Stack, IconButton } from "@mui/material";
 import Tooltip from "../Tooltip/Tooltip";
 import Link from "next/link";
 
@@ -36,26 +38,28 @@ interface ProductCardProps {
 	size?: "small" | "medium";
 	disableActionButtons?: boolean;
 	productData: Product;
+	openDetailsCallback?: Function;
 }
 
 const ProductCard = ({
 	size = "medium",
 	disableActionButtons = false,
-	productData
+	productData,
+	openDetailsCallback
 }: ProductCardProps) => {
-	const {
-		isWishlisted,
-		addToWishlistHandler,
-		isAddToWishlistLoading,
-		deleteFromWishlistHandler,
-		isDeleteFromWishlistLoading
-	} = useWishlisted(productData);
+	const { isWishlisted, addToWishlistHandler, deleteFromWishlistHandler } =
+		useWishlist(productData);
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const showProductView = useSelector(state => state.global.showProductView);
 	const dispatch = useDispatch();
 
 	const openProductViewHandler = () => {
 		dispatch(openProductView(productData));
+	};
+
+	const openProductDetailsHandler = () => {
+		dispatch(closeSearchDrawer());
+		if (openDetailsCallback) openDetailsCallback();
 	};
 
 	return (
@@ -77,16 +81,14 @@ const ProductCard = ({
 								lg: size === "small" ? "14rem" : "32rem"
 							}
 						}}
-						onClick={() => dispatch(closeSearchDrawer())}
+						onClick={openProductDetailsHandler}
 					/>
 				</Link>
 			</ProductImageContainer>
 			<Stack direction="row" justifyContent="space-between" alignItems="center">
 				<CardContent>
 					<Link href={`/products/${productData?.slug}`}>
-						<ProductTitle onClick={() => dispatch(closeSearchDrawer())}>
-							{productData?.title}
-						</ProductTitle>
+						<ProductTitle onClick={openProductDetailsHandler}>{productData?.title}</ProductTitle>
 					</Link>
 					<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
 				</CardContent>

@@ -3,9 +3,10 @@ import { IconButton, Stack } from "@mui/material";
 import React from "react";
 
 // Hooks
+import { useRouter } from "next/router";
 import useDispatch from "../../hooks/useDispatch";
 import useSelector from "../../hooks/useSelector";
-import { useRouter } from "next/router";
+import useWishlist from "../../hooks/useWishlist";
 
 // Actions
 import { openProductView } from "../../store/slices/globalSlice";
@@ -30,6 +31,7 @@ import formatToRupiah from "../../utils/formatToRupiah";
 
 // Icons
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 // Components
@@ -42,6 +44,8 @@ interface ProductListItemProps {
 }
 
 const ProductListItem = ({ productData }: ProductListItemProps) => {
+	const { isWishlisted, addToWishlistHandler, deleteFromWishlistHandler } =
+		useWishlist(productData);
 	const router = useRouter();
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const showProductView = useSelector(state => state.global.showProductView);
@@ -69,9 +73,15 @@ const ProductListItem = ({ productData }: ProductListItemProps) => {
 				<Stack direction="row" justifyContent="space-between">
 					<ProductTitle>{productData?.title}</ProductTitle>
 					{isAuth && (
-						<Tooltip title="Tambahkan ke wishlist">
-							<IconButton>
-								<FavoriteBorderOutlinedIcon />
+						<Tooltip title={isWishlisted ? "Hapus dari wishlist" : "Tambahkan ke wishlist"}>
+							<IconButton
+								onClick={() =>
+									isWishlisted
+										? deleteFromWishlistHandler(productData.id)
+										: addToWishlistHandler(productData.id)
+								}
+							>
+								{isWishlisted ? <FavoriteIcon color="error" /> : <FavoriteBorderOutlinedIcon />}
 							</IconButton>
 						</Tooltip>
 					)}

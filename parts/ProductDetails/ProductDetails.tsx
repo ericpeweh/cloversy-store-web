@@ -19,6 +19,7 @@ import {
 
 // Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ClearIcon from "@mui/icons-material/Clear";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -34,6 +35,8 @@ import { Product } from "../../interfaces";
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
 import useSelector from "../../hooks/useSelector";
+import useWishlist from "../../hooks/useWishlist";
+import useCart from "../../hooks/useCart";
 
 // Components
 import { Divider, Rating, Stack, Grid, IconButton, Typography } from "@mui/material";
@@ -56,14 +59,32 @@ interface ProductDetailsProps {
 const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const { wWidth } = useWindowSize();
-	const [shoesSize, setShoesSize] = useState(36);
+	const [shoesSize, setShoesSize] = useState(productData.sizes[0] || "36");
 	const [quantity, setQuantity] = useState(1);
 
+	const { addToCartHandler, isAddToCartLoading } = useCart();
+
+	const {
+		isWishlisted,
+		addToWishlistHandler,
+		isAddToWishlistLoading,
+		deleteFromWishlistHandler,
+		isDeleteFromWishlistLoading
+	} = useWishlist(productData);
+
 	const links = [
-		{ label: "Products", url: "/products" },
-		{ label: productData?.brand, url: "#" },
+		{ label: "Beranda", url: "/" },
+		{ label: "Produk", url: "/products" },
 		{ label: productData?.title, url: "current" }
 	];
+
+	const addProductToCartHandler = () => {
+		if (!shoesSize || !quantity) return;
+
+		const newCartItem = { product_id: productData.id, size: shoesSize, quantity };
+
+		addToCartHandler(newCartItem, productData);
+	};
 
 	return (
 		<>
@@ -116,6 +137,8 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 							fullWidth
 							size={wWidth <= 600 ? "small" : "large"}
 							color="primary"
+							onClick={addProductToCartHandler}
+							loading={isAddToCartLoading}
 						>
 							Tambahkan ke keranjang
 						</Button>
@@ -124,11 +147,23 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 								variant="outlined"
 								sx={{ mt: { xs: 1.5, sm: 2 } }}
 								fullWidth
-								color="primary"
-								endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
+								color={isWishlisted ? "error" : "primary"}
+								endIcon={
+									isDeleteFromWishlistLoading || isAddToWishlistLoading ? null : isWishlisted ? (
+										<ClearIcon sx={{ color: "error.primary" }} />
+									) : (
+										<FavoriteIcon sx={{ color: "primary.light" }} />
+									)
+								}
+								onClick={() =>
+									isWishlisted
+										? deleteFromWishlistHandler(productData.id)
+										: addToWishlistHandler(productData.id)
+								}
+								loading={isDeleteFromWishlistLoading || isAddToWishlistLoading}
 								size={wWidth <= 600 ? "small" : "large"}
 							>
-								Tambahkan ke wishlist
+								{isWishlisted ? "Hapus dari wishlist" : "Tambahkan ke wishlist"}
 							</Button>
 						)}
 						<Stack direction="row" alignItems="center" mt={2} gap={2}>

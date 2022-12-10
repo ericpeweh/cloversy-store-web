@@ -4,6 +4,7 @@ import { styled } from "@mui/system";
 
 export const MobileMenuDrawerContainer = styled(Drawer)(({ theme }) => ({
 	position: "relative",
+	display: "none",
 	"& .MuiDrawer-paper": {
 		width: "50rem",
 		display: "flex",
@@ -12,6 +13,9 @@ export const MobileMenuDrawerContainer = styled(Drawer)(({ theme }) => ({
 		[theme.breakpoints.down("sm")]: {
 			width: "100%"
 		}
+	},
+	[theme.breakpoints.down("md")]: {
+		display: "block"
 	}
 })) as typeof Drawer;
 
@@ -72,3 +76,12 @@ export const SearchInput = styled(TextField)(({ theme }) => ({
 	},
 	marginBottom: "4rem"
 })) as typeof TextField;
+
+export const SearchResult = styled("div")(({ theme }) => ({
+	width: "100%",
+	margin: "0rem 0 3rem",
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	gap: "2rem"
+}));

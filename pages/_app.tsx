@@ -1,11 +1,10 @@
 // Dependencies
-import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { Provider as ReduxProvider } from "react-redux";
 import reduxStore from "../store";
 import Head from "next/head";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, User } from "@auth0/auth0-react";
 
 // Styles
 import "../styles/globals.css";
@@ -15,6 +14,13 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
+// Hooks
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
+// Types
+import { AppState } from "@auth0/auth0-react";
+
 // Theme
 import mainTheme from "../styles/mainTheme";
 
@@ -23,6 +29,8 @@ import AppWrapper from "../parts/AppWrapper/AppWrapper";
 import { CssBaseline } from "@mui/material";
 
 const App = ({ Component, pageProps }: AppProps) => {
+	const router = useRouter();
+
 	// Prevent navbar shifting on open dialog
 	useEffect(() => {
 		const body = document.body;
@@ -41,6 +49,13 @@ const App = ({ Component, pageProps }: AppProps) => {
 		observer.observe(body, { attributes: true, attributeFilter: ["style"] });
 	}, []);
 
+	const redirectCallbackHandler = (
+		appState?: AppState | undefined,
+		_user?: User | undefined
+	): void => {
+		router.replace(appState?.returnTo || window.location.pathname);
+	};
+
 	return (
 		<>
 			<Head>
@@ -56,6 +71,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 							audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE!}
 							redirectUri="http://localhost:3000/"
 							scope="openid profile email"
+							onRedirectCallback={redirectCallbackHandler}
 						>
 							<AppWrapper>
 								<Component {...pageProps} />

@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useEffect, useRef } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 // Styles
@@ -8,7 +8,8 @@ import {
 	MobileMenuDrawerContainer,
 	MobileMenuItem,
 	MobileMenuLists,
-	SearchInput
+	SearchInput,
+	SearchResult
 } from "./MobileMenuDrawer.styles";
 
 // Icons
@@ -20,13 +21,27 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 // Hooks
+import { useSearchProductsQuery } from "../../api/product.api";
+import useDebounce from "../../hooks/useDebounce";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
 
 // Components
-import { Divider, Typography, Stack, InputAdornment, ButtonBase } from "@mui/material";
+import {
+	Divider,
+	Typography,
+	Stack,
+	InputAdornment,
+	ButtonBase,
+	CircularProgress
+} from "@mui/material";
 import Button from "../Button/Button";
 import CloseButton from "../CloseButton/CloseButton";
+import FallbackContainer from "../FallbackContainer/FallbackContainer";
+import ProductsContainer from "../ProductsContainer/ProductsContainer";
+import ProductCard from "../ProductCard/ProductCard";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import BoxButton from "../BoxButton/BoxButton";
 
 interface MobileMenuDrawerProps {
 	open: boolean;
@@ -44,6 +59,19 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 	const router = useRouter();
 	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 	const searchInputRef = useRef<HTMLInputElement>(null);
+	const [searchInput, setSearchInput] = useState("");
+	const searchInputDebounced = useDebounce(searchInput, 500);
+
+	const {
+		data: searchProductsData,
+		isFetching: isSearchProductsFetching,
+		isLoading: isSearchProductsLoading,
+		isSuccess: isSearchProductsSuccess,
+		error: searchProductsErrorData,
+		refetch: refetchSearchProducts
+	} = useSearchProductsQuery({ q: searchInputDebounced }, { skip: !open });
+	const searchProductsError: any = searchProductsErrorData;
+	const noDataFound = searchProductsData?.data.products.length === 0;
 
 	const mobileMenuActions = [
 		{
@@ -65,6 +93,14 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 		}
 	}, [open]);
 
+	const searchInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
+		setSearchInput(e.target.value);
+
+	const showAllClickHandler = () => {
+		router.push(`/products?q=${searchInputDebounced}`);
+		onClose();
+	};
+
 	return (
 		<MobileMenuDrawerContainer open={open} onClose={onClose} anchor="left">
 			<CloseButton onClick={onClose} sx={{ top: "2rem", left: "2rem" }} />
@@ -82,7 +118,52 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 					}}
 					variant="standard"
 					inputRef={searchInputRef}
+					value={searchInput}
+					onChange={searchInputChangeHandler}
+					autoComplete="off"
 				/>
+				{searchInputDebounced !== "" && (
+					<SearchResult>
+						{isSearchProductsFetching && (
+							<FallbackContainer>
+								<CircularProgress />
+							</FallbackContainer>
+						)}
+						{!isSearchProductsLoading && !isSearchProductsFetching && searchProductsError && (
+							<FallbackContainer>
+								<ErrorMessage>{searchProductsError.data?.message}</ErrorMessage>
+								<BoxButton onClick={refetchSearchProducts}>Try again</BoxButton>
+							</FallbackContainer>
+						)}
+						{!isSearchProductsFetching && isSearchProductsSuccess && noDataFound && (
+							<FallbackContainer>
+								<Typography>No product found!</Typography>
+							</FallbackContainer>
+						)}
+						{isSearchProductsSuccess &&
+							!isSearchProductsFetching &&
+							searchProductsData &&
+							!noDataFound && (
+								<>
+									<ProductsContainer
+										spacing={{ xs: 1, sm: 2 }}
+										rowSpacing={{ xs: 1, sm: 2 }}
+										size={{ xs: 6, sm: 6 }}
+									>
+										{searchProductsData?.data.products.map(product => (
+											<ProductCard
+												size="small"
+												key={product.id}
+												productData={product}
+												openDetailsCallback={onClose}
+											/>
+										))}
+									</ProductsContainer>
+									<Button onClick={showAllClickHandler}>Show all</Button>
+								</>
+							)}
+					</SearchResult>
+				)}
 				{navigations.map(item => (
 					<Link href={item.path} key={item.label}>
 						<MobileMenuItem onClick={onClose}>{item.label}</MobileMenuItem>
@@ -122,7 +203,16 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 					</Typography>
 				)}
 				{!isAuthenticated && (
-					<Button endIcon={<LoginIcon />} onClick={loginWithRedirect}>
+					<Button
+						endIcon={<LoginIcon />}
+						onClick={() =>
+							loginWithRedirect({
+								appState: {
+									returnTo: router.asPath
+								}
+							})
+						}
+					>
 						Login
 					</Button>
 				)}

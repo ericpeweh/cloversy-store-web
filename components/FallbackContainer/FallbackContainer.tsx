@@ -14,7 +14,7 @@ const FallbackContainer = ({ children, size = "medium" }: FallbackContainerProps
 		<Stack
 			justifyContent="center"
 			alignItems="center"
-			sx={{ height: size === "medium" ? "20rem" : "13rem" }}
+			sx={{ height: size === "medium" ? "20rem" : "13rem", width: "100%" }}
 		>
 			{children}
 		</Stack>
