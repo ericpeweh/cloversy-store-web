@@ -3,28 +3,46 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 // Types
-import { Product } from "../../interfaces";
+import { CartItemDetails, Product } from "../../interfaces";
 
 interface GlobalState {
+	cartSnackbarData: Partial<CartItemDetails> | null;
+	showCartSnackbar: boolean;
 	showSearchModal: boolean;
 	showCartModal: boolean;
 	showProductView: boolean;
 	productViewData: Product | null;
 	userWishlist: number[];
+	userCart: CartItemDetails[];
+	canSyncUserCart: boolean;
 }
 
 const initialState: GlobalState = {
+	cartSnackbarData: null,
+	showCartSnackbar: false,
 	showSearchModal: false,
 	showCartModal: false,
 	showProductView: false,
 	productViewData: null,
-	userWishlist: []
+	userWishlist: [],
+	userCart: [],
+	canSyncUserCart: false
 };
 
 const globalSlice = createSlice({
 	name: "global",
 	initialState,
 	reducers: {
+		openCartSnackbar: (state, { payload }: PayloadAction<Partial<CartItemDetails>>) => {
+			state.showCartSnackbar = true;
+			state.cartSnackbarData = payload;
+		},
+		closeCartSnackbar: state => {
+			state.showCartSnackbar = false;
+		},
+		resetCartSnackbarData: state => {
+			state.cartSnackbarData = null;
+		},
 		openSearchDrawer: state => {
 			state.showSearchModal = true;
 		},
@@ -46,18 +64,37 @@ const globalSlice = createSlice({
 		},
 		setUserWishlist: (state, { payload }: PayloadAction<number[]>) => {
 			state.userWishlist = payload;
+		},
+		setUserCart: (
+			state,
+			{ payload }: PayloadAction<{ cart: CartItemDetails[]; sync?: boolean }>
+		) => {
+			state.userCart = payload.cart;
+			state.canSyncUserCart = payload.sync || false;
+		},
+		changeCartSyncStatus: (state, { payload }: PayloadAction<boolean>) => {
+			state.canSyncUserCart = payload;
+		},
+		updateUserCartItem: (state, { payload }: PayloadAction<CartItemDetails>) => {
+			state.userCart = state.userCart.map(item => (item.id === payload.id ? payload : item));
 		}
 	}
 });
 
 export const {
+	openCartSnackbar,
+	closeCartSnackbar,
+	resetCartSnackbarData,
 	openSearchDrawer,
 	closeSearchDrawer,
 	openCartDrawer,
 	closeCartDrawer,
 	openProductView,
 	closeProductView,
-	setUserWishlist
+	setUserWishlist,
+	setUserCart,
+	updateUserCartItem,
+	changeCartSyncStatus
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

@@ -1,57 +1,27 @@
 // Dependencies
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Zoom from "@mui/material/Zoom";
 
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
+import useModal from "../../hooks/useModal";
+import useCart from "../../hooks/useCart";
 
-// Styles
-import { TableCell, TableRow } from "../Table/Table.styles";
-import {
-	CartItemDesc,
-	CartItemImage,
-	CartItemImageContainer,
-	CartItemTitle
-} from "./CartTable.styles";
-
-// Icons
-import ClearIcon from "@mui/icons-material/Clear";
+// Types
+import { CartItemDetails } from "../../interfaces";
 
 // Components
-import { IconButton, Stack, Tooltip } from "@mui/material";
 import Table from "../Table/Table";
-import QuantityInput from "../QuantityInput/QuantityInput";
-
-const cartData = [
-	{
-		title: "Nike AF1 Homesick",
-		size: "EU 40",
-		image: "/images/product.jpg",
-		harga: "Rp3.499.000",
-		jumlah: "Rp6.899.000"
-	},
-	{
-		title: "Ventela Lost Angels",
-		size: "EU 39",
-		image: "/images/1.jpg",
-		harga: "Rp2.499.000",
-		jumlah: "Rp4.899.000"
-	},
-	{
-		title: "Patrobas Ivan (Creation of Adam)",
-		size: "EU 37",
-		image: "/images/2.jpg",
-		harga: "Rp799.000",
-		jumlah: "Rp1.899.000"
-	}
-];
+import CartTableItem from "../CartTableItem/CartTableItem";
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 
 interface CartTableProps {
 	readOnly?: boolean;
+	cartItemsData: CartItemDetails[];
 }
 
-const CartTable = ({ readOnly = false }: CartTableProps) => {
+const CartTable = ({ readOnly = false, cartItemsData }: CartTableProps) => {
+	const [cartItemToDelete, setCartItemToDelete] = useState<CartItemDetails | null>(null);
+	const { wWidth } = useWindowSize();
 	const [tableHeadData, setTableHeadData] = useState([
 		"Produk",
 		"Ukuran",
@@ -60,7 +30,6 @@ const CartTable = ({ readOnly = false }: CartTableProps) => {
 		"Jumlah",
 		"Tindakan"
 	]);
-	const { wWidth } = useWindowSize();
 
 	useEffect(() => {
 		if (wWidth <= 700) {
@@ -76,85 +45,67 @@ const CartTable = ({ readOnly = false }: CartTableProps) => {
 		}
 	}, [wWidth, readOnly]);
 
+	const {
+		deleteCartItemHandler,
+		isDeleteCartItemLoading,
+		deleteCartItemError,
+		isDeleteCartItemSuccess
+	} = useCart();
+
+	const {
+		isOpen: isDeleteCartItemModalOpen,
+		openHandler: openDeleteCartItemModalHandler,
+		closeHandler: closeDeleteCartItemModalHandler
+	} = useModal();
+
+	const setAndOpenDeleteCartItemModalHandler = (cartItem: CartItemDetails) => {
+		setCartItemToDelete(cartItem);
+		openDeleteCartItemModalHandler();
+	};
+
+	const cancelDeleteCartItemHandler = () => {
+		closeDeleteCartItemModalHandler();
+		setTimeout(() => {
+			setCartItemToDelete(null);
+		}, 500);
+	};
+
+	useEffect(() => {
+		cancelDeleteCartItemHandler();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isDeleteCartItemSuccess]);
+
 	return (
-		<Table headData={readOnly ? tableHeadData.slice(0, -1) : tableHeadData}>
-			{cartData.map(data => (
-				<TableRow key={data.harga}>
-					<TableCell component="th" scope="row">
-						<Stack direction="row" alignItems="center" gap={{ xs: 1.5, sm: 2, lg: 3 }}>
-							<Link href="#">
-								<CartItemImageContainer sx={{ alignSelf: "flex-start" }}>
-									<CartItemImage src={data.image} />
-								</CartItemImageContainer>
-							</Link>
-							<Link href="#">
-								<Stack direction="column" justifyContent="center" gap="0.5rem" sx={{ flex: 1 }}>
-									<CartItemTitle>{data.title}</CartItemTitle>
-									{wWidth <= 1050 && <CartItemDesc>{data.size}</CartItemDesc>}
-									{wWidth <= 700 && (
-										<Stack direction="row" gap={1} alignItems="center">
-											{readOnly ? "x 1" : <QuantityInput value={1} />}
-											{!readOnly && wWidth <= 1050 && (
-												<Tooltip
-													title="Hapus dari Cart"
-													arrow
-													sx={{ fontSize: "1.6rem" }}
-													TransitionComponent={Zoom}
-												>
-													<IconButton color="error">
-														<ClearIcon />
-													</IconButton>
-												</Tooltip>
-											)}
-										</Stack>
-									)}
-								</Stack>
-							</Link>
-						</Stack>
-					</TableCell>
-					{wWidth > 1050 && <TableCell align="center">{data.size}</TableCell>}
-					{wWidth > 700 && (
-						<TableCell align="center">
-							{readOnly && wWidth >= 1050 ? (
-								"x 1"
-							) : (
-								<Stack direction="row" gap={2} justifyContent="center" alignItems="center">
-									{readOnly ? "x 1" : <QuantityInput value={1} />}
-									{!readOnly && wWidth <= 1050 && (
-										<Tooltip
-											title="Hapus dari Cart"
-											arrow
-											sx={{ fontSize: "1.6rem" }}
-											TransitionComponent={Zoom}
-										>
-											<IconButton color="error">
-												<ClearIcon />
-											</IconButton>
-										</Tooltip>
-									)}
-								</Stack>
-							)}
-						</TableCell>
-					)}
-					{wWidth > 1350 && <TableCell align="center">{data.harga}</TableCell>}
-					<TableCell align="center">{data.jumlah}</TableCell>
-					{wWidth > 1050 && !readOnly && (
-						<TableCell align="center">
-							<Tooltip
-								title="Hapus dari Cart"
-								arrow
-								sx={{ fontSize: "1.6rem" }}
-								TransitionComponent={Zoom}
-							>
-								<IconButton color="error">
-									<ClearIcon />
-								</IconButton>
-							</Tooltip>
-						</TableCell>
-					)}
-				</TableRow>
-			))}
-		</Table>
+		<>
+			<ConfirmationModal
+				modalTitle="Hapus Produk"
+				modalDescription={`Apakah Anda yakin untuk menghapus produk ${cartItemToDelete?.title} ukuran ${cartItemToDelete?.size} dari keranjang belanja anda?`}
+				onClose={cancelDeleteCartItemHandler}
+				open={isDeleteCartItemModalOpen}
+				confirmText="Delete"
+				confirmColor="error"
+				cancelText="Cancel"
+				cancelColor="secondary"
+				error={deleteCartItemError}
+				isLoading={isDeleteCartItemLoading}
+				onConfirm={() => {
+					if (cartItemToDelete) deleteCartItemHandler(cartItemToDelete.id + "");
+				}}
+			/>
+			<Table headData={readOnly ? tableHeadData.slice(0, -1) : tableHeadData}>
+				{cartItemsData.map(data => (
+					<CartTableItem
+						itemData={data}
+						readOnly={readOnly}
+						key={data.id}
+						onDelete={setAndOpenDeleteCartItemModalHandler}
+						isDeleteLoading={
+							cartItemToDelete ? cartItemToDelete.id === data.id && isDeleteCartItemLoading : false
+						}
+					/>
+				))}
+			</Table>
+		</>
 	);
 };
 

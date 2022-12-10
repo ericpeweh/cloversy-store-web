@@ -4,3 +4,4 @@ export * from "./category.interface";
 export * from "./brand.interface";
 export * from "./data.interface";
 export * from "./account.interface";
+export * from "./cart.interface";

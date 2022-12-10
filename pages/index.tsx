@@ -43,9 +43,19 @@ const Home: NextPage<HomePageProps> = ({ recommendedProducts }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-	const response = await axios.get(`${BASE_URL}/products?count=6&page=1`); // should add &sortBy=popularity later
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+	const response = await axios.get(`${BASE_URL}/products?count=6&page=1`, {
+		withCredentials: true,
+		headers: {
+			cookie: req.headers.cookie ?? ""
+		}
+	}); // should add &sortBy=popularity later
+
 	const result: ResponseWithPagination<{ products: Product[] }> = response.data;
+
+	if (response.headers["set-cookie"]) {
+		res.setHeader("Set-Cookie", response.headers["set-cookie"]);
+	}
 
 	return {
 		props: {

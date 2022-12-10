@@ -18,7 +18,8 @@ export const API = createApi({
 				headers.set("Authorization", `Bearer ${token}`);
 			}
 			return headers;
-		}
+		},
+		credentials: "include"
 	}),
 	tagTypes: [
 		"Products",
@@ -30,7 +31,8 @@ export const API = createApi({
 		"Provinces",
 		"Cities",
 		"Subdistricts",
-		"Wishlist"
+		"Wishlist",
+		"Cart"
 	],
 	endpoints: () => ({})
 });
