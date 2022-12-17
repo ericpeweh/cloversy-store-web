@@ -2,7 +2,7 @@
 import API from "./index";
 
 // Types
-import { Province, City, Subdistrict, ResponseBody } from "../interfaces";
+import { Province, City, Subdistrict, ResponseBody, ShippingCost } from "../interfaces";
 
 const dataApi = API.injectEndpoints({
 	endpoints: build => ({
@@ -17,6 +17,16 @@ const dataApi = API.injectEndpoints({
 		getSubdistrictsByCityId: build.query<ResponseBody<{ subdistricts: Subdistrict[] }>, number>({
 			query: cityId => `data/subdistrict?city=${cityId}`,
 			providesTags: ["Subdistricts"]
+		}),
+		getShippingCostByAddressId: build.query<ResponseBody<{ costs: ShippingCost[] }>, number>({
+			query: addressId => ({
+				url: `data/cost`,
+				method: "POST",
+				body: {
+					addressId
+				}
+			}),
+			providesTags: ["Shipping"]
 		})
 	}),
 	overrideExisting: false
@@ -25,7 +35,8 @@ const dataApi = API.injectEndpoints({
 export const {
 	useGetAllProvincesQuery,
 	useGetCitiesByProvinceIdQuery,
-	useGetSubdistrictsByCityIdQuery
+	useGetSubdistrictsByCityIdQuery,
+	useGetShippingCostByAddressIdQuery
 } = dataApi;
 
 export default dataApi;

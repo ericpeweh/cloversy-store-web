@@ -3,6 +3,7 @@ import React from "react";
 
 // Styles
 import {
+	VoucherActions,
 	VoucherCode,
 	VoucherContainer,
 	VoucherContent,
@@ -19,15 +20,17 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 // Components
 import { IconButton } from "@mui/material";
 import Tooltip from "../Tooltip/Tooltip";
+import Button from "../Button/Button";
 
 interface VoucherProps {
 	title: string;
 	expiryDate: string;
 	code: string;
 	onCopyCode: (voucherCode: string) => void;
+	onSelect?: (code: string) => void;
 }
 
-const Voucher = ({ title, expiryDate, code, onCopyCode }: VoucherProps) => {
+const Voucher = ({ title, expiryDate, code, onCopyCode, onSelect }: VoucherProps) => {
 	return (
 		<VoucherContainer>
 			<VoucherImage>
@@ -47,6 +50,13 @@ const Voucher = ({ title, expiryDate, code, onCopyCode }: VoucherProps) => {
 					{code}
 				</VoucherCode>
 			</VoucherInfo>
+			{onSelect && (
+				<VoucherActions>
+					<Button size="small" color="primary" onClick={() => onSelect(code)}>
+						Pilih
+					</Button>
+				</VoucherActions>
+			)}
 		</VoucherContainer>
 	);
 };

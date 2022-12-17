@@ -132,7 +132,12 @@ const CartDrawer = () => {
 	}, [isDeleteCartItemSuccess]);
 
 	return (
-		<CartDrawerContainer open={showCartModal} onClose={closeCartDrawerHandler} anchor="right">
+		<CartDrawerContainer
+			open={showCartModal}
+			onClose={closeCartDrawerHandler}
+			anchor="right"
+			keepMounted
+		>
 			<ConfirmationModal
 				modalTitle="Hapus Produk"
 				modalDescription={`Apakah Anda yakin untuk menghapus produk ${cartItemToDelete?.title} ukuran ${cartItemToDelete?.size} dari keranjang belanja anda?`}

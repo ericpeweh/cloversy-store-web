@@ -11,6 +11,7 @@ import formatToRupiah from "../../utils/formatToRupiah";
 import { CartItemDetails } from "../../interfaces";
 
 // Hooks
+import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
 import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
@@ -39,11 +40,11 @@ const links = [
 ];
 
 const Cart = () => {
+	const { isAuthenticated, loginWithRedirect } = useAuth0();
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const cartItems = useSelector(state => state.global.userCart);
 	const authStatus = useSelector(state => state.auth.status);
-	const checkoutHandler = () => router.push("/checkout");
 
 	const {
 		data: cartItemsData,
@@ -64,6 +65,18 @@ const Cart = () => {
 			),
 		[cartItems]
 	);
+
+	const checkoutHandler = () => {
+		if (isAuthenticated) {
+			router.push("/checkout");
+		} else {
+			loginWithRedirect({
+				appState: {
+					returnTo: "/checkout"
+				}
+			});
+		}
+	};
 
 	return (
 		<CartContainer>
@@ -101,8 +114,17 @@ const Cart = () => {
 									{formatToRupiah(subtotal ?? 0)}
 								</Typography>
 							</Stack>
+							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1} mt={2}>
+								<Typography textAlign="right">
+									*Pengiriman dan voucher akan dihitung saat checkout
+								</Typography>
+							</Stack>
 							<Stack direction="row" justifyContent="space-between" mt={3}>
-								<Button variant="outlined" startIcon={<ArrowBackIcon />}>
+								<Button
+									variant="outlined"
+									startIcon={<ArrowBackIcon />}
+									onClick={() => router.push("/products")}
+								>
 									Lanjutkan berbelanja
 								</Button>
 								<Button startIcon={<ShoppingCartCheckoutIcon />} onClick={checkoutHandler}>

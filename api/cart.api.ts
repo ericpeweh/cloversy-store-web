@@ -13,27 +13,34 @@ const cartApi = API.injectEndpoints({
 					? [...result.data.cart.map(({ id }) => ({ type: "Cart" as const, id })), "Cart"]
 					: ["Cart"]
 		}),
+		getCheckoutCartItems: build.query<
+			ResponseBody<{ cart: CartItemDetails[]; sync: boolean }>,
+			boolean
+		>({
+			query: () => `cart`,
+			providesTags: ["Checkout Cart"]
+		}),
 		addProductToCart: build.mutation<ResponseBody<{ cart: CartItemDetails[] }>, Partial<CartItem>>({
 			query: newCartItem => ({
 				url: "cart/add",
 				method: "POST",
 				body: newCartItem
 			}),
-			invalidatesTags: ["Cart"]
+			invalidatesTags: ["Cart", "Checkout Cart"]
 		}),
 		syncUserCart: build.mutation<ResponseBody<{ cart: CartItemDetails[]; sync: boolean }>, void>({
 			query: () => ({
 				url: "cart/sync",
 				method: "POST"
 			}),
-			invalidatesTags: ["Cart"]
+			invalidatesTags: ["Cart", "Checkout Cart"]
 		}),
 		clearSessionCart: build.mutation<ResponseBody<void>, void>({
 			query: () => ({
 				url: "cart/sync",
 				method: "DELETE"
 			}),
-			invalidatesTags: ["Cart"]
+			invalidatesTags: ["Cart", "Checkout Cart"]
 		}),
 		updateCartItem: build.mutation<ResponseBody<{ cart: CartItemDetails[] }>, Partial<CartItem>>({
 			query: cartItemData => ({
@@ -44,7 +51,7 @@ const cartApi = API.injectEndpoints({
 					quantity: cartItemData.quantity
 				}
 			}),
-			invalidatesTags: (_, _1, arg) => [{ type: "Cart", id: arg.id }]
+			invalidatesTags: (_, _1, arg) => [{ type: "Cart", id: arg.id }, "Checkout Cart"]
 		}),
 		deleteCartItem: build.mutation<ResponseBody<{ cart: CartItemDetails[] }>, string>({
 			query: cartItemId => ({
@@ -54,7 +61,7 @@ const cartApi = API.injectEndpoints({
 					id: cartItemId
 				}
 			}),
-			invalidatesTags: (_, _1, arg) => [{ type: "Cart", id: arg }]
+			invalidatesTags: (_, _1, arg) => [{ type: "Cart", id: arg }, "Checkout Cart"]
 		})
 	}),
 	overrideExisting: false
@@ -66,7 +73,8 @@ export const {
 	useUpdateCartItemMutation,
 	useDeleteCartItemMutation,
 	useSyncUserCartMutation,
-	useClearSessionCartMutation
+	useClearSessionCartMutation,
+	useGetCheckoutCartItemsQuery
 } = cartApi;
 
 export default cartApi;

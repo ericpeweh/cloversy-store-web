@@ -22,10 +22,11 @@ import { Divider } from "@mui/material";
 
 interface AddressProps {
 	addressData: AddressType;
-	onEdit: (address: AddressType) => void;
-	onDelete: (address: AddressType) => void;
-	onSetAsDefault: (address: { id: number; is_default: boolean }) => void;
-	isSetAsDefaultLoading: boolean;
+	onEdit?: (address: AddressType) => void;
+	onDelete?: (address: AddressType) => void;
+	onSetAsDefault?: (address: { id: number; is_default: boolean }) => void;
+	isSetAsDefaultLoading?: boolean;
+	noDivider?: boolean;
 }
 
 const Address = ({
@@ -33,18 +34,19 @@ const Address = ({
 	onDelete,
 	onSetAsDefault,
 	addressData,
-	isSetAsDefaultLoading
+	isSetAsDefaultLoading = false,
+	noDivider = false
 }: AddressProps) => {
 	const openEditAddressModalHandler = () => {
-		onEdit(addressData);
+		onEdit && onEdit(addressData);
 	};
 
 	const openDeleteAddressModalHandler = () => {
-		onDelete(addressData);
+		onDelete && onDelete(addressData);
 	};
 
 	const setAsDefaultHandler = () => {
-		onSetAsDefault({ id: addressData.id, is_default: true });
+		onSetAsDefault && onSetAsDefault({ id: addressData.id, is_default: true });
 	};
 
 	return (
@@ -60,32 +62,38 @@ const Address = ({
 						<AddressText>{addressData?.contact}</AddressText>
 						<AddressText>{addressData?.address}</AddressText>
 					</AddressInfo>
-					<AddressActions>
-						{!addressData.is_default && (
-							<Button
-								size="small"
-								color="primary"
-								onClick={setAsDefaultHandler}
-								loading={isSetAsDefaultLoading}
-							>
-								Jadikan Utama
-							</Button>
-						)}
-						<Button size="small" variant="outlined" onClick={openEditAddressModalHandler}>
-							Ubah alamat
-						</Button>
-						<Button
-							size="small"
-							color="error"
-							variant="outlined"
-							onClick={openDeleteAddressModalHandler}
-						>
-							Hapus
-						</Button>
-					</AddressActions>
+					{Boolean(onSetAsDefault || onEdit || onDelete) && (
+						<AddressActions>
+							{onSetAsDefault && !addressData.is_default && (
+								<Button
+									size="small"
+									color="primary"
+									onClick={setAsDefaultHandler}
+									loading={isSetAsDefaultLoading}
+								>
+									Jadikan Utama
+								</Button>
+							)}
+							{onEdit && (
+								<Button size="small" variant="outlined" onClick={openEditAddressModalHandler}>
+									Ubah alamat
+								</Button>
+							)}
+							{onDelete && (
+								<Button
+									size="small"
+									color="error"
+									variant="outlined"
+									onClick={openDeleteAddressModalHandler}
+								>
+									Hapus
+								</Button>
+							)}
+						</AddressActions>
+					)}
 				</AddressContent>
 			</AddressContainer>
-			<Divider flexItem />
+			{!noDivider && <Divider flexItem />}
 		</>
 	);
 };

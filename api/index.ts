@@ -32,7 +32,11 @@ export const API = createApi({
 		"Cities",
 		"Subdistricts",
 		"Wishlist",
-		"Cart"
+		"Cart",
+		"Checkout Cart",
+		"Shipping",
+		"Transactions",
+		"Transaction"
 	],
 	endpoints: () => ({})
 });

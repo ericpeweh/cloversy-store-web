@@ -19,12 +19,20 @@ interface OrderCardProps {
 	qtyDesc: string;
 	price: string;
 	showInput?: boolean;
+	imageUrl: string;
 }
 
-const OrderCard = ({ title, sizeDesc, qtyDesc, price, showInput = false }: OrderCardProps) => {
+const OrderCard = ({
+	title,
+	sizeDesc,
+	qtyDesc,
+	price,
+	showInput = false,
+	imageUrl
+}: OrderCardProps) => {
 	return (
 		<OrderCardContainer>
-			<CardImage />
+			<CardImage imageurl={imageUrl} />
 			<CardContent>
 				<CardTitle>{title}</CardTitle>
 				<CardDescription>Ukuran: {sizeDesc}</CardDescription>
@@ -32,10 +40,10 @@ const OrderCard = ({ title, sizeDesc, qtyDesc, price, showInput = false }: Order
 			</CardContent>
 			{showInput && (
 				<InputContainer>
-					<QuantityInput value={4} size="small" />
+					<QuantityInput value={4} size="small" onChangeQuantity={() => {}} />
 				</InputContainer>
 			)}
-			<CardPrice>Rp {price}</CardPrice>
+			<CardPrice>{price}</CardPrice>
 		</OrderCardContainer>
 	);
 };

@@ -19,7 +19,6 @@ import { Address } from "../../interfaces";
 import useGetProvinceOptions from "../../hooks/useGetProvinceOptions";
 import useGetCityOptions from "../../hooks/useGetCityOptions";
 import useGetSubdistrictOptions from "../../hooks/useGetSubdistrictOptions";
-import { useCreateAddressMutation } from "../../api/address.api";
 
 // Components
 import CloseButton from "../CloseButton/CloseButton";
@@ -58,7 +57,7 @@ const CreateAddressSchema = Yup.object().shape({
 	shipping_note: Yup.string()
 });
 
-const AddAddressModal = ({
+const InputAddressModal = ({
 	open,
 	onClose,
 	modalTitle,
@@ -357,4 +356,4 @@ const AddAddressModal = ({
 	);
 };
 
-export default AddAddressModal;
+export default InputAddressModal;

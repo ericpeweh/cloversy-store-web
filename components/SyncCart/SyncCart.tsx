@@ -23,7 +23,8 @@ const SyncCart = () => {
 			data: syncCartItemsData,
 			isLoading: isSyncCartItemsLoading,
 			isSuccess: isSyncCartItemsSuccess,
-			error: syncCartItemsErrorData
+			error: syncCartItemsErrorData,
+			reset: resetSyncUserCart
 		}
 	] = useSyncUserCartMutation();
 
@@ -53,8 +54,15 @@ const SyncCart = () => {
 			closeSyncCartItemModalHandler();
 			dispatch(setUserCart(syncCartItemsData.data));
 			dispatch(openCartDrawer());
+			resetSyncUserCart();
 		}
-	}, [closeSyncCartItemModalHandler, dispatch, isSyncCartItemsSuccess, syncCartItemsData]);
+	}, [
+		closeSyncCartItemModalHandler,
+		dispatch,
+		isSyncCartItemsSuccess,
+		syncCartItemsData,
+		resetSyncUserCart
+	]);
 
 	return (
 		<ConfirmationModal

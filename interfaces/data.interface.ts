@@ -21,3 +21,12 @@ export interface Subdistrict {
 	type: string;
 	subdistrict_name: string;
 }
+
+export interface ShippingCost {
+	value: number;
+	etd: string;
+	note: string;
+	courier: string;
+	service: string;
+	description: string;
+}

@@ -4,16 +4,23 @@ import { styled } from "@mui/system";
 export const OrderCardContainer = styled("div")(({ theme }) => ({
 	borderRadius: "0.5rem",
 	padding: "1rem",
+	paddingLeft: 0,
 	display: "flex",
 	gap: "2rem",
 	justifyContent: "space-between",
 	[theme.breakpoints.down("sm")]: {
-		gap: "1rem"
+		gap: "1rem",
+		paddingLeft: "1rem"
 	}
 }));
 
-export const CardImage = styled("div")(({ theme }) => ({
-	backgroundImage: "url(/images/product.jpg)",
+type CarouselImageType = { imageurl: string };
+
+export const CardImage = styled("div", {
+	shouldForwardProp: prop => prop !== "imageurl"
+})<CarouselImageType>(({ imageurl, theme }) => ({
+	flex: "0 0 auto",
+	backgroundImage: `url(${imageurl})`,
 	backgroundSize: "cover",
 	backgroundPosition: "center",
 	borderRadius: "0.5rem",

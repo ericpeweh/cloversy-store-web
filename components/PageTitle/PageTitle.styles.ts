@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 
 export const TitleContainer = styled("h1")(({ theme }) => ({
 	fontSize: "3rem",
-	fontWeight: 500,
+	fontWeight: "400",
 	fontFamily: "var(--font-secondary)",
 	margin: "4rem 0 5rem",
 	[theme.breakpoints.down("xl")]: {

@@ -15,6 +15,7 @@ import InfoIcon from "@mui/icons-material/Info";
 
 // Hooks
 import useModal from "../../hooks/useModal";
+import useSelector from "../../hooks/useSelector";
 import { useGetVouchersQuery } from "../../api/voucher.api";
 
 // Utils
@@ -43,6 +44,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import BoxButton from "../../components/BoxButton/BoxButton";
 
 const MyVoucher = () => {
+	const isAuth = useSelector(state => state.auth.isAuth);
 	const [successCopy, setSuccessCopy] = useState(false);
 
 	const {
@@ -53,12 +55,11 @@ const MyVoucher = () => {
 
 	const {
 		data: vouchersData,
-		isFetching: isGetVouchersFetching,
 		isLoading: isGetVouchersLoading,
 		isSuccess: isGetVouchersSuccess,
 		error: getVouchersError,
 		refetch: refetchVouchers
-	} = useGetVouchersQuery();
+	} = useGetVouchersQuery(isAuth, { skip: !isAuth });
 	const vouchersError: any = getVouchersError;
 	const noDataFound = vouchersData?.data.vouchers.length === 0;
 
