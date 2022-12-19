@@ -15,7 +15,7 @@ export interface CheckoutFormValues {
 	voucher_discount: number;
 	voucher_type: "default" | "value" | "percentage";
 	address_id: number;
-	order_note: string;
+	customer_note: string;
 	send_as_gift: boolean;
 	gift_note: string;
 	shipping_courier: string;

@@ -188,7 +188,7 @@ const Products = () => {
 				</Stack>
 			</ProductsHeader>
 			{isGetProductsFetching && (
-				<FallbackContainer>
+				<FallbackContainer sx={{ minHeight: "50vh" }}>
 					<CircularProgress />
 				</FallbackContainer>
 			)}

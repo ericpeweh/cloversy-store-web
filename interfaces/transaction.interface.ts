@@ -52,14 +52,13 @@ export interface Transaction {
 	id: string;
 	user_id: string;
 	order_status: TransactionStatus;
-	order_status_modified: string;
-	order_note: string;
 	gift_note: string;
 	voucher_code: string;
-	discount_total: string;
-	subtotal: string;
-	total: string;
+	customer_note: string;
 	created_at: string;
+	subtotal: string;
+	discount_total: string;
+	total: string;
 }
 
 export interface TransactionItem {
@@ -79,6 +78,15 @@ export interface TransactionShipping {
 	shipping_service: string;
 	shipping_tracking_code: string;
 	shipping_etd: string;
+}
+
+export interface TransactionListItem {
+	id: string;
+	user_id: string;
+	order_status: TransactionStatus;
+	created_at: string;
+	total: string;
+	item_details: TransactionItem[];
 }
 
 export interface ClientPaymentDetailsItem {
@@ -101,7 +109,7 @@ export interface ClientTransactionDetails extends Transaction {
 export interface CheckoutBody {
 	address_id: string;
 	voucher_code: string;
-	order_note?: string;
+	customer_note?: string;
 	gift_note?: string;
 	shipping_courier: string;
 	payment_method: string;

@@ -12,7 +12,6 @@ const OrderDetailsPage: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Detail Pesanan | PROD/21072022/00001</title>
 				<meta name="description" content="Customize your shoes, be special!" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

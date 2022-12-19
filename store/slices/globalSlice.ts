@@ -70,7 +70,7 @@ const globalSlice = createSlice({
 			{ payload }: PayloadAction<{ cart: CartItemDetails[]; sync?: boolean }>
 		) => {
 			state.userCart = payload.cart;
-			state.canSyncUserCart = payload.sync || false;
+			state.canSyncUserCart = payload.sync || state.canSyncUserCart || false;
 		},
 		changeCartSyncStatus: (state, { payload }: PayloadAction<boolean>) => {
 			state.canSyncUserCart = payload;

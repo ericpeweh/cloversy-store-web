@@ -173,17 +173,17 @@ const CheckoutInfo = ({ setFormInitialValues }: CheckoutInfoProps) => {
 			<InputContainer>
 				<TextInput
 					label="Catatan Pesanan (optional)"
-					name="order_note"
+					name="customer_note"
 					multiline
 					rows={3}
 					sx={{ mb: 1 }}
-					value={values.order_note}
+					value={values.customer_note}
 					onChange={handleChange}
 					onBlur={handleBlur}
 				/>
-				{errors.order_note && touched.order_note && (
+				{errors.customer_note && touched.customer_note && (
 					<Alert severity="error" sx={{ mb: 2 }}>
-						{errors.order_note}
+						{errors.customer_note}
 					</Alert>
 				)}
 				<Checkbox

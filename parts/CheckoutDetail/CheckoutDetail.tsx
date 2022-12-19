@@ -23,13 +23,12 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const CheckoutDetail = () => {
 	const isAuth = useSelector(state => state.auth.isAuth);
-	const { values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue } =
-		useFormikContext<CheckoutFormValues>();
+	const { setFieldValue } = useFormikContext<CheckoutFormValues>();
 
 	const {
 		data: cartItemsData,
-		isLoading: isGetCartItemsLoading,
 		isFetching: isGetCartItemsFetching,
+		isLoading: isGetCartItemsLoading,
 		isSuccess: isGetCartItemsSuccess,
 		error: getCartItemsErrorData,
 		refetch: refetchCartItems

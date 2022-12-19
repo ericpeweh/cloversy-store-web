@@ -89,7 +89,6 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	return (
 		<>
 			<Head>
-				{" "}
 				<title>Product Details | {productData?.title}</title>
 			</Head>
 

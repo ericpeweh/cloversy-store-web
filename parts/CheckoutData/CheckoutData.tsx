@@ -38,13 +38,9 @@ const CheckoutData = ({
 	isCheckoutLoading
 }: CheckoutDataProps) => {
 	const isAuth = useSelector(state => state.auth.isAuth);
-	const { values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue } =
-		useFormikContext<CheckoutFormValues>();
+	const { values } = useFormikContext<CheckoutFormValues>();
 
-	const { data: cartItemsData, error: getCartItemsErrorData } = useGetCheckoutCartItemsQuery(
-		isAuth,
-		{ skip: !isAuth }
-	);
+	const { data: cartItemsData } = useGetCheckoutCartItemsQuery(isAuth, { skip: !isAuth });
 
 	const subtotal = useMemo(
 		() =>

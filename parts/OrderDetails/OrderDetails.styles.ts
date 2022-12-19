@@ -34,12 +34,12 @@ export const Details = styled("div")(({ theme }) => ({
 }));
 
 export const Section = styled("div")(({ theme }) => ({
-	marginBottom: "6rem",
+	marginBottom: "5rem",
 	[theme.breakpoints.down("md")]: {
-		marginBottom: "5rem"
+		marginBottom: "4rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		marginBottom: "4rem"
+		marginBottom: "3rem"
 	}
 }));
 
@@ -80,7 +80,7 @@ export const InfoTitle = styled("h3")(({ theme }) => ({
 	}
 }));
 
-export const InfoDescription = styled("p")(({ theme }) => ({
+export const InfoDescription = styled("div")(({ theme }) => ({
 	fontSize: "1.7rem",
 	[theme.breakpoints.down("lg")]: {
 		fontSize: "1.6rem"
@@ -167,5 +167,15 @@ export const TotalPriceText = styled("p")(({ theme }) => ({
 	},
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.6rem"
+	}
+}));
+
+export const ImageContainer = styled("div")(({ theme }) => ({
+	width: "8rem",
+	[theme.breakpoints.down("md")]: {
+		width: "7rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		width: "6rem"
 	}
 }));

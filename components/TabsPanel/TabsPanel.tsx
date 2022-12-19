@@ -6,7 +6,7 @@ import { TabsPanelContainer } from "./TabsPanel.styles";
 
 interface TabsPanelProps {
 	label: string;
-	children: React.ReactElement | React.ReactElement[];
+	children: React.ReactNode | React.ReactNode[];
 	noHorizontalSpacing?: boolean;
 }
 

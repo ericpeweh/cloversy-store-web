@@ -2,38 +2,43 @@
 import API from "./index";
 
 // Types
-import { CheckoutBody, ClientTransactionDetails, ResponseBody } from "../interfaces";
+import {
+	CheckoutBody,
+	ClientTransactionDetails,
+	ResponseBody,
+	TransactionListItem
+} from "../interfaces";
 
 const transactionApi = API.injectEndpoints({
 	endpoints: build => ({
-		getAllTransactions: build.query<
-			ResponseBody<{ transactions: ClientTransactionDetails[] }>,
-			boolean
+		getAllTransactions: build.query<ResponseBody<{ transactions: TransactionListItem[] }>, boolean>(
+			{
+				query: () => `transactions`,
+				providesTags: ["Transactions"]
+			}
+		),
+		getTransactionDetails: build.query<
+			ResponseBody<{ transaction: ClientTransactionDetails }>,
+			string
 		>({
-			query: () => `transactions`,
-			providesTags: result =>
-				result
-					? [
-							...result.data.transactions.map(({ id }) => ({ type: "Transaction" as const, id })),
-							"Transactions"
-					  ]
-					: ["Transactions"]
+			query: transactionId => `transactions/${transactionId}`,
+			providesTags: res => [{ type: "Transaction", id: res?.data.transaction.id }]
 		}),
-		checkout: build.mutation<
-			ResponseBody<{ newTransaction: ClientTransactionDetails }>,
-			CheckoutBody
-		>({
-			query: checkoutData => ({
-				url: "transactions",
-				method: "POST",
-				body: checkoutData
-			}),
-			invalidatesTags: ["Transaction"]
-		})
+		checkout: build.mutation<ResponseBody<{ transaction: ClientTransactionDetails }>, CheckoutBody>(
+			{
+				query: checkoutData => ({
+					url: "transactions",
+					method: "POST",
+					body: checkoutData
+				}),
+				invalidatesTags: ["Transactions", "Cart", "Checkout Cart"]
+			}
+		)
 	}),
 	overrideExisting: false
 });
 
-export const { useCheckoutMutation, useGetAllTransactionsQuery } = transactionApi;
+export const { useCheckoutMutation, useGetAllTransactionsQuery, useGetTransactionDetailsQuery } =
+	transactionApi;
 
 export default transactionApi;

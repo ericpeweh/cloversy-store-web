@@ -7,7 +7,7 @@ export const StatusBadgeContainer = styled("p", { shouldForwardProp: props => pr
 		borderRadius: "0.5rem",
 		fontSize: "1.4rem",
 		backgroundColor:
-			color === "primary" ? theme.palette.primary.main : theme.palette.secondary.main,
+			color === "primary" ? theme.palette.primary.main : theme.palette[color || "secondary"].light,
 		color: "#fff",
 		alignSelf: "flex-start",
 		textTransform: "uppercase",

@@ -41,7 +41,7 @@ interface CheckoutSuccessProps {
 
 const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) => {
 	const router = useRouter();
-	const { full_name, email } = useSelector(state => state.auth, shallowEqual);
+	const { full_name } = useSelector(state => state.auth, shallowEqual);
 
 	const shipping = result.shipping_details;
 	const payment = result.payment_details;
@@ -79,7 +79,7 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 								Kamu bisa melihat status pesanan dan pengiriman pada&nbsp;
 								<Link
 									onClick={() => router.push(`/orders/${result.id}`)}
-									href={`/orders/${result.id}`}
+									href={`/account/orders/${result.id}`}
 									component="span"
 									sx={{ cursor: "pointer" }}
 								>
@@ -146,6 +146,14 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 										<DetailContainerText>{shipping.contact}</DetailContainerText>
 									</Stack>
 								</Grid>
+								<Grid item xs={12} sm={6}>
+									<DetailContainerSubtitle>Catatan pesanan</DetailContainerSubtitle>
+									<DetailContainerText sx={{ mb: 3 }}>
+										{result.customer_note || "-"}
+									</DetailContainerText>
+									<DetailContainerSubtitle>Catatan hadiah</DetailContainerSubtitle>
+									<DetailContainerText>{result.gift_note || "-"}</DetailContainerText>
+								</Grid>
 							</Grid>
 						</DetailContainer>
 
@@ -197,10 +205,12 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 							<PriceTitle>Subtotal: </PriceTitle>
 							<PriceText>{formatToRupiah(+result.subtotal)}</PriceText>
 						</PriceContainer>
-						<PriceContainer>
-							<PriceTitle>Potongan Harga: </PriceTitle>
-							<PriceText>{formatToRupiah(+result.discount_total)}</PriceText>
-						</PriceContainer>
+						{+result.discount_total !== 0 && (
+							<PriceContainer>
+								<PriceTitle>Potongan Harga: </PriceTitle>
+								<PriceText>{formatToRupiah(+result.discount_total)}</PriceText>
+							</PriceContainer>
+						)}
 						<PriceContainer>
 							<PriceTitle>Biaya Pengiriman: </PriceTitle>
 							<PriceText>{formatToRupiah(+shipping.shipping_cost)}</PriceText>
