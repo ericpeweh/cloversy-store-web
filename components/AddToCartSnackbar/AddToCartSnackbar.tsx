@@ -3,7 +3,11 @@ import React from "react";
 import { shallowEqual } from "react-redux";
 
 // Actions
-import { closeCartSnackbar, resetCartSnackbarData } from "../../store/slices/globalSlice";
+import {
+	closeCartSnackbar,
+	closeProductView,
+	resetCartSnackbarData
+} from "../../store/slices/globalSlice";
 
 // Styles
 import {
@@ -40,6 +44,10 @@ const AddToCartSnackbar = () => {
 		setTimeout(() => {
 			dispatch(resetCartSnackbarData());
 		}, 500);
+	};
+
+	const closeProductViewModalHandler = () => {
+		dispatch(closeProductView());
 	};
 
 	return (
@@ -80,6 +88,7 @@ const AddToCartSnackbar = () => {
 								underline="hover"
 								color="primary"
 								onClick={() => {
+									closeProductViewModalHandler();
 									router.push(`/products/${cartSnackbarData?.slug}`);
 									closeSnackbarHandler();
 								}}
@@ -92,6 +101,7 @@ const AddToCartSnackbar = () => {
 								underline="hover"
 								color="primary"
 								onClick={() => {
+									closeProductViewModalHandler();
 									router.push(`/cart`);
 									closeSnackbarHandler();
 								}}

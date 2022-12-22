@@ -41,6 +41,10 @@ const CartDrawerItem = ({ itemData, onDelete }: CartDrawerItemProps) => {
 	const [quantityTouched, setQuantityTouched] = useState(false);
 	const [quantity, setQuantity] = useState(itemData.quantity);
 
+	useEffect(() => {
+		setQuantity(itemData.quantity);
+	}, [itemData.quantity]);
+
 	const quantityDebounced = useDebounce(quantity, 800);
 
 	const quantityTouchedHandler = () => setQuantityTouched(true);

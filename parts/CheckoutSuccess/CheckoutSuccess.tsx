@@ -108,9 +108,13 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 												layout="responsive"
 											/>
 										</ImageContainer>
-										<DetailContainerText
-											sx={{ textTransform: "uppercase" }}
-										>{`${shipping.shipping_courier} ${shipping.shipping_courier} (${shipping.shipping_etd} hari)`}</DetailContainerText>
+										<DetailContainerText>
+											<Typography
+												component="span"
+												sx={{ textTransform: "uppercase" }}
+											>{`${shipping.shipping_courier} ${shipping.shipping_service}`}</Typography>{" "}
+											{`(${shipping.shipping_etd} hari)`}
+										</DetailContainerText>
 									</Stack>
 								</Grid>
 								<Grid item xs={12} sm={6}>

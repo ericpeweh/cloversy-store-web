@@ -117,7 +117,9 @@ const OrderDetails = () => {
 								variant="text"
 								size="small"
 								startIcon={<ArrowBackIosNewIcon />}
-								onClick={() => router.push("/account/orders")}
+								onClick={() =>
+									router.push({ pathname: "/account/orders" }, undefined, { scroll: false })
+								}
 							>
 								Kembali
 							</Button>

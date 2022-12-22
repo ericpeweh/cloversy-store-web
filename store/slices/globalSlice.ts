@@ -15,6 +15,7 @@ interface GlobalState {
 	userWishlist: number[];
 	userCart: CartItemDetails[];
 	canSyncUserCart: boolean;
+	ordersTabIndex: number;
 }
 
 const initialState: GlobalState = {
@@ -26,7 +27,8 @@ const initialState: GlobalState = {
 	productViewData: null,
 	userWishlist: [],
 	userCart: [],
-	canSyncUserCart: false
+	canSyncUserCart: false,
+	ordersTabIndex: 0
 };
 
 const globalSlice = createSlice({
@@ -77,6 +79,9 @@ const globalSlice = createSlice({
 		},
 		updateUserCartItem: (state, { payload }: PayloadAction<CartItemDetails>) => {
 			state.userCart = state.userCart.map(item => (item.id === payload.id ? payload : item));
+		},
+		setOrdersTabIndex: (state, { payload }: PayloadAction<number>) => {
+			state.ordersTabIndex = payload;
 		}
 	}
 });
@@ -94,7 +99,8 @@ export const {
 	setUserWishlist,
 	setUserCart,
 	updateUserCartItem,
-	changeCartSyncStatus
+	changeCartSyncStatus,
+	setOrdersTabIndex
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

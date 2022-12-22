@@ -29,7 +29,7 @@ const Timeline = ({ items }: TimelineProps) => {
 				const isFirstItem = i === 0;
 
 				return (
-					<TimelineItem sx={{ justifyContent: "center" }} key={item.date}>
+					<TimelineItem sx={{ justifyContent: "center" }} key={item.date + item.desc}>
 						<TimelineOppositeContent
 							color="text.secondary"
 							sx={{ fontSize: { xs: "1.4rem", sm: "1.5rem" } }}

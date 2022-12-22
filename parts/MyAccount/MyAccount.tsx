@@ -12,8 +12,16 @@ import {
 	InformationText
 } from "./MyAccount.styles";
 
-// Icons
+// Hooks
+import { useGetAllTransactionsQuery } from "../../api/transaction.api";
+import useSelector from "../../hooks/useSelector";
+import useDispatch from "../../hooks/useDispatch";
+import { useRouter } from "next/router";
 
+// Actions
+import { setOrdersTabIndex } from "../../store/slices/globalSlice";
+
+// Icons
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -21,46 +29,96 @@ import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
 import LoyaltyOutlinedIcon from "@mui/icons-material/LoyaltyOutlined";
 
 // Components
-import { Grid } from "@mui/material";
-import ProductCard from "../../components/ProductCard/ProductCard";
+import { Alert, CircularProgress, Grid } from "@mui/material";
+import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
+import BoxButton from "../../components/BoxButton/BoxButton";
 
 const MyAccount = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const isAuth = useSelector(state => state.auth.isAuth);
+	const {
+		data: transactionsData,
+		isLoading: isGetTransactionsLoading,
+		isSuccess: isGetTransactionsSuccess,
+		error: getTransactionsErrorData,
+		refetch: refetchTransactions
+	} = useGetAllTransactionsQuery(isAuth, { skip: !isAuth });
+	const getTransactionsError: any = getTransactionsErrorData;
+	const transactions = transactionsData?.data.transactions;
+
+	const orderCardClickHandler = (tabIndex: number) => {
+		dispatch(setOrdersTabIndex(tabIndex));
+		router.push("/account/orders");
+	};
+
 	return (
 		<>
 			<MenuContent container spacing={2}>
 				<Grid item xs={12}>
 					<MenuTitle>Pesanan saya</MenuTitle>
 				</Grid>
-				<Grid item xs={6} md={3}>
-					<ContentCard>
-						<AccountBalanceWalletOutlinedIcon />
-						<ContentTitle>
-							Belum Bayar <ContentBadge>3</ContentBadge>
-						</ContentTitle>
-					</ContentCard>
-				</Grid>
-				<Grid item xs={6} md={3}>
-					<ContentCard>
-						<Inventory2OutlinedIcon />
-						<ContentTitle>Dikemas</ContentTitle>
-					</ContentCard>
-				</Grid>
-				<Grid item xs={6} md={3}>
-					<ContentCard>
-						<LocalShippingOutlinedIcon />
-						<ContentTitle>
-							Dikirim<ContentBadge>1</ContentBadge>
-						</ContentTitle>
-					</ContentCard>
-				</Grid>
-				<Grid item xs={6} md={3}>
-					<ContentCard>
-						<StarsOutlinedIcon />
-						<ContentTitle>
-							Beri Penilaian<ContentBadge>1</ContentBadge>
-						</ContentTitle>
-					</ContentCard>
-				</Grid>
+				{isGetTransactionsLoading && (
+					<FallbackContainer>
+						<CircularProgress />
+					</FallbackContainer>
+				)}
+				{!isGetTransactionsLoading && getTransactionsError && (
+					<FallbackContainer>
+						<Alert severity="error" sx={{ mb: 2 }}>
+							{getTransactionsError?.data.message}
+						</Alert>
+						<BoxButton onClick={() => refetchTransactions()}>Try again</BoxButton>
+					</FallbackContainer>
+				)}
+				{isGetTransactionsSuccess && transactions && (
+					<>
+						<Grid item xs={6} md={3}>
+							<ContentCard onClick={() => orderCardClickHandler(1)}>
+								<AccountBalanceWalletOutlinedIcon />
+								<ContentTitle>
+									Belum Bayar{" "}
+									<ContentBadge>
+										{transactions.filter(item => item.order_status === "pending").length || ""}
+									</ContentBadge>
+								</ContentTitle>
+							</ContentCard>
+						</Grid>
+						<Grid item xs={6} md={3}>
+							<ContentCard onClick={() => orderCardClickHandler(2)}>
+								<Inventory2OutlinedIcon />
+								<ContentTitle>
+									Diproses
+									<ContentBadge>
+										{transactions.filter(item => item.order_status === "process").length || ""}
+									</ContentBadge>
+								</ContentTitle>
+							</ContentCard>
+						</Grid>
+						<Grid item xs={6} md={3}>
+							<ContentCard onClick={() => orderCardClickHandler(3)}>
+								<LocalShippingOutlinedIcon />
+								<ContentTitle>
+									Dikirim
+									<ContentBadge>
+										{transactions.filter(item => item.order_status === "sent").length || ""}
+									</ContentBadge>
+								</ContentTitle>
+							</ContentCard>
+						</Grid>
+						<Grid item xs={6} md={3}>
+							<ContentCard onClick={() => orderCardClickHandler(4)}>
+								<StarsOutlinedIcon />
+								<ContentTitle>
+									Beri Penilaian
+									<ContentBadge>
+										{transactions.filter(item => item.order_status === "success").length || ""}
+									</ContentBadge>
+								</ContentTitle>
+							</ContentCard>
+						</Grid>
+					</>
+				)}
 			</MenuContent>
 			<MenuContent container spacing={2}>
 				<Grid item xs={12}>

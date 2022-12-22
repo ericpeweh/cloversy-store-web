@@ -26,7 +26,7 @@ const cartApi = API.injectEndpoints({
 				method: "POST",
 				body: newCartItem
 			}),
-			invalidatesTags: ["Cart", "Checkout Cart"]
+			invalidatesTags: (_, _1, arg) => [{ type: "Cart", id: arg.id }, "Cart", "Checkout Cart"]
 		}),
 		syncUserCart: build.mutation<ResponseBody<{ cart: CartItemDetails[]; sync: boolean }>, void>({
 			query: () => ({

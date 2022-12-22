@@ -7,8 +7,12 @@ import { MyOrdersContainer } from "./MyOrders.styles";
 // Types
 import { TransactionStatus, TransactionListItem } from "../../interfaces";
 
+// Actions
+import { setOrdersTabIndex } from "../../store/slices/globalSlice";
+
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
+import useDispatch from "../../hooks/useDispatch";
 
 // Components
 import TabsNavigation from "../../components/TabsNavigation/TabsNavigation";
@@ -30,7 +34,7 @@ const tabOptions: { label: string; status: TransactionStatus | "" }[] = [
 		status: "pending"
 	},
 	{
-		label: "Proses",
+		label: "Diproses",
 		status: "process"
 	},
 	{
@@ -84,6 +88,8 @@ const _getTransactionComponent = (
 };
 
 const MyOrders = () => {
+	const dispatch = useDispatch();
+	const ordersTabIndex = useSelector(state => state.global.ordersTabIndex);
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const { wWidth } = useWindowSize();
 
@@ -97,9 +103,17 @@ const MyOrders = () => {
 	const getTransactionsError: any = getTransactionsErrorData;
 	const transactions = transactionsData?.data.transactions;
 
+	const tabPanelChangeHandler = (newValue: number) => {
+		dispatch(setOrdersTabIndex(newValue));
+	};
+
 	return (
 		<MyOrdersContainer>
-			<TabsNavigation variant={wWidth <= 600 ? "scrollable" : "fullWidth"}>
+			<TabsNavigation
+				variant={wWidth <= 600 ? "scrollable" : "fullWidth"}
+				value={ordersTabIndex}
+				onChangeCb={tabPanelChangeHandler}
+			>
 				{tabOptions.map(option => (
 					<TabsPanel label={option.label} noHorizontalSpacing key={option.status}>
 						{_getTransactionComponent(

@@ -9,6 +9,7 @@ import { TransactionListItem } from "../../interfaces";
 
 // Hooks
 import { useRouter } from "next/router";
+import { useCancelTransactionMutation } from "../../api/transaction.api";
 
 // Styles
 import {
@@ -25,13 +26,13 @@ import {
 // Utils
 import getOrderStatus from "../../utils/getOrderStatus";
 import formatToRupiah from "../../utils/formatToRupiah";
+import { formatDateFullMonth } from "../../utils/formatDate";
 
 // Components
 import OrderCard from "../../components/OrderCard/OrderCard";
 import StatusBadge from "../../components/StatusBadge/StatusBadge";
 import Button from "../../components/Button/Button";
-import { Divider } from "@mui/material";
-import { formatDateFullMonth } from "../../utils/formatDate";
+import { Alert, Divider } from "@mui/material";
 
 interface OrderListItemProps {
 	orderData: TransactionListItem;
@@ -40,6 +41,23 @@ interface OrderListItemProps {
 const OrderListItem = ({ orderData }: OrderListItemProps) => {
 	const router = useRouter();
 	const orderStatus = getOrderStatus(orderData?.order_status || "pending");
+
+	const [
+		cancelTransaction,
+		{
+			isLoading: isCancelTransactionLoading,
+			error: cancelTransactionErrorData,
+			reset: resetCancelTransaction
+		}
+	] = useCancelTransactionMutation();
+	const cancelTransactionError: any = cancelTransactionErrorData;
+
+	const cancelTransactionHandler = async () => {
+		if (!orderData?.id) return;
+
+		await cancelTransaction(orderData.id);
+		resetCancelTransaction();
+	};
 
 	return (
 		<Transaction>
@@ -81,9 +99,8 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 						<Button
 							size="small"
 							color="error"
-							onClick={() => {
-								// HANDLE CANCEL ORDER HERE
-							}}
+							loading={isCancelTransactionLoading}
+							onClick={cancelTransactionHandler}
 						>
 							Batalkan
 						</Button>
@@ -110,35 +127,11 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 					</>
 				)}
 			</TransactionActions>
+			{cancelTransactionError && (
+				<Alert severity="error">{cancelTransactionError?.data.message}</Alert>
+			)}
 		</Transaction>
 	);
 };
 
 export default OrderListItem;
-
-{
-	/* <Transaction>
-			<TransactionDetails>
-				<StatusBadge>Selesai</StatusBadge>
-				<TransactionCode>PROD/21072022/00001</TransactionCode>
-				<TransactionDate>21 Juli 2022</TransactionDate>
-			</TransactionDetails>
-			<OrderCardsContainer>
-				<OrderCard title="Nike AF1 Homesick" sizeDesc="EU 40" qtyDesc="2" price="6.240.000" />
-				<Divider flexItem />
-			</OrderCardsContainer>
-			<TransactionSummary>
-				<strong>Total Pesanan: </strong>
-				<TransactionTotal>Rp 6.940.000</TransactionTotal>
-			</TransactionSummary>
-			<TransactionActions>
-				<Button size="small" variant="text" endIcon={<DescriptionOutlinedIcon />}>
-					Lihat detail pesanan
-				</Button>
-				<Button size="small">Beri ulasan</Button>
-				<Button size="small" color="primary">
-					Beli lagi
-				</Button>
-			</TransactionActions>
-		</Transaction> */
-}

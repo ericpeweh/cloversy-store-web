@@ -13,7 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface AccordionProps {
 	title: string;
-	description: string;
+	description: React.ReactNode | React.ReactNode[] | string;
 }
 
 const Accordion = ({ title, description }: AccordionProps) => {
@@ -28,7 +28,7 @@ const Accordion = ({ title, description }: AccordionProps) => {
 			<Summary expandIcon={<ExpandMoreIcon />}>
 				<ContentTitle
 					color={isExpanded ? "primary" : "black"}
-					sx={{ mb: { xs: 0, md: 1, xl: 1.5 } }}
+					sx={{ mb: { xs: 0, md: 1, xl: 1.2 } }}
 				>
 					{title}
 				</ContentTitle>

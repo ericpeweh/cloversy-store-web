@@ -109,7 +109,10 @@ const ProductViewModal = () => {
 						<ProductPrice>{formatToRupiah(productViewData?.price || 0)}</ProductPrice>
 						<ProductDesription>{productDescription}</ProductDesription>
 						<Link
-							onClick={() => router.push(`/products/${productViewData?.slug}`)}
+							onClick={() => {
+								router.push(`/products/${productViewData?.slug}`);
+								closeProductViewHandler();
+							}}
 							href={`/products/${productViewData?.slug}`}
 							component="button"
 							sx={{ width: "max-content", fontSize: "1.6rem", mb: 2, marginLeft: "auto" }}

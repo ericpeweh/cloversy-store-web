@@ -30,7 +30,7 @@ export const ProductsHeader = styled(Stack)(({ theme }) => ({
 		width: "95vw"
 	},
 	[theme.breakpoints.down("md")]: {
-		width: "100vw",
+		width: "100%",
 		padding: "0 2rem"
 	},
 	[theme.breakpoints.down("sm")]: {
@@ -50,7 +50,7 @@ export const ProductsContent = styled("div")(({ theme }) => ({
 		width: "95vw"
 	},
 	[theme.breakpoints.down("md")]: {
-		width: "100vw",
+		width: "100%",
 		padding: "0 2rem"
 	}
 }));

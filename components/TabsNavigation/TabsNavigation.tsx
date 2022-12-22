@@ -14,13 +14,21 @@ interface TabsNavigationProps {
 		| React.ReactElement<TabsNavigationChildProps>
 		| React.ReactElement<TabsNavigationChildProps>[];
 	variant?: "standard" | "scrollable" | "fullWidth" | undefined;
+	value?: number;
+	onChangeCb?: (value: number) => void;
 }
 
-const TabsNavigation = ({ children, variant = "standard" }: TabsNavigationProps) => {
-	const [tabsValue, setTabsValue] = useState(0);
+const TabsNavigation = ({
+	children,
+	variant = "standard",
+	value,
+	onChangeCb
+}: TabsNavigationProps) => {
+	const [tabsValue, setTabsValue] = useState(value ?? 0);
 
 	const tabsChangeHandler = (_: React.SyntheticEvent, newValue: number) => {
 		setTabsValue(newValue);
+		onChangeCb && onChangeCb(newValue);
 	};
 
 	return (

@@ -24,6 +24,13 @@ const transactionApi = API.injectEndpoints({
 			query: transactionId => `transactions/${transactionId}`,
 			providesTags: res => [{ type: "Transaction", id: res?.data.transaction.id }]
 		}),
+		cancelTransaction: build.mutation<ResponseBody<{ transactionId: string }>, string>({
+			query: transactionId => `transactions/${transactionId}/cancel`,
+			invalidatesTags: (_, _1, transactionId) => [
+				{ type: "Transaction", id: transactionId },
+				"Transactions"
+			]
+		}),
 		checkout: build.mutation<ResponseBody<{ transaction: ClientTransactionDetails }>, CheckoutBody>(
 			{
 				query: checkoutData => ({
@@ -38,7 +45,11 @@ const transactionApi = API.injectEndpoints({
 	overrideExisting: false
 });
 
-export const { useCheckoutMutation, useGetAllTransactionsQuery, useGetTransactionDetailsQuery } =
-	transactionApi;
+export const {
+	useCheckoutMutation,
+	useGetAllTransactionsQuery,
+	useGetTransactionDetailsQuery,
+	useCancelTransactionMutation
+} = transactionApi;
 
 export default transactionApi;

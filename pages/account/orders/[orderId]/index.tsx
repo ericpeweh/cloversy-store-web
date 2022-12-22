@@ -4,9 +4,8 @@ import Head from "next/head";
 import { NextPage } from "next";
 
 // Components
-import MainWrapper from "../../../components/MainWrapper/MainWrapper";
-import OrderDetails from "../../../parts/OrderDetails/OrderDetails";
-import AccountWrapper from "../../../parts/AccountWrapper/AccountWrapper";
+import MainWrapper from "../../../../components/MainWrapper/MainWrapper";
+import OrderDetails from "../../../../parts/OrderDetails/OrderDetails";
 
 const OrderDetailsPage: NextPage = () => {
 	return (
