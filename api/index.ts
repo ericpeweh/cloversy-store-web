@@ -36,7 +36,8 @@ export const API = createApi({
 		"Checkout Cart",
 		"Shipping",
 		"Transactions",
-		"Transaction"
+		"Transaction",
+		"Last Seen Products"
 	],
 	endpoints: () => ({})
 });

@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Styles
@@ -37,6 +37,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import useSelector from "../../hooks/useSelector";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
+import { useTrackProductSeenMutation } from "../../api/activity.api";
 
 // Components
 import { Divider, Rating, Stack, Grid, IconButton, Typography } from "@mui/material";
@@ -63,6 +64,15 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	const [quantity, setQuantity] = useState(1);
 
 	const { addToCartHandler, isAddToCartLoading } = useCart();
+
+	// Track user product last seen
+	const [trackProductSeen] = useTrackProductSeenMutation();
+
+	useEffect(() => {
+		if (isAuth) {
+			trackProductSeen(productData.id);
+		}
+	}, [isAuth, productData.id, trackProductSeen]);
 
 	const {
 		isWishlisted,

@@ -1,7 +1,3 @@
-// Types
-
-import { ResponseWithPagination } from "./common.interface";
-
 export interface Product {
 	id: number;
 	title: string;
@@ -36,3 +32,14 @@ export interface GetProductsQuery {
 }
 
 export type ProductsSortValues = "id" | "popularity" | "rating" | "low-to-high" | "high-to-low";
+
+export interface ProductLastSeen {
+	id: number;
+	user_id: number;
+	product_id: number;
+	seen_date: string;
+	title: string;
+	price: string;
+	slug: string;
+	images: string[] | null;
+}

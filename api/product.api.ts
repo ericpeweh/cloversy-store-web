@@ -5,7 +5,6 @@ import API from "./index";
 import {
 	Product,
 	ResponseWithPagination,
-	ResponseBody,
 	GetProductsQuery,
 	SearchProductsQuery
 } from "../interfaces";

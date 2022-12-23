@@ -17,7 +17,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import formatToRupiah from "../../utils/formatToRupiah";
 
 // Types
-import { Product } from "../../interfaces";
+import { Product, ProductLastSeen } from "../../interfaces";
 
 // Styles
 import {

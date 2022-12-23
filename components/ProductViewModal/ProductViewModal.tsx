@@ -39,12 +39,22 @@ import CloseButton from "../CloseButton/CloseButton";
 import SizeRadio from "../SizeRadio/SizeRadio";
 import QuantityInput from "../QuantityInput/QuantityInput";
 import Button from "../Button/Button";
+import { useTrackProductSeenMutation } from "../../api/activity.api";
 
 const ProductViewModal = () => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const { showProductView, productViewData } = useSelector(state => state.global, shallowEqual);
+
+	// Track user product last seen
+	const [trackProductSeen] = useTrackProductSeenMutation();
+
+	useEffect(() => {
+		if (isAuth && productViewData && showProductView) {
+			trackProductSeen(productViewData.id);
+		}
+	}, [isAuth, productViewData, trackProductSeen, showProductView]);
 
 	const [shoesSize, setShoesSize] = useState(productViewData?.sizes[0] || "36");
 	const [quantity, setQuantity] = useState(1);

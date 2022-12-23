@@ -14,6 +14,7 @@ import {
 
 // Hooks
 import { useGetAllTransactionsQuery } from "../../api/transaction.api";
+import { useGetUserLastSeenProductsQuery } from "../../api/activity.api";
 import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
 import { useRouter } from "next/router";
@@ -32,20 +33,36 @@ import LoyaltyOutlinedIcon from "@mui/icons-material/LoyaltyOutlined";
 import { Alert, CircularProgress, Grid } from "@mui/material";
 import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
 import BoxButton from "../../components/BoxButton/BoxButton";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const MyAccount = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const isAuth = useSelector(state => state.auth.isAuth);
+
+	// Transactions
 	const {
 		data: transactionsData,
 		isLoading: isGetTransactionsLoading,
+		isUninitialized: isGetTransactionsUninitialized,
 		isSuccess: isGetTransactionsSuccess,
 		error: getTransactionsErrorData,
 		refetch: refetchTransactions
 	} = useGetAllTransactionsQuery(isAuth, { skip: !isAuth });
 	const getTransactionsError: any = getTransactionsErrorData;
 	const transactions = transactionsData?.data.transactions;
+
+	// Last seen products
+	const {
+		data: lastSeenProductsData,
+		isLoading: isGetLastSeenProductsLoading,
+		isUninitialized: isGetLastSeenProductsUninitialized,
+		isSuccess: isGetLastSeenProductsSuccess,
+		error: getLastSeenProductsErrorData,
+		refetch: refetchLastSeenProducts
+	} = useGetUserLastSeenProductsQuery(isAuth, { skip: !isAuth });
+	const getLastSeenProductsError: any = getLastSeenProductsErrorData;
+	const lastSeenProducts = lastSeenProductsData?.data.products;
 
 	const orderCardClickHandler = (tabIndex: number) => {
 		dispatch(setOrdersTabIndex(tabIndex));
@@ -58,7 +75,7 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Pesanan saya</MenuTitle>
 				</Grid>
-				{isGetTransactionsLoading && (
+				{(isGetTransactionsUninitialized || isGetTransactionsLoading) && (
 					<FallbackContainer>
 						<CircularProgress />
 					</FallbackContainer>
@@ -146,18 +163,26 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Terakhir dilihat</MenuTitle>
 				</Grid>
-				{/* <Grid item xs={6} sm={3}>
-					<ProductCard size="small" disableActionButtons />
-				</Grid>
-				<Grid item xs={6} sm={3}>
-					<ProductCard size="small" disableActionButtons />
-				</Grid>
-				<Grid item xs={6} sm={3} sx={{ mt: { xs: -2, sm: 0 } }}>
-					<ProductCard size="small" disableActionButtons />
-				</Grid>
-				<Grid item xs={6} sm={3} sx={{ mt: { xs: -2, sm: 0 } }}>
-					<ProductCard size="small" disableActionButtons />
-				</Grid> */}
+				{(isGetLastSeenProductsUninitialized || isGetLastSeenProductsLoading) && (
+					<FallbackContainer>
+						<CircularProgress />
+					</FallbackContainer>
+				)}
+				{!isGetLastSeenProductsLoading && getLastSeenProductsError && (
+					<FallbackContainer>
+						<Alert severity="error" sx={{ mb: 2 }}>
+							{getLastSeenProductsError?.data.message}
+						</Alert>
+						<BoxButton onClick={() => refetchLastSeenProducts()}>Try again</BoxButton>
+					</FallbackContainer>
+				)}
+				{isGetLastSeenProductsSuccess &&
+					lastSeenProducts &&
+					lastSeenProducts.map(product => (
+						<Grid item xs={6} sm={3} sx={{ mt: { xs: -2, sm: 0 } }} key={product.id}>
+							<ProductCard size="small" disableActionButtons productData={product} />
+						</Grid>
+					))}
 			</MenuContent>
 		</>
 	);

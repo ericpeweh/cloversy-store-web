@@ -32,7 +32,7 @@ import useSelector from "../../hooks/useSelector";
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Components
-import { Avatar, Divider, Grid } from "@mui/material";
+import { Avatar, Divider, Grid, Skeleton } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
 
 interface AccountWrapperProps {
@@ -42,7 +42,7 @@ interface AccountWrapperProps {
 
 const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 	const { logout } = useAuth0();
-	const { full_name, profile_picture } = useSelector(state => state.auth, shallowEqual);
+	const { full_name, profile_picture, status } = useSelector(state => state.auth, shallowEqual);
 	const router = useRouter();
 	const currentPath = router.asPath;
 
@@ -54,8 +54,12 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 			<OuterContainer>
 				<GridContainer container spacing={{ xs: 2, md: 3, lg: 4 }}>
 					<AccountMenu item xs={12} lg={3}>
-						<Avatar alt="profile icon" src={profile_picture} sx={{ width: 60, height: 60 }} />
-						<AccountName>Hello, {full_name}</AccountName>
+						{status === "loading" ? (
+							<Skeleton variant="circular" width={60} height={60} animation="wave" />
+						) : (
+							<Avatar alt="profile icon" src={profile_picture} sx={{ width: 60, height: 60 }} />
+						)}
+						<AccountName>{status === "loading" ? "Loading..." : `Hello, ${full_name}`}</AccountName>
 						<MenuContainer>
 							<MenuList>
 								<Link href="/account">
