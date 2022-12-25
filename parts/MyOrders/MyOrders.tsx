@@ -99,7 +99,7 @@ const MyOrders = () => {
 		isSuccess: isGetTransactionsSuccess,
 		error: getTransactionsErrorData,
 		refetch: refetchTransactions
-	} = useGetAllTransactionsQuery(isAuth, { skip: !isAuth });
+	} = useGetAllTransactionsQuery(isAuth, { skip: !isAuth, pollingInterval: 1000 * 60 * 2 }); // Refetch transactions every 2 minutes
 	const getTransactionsError: any = getTransactionsErrorData;
 	const transactions = transactionsData?.data.transactions;
 

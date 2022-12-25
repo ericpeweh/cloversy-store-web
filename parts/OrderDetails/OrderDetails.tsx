@@ -170,6 +170,8 @@ const OrderDetails = () => {
 											<OrderCardContainer>
 												{items.map(item => (
 													<OrderCard
+														slug={item.slug}
+														clickable={true}
 														key={item.product_id}
 														title={item.title}
 														sizeDesc={`EU ${item.product_size}`}
@@ -292,8 +294,8 @@ const OrderDetails = () => {
 													{shipping.subdistrict}, {shipping.postal_code}
 												</Address>
 												<Divider sx={{ my: 1 }} />
-												<Address>Label: {shipping.label ?? "-"}</Address>
-												<Address>Catatan pengiriman: {shipping.shipping_note ?? "-"}</Address>
+												<Address>Label: {shipping.label || "-"}</Address>
+												<Address>Catatan pengiriman: {shipping.shipping_note || "-"}</Address>
 											</AddressContainer>
 										</Section>
 										<Section>

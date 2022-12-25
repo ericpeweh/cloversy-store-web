@@ -1,4 +1,5 @@
 // Dependencies
+import { useRouter } from "next/router";
 import React from "react";
 import QuantityInput from "../QuantityInput/QuantityInput";
 
@@ -20,6 +21,8 @@ interface OrderCardProps {
 	price: string;
 	showInput?: boolean;
 	imageUrl: string;
+	clickable?: boolean;
+	slug?: string;
 }
 
 const OrderCard = ({
@@ -28,13 +31,25 @@ const OrderCard = ({
 	qtyDesc,
 	price,
 	showInput = false,
-	imageUrl
+	imageUrl,
+	clickable = false,
+	slug
 }: OrderCardProps) => {
+	const router = useRouter();
+
+	const openProductDetailsHandler = () => router.push(`/products/${slug || ""}`);
+
 	return (
 		<OrderCardContainer>
-			<CardImage imageurl={imageUrl} />
+			<CardImage
+				imageurl={imageUrl}
+				clickable={clickable}
+				onClick={() => clickable && openProductDetailsHandler()}
+			/>
 			<CardContent>
-				<CardTitle>{title}</CardTitle>
+				<CardTitle clickable={clickable} onClick={() => clickable && openProductDetailsHandler()}>
+					{title}
+				</CardTitle>
 				<CardDescription>Ukuran: {sizeDesc}</CardDescription>
 				{!showInput && <CardDescription>Jumlah: {qtyDesc}</CardDescription>}
 			</CardContent>
