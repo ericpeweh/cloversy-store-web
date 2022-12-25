@@ -42,27 +42,36 @@ const SyncCart = () => {
 		dispatch(changeCartSyncStatus(false));
 	};
 
-	// Open sync cart data confirm modal
-	useEffect(() => {
-		if (canSyncUserCart) {
-			openSyncCartItemModalHandler();
-		}
-	}, [canSyncUserCart, openSyncCartItemModalHandler]);
+	const syncCartHandler = async () => {
+		const result = await syncUserCart().unwrap();
 
+		if (result.status === "success" && result.data) {
+			dispatch(setUserCart(result.data));
+			dispatch(changeCartSyncStatus(false));
+		}
+	};
+
+	// Close sync confirm modal, open cart drawer, reset sync cart req
 	useEffect(() => {
-		if (syncCartItemsData && syncCartItemsData.data && isSyncCartItemsSuccess) {
-			closeSyncCartItemModalHandler();
-			dispatch(setUserCart(syncCartItemsData.data));
+		if (isSyncCartItemsSuccess && syncCartItemsData) {
 			dispatch(openCartDrawer());
+			closeSyncCartItemModalHandler();
 			resetSyncUserCart();
 		}
 	}, [
 		closeSyncCartItemModalHandler,
 		dispatch,
 		isSyncCartItemsSuccess,
-		syncCartItemsData,
-		resetSyncUserCart
+		resetSyncUserCart,
+		syncCartItemsData
 	]);
+
+	// Open sync cart data confirm modal
+	useEffect(() => {
+		if (canSyncUserCart) {
+			openSyncCartItemModalHandler();
+		}
+	}, [canSyncUserCart, openSyncCartItemModalHandler]);
 
 	return (
 		<ConfirmationModal
@@ -78,7 +87,7 @@ const SyncCart = () => {
 			error={syncCartItemsErrorData}
 			isLoading={isSyncCartItemsLoading}
 			onConfirm={() => {
-				syncUserCart();
+				syncCartHandler();
 			}}
 		/>
 	);
