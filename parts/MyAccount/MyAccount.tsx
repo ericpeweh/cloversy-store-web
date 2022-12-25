@@ -75,6 +75,7 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Pesanan saya</MenuTitle>
 				</Grid>
+
 				{(isGetTransactionsUninitialized || isGetTransactionsLoading) && (
 					<FallbackContainer>
 						<CircularProgress />
@@ -163,6 +164,13 @@ const MyAccount = () => {
 				<Grid item xs={12}>
 					<MenuTitle>Terakhir dilihat</MenuTitle>
 				</Grid>
+				{isGetLastSeenProductsSuccess && lastSeenProducts && lastSeenProducts.length === 0 && (
+					<Grid item xs={12} md={6}>
+						<Alert severity="info" sx={{ mb: 2 }}>
+							Kamu belum melihat produk manapun!
+						</Alert>
+					</Grid>
+				)}
 				{(isGetLastSeenProductsUninitialized || isGetLastSeenProductsLoading) && (
 					<FallbackContainer>
 						<CircularProgress />
