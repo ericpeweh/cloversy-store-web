@@ -8,6 +8,9 @@ export const ProductsContainer = styled("div")(({ theme }) => ({
 	alignItems: "center",
 	flexDirection: "column",
 	marginBottom: "10rem",
+	"& > div.infinite-scroll-component__outerdiv": {
+		width: "100%"
+	},
 	[theme.breakpoints.down("lg")]: {
 		marginBottom: "8rem"
 	},

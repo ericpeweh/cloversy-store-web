@@ -10,7 +10,12 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 
 // Actions
-import { openFilterDrawer, setPriceFilter, setPriceRange } from "../../store/slices/productsSlice";
+import {
+	openFilterDrawer,
+	resetFilter,
+	setPriceFilter,
+	setPriceRange
+} from "../../store/slices/productsSlice";
 
 // Types
 import { Product, ProductsSortValues } from "../../interfaces";
@@ -27,6 +32,7 @@ import {
 	Badge,
 	CircularProgress,
 	Divider,
+	Link,
 	SelectChangeEvent,
 	Stack,
 	ToggleButton,
@@ -53,7 +59,7 @@ const links = [
 type DisplayModeType = "list" | "card";
 
 const Products = () => {
-	const { query } = useRouter();
+	const { query, push } = useRouter();
 	const { q: searchQuery = "" } = query;
 
 	const dispatch = useDispatch();
@@ -187,6 +193,46 @@ const Products = () => {
 					</ToggleButtonGroup>
 				</Stack>
 			</ProductsHeader>
+			{searchQuery && (
+				<ProductsHeader sx={{ mt: 1 }}>
+					<Stack direction="row" gap={2} alignItems="center">
+						<Typography>
+							Hasil pencarian untuk: <strong>{searchQuery}</strong>
+							{",  "}
+							<Link
+								underline="always"
+								color="primary"
+								component="span"
+								onClick={() => push("/products")}
+								sx={{ cursor: "pointer", fontWeight: 500 }}
+							>
+								reset
+							</Link>
+						</Typography>
+					</Stack>
+				</ProductsHeader>
+			)}
+			{(brandFilter !== -1 ||
+				(priceFilter[0] !== priceRange[0] && priceFilter[0] !== -1) ||
+				(priceFilter[1] !== priceRange[1] && priceFilter[1] !== -1)) && (
+				<ProductsHeader sx={{ mt: 1 }}>
+					<Stack direction="row" gap={2} alignItems="center">
+						<Typography>
+							Hasil pencarian menggunakan <strong>{filterCount} filter</strong>
+							{",  "}
+							<Link
+								underline="always"
+								color="primary"
+								component="span"
+								onClick={() => dispatch(resetFilter())}
+								sx={{ cursor: "pointer", fontWeight: 500 }}
+							>
+								reset
+							</Link>
+						</Typography>
+					</Stack>
+				</ProductsHeader>
+			)}
 			{isGetProductsFetching && (
 				<FallbackContainer sx={{ minHeight: "50vh" }}>
 					<CircularProgress />
@@ -205,7 +251,7 @@ const Products = () => {
 			)}
 			<InfiniteScroller
 				dataLength={products.length}
-				style={{ height: "100%" }}
+				style={{ height: "100%", width: "100%" }}
 				next={loadMoreHandler}
 				hasMore={page < (productsData?.totalPages || 0)}
 				loader={
