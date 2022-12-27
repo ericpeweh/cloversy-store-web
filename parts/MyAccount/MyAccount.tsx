@@ -97,7 +97,7 @@ const MyAccount = () => {
 								<ContentTitle>
 									Belum Bayar{" "}
 									<ContentBadge>
-										{transactions.filter(item => item.order_status === "pending").length || ""}
+										{transactions.filter(item => item.order_status === "pending").length || 0}
 									</ContentBadge>
 								</ContentTitle>
 							</ContentCard>
@@ -108,7 +108,7 @@ const MyAccount = () => {
 								<ContentTitle>
 									Diproses
 									<ContentBadge>
-										{transactions.filter(item => item.order_status === "process").length || ""}
+										{transactions.filter(item => item.order_status === "process").length || 0}
 									</ContentBadge>
 								</ContentTitle>
 							</ContentCard>
@@ -119,7 +119,7 @@ const MyAccount = () => {
 								<ContentTitle>
 									Dikirim
 									<ContentBadge>
-										{transactions.filter(item => item.order_status === "sent").length || ""}
+										{transactions.filter(item => item.order_status === "sent").length || 0}
 									</ContentBadge>
 								</ContentTitle>
 							</ContentCard>
@@ -130,7 +130,9 @@ const MyAccount = () => {
 								<ContentTitle>
 									Beri Penilaian
 									<ContentBadge>
-										{transactions.filter(item => item.order_status === "success").length || ""}
+										{transactions.filter(
+											item => item.order_status === "success" && !item.is_reviewed
+										).length || 0}
 									</ContentBadge>
 								</ContentTitle>
 							</ContentCard>

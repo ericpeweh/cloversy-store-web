@@ -57,7 +57,11 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 						{status === "loading" ? (
 							<Skeleton variant="circular" width={60} height={60} animation="wave" />
 						) : (
-							<Avatar alt="profile icon" src={profile_picture} sx={{ width: 60, height: 60 }} />
+							<Avatar
+								alt="profile icon"
+								src={profile_picture}
+								sx={{ width: 60, height: 60, border: "1px solid #999" }}
+							/>
 						)}
 						<AccountName>{status === "loading" ? "Loading..." : `Hello, ${full_name}`}</AccountName>
 						<MenuContainer>

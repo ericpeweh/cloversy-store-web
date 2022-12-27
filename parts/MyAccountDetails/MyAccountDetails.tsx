@@ -227,7 +227,11 @@ const MyAccountDetails = () => {
 						<InputContainer>
 							<ProfilePictureInputContainer>
 								<Avatar
-									sx={{ width: { xs: 55, sm: 65, md: 75 }, height: { xs: 55, sm: 65, md: 75 } }}
+									sx={{
+										width: { xs: 55, sm: 65, md: 75 },
+										height: { xs: 55, sm: 65, md: 75 },
+										border: "1px solid #999"
+									}}
 									src={profile_picture}
 								/>
 								<Button

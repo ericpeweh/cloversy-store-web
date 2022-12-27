@@ -163,7 +163,8 @@ const Navbar = () => {
 							alt="user profile"
 							sx={{
 								width: { xs: "3rem", sm: "4rem", md: "5rem" },
-								height: { xs: "3rem", sm: "4rem", md: "5rem" }
+								height: { xs: "3rem", sm: "4rem", md: "5rem" },
+								border: "1px solid #999"
 							}}
 							imgProps={{ referrerPolicy: "no-referrer" }}
 						/>
