@@ -9,6 +9,7 @@ export const ReviewItemContainer = styled(Grid)({}) as typeof Grid;
 export const ReviewerName = styled("h5")(({ theme }) => ({
 	fontSize: "1.6rem",
 	fontWeight: 500,
+	textTransform: "capitalize",
 	[theme.breakpoints.down("md")]: {
 		fontSize: "1.5rem"
 	},
@@ -27,6 +28,7 @@ export const ReviewDate = styled("p")(({ theme }) => ({
 
 export const ReviewDescription = styled("p")(({ theme }) => ({
 	margin: "2rem 0",
+	minHeight: "6ch",
 	[theme.breakpoints.down("md")]: {
 		margin: "1.5rem 0 "
 	},

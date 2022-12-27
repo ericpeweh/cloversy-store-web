@@ -1,6 +1,8 @@
 // Dependencies
-import { Avatar, Divider, ListItem, ListItemAvatar, ListItemText, Rating } from "@mui/material";
 import React from "react";
+
+// Types
+import { ProductReviewItem } from "../../interfaces";
 
 // Styles
 import {
@@ -10,27 +12,34 @@ import {
 	ReviewItemContainer
 } from "./ReviewItem.styles";
 
-const ReviewItem = () => {
+// Utils
+import { formatDateFullMonth } from "../../utils/formatDate";
+
+// Components
+import { Avatar, Divider, ListItem, ListItemAvatar, ListItemText, Rating } from "@mui/material";
+
+interface ReviewItemProps {
+	reviewData: ProductReviewItem;
+}
+
+const ReviewItem = ({ reviewData }: ReviewItemProps) => {
 	return (
 		<ReviewItemContainer item xs={12} md={6}>
 			<ListItem
 				alignItems="flex-start"
 				sx={{ padding: 0 }}
-				secondaryAction={<Rating value={4.5} readOnly precision={0.5} />}
+				secondaryAction={<Rating value={+reviewData.rating} readOnly precision={0.1} />}
 			>
 				<ListItemAvatar>
 					<Avatar alt="review name" src="/images/1.jpg" sx={{ width: "5rem", height: "5rem" }} />
 				</ListItemAvatar>
 				<ListItemText
 					sx={{ ml: { xs: 0, sm: 1, lg: 2 } }}
-					primary={<ReviewerName>Mikici Mud</ReviewerName>}
-					secondary={<ReviewDate>10 July 2022</ReviewDate>}
+					primary={<ReviewerName>{reviewData.full_name}</ReviewerName>}
+					secondary={<ReviewDate>{formatDateFullMonth(reviewData.created_at)}</ReviewDate>}
 				/>
 			</ListItem>
-			<ReviewDescription>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe magnam repellendus et ajsd
-				que ipsum dolor
-			</ReviewDescription>
+			<ReviewDescription>{reviewData.description}</ReviewDescription>
 			<Divider variant="inset" />
 		</ReviewItemContainer>
 	);

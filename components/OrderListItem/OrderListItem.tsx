@@ -68,9 +68,8 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 			</TransactionDetails>
 			<OrderCardsContainer>
 				{orderData.item_details.map((item, i, arr) => (
-					<>
+					<React.Fragment key={item.product_id}>
 						<OrderCard
-							key={item.product_id}
 							title={item.title}
 							sizeDesc={`EU ${item.product_size}`}
 							qtyDesc={item.quantity.toString()}
@@ -78,7 +77,7 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 							imageUrl={(item?.images || [])[0] || "/images/no-image.png"}
 						/>
 						{i !== arr.length - 1 && <Divider flexItem />}
-					</>
+					</React.Fragment>
 				))}
 			</OrderCardsContainer>
 			<TransactionSummary>
@@ -120,8 +119,19 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 				)}
 				{orderData.order_status === "success" && (
 					<>
-						<Button size="small">Beri ulasan</Button>
-						<Button size="small" color="primary">
+						{!orderData.is_reviewed && (
+							<Button
+								size="small"
+								onClick={() => router.push(`/account/orders/${orderData.id}/review`)}
+							>
+								Beri ulasan
+							</Button>
+						)}
+						<Button
+							size="small"
+							color="primary"
+							onClick={() => router.push(`/products/${orderData.item_details[0].slug}`)}
+						>
 							Beli lagi
 						</Button>
 					</>

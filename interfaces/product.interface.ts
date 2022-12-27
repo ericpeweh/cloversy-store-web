@@ -17,6 +17,18 @@ export interface Product {
 	image: string;
 	images: string[];
 	recommendations: Product[];
+	rating: string;
+	review_count: string;
+	reviews: ProductReviewItem[];
+}
+
+export interface ProductReviewItem {
+	id: number;
+	rating: string;
+	description: string;
+	created_at: string;
+	profile_picture: string;
+	full_name: string;
 }
 
 export interface SearchProductsQuery {

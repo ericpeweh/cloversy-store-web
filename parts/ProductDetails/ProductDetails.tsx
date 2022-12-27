@@ -37,6 +37,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import useSelector from "../../hooks/useSelector";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
+import usePagination from "../../hooks/usePagination";
 import { useTrackProductSeenMutation } from "../../api/activity.api";
 
 // Components
@@ -52,6 +53,7 @@ import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
+import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
 
 interface ProductDetailsProps {
 	productData: Product;
@@ -64,6 +66,9 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	const [quantity, setQuantity] = useState(1);
 
 	const { addToCartHandler, isAddToCartLoading } = useCart();
+
+	// Reviews pagination
+	const { page: reviewPage, onChange: reviewPaginationChangeHandler } = usePagination();
 
 	// Track user product last seen
 	const [trackProductSeen] = useTrackProductSeenMutation();
@@ -117,8 +122,16 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 					<ProductInfoContainer item xs={12} md={6}>
 						<ProductTitle>{productData?.title}</ProductTitle>
 						<Stack direction="row" alignItems="center" gap="1rem">
-							<Rating value={4.5} readOnly precision={0.5} />
-							<RatingText>4.8 | 24 Reviews</RatingText>
+							{productData?.rating ? (
+								<>
+									<Rating value={+productData.rating} readOnly precision={0.1} />
+									<RatingText>
+										{(+productData?.rating).toFixed(1)} | {productData.review_count} Ulasan
+									</RatingText>
+								</>
+							) : (
+								<RatingText>- Belum ada ulasan -</RatingText>
+							)}
 						</Stack>
 						<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
 						<ProductDesription>
@@ -205,13 +218,30 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 									{productData?.description || "No description provided."}
 								</Typography>
 							</TabsPanel>
-							<TabsPanel label="Ulasan (5)">
-								<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-									<ReviewItem />
-									<ReviewItem />
-									<ReviewItem />
-								</Grid>
-								<ReviewsPagination count={5} shape="rounded" color="primary" />
+							<TabsPanel label={`Ulasan (${productData?.review_count || "0"})`}>
+								{productData.reviews.length === 0 && (
+									<Typography textAlign="center">- Belum ada ulasan -</Typography>
+								)}
+								{productData.reviews.length !== 0 && (
+									<>
+										<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+											{productData.reviews
+												.slice((reviewPage - 1) * 4, (reviewPage - 1) * 4 + 4)
+												.map(review => (
+													<ReviewItem reviewData={review} key={review.id} />
+												))}
+										</Grid>
+										{Math.ceil(productData.reviews.length / 4) > 1 && (
+											<ReviewsPagination
+												page={reviewPage}
+												onChange={reviewPaginationChangeHandler}
+												count={Math.ceil(productData.reviews.length / 4)}
+												shape="rounded"
+												color="primary"
+											/>
+										)}
+									</>
+								)}
 							</TabsPanel>
 						</TabsNavigation>
 					</Grid>

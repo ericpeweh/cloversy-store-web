@@ -113,8 +113,16 @@ const ProductViewModal = () => {
 					<ProductDetails>
 						<ProductTitle>{productViewData?.title}</ProductTitle>
 						<Stack direction="row" alignItems="center" gap="1rem">
-							<Rating value={4.5} readOnly precision={0.5} />
-							<RatingText>4.8 | 24 Reviews</RatingText>
+							{productViewData?.rating ? (
+								<>
+									<Rating value={+productViewData.rating} readOnly precision={0.1} />
+									<RatingText>
+										{(+productViewData?.rating).toFixed(1)} | {productViewData.review_count} Ulasan
+									</RatingText>
+								</>
+							) : (
+								<RatingText>- Belum ada ulasan -</RatingText>
+							)}
 						</Stack>
 						<ProductPrice>{formatToRupiah(productViewData?.price || 0)}</ProductPrice>
 						<ProductDesription>{productDescription}</ProductDesription>

@@ -59,13 +59,14 @@ export interface Transaction {
 	subtotal: string;
 	discount_total: string;
 	total: string;
+	is_reviewed: boolean;
 }
 
 export interface TransactionItem {
 	product_id: number;
 	quantity: number;
 	price: string;
-	product_size: number;
+	product_size: string;
 	title: string;
 	slug: string;
 	images: string[];
@@ -87,6 +88,7 @@ export interface TransactionListItem {
 	created_at: string;
 	total: string;
 	item_details: TransactionItem[];
+	is_reviewed: boolean;
 }
 
 export interface ClientPaymentDetailsItem {
@@ -113,4 +115,10 @@ export interface CheckoutBody {
 	gift_note?: string;
 	shipping_courier: string;
 	payment_method: string;
+}
+
+export interface CreateReviewItem {
+	product_id: number;
+	rating: number;
+	review: string;
 }

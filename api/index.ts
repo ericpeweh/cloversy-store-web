@@ -37,7 +37,8 @@ export const API = createApi({
 		"Shipping",
 		"Transactions",
 		"Transaction",
-		"Last Seen Products"
+		"Last Seen Products",
+		"Reviews"
 	],
 	endpoints: () => ({})
 });
