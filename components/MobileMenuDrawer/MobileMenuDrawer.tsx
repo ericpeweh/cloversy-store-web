@@ -4,6 +4,8 @@ import Link from "next/link";
 
 // Styles
 import {
+	FallbackImageContainer,
+	FallbackImageText,
 	MobileMenuActionButtons,
 	MobileMenuDrawerContainer,
 	MobileMenuItem,
@@ -42,6 +44,7 @@ import ProductsContainer from "../ProductsContainer/ProductsContainer";
 import ProductCard from "../ProductCard/ProductCard";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import BoxButton from "../BoxButton/BoxButton";
+import Image from "next/image";
 
 interface MobileMenuDrawerProps {
 	open: boolean;
@@ -136,9 +139,18 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 							</FallbackContainer>
 						)}
 						{!isSearchProductsFetching && isSearchProductsSuccess && noDataFound && (
-							<FallbackContainer>
-								<Typography>No product found!</Typography>
-							</FallbackContainer>
+							<>
+								<FallbackImageContainer>
+									<Image
+										src="/images/no-product.png"
+										alt="produk tidak ditemukan"
+										height={512}
+										width={512}
+										layout="responsive"
+									/>
+								</FallbackImageContainer>
+								<FallbackImageText>Produk tidak ditemukan!</FallbackImageText>
+							</>
 						)}
 						{isSearchProductsSuccess &&
 							!isSearchProductsFetching &&

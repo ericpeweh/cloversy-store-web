@@ -19,6 +19,8 @@ import { useRouter } from "next/router";
 
 // Styles
 import {
+	FallbackImageContainer,
+	FallbackImageText,
 	SearchBarContainer,
 	SearchDrawerContainer,
 	SearchInput,
@@ -31,6 +33,7 @@ import { useSearchProductsQuery } from "../../api/product.api";
 import FallbackContainer from "../FallbackContainer/FallbackContainer";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import BoxButton from "../BoxButton/BoxButton";
+import Image from "next/image";
 
 const SearchDrawer = () => {
 	const dispatch = useDispatch();
@@ -108,9 +111,18 @@ const SearchDrawer = () => {
 					</FallbackContainer>
 				)}
 				{!isSearchProductsFetching && isSearchProductsSuccess && noDataFound && (
-					<FallbackContainer>
-						<Typography>No product found!</Typography>
-					</FallbackContainer>
+					<>
+						<FallbackImageContainer>
+							<Image
+								src="/images/no-product.png"
+								alt="produk tidak ditemukan"
+								height={512}
+								width={512}
+								layout="responsive"
+							/>
+						</FallbackImageContainer>
+						<FallbackImageText>Produk tidak ditemukan!</FallbackImageText>
+					</>
 				)}
 				{isSearchProductsSuccess &&
 					!isSearchProductsFetching &&

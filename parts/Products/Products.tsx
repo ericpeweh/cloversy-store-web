@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from "react";
 
 // Styles
-import { ProductsContainer, ProductsContent, ProductsHeader } from "./Products.styles";
+import {
+	FallbackImageContainer,
+	FallbackImageText,
+	ProductsContainer,
+	ProductsContent,
+	ProductsHeader
+} from "./Products.styles";
 
 // Icons
 import TuneIcon from "@mui/icons-material/Tune";
@@ -50,6 +56,7 @@ import FallbackContainer from "../../components/FallbackContainer/FallbackContai
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import BoxButton from "../../components/BoxButton/BoxButton";
 import InfiniteScroller from "react-infinite-scroll-component";
+import Image from "next/image";
 
 const links = [
 	{ label: "Beranda", url: "/" },
@@ -244,10 +251,17 @@ const Products = () => {
 					<BoxButton onClick={refetchProducts}>Try again</BoxButton>
 				</FallbackContainer>
 			)}
-			{!isGetProductsLoading && isGetProductsSuccess && noDataFound && (
-				<FallbackContainer>
-					<Typography>No product found!</Typography>
-				</FallbackContainer>
+			{!isGetProductsLoading && isGetProductsSuccess && noDataFound && !isGetProductsFetching && (
+				<FallbackImageContainer>
+					<Image
+						src="/images/no-product.png"
+						alt="produk tidak ditemukan"
+						height={512}
+						width={512}
+						layout="responsive"
+					/>
+					<FallbackImageText>Produk tidak ditemukan!</FallbackImageText>
+				</FallbackImageContainer>
 			)}
 			<InfiniteScroller
 				dataLength={products.length}

@@ -85,3 +85,21 @@ export const SearchResult = styled("div")(({ theme }) => ({
 	alignItems: "center",
 	gap: "2rem"
 }));
+
+export const FallbackImageContainer = styled("div")(({ theme }) => ({
+	width: "30%"
+}));
+
+export const FallbackImageText = styled("p")(({ theme }) => ({
+	textAlign: "center",
+	fontWeight: "bold",
+	fontSize: "2rem",
+	width: "max-content",
+	fontFamily: "var(--font-secondary)",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.8rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.6rem"
+	}
+}));
