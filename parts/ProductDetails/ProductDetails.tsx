@@ -20,11 +20,6 @@ import {
 // Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ClearIcon from "@mui/icons-material/Clear";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TelegramIcon from "@mui/icons-material/Telegram";
 
 // Utils
 import formatToRupiah from "../../utils/formatToRupiah";
@@ -41,7 +36,7 @@ import usePagination from "../../hooks/usePagination";
 import { useTrackProductSeenMutation } from "../../api/activity.api";
 
 // Components
-import { Divider, Rating, Stack, Grid, IconButton, Typography } from "@mui/material";
+import { Divider, Rating, Stack, Grid, Typography } from "@mui/material";
 import Button from "../../components/Button/Button";
 import CarouselWithThumb from "../../components/CarouselWithThumb/CarouselWithThumb";
 import SizeRadio from "../../components/SizeRadio/SizeRadio";
@@ -53,7 +48,7 @@ import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
-import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
+import ShareProduct from "../../components/ShareProduct/ShareProduct";
 
 interface ProductDetailsProps {
 	productData: Product;
@@ -188,26 +183,11 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 								{isWishlisted ? "Hapus dari wishlist" : "Tambahkan ke wishlist"}
 							</Button>
 						)}
-						<Stack direction="row" alignItems="center" mt={2} gap={2}>
-							<MainText>Share: </MainText>
-							<Stack direction="row">
-								<IconButton>
-									<FacebookIcon />
-								</IconButton>
-								<IconButton>
-									<TwitterIcon />
-								</IconButton>
-								<IconButton>
-									<WhatsAppIcon />
-								</IconButton>
-								<IconButton>
-									<InstagramIcon />
-								</IconButton>
-								<IconButton>
-									<TelegramIcon />
-								</IconButton>
-							</Stack>
-						</Stack>
+						<ShareProduct
+							url={`https://github.com`}
+							title={productData.title}
+							text={`${productData.description.slice(0, 200)}...`}
+						/>
 					</ProductInfoContainer>
 				</GridContainer>
 				<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }} rowSpacing={1} pt={5}>
