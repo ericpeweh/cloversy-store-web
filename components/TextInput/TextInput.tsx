@@ -103,7 +103,7 @@ const TextInput = ({
 			/>
 			{maxLength && (
 				<InputLimitText>
-					{performant ? fieldValue.length : value.toString().length}/200
+					{performant ? fieldValue.length : value.toString().length}/{maxLength}
 				</InputLimitText>
 			)}
 		</>

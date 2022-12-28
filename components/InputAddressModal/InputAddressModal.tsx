@@ -148,6 +148,7 @@ const InputAddressModal = ({
 									onChange={handleChange}
 									onBlur={handleBlur}
 									error={Boolean(errors.recipient_name && touched.recipient_name)}
+									performant
 								/>
 								{errors.recipient_name && touched.recipient_name && (
 									<ErrorMessage>{errors.recipient_name}</ErrorMessage>
@@ -162,6 +163,7 @@ const InputAddressModal = ({
 									onChange={handleChange}
 									onBlur={handleBlur}
 									error={Boolean(errors.contact && touched.contact)}
+									performant
 								/>
 								{errors.contact && touched.contact && <ErrorMessage>{errors.contact}</ErrorMessage>}
 							</InputContainer>
@@ -174,6 +176,7 @@ const InputAddressModal = ({
 									onChange={handleChange}
 									onBlur={handleBlur}
 									error={Boolean(errors.label && touched.label)}
+									performant
 								/>
 								{errors.label && touched.label && <ErrorMessage>{errors.label}</ErrorMessage>}
 							</InputContainer>
@@ -185,6 +188,7 @@ const InputAddressModal = ({
 									onChange={handleChange}
 									onBlur={handleBlur}
 									error={Boolean(errors.shipping_note && touched.shipping_note)}
+									performant
 								/>
 								{errors.shipping_note && touched.shipping_note && (
 									<ErrorMessage>{errors.shipping_note}</ErrorMessage>
@@ -313,6 +317,7 @@ const InputAddressModal = ({
 									onChange={handleChange}
 									onBlur={handleBlur}
 									error={Boolean(errors.postal_code && touched.postal_code)}
+									performant
 								/>
 								{errors.postal_code && touched.postal_code && (
 									<ErrorMessage>{errors.postal_code}</ErrorMessage>
@@ -328,6 +333,7 @@ const InputAddressModal = ({
 									onChange={handleChange}
 									onBlur={handleBlur}
 									error={Boolean(errors.address && touched.address)}
+									performant
 								/>
 								{errors.address && touched.address && <ErrorMessage>{errors.address}</ErrorMessage>}
 							</InputContainer>
