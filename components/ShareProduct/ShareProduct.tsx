@@ -38,7 +38,7 @@ const ShareProduct = ({ url, text, title }: ShareProductProps) => {
 			<MainText>Share: </MainText>
 			<Stack direction="row">
 				<FacebookShareButton url={url} quote={`${title} - ${text}`} hashtag={"#bespecial!"}>
-					<IconButton>
+					<IconButton component="div">
 						<FacebookIcon />
 					</IconButton>
 				</FacebookShareButton>
@@ -48,12 +48,12 @@ const ShareProduct = ({ url, text, title }: ShareProductProps) => {
 					via="Cloversy.id Store"
 					hashtags={["bespecial!", "customsneaker", "cloversy.id", "custompainting"]}
 				>
-					<IconButton>
+					<IconButton component="div">
 						<TwitterIcon />
 					</IconButton>
 				</TwitterShareButton>
 				<LineShareButton url={url} title={`${title} - ${text}`}>
-					<IconButton>
+					<IconButton component="div">
 						<LineIcon
 							borderRadius={15}
 							iconFillColor={"white"}
@@ -63,7 +63,7 @@ const ShareProduct = ({ url, text, title }: ShareProductProps) => {
 					</IconButton>
 				</LineShareButton>
 				<WhatsappShareButton url={url} title={`${title} - ${text}`} separator={" | "}>
-					<IconButton>
+					<IconButton component="div">
 						<WhatsAppIcon />
 					</IconButton>
 				</WhatsappShareButton>
@@ -73,17 +73,17 @@ const ShareProduct = ({ url, text, title }: ShareProductProps) => {
 					summary={text}
 					source={"Cloversy.id Store - Custom painting"}
 				>
-					<IconButton>
+					<IconButton component="div">
 						<LinkedInIcon />
 					</IconButton>
 				</LinkedinShareButton>
 				<TelegramShareButton url={url} title={`${title} - ${text}`}>
-					<IconButton>
+					<IconButton component="div">
 						<TelegramIcon />
 					</IconButton>
 				</TelegramShareButton>
 				<FacebookMessengerShareButton url={url} appId={process.env.NEXT_PUBLIC_META_APP_ID!}>
-					<IconButton>
+					<IconButton component="div">
 						<FacebookMessengerIcon
 							borderRadius={50}
 							iconFillColor={"white"}
