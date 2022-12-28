@@ -1,5 +1,7 @@
 // Dependencies
-import React from "react";
+import React, { useState } from "react";
+import * as Yup from "yup";
+import { ValidationError } from "yup";
 
 // Styles
 import {
@@ -18,15 +20,55 @@ import {
 	SubscribeButton
 } from "./Footer.styles";
 
+// Hooks
+import { useSubscribeToEmailMutation } from "../../api/subscription.api";
+
 // Icons
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 // Components
-import { Divider, Grid, Stack } from "@mui/material";
+import { Alert, Divider, Grid, Stack } from "@mui/material";
 import Link from "next/link";
 
+const EmailSchema = Yup.string()
+	.email("Email tidak valid!")
+	.required("Mohon masukkan email untuk subscribe");
+
 const Footer = () => {
+	const [emailInput, setEmailInput] = useState("");
+	const [emailInputError, setEmailInputError] = useState("");
+
+	const [
+		subscribeToEmail,
+		{
+			isLoading: isSubscribeToEmailLoading,
+			reset: resetSubscribeToEmail,
+			isSuccess: isSubscribeToEmailSuccess
+		}
+	] = useSubscribeToEmailMutation();
+
+	const subscribeToEmailHandler = async (email: string) => {
+		try {
+			resetSubscribeToEmail();
+			setEmailInputError("");
+			await EmailSchema.validate(email);
+
+			const { status, error } = await subscribeToEmail(email).unwrap();
+
+			if (status === "success") {
+				setEmailInput("");
+			}
+			if (status === "error" && error) setEmailInputError(error);
+		} catch (error: any) {
+			if (error.name === "ValidationError") {
+				setEmailInputError(error.errors[0]);
+			} else {
+				setEmailInputError(error);
+			}
+		}
+	};
+
 	return (
 		<FooterContainer sx={{ ml: { xs: -4, lg: -6 } }}>
 			<FooterContent container spacing={{ xs: 4, lg: 6 }}>
@@ -78,8 +120,31 @@ const Footer = () => {
 					<FooterSection>
 						<FooterSectionTitle>Langganan Berita Terbaru</FooterSectionTitle>
 						<FooterSubscribeForm>
-							<EmailInput variant="outlined" color="primary" placeholder="Masukkan alamat email" />
-							<SubscribeButton size="small">Berlangganan</SubscribeButton>
+							<EmailInput
+								variant="outlined"
+								color="primary"
+								placeholder="Masukkan alamat email"
+								value={emailInput}
+								onChange={e => setEmailInput(e.target.value)}
+								error={Boolean(emailInputError)}
+							/>
+							<SubscribeButton
+								size="small"
+								onClick={() => subscribeToEmailHandler(emailInput)}
+								loading={isSubscribeToEmailLoading}
+							>
+								Berlangganan
+							</SubscribeButton>
+							{!isSubscribeToEmailLoading && emailInputError && (
+								<Alert severity="error" onClose={() => setEmailInputError("")}>
+									{emailInputError}
+								</Alert>
+							)}
+							{!isSubscribeToEmailLoading && isSubscribeToEmailSuccess && (
+								<Alert severity="success" onClose={() => resetSubscribeToEmail()}>
+									Berhasil berlangganan.
+								</Alert>
+							)}
 						</FooterSubscribeForm>
 					</FooterSection>
 				</Grid>
