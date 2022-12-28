@@ -270,19 +270,23 @@ const OrderReview = () => {
 												</>
 											)}
 										/>
-										<Grid item xs={12} md={3} ml="auto">
-											<Details sx={{ pt: 1 }}>
-												<Button
-													color="primary"
-													type="submit"
-													fullWidth
-													size="small"
-													onClick={() => handleSubmit()}
-													loading={isCreateReviewsLoading}
-												>
-													Buat ulasan
-												</Button>
-											</Details>
+										<Grid item xs={12}>
+											<Grid container>
+												<Grid item xs={12} md={3} ml="auto">
+													<Details sx={{ pt: 1 }}>
+														<Button
+															color="primary"
+															type="submit"
+															fullWidth
+															size="small"
+															onClick={() => handleSubmit()}
+															loading={isCreateReviewsLoading}
+														>
+															Buat ulasan
+														</Button>
+													</Details>
+												</Grid>
+											</Grid>
 										</Grid>
 										{createReviewsError && (
 											<Grid item xs={12} ml="auto">
