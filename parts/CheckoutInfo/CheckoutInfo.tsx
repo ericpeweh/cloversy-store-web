@@ -180,6 +180,7 @@ const CheckoutInfo = ({ setFormInitialValues }: CheckoutInfoProps) => {
 					value={values.customer_note}
 					onChange={handleChange}
 					onBlur={handleBlur}
+					performant
 				/>
 				{errors.customer_note && touched.customer_note && (
 					<Alert severity="error" sx={{ mb: 2 }}>
@@ -210,6 +211,7 @@ const CheckoutInfo = ({ setFormInitialValues }: CheckoutInfoProps) => {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						error={Boolean(errors.gift_note && touched.gift_note)}
+						performant
 					/>
 				)}
 				{errors.gift_note && touched.gift_note && (
