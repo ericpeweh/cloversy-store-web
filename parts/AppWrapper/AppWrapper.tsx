@@ -9,14 +9,12 @@ import SearchDrawer from "../../components/SearchDrawer/SearchDrawer";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import AddToCartSnackbar from "../../components/AddToCartSnackbar/AddToCartSnackbar";
 import SyncCart from "../../components/SyncCart/SyncCart";
-import { useAuth0 } from "@auth0/auth0-react";
 
 interface AppWrapperProps {
 	children: React.ReactNode;
 }
 
 const AppWrapper = ({ children }: AppWrapperProps) => {
-	const {} = useAuth0();
 	const { isLoading, isAuthenticated, currentPath } = useDataInit();
 
 	return (

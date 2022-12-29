@@ -52,10 +52,10 @@ interface MobileMenuDrawerProps {
 }
 
 const navigations = [
-	{ label: "Home", path: "/" },
-	{ label: "Products", path: "/products" },
-	{ label: "About us", path: "/about-us" },
-	{ label: "Contact us", path: "/contact-us" }
+	{ label: "Beranda", path: "/" },
+	{ label: "Produk", path: "/products" },
+	{ label: "Tentang kami", path: "/about-us" },
+	{ label: "Hubungi", path: "/contact-us" }
 ];
 
 const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
@@ -78,11 +78,11 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 
 	const mobileMenuActions = [
 		{
-			title: "My Profile",
+			title: "Akun saya",
 			icon: <PermIdentityOutlinedIcon />,
 			action: () => router.push("/account")
 		},
-		{ title: "Cart", icon: <ShoppingBagOutlinedIcon />, action: () => router.push("/cart") },
+		{ title: "Keranjang", icon: <ShoppingBagOutlinedIcon />, action: () => router.push("/cart") },
 		{
 			title: "Wishlist",
 			icon: <FavoriteBorderOutlinedIcon />,

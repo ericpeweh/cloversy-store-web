@@ -77,12 +77,12 @@ const Footer = () => {
 						<FooterSectionTitle>Informasi</FooterSectionTitle>
 						<FooterList>
 							<FooterListItem>
-								<Link href="/about">
+								<Link href="/about-us">
 									<FooterListLink>Tentang Kami</FooterListLink>
 								</Link>
 							</FooterListItem>
 							<FooterListItem>
-								<Link href="/about">
+								<Link href="/contact-us">
 									<FooterListLink>Kontak Kami</FooterListLink>
 								</Link>
 							</FooterListItem>
@@ -94,22 +94,22 @@ const Footer = () => {
 						<FooterSectionTitle>Layanan</FooterSectionTitle>
 						<FooterList>
 							<FooterListItem>
-								<Link href="/tnc">
+								<Link href="/terms-conditions">
 									<FooterListLink>Syarat & Ketentuan</FooterListLink>
 								</Link>
 							</FooterListItem>
 							<FooterListItem>
-								<Link href="/pertanyaan">
+								<Link href="/faq">
 									<FooterListLink>Pertanyaan Umum</FooterListLink>
 								</Link>
 							</FooterListItem>
 							<FooterListItem>
-								<Link href="/pengembalian">
+								<Link href="/return-policy">
 									<FooterListLink>Aturan Pengembalian</FooterListLink>
 								</Link>
 							</FooterListItem>
 							<FooterListItem>
-								<Link href="/privasi">
+								<Link href="/privacy-policy">
 									<FooterListLink>Aturan Privasi</FooterListLink>
 								</Link>
 							</FooterListItem>
@@ -151,7 +151,7 @@ const Footer = () => {
 			</FooterContent>
 			<Divider sx={{ borderColor: "#3a3a3a" }} flexItem />
 			<FooterBottom>
-				<CopyrightText>&copy;2022 Clovesry.id - All Rights Reserved</CopyrightText>
+				<CopyrightText>&copy;2023 Cloversy.id - All Rights Reserved</CopyrightText>
 				<Stack direction="row">
 					<SocialIcon>
 						<InstagramIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />

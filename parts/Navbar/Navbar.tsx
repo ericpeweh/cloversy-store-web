@@ -36,10 +36,10 @@ import MobileMenuDrawer from "../../components/MobileMenuDrawer/MobileMenuDrawer
 import Menu from "../../components/Menu/Menu";
 
 const navigations = [
-	{ label: "Home", path: "/" },
-	{ label: "Products", path: "/products" },
-	{ label: "About us", path: "/about-us" },
-	{ label: "Contact us", path: "/contact-us" }
+	{ label: "Beranda", path: "/" },
+	{ label: "Produk", path: "/products" },
+	{ label: "Tentang kami", path: "/about-us" },
+	{ label: "Hubungi", path: "/contact-us" }
 ];
 
 const Navbar = () => {

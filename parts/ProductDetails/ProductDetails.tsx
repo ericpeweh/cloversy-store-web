@@ -57,7 +57,9 @@ interface ProductDetailsProps {
 const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	const isAuth = useSelector(state => state.auth.isAuth);
 	const { wWidth } = useWindowSize();
-	const [shoesSize, setShoesSize] = useState(productData.sizes[0] || "36");
+	const [shoesSize, setShoesSize] = useState(
+		productData.sizes?.length > 0 ? productData.sizes[0] : "36"
+	);
 	const [quantity, setQuantity] = useState(1);
 
 	const { addToCartHandler, isAddToCartLoading } = useCart();
@@ -89,7 +91,7 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	];
 
 	const addProductToCartHandler = () => {
-		if (!shoesSize || !quantity) return;
+		if (!productData?.sizes || !shoesSize || !quantity) return;
 
 		const newCartItem = { product_id: productData.id, size: shoesSize, quantity };
 
