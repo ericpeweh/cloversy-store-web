@@ -61,7 +61,10 @@ const OrderDetails = () => {
 		error: getOrderErrorData,
 		refetch: refetchOrder,
 		isUninitialized: isGetOrderUninitialized
-	} = useGetTransactionDetailsQuery(orderId as string, { skip: !isAuth });
+	} = useGetTransactionDetailsQuery(orderId as string, {
+		skip: !isAuth,
+		pollingInterval: 1000 * 30 // 30 seconds
+	});
 	const getOrderError: any = getOrderErrorData;
 	const orderData = resultData?.data.transaction;
 

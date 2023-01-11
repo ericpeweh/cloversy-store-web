@@ -76,7 +76,7 @@ const OrderDetails = () => {
 		isUninitialized: isGetOrderUninitialized
 	} = useGetTransactionDetailsQuery(orderId as string, {
 		skip: !isAuth,
-		pollingInterval: 1000 * 30
+		pollingInterval: 1000 * 15 // 15 seconds
 	});
 	const getOrderError: any = getOrderErrorData;
 	const orderData = resultData?.data.transaction;
@@ -162,7 +162,7 @@ const OrderDetails = () => {
 						{!isGetOrderLoading && getOrderError && (
 							<FallbackContainer>
 								<Alert severity="error" sx={{ mb: 2 }}>
-									{getOrderError?.data.message}
+									{getOrderError?.data?.message}
 								</Alert>
 								<BoxButton onClick={refetchOrder}>Try again</BoxButton>
 							</FallbackContainer>
