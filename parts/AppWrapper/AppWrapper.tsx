@@ -9,6 +9,7 @@ import SearchDrawer from "../../components/SearchDrawer/SearchDrawer";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import AddToCartSnackbar from "../../components/AddToCartSnackbar/AddToCartSnackbar";
 import SyncCart from "../../components/SyncCart/SyncCart";
+import NotificiationLayer from "../NotificationLayer/NotificiationLayer";
 
 interface AppWrapperProps {
 	children: React.ReactNode;
@@ -25,6 +26,7 @@ const AppWrapper = ({ children }: AppWrapperProps) => {
 				<>
 					<Navbar />
 					<AddToCartSnackbar />
+					<NotificiationLayer />
 					<SyncCart />
 					<SearchDrawer />
 					<CartDrawer />

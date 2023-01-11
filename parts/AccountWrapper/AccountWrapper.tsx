@@ -31,6 +31,9 @@ import {
 import useSelector from "../../hooks/useSelector";
 import { useAuth0 } from "@auth0/auth0-react";
 
+// Config
+import { unsubscribeFromPush } from "../../config/firebaseInit";
+
 // Components
 import { Avatar, Divider, Grid, Skeleton } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -42,11 +45,19 @@ interface AccountWrapperProps {
 
 const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 	const { logout } = useAuth0();
-	const { full_name, profile_picture, status } = useSelector(state => state.auth, shallowEqual);
+	const {
+		full_name,
+		profile_picture,
+		status,
+		token: authToken
+	} = useSelector(state => state.auth, shallowEqual);
 	const router = useRouter();
 	const currentPath = router.asPath;
 
-	const logoutHandler = () => logout({ returnTo: "http://localhost:3000/" });
+	const logoutHandler = async () => {
+		await unsubscribeFromPush(authToken);
+		logout({ returnTo: "http://localhost:3000/" });
+	};
 
 	return (
 		<MyAccountContainer>

@@ -28,6 +28,9 @@ import useDebounce from "../../hooks/useDebounce";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
 
+// Config
+import { unsubscribeFromPush } from "../../config/firebaseInit";
+
 // Components
 import {
 	Divider,
@@ -45,6 +48,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import BoxButton from "../BoxButton/BoxButton";
 import Image from "next/image";
+import useSelector from "../../hooks/useSelector";
 
 interface MobileMenuDrawerProps {
 	open: boolean;
@@ -60,6 +64,7 @@ const navigations = [
 
 const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 	const router = useRouter();
+	const authToken = useSelector(state => state.auth.token);
 	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const [searchInput, setSearchInput] = useState("");
@@ -102,6 +107,11 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 	const showAllClickHandler = () => {
 		router.push(`/products?q=${searchInputDebounced}`);
 		onClose();
+	};
+
+	const logoutHandler = async () => {
+		await unsubscribeFromPush(authToken);
+		logout();
 	};
 
 	return (
@@ -229,7 +239,7 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 					</Button>
 				)}
 				{isAuthenticated && (
-					<Button endIcon={<LogoutIcon />} onClick={() => logout()}>
+					<Button endIcon={<LogoutIcon />} onClick={logoutHandler}>
 						Logout
 					</Button>
 				)}

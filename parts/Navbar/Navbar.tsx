@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { shallowEqual } from "react-redux";
 
 // Hooks
 import useDispatch from "../../hooks/useDispatch";
@@ -30,6 +31,9 @@ import { openCartDrawer, openSearchDrawer } from "../../store/slices/globalSlice
 import { Search, ShoppingBagOutlined, Menu as MenuIcon } from "@mui/icons-material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
+// Config
+import { unsubscribeFromPush } from "../../config/firebaseInit";
+
 // Components
 import { Avatar, Badge, Button, ButtonBase, IconButton } from "@mui/material";
 import MobileMenuDrawer from "../../components/MobileMenuDrawer/MobileMenuDrawer";
@@ -48,7 +52,10 @@ const Navbar = () => {
 	const dispatch = useDispatch();
 	const { wWidth } = useWindowSize();
 
-	const profilePicture = useSelector(state => state.auth.profile_picture);
+	const { profile_picture: profilePicture, token: authToken } = useSelector(
+		state => state.auth,
+		shallowEqual
+	);
 	const cartItems = useSelector(state => state.global.userCart);
 	const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 	const cartQuantityCount = cartItems.reduce((totalQty, item) => (totalQty += item.quantity), 0);
@@ -74,6 +81,11 @@ const Navbar = () => {
 		dispatch(openCartDrawer());
 	};
 
+	const logoutHandler = async () => {
+		await unsubscribeFromPush(authToken);
+		logout({ returnTo: "http://localhost:3000/" });
+	};
+
 	return (
 		<HeaderContainer id="navbar">
 			{wWidth >= 900 && isAuthenticated && (
@@ -87,7 +99,7 @@ const Navbar = () => {
 						{ label: "Detail akun", action: () => router.push("/account/details"), id: "account" },
 						{
 							label: "Logout",
-							action: () => logout({ returnTo: "http://localhost:3000/" }),
+							action: () => logoutHandler(),
 							id: "logout"
 						}
 					]}
