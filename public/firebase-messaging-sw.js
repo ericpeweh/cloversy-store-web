@@ -11,7 +11,8 @@ self.addEventListener("notificationclick", event => {
 		event.waitUntil(
 			clients
 				.matchAll({
-					type: "window"
+					type: "window",
+					includeUncontrolled: true
 				})
 				.then(clientList => {
 					// Focus to event.action page
@@ -24,6 +25,32 @@ self.addEventListener("notificationclick", event => {
 					// Open new window of event.action page
 					if (clients.openWindow) {
 						return clients.openWindow(event.action);
+					}
+				})
+		);
+	}
+
+	// If user clicked on notification (not action buttons)
+	if (event.notification.data) {
+		event.waitUntil(
+			clients
+				.matchAll({
+					type: "window",
+					includeUncontrolled: true
+				})
+				.then(clientList => {
+					// Focus to event.action page
+					console.log(clientList);
+
+					for (const client of clientList) {
+						if (client.url === event.notification.data && "focus" in client) {
+							return client.focus();
+						}
+					}
+
+					// Open new window of event.action page
+					if (clients.openWindow) {
+						return clients.openWindow(event.notification.data);
 					}
 				})
 		);
@@ -58,7 +85,10 @@ if (isSupported) {
 		if (data?.body) {
 			notificationOptions = {
 				body: data?.body || "Pesan tidak tersedia.",
-				icon: data?.imageUrl || "/images/logo-square.jpg"
+				icon:
+					data?.imageUrl ||
+					"https://storage.googleapis.com/cloversy-store/assets/logo-square-notification.jpg" ||
+					"/images/logo-square.jpg"
 			};
 		}
 
@@ -77,6 +107,7 @@ if (isSupported) {
 			];
 
 			notificationOptions.actions = actions;
+			notificationOptions.data = data?.actionLink;
 		}
 
 		const notificationTitle = data?.title || "Pemberitahuan";
