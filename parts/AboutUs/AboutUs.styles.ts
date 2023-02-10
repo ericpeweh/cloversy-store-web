@@ -102,7 +102,9 @@ interface ContentProps {
 	textRight?: boolean;
 }
 
-export const Content = styled("div")<ContentProps>(({ textLeft, textRight }) => ({
+export const Content = styled("div", {
+	shouldForwardProp: props => props !== "textLeft"
+})<ContentProps>(({ textLeft, textRight }) => ({
 	display: "flex",
 	flexDirection: "column",
 	justifyContent: "center",
