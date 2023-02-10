@@ -1,6 +1,6 @@
-export type UserStatus = "user" | "admin";
+export type UserStatus = "active" | "banned";
 
-export type UserRole = "active" | "banned";
+export type UserRole = "user" | "admin";
 
 export interface User {
 	id: number;

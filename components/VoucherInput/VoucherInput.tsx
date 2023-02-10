@@ -32,8 +32,7 @@ import FallbackContainer from "../FallbackContainer/FallbackContainer";
 import VoucherPickerModal from "../VoucherPickerModal/VoucherPickerModal";
 
 const VoucherInput = () => {
-	const { values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue } =
-		useFormikContext<CheckoutFormValues>();
+	const { values, setFieldValue } = useFormikContext<CheckoutFormValues>();
 	const [voucherCodeInput, setVoucherCodeInput] = useState(values.voucher_code);
 
 	const [
