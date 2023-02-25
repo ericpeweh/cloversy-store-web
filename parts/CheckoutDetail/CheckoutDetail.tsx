@@ -7,10 +7,9 @@ import { OrderCardsContainer, Subtitle } from "../Checkout/Checkout.styles";
 // Hooks
 import useSelector from "../../hooks/useSelector";
 import { useGetCheckoutCartItemsQuery } from "../../api/cart.api";
-import { useFormikContext } from "formik";
 
 // Types
-import { CartItemDetails, CheckoutFormValues } from "../../interfaces";
+import { CartItemDetails } from "../../interfaces";
 
 // Components
 import { Divider, Grid, Stack, Typography, CircularProgress } from "@mui/material";
@@ -23,7 +22,6 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const CheckoutDetail = () => {
 	const isAuth = useSelector(state => state.auth.isAuth);
-	const { setFieldValue } = useFormikContext<CheckoutFormValues>();
 
 	const {
 		data: cartItemsData,
@@ -36,10 +34,6 @@ const CheckoutDetail = () => {
 
 	const getCartItemsError: any = getCartItemsErrorData;
 	const noCartItemsDataFound = cartItemsData?.data.cart.length === 0;
-
-	const voucherSelectHandler = (voucherCode: string) => {
-		setFieldValue("voucher_code", voucherCode);
-	};
 
 	return (
 		<Grid item xs={12} md={12} lg={5} xl={4}>

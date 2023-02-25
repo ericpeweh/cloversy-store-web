@@ -48,6 +48,7 @@ const CheckoutShipping = ({ setFormInitialValues }: CheckoutShippingProps) => {
 	const {
 		data: shippingCostsData,
 		isLoading: isGetShippingCostsLoading,
+		isUninitialized: isGetShippingCostsUninitialized,
 		isFetching: isGetShippingCostsFetching,
 		isSuccess: isGetShippingCostsSuccess,
 		error: getShippingCostsErrorData,
@@ -97,7 +98,7 @@ const CheckoutShipping = ({ setFormInitialValues }: CheckoutShippingProps) => {
 							<BoxButton onClick={refetchShippingCosts}>Try again</BoxButton>
 						</FallbackContainer>
 					)}
-					{isGetShippingCostsLoading && (
+					{(isGetShippingCostsLoading || isGetShippingCostsUninitialized) && (
 						<FallbackContainer>
 							<CircularProgress />
 						</FallbackContainer>

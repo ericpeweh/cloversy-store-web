@@ -105,11 +105,11 @@ const Products = () => {
 		}
 	}, [productsData, isGetProductsSuccess, dispatch, isInitialized]);
 
-	useEffect(() => {
-		setProducts([]);
-		setCurrentPage(0);
-		setPage(1);
-	}, [brandFilter, sortBy, priceFilter, searchQuery]);
+    useEffect(() => {
+      setProducts([]);
+      setCurrentPage(0);
+      setPage(1);
+    }, [brandFilter, sortBy, priceFilter, searchQuery]);
 
 	useEffect(() => {
 		if (productsData && isGetProductsSuccess && !isGetProductsFetching) {

@@ -131,7 +131,7 @@ const FilterDrawer = ({ isOpen, onClose }: FilterDrawerProps) => {
 				</Button>
 			</Stack>
 			<FilterContainer>
-				<FilterTitle>Filter Kategori</FilterTitle>
+				<FilterTitle>Filter Brand</FilterTitle>
 				<SelectInput
 					options={
 						isGetBrandsLoading ? [{ label: "Loading...", value: brandFilterInput }] : brandOptions

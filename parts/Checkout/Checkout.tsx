@@ -1,6 +1,6 @@
 // Dependencies
-import React, { useEffect, useState } from "react";
-import { Formik, FormikHelpers, FormikTouched } from "formik";
+import React, { useState } from "react";
+import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 // Actions
@@ -83,6 +83,7 @@ const CheckoutSchema = [
 const Checkout = () => {
 	const dispatch = useDispatch();
 	const isAuth = useSelector(state => state.auth.isAuth);
+	const router = useRouter();
 
 	const {
 		data: cartItemsData,
@@ -94,7 +95,6 @@ const Checkout = () => {
 	const getCartItemsError: any = getCartItemsErrorData;
 	const noCartItemsDataFound = cartItemsData?.data.cart.length === 0;
 
-	const router = useRouter();
 	const { activeStep, backHandler, nextHandler } = useStepper();
 	const [formInitialValues, setFormInitialValues] = useState<CheckoutFormValues>({
 		voucher_code: "",
