@@ -62,7 +62,7 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 						<Stack>
 							<Typography sx={{ fontSize: "1.5rem" }}>No Pesanan: {result.id}</Typography>
 							<SuccessMessage>
-								Terima kasih, {full_name.includes("@") ? "" : full_name}!
+								Terima kasih, {full_name.includes("@") ? "Clovers" : full_name}!
 							</SuccessMessage>
 						</Stack>
 					</Stack>
@@ -191,7 +191,7 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 					<OrderCardsContainer>
 						<React.Fragment>
 							{items.map((item, i) => (
-								<>
+								<React.Fragment key={`${item.product_id} ${item.product_size}`}>
 									<OrderCard
 										title={item.title}
 										sizeDesc={`EU ${item.product_size}`}
@@ -200,7 +200,7 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 										imageUrl={(item?.images || [])[0] || "/images/no-image.png"}
 									/>
 									{i !== items.length - 1 && <Divider flexItem />}
-								</>
+								</React.Fragment>
 							))}
 						</React.Fragment>
 					</OrderCardsContainer>

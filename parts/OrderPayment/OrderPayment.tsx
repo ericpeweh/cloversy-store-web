@@ -247,7 +247,7 @@ const OrderDetails = () => {
 													<InfoDescription>
 														Bayar dalam{" "}
 														<CountdownTime>
-															<Countdown date={payment.expire_time} daysInHours={true} />
+															<Countdown date={payment.expiry_time} daysInHours={true} />
 														</CountdownTime>
 													</InfoDescription>
 												</Stack>
