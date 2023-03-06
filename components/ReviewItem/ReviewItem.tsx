@@ -31,7 +31,11 @@ const ReviewItem = ({ reviewData }: ReviewItemProps) => {
 				secondaryAction={<Rating value={+reviewData.rating} readOnly precision={0.1} />}
 			>
 				<ListItemAvatar>
-					<Avatar alt="review name" src="/images/1.jpg" sx={{ width: "5rem", height: "5rem" }} />
+					<Avatar
+						alt="review name"
+						src={reviewData.profile_picture}
+						sx={{ width: "5rem", height: "5rem" }}
+					/>
 				</ListItemAvatar>
 				<ListItemText
 					sx={{ ml: { xs: 0, sm: 1, lg: 2 } }}

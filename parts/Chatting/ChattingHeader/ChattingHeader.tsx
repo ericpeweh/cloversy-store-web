@@ -35,7 +35,7 @@ const ChattingHeader = ({ userTyping }: ChattingHeaderProps) => {
 			</Badge>
 			<NameContainer>
 				<Name>Cloversy Admin</Name>
-				<Position>{userTyping ? userTyping : "Costumer Service"}</Position>
+				<Position>{userTyping ? userTyping : "Customer Service"}</Position>
 			</NameContainer>
 		</ChattingHeaderContainer>
 	);

@@ -161,7 +161,7 @@ const Chatting = () => {
 		<ChattingContainer>
 			{connectError && (
 				<Alert severity="error" sx={{ mb: 2 }}>
-					Gagal terhubung ke sistem chat, menghubungkan kembali...
+					Failed to connect to chat system, reconnecting...
 				</Alert>
 			)}
 			<ChattingHeader userTyping={userTyping} />

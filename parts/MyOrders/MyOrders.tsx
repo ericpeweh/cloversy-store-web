@@ -13,12 +13,12 @@ import { setOrdersTabIndex } from "../../store/slices/globalSlice";
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
 import useDispatch from "../../hooks/useDispatch";
+import { useGetAllTransactionsQuery } from "../../api/transaction.api";
+import useSelector from "../../hooks/useSelector";
 
 // Components
 import TabsNavigation from "../../components/TabsNavigation/TabsNavigation";
 import TabsPanel from "../../components/TabsPanel/TabsPanel";
-import { useGetAllTransactionsQuery } from "../../api/transaction.api";
-import useSelector from "../../hooks/useSelector";
 import OrderListItem from "../../components/OrderListItem/OrderListItem";
 import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
 import { Alert, CircularProgress, Typography } from "@mui/material";

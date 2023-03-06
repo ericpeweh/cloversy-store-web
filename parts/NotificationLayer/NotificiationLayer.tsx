@@ -1,6 +1,8 @@
 // Dependencies
 import { useEffect, useState } from "react";
 import { onMessage } from "firebase/messaging";
+import axios from "axios";
+import { shallowEqual } from "react-redux";
 
 // Config
 import { subscribeToPush, messaging } from "../../config/firebaseInit";
@@ -8,11 +10,11 @@ import { subscribeToPush, messaging } from "../../config/firebaseInit";
 // Hooks
 import useSelector from "../../hooks/useSelector";
 
+// API
+import { BASE_URL } from "../../api";
+
 // Components
 import NotificationSnackbar from "../../components/NotificationSnackbar/NotificationSnackbar";
-import { shallowEqual } from "react-redux";
-import axios from "axios";
-import { BASE_URL } from "../../api";
 
 export interface NotificationDataType {
 	title: string;
