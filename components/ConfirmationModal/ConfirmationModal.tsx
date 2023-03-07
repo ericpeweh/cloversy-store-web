@@ -1,5 +1,5 @@
 // Dependencies
-import { DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Alert, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
 import Button from "../Button/Button";
 
@@ -66,9 +66,9 @@ const ConfirmationModal = ({
 			</DialogContent>
 			<DialogContent sx={{ py: 0 }}>
 				{error && (
-					<ErrorMessage>
+					<Alert severity="error">
 						{error?.data?.message || "Error occured while processing action."}
-					</ErrorMessage>
+					</Alert>
 				)}
 			</DialogContent>
 			<DialogActions>

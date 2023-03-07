@@ -59,7 +59,9 @@ const Wishlist = () => {
 				)}
 				{!isGetWishlistLoading && !isGetWishlistSuccess && getWishlistError && (
 					<FallbackContainer>
-						<ErrorMessage>{getWishlistError.data?.message}</ErrorMessage>
+						<ErrorMessage>
+							{getWishlistError?.data?.message || "Error occured while fetching wishlist data."}
+						</ErrorMessage>
 						<BoxButton onClick={refetchWishlist}>Try again</BoxButton>
 					</FallbackContainer>
 				)}

@@ -204,7 +204,10 @@ const ContactUs = () => {
 										</Grid>
 										<Grid item xs={12} mt={-2}>
 											{!isSendContactUsMessageLoading && sendContactUsError && (
-												<Alert severity="error">{sendContactUsError?.data?.message}</Alert>
+												<Alert severity="error">
+													{sendContactUsError?.data?.message ||
+														"Error occured while sending message. Please try again later"}
+												</Alert>
 											)}
 											{!isSendContactUsMessageLoading && isSendContactUsMessageSuccess && (
 												<Alert severity="success" onClose={() => resetSendContactUsMessage()}>

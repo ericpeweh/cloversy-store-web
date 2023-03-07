@@ -105,11 +105,11 @@ const Products = () => {
 		}
 	}, [productsData, isGetProductsSuccess, dispatch, isInitialized]);
 
-    useEffect(() => {
-      setProducts([]);
-      setCurrentPage(0);
-      setPage(1);
-    }, [brandFilter, sortBy, priceFilter, searchQuery]);
+	useEffect(() => {
+		setProducts([]);
+		setCurrentPage(0);
+		setPage(1);
+	}, [brandFilter, sortBy, priceFilter, searchQuery]);
 
 	useEffect(() => {
 		if (productsData && isGetProductsSuccess && !isGetProductsFetching) {
@@ -247,7 +247,9 @@ const Products = () => {
 			)}
 			{!isGetProductsLoading && !isGetProductsFetching && getProductsError && (
 				<FallbackContainer>
-					<ErrorMessage>{productsError.data?.message}</ErrorMessage>
+					<ErrorMessage>
+						{productsError?.data?.message || "Error occured while fetching products data."}
+					</ErrorMessage>
 					<BoxButton onClick={refetchProducts}>Try again</BoxButton>
 				</FallbackContainer>
 			)}

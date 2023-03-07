@@ -150,7 +150,7 @@ const OrderReview = () => {
 						{!isGetOrderLoading && getOrderError && (
 							<FallbackContainer>
 								<Alert severity="error" sx={{ mb: 2 }}>
-									{getOrderError?.data?.message || "Gagal memperoleh detail transaksi"}
+									{getOrderError?.data?.message || "Error occured while fetching order data."}
 								</Alert>
 								<BoxButton onClick={refetchOrder}>Try again</BoxButton>
 							</FallbackContainer>
@@ -292,7 +292,8 @@ const OrderReview = () => {
 											<Grid item xs={12} ml="auto">
 												<Details sx={{ py: 0 }}>
 													<Alert severity="error">
-														{createReviewsError?.data?.message || "Gagal membuat review."}
+														{createReviewsError?.data?.message ||
+															"Error occured while submitting reviews."}
 													</Alert>
 												</Details>
 											</Grid>

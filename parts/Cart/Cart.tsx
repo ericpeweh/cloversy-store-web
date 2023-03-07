@@ -90,7 +90,9 @@ const Cart = () => {
 				)}
 				{!isGetCartItemsLoading && getCartItemsErrorData && (
 					<FallbackContainer>
-						<ErrorMessage>{getCartItemsError.data?.message}</ErrorMessage>
+						<ErrorMessage>
+							{getCartItemsError?.data?.message || "Error occured while fetching cart items."}
+						</ErrorMessage>
 						<BoxButton onClick={refetchCartItems}>Try again</BoxButton>
 					</FallbackContainer>
 				)}

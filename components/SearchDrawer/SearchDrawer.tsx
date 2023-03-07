@@ -106,7 +106,9 @@ const SearchDrawer = () => {
 				)}
 				{!isSearchProductsLoading && !isSearchProductsFetching && searchProductsError && (
 					<FallbackContainer>
-						<ErrorMessage>{searchProductsError.data?.message}</ErrorMessage>
+						<ErrorMessage>
+							{searchProductsError?.data?.message || "Error occured while fetching search results."}
+						</ErrorMessage>
 						<BoxButton onClick={refetchSearchProducts}>Try again</BoxButton>
 					</FallbackContainer>
 				)}

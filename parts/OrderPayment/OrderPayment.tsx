@@ -162,7 +162,7 @@ const OrderDetails = () => {
 						{!isGetOrderLoading && getOrderError && (
 							<FallbackContainer>
 								<Alert severity="error" sx={{ mb: 2 }}>
-									{getOrderError?.data?.message}
+									{getOrderError?.data?.message || "Error occured while fetching order data."}
 								</Alert>
 								<BoxButton onClick={refetchOrder}>Try again</BoxButton>
 							</FallbackContainer>

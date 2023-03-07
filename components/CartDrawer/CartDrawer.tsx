@@ -32,7 +32,7 @@ import { CartItemDetails } from "../../interfaces";
 import formatToRupiah from "../../utils/formatToRupiah";
 
 // Components
-import { Divider, Typography, Stack, CircularProgress } from "@mui/material";
+import { Divider, Typography, Stack, CircularProgress, Alert } from "@mui/material";
 import CartDrawerItem from "../CartDrawerItem/CartDrawerItem";
 import Button from "../Button/Button";
 import FallbackContainer from "../FallbackContainer/FallbackContainer";
@@ -167,7 +167,9 @@ const CartDrawer = () => {
 			)}
 			{!isGetCartItemsLoading && getCartItemsErrorData && (
 				<FallbackContainer>
-					<ErrorMessage>{getCartItemsError.data?.message}</ErrorMessage>
+					<Alert severity="error">
+						{getCartItemsError?.data?.message || "Error occured while fetching cart items."}
+					</Alert>
 					<BoxButton onClick={refetchCartItems}>Try again</BoxButton>
 				</FallbackContainer>
 			)}

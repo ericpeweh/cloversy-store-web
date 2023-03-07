@@ -194,7 +194,9 @@ const MyAddress = () => {
 			/>
 			{!isGetAddressLoading && getAddressError && (
 				<FallbackContainer>
-					<ErrorMessage>{addressError?.data?.message}</ErrorMessage>
+					<ErrorMessage>
+						{addressError?.data?.message || "Error occured while fetching address data."}
+					</ErrorMessage>
 					<BoxButton onClick={refetchAddress}>Try again</BoxButton>
 				</FallbackContainer>
 			)}

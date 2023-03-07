@@ -63,7 +63,9 @@ const NotificationSnackbar = ({ data, onClose }: NotificationSnackbarProps) => {
 						<CardImageContainer>
 							<CardImage component="img" image={data?.imageUrl || "/images/logo-square.jpg"} />
 						</CardImageContainer>
-						<NotificationText>{data?.message}</NotificationText>
+						<NotificationText>
+							{data?.message || "Error occured while processing action."}
+						</NotificationText>
 					</Stack>
 					<Stack direction="row" gap={1.5} mt={1.5}>
 						<Button size="small" fullWidth onClick={closeSnackbarHandler}>

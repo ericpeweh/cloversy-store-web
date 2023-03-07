@@ -23,7 +23,7 @@ import useGetSubdistrictOptions from "../../hooks/useGetSubdistrictOptions";
 // Components
 import CloseButton from "../CloseButton/CloseButton";
 import TextInput from "../TextInput/TextInput";
-import { Divider, Grid, Link } from "@mui/material";
+import { Alert, Divider, Grid, Link } from "@mui/material";
 import SelectInput from "../SelectInput/SelectInput";
 import Checkbox from "../Checkbox/Checkbox";
 import Button from "../Button/Button";
@@ -218,7 +218,8 @@ const InputAddressModal = ({
 								/>
 								{provincesError && (
 									<ErrorMessage>
-										{getProvincesError.data?.message}{" "}
+										{getProvincesError?.data?.message ||
+											"Error occured while fetching provinces data."}
 										<Link
 											underline="hover"
 											color="text.primary"
@@ -257,7 +258,7 @@ const InputAddressModal = ({
 									</InputContainer>
 									{citiesError && (
 										<ErrorMessage>
-											{getCitiesError.data?.message}{" "}
+											{getCitiesError?.data?.message || "Error occured while fetching cities data."}
 											<Link
 												underline="hover"
 												color="text.primary"
@@ -293,7 +294,8 @@ const InputAddressModal = ({
 									</InputContainer>
 									{subdistrictError && (
 										<ErrorMessage>
-											{getSubdistrictsError.data?.message}{" "}
+											{getSubdistrictsError?.data?.message ||
+												"Error occured while fetching subdistricts data."}
 											<Link
 												underline="hover"
 												color="text.primary"
@@ -347,7 +349,11 @@ const InputAddressModal = ({
 								/>
 							</InputContainer>
 							<Grid item xs={12}>
-								{error && <ErrorMessage>{error.data?.message}</ErrorMessage>}
+								{error && (
+									<Alert severity="error">
+										{error?.data?.message || "Error occured while creating new address."}
+									</Alert>
+								)}
 								<InputContainer item xs={3} alignSelf="flex-end" ml="auto">
 									<Button color="primary" fullWidth type="submit" loading={isLoading}>
 										Simpan
