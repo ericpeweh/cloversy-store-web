@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 // Components
-import { CircularProgress, Divider, Snackbar, Typography } from "@mui/material";
+import { Alert, CircularProgress, Divider, Snackbar, Typography } from "@mui/material";
 import CloseButton from "../CloseButton/CloseButton";
 import Voucher from "../Voucher/Voucher";
 
@@ -81,7 +81,9 @@ const VoucherPickerModal = ({ open, onClose, onSelectVoucher }: VoucherPickerMod
 			<VoucherOptions>
 				{!isGetVouchersLoading && getVouchersError && (
 					<FallbackContainer>
-						<ErrorMessage>{vouchersError.data.message}</ErrorMessage>
+						<Alert severity="error">
+							{vouchersError?.data?.message || "Error occured while fetching voucher data."}
+						</Alert>
 						<BoxButton onClick={refetchVouchers}>Try again</BoxButton>
 					</FallbackContainer>
 				)}

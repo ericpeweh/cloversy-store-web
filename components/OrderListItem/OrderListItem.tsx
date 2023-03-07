@@ -138,7 +138,9 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 				)}
 			</TransactionActions>
 			{cancelTransactionError && (
-				<Alert severity="error">{cancelTransactionError?.data.message}</Alert>
+				<Alert severity="error" sx={{ mt: 2 }}>
+					{cancelTransactionError?.data?.message || "Error occured while cancelling transaction."}
+				</Alert>
 			)}
 		</Transaction>
 	);

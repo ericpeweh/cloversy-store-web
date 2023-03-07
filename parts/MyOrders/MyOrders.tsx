@@ -73,7 +73,7 @@ const _getTransactionComponent = (
 			{!isLoading && error && (
 				<FallbackContainer>
 					<Alert severity="error" sx={{ mb: 2 }}>
-						{error?.data.message}
+						{error?.data?.message || "Error occured while fetching orders data."}
 					</Alert>
 					<BoxButton onClick={() => refetch()}>Try again</BoxButton>
 				</FallbackContainer>

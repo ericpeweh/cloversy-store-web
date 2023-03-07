@@ -260,10 +260,16 @@ const MyAccountDetails = () => {
 								</Button>
 							</ProfilePictureInputContainer>
 							{updateProfilePictureError && (
-								<ErrorMessage>{updateProfilePictureError.data.message}</ErrorMessage>
+								<Alert severity="error" sx={{ mt: 2 }}>
+									{updateProfilePictureError?.data?.message ||
+										"Error occured while updating profile picture."}
+								</Alert>
 							)}
 							{deleteProfilePictureError && (
-								<ErrorMessage>{deleteProfilePictureError.data.message}</ErrorMessage>
+								<Alert severity="error" sx={{ mt: 2 }}>
+									{deleteProfilePictureError?.data?.message ||
+										"Error occured while deleteing profile picture."}
+								</Alert>
 							)}
 						</InputContainer>
 					</Grid>
@@ -345,7 +351,10 @@ const MyAccountDetails = () => {
 									</InputContainer>
 								</Grid>
 								{updateAccountDetailsError && (
-									<ErrorMessage>{updateAccountDetailsError.data.message}</ErrorMessage>
+									<Alert severity="error" sx={{ mt: 2 }}>
+										{updateAccountDetailsError?.data?.message ||
+											"Error occured while updating account details."}
+									</Alert>
 								)}
 								<Grid item xs={12}>
 									<Grid item mt={1} xs={6} sm={3}>
@@ -386,7 +395,12 @@ const MyAccountDetails = () => {
 								{"Kami baru saja mengirimkan email untuk mengatur ulang kata sandi Anda."}
 							</Alert>
 						)}
-						{resetPasswordError && <ErrorMessage>{resetPasswordError.data.message}</ErrorMessage>}
+						{resetPasswordError && (
+							<Alert severity="error">
+								{resetPasswordError?.data?.message ||
+									"Error occured while sending reset password email."}
+							</Alert>
+						)}
 					</Grid>
 				</Grid>
 			</FormContainer>

@@ -84,7 +84,8 @@ const MyAccount = () => {
 				{!isGetTransactionsLoading && getTransactionsError && (
 					<FallbackContainer>
 						<Alert severity="error" sx={{ mb: 2 }}>
-							{getTransactionsError?.data.message}
+							{getTransactionsError?.data?.message ||
+								"Error occured while fetching transactions data."}
 						</Alert>
 						<BoxButton onClick={() => refetchTransactions()}>Try again</BoxButton>
 					</FallbackContainer>
@@ -181,7 +182,8 @@ const MyAccount = () => {
 				{!isGetLastSeenProductsLoading && getLastSeenProductsError && (
 					<FallbackContainer>
 						<Alert severity="error" sx={{ mb: 2 }}>
-							{getLastSeenProductsError?.data.message}
+							{getLastSeenProductsError?.data?.message ||
+								"Error occured while fetching last seen products."}
 						</Alert>
 						<BoxButton onClick={() => refetchLastSeenProducts()}>Try again</BoxButton>
 					</FallbackContainer>

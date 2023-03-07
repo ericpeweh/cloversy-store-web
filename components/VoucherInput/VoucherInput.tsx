@@ -129,7 +129,7 @@ const VoucherInput = () => {
 				{voucherError && (
 					<Grid item xs={12}>
 						<Alert severity="error" sx={{ mb: 2 }}>
-							{voucherError.data.message}
+							{voucherError?.data?.message || "Error occured while applying voucher code."}
 						</Alert>
 					</Grid>
 				)}

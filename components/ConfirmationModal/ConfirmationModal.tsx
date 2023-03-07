@@ -65,7 +65,11 @@ const ConfirmationModal = ({
 				<DialogContentText>{modalDescription}</DialogContentText>
 			</DialogContent>
 			<DialogContent sx={{ py: 0 }}>
-				{error && <ErrorMessage>{error.data.message}</ErrorMessage>}
+				{error && (
+					<ErrorMessage>
+						{error?.data?.message || "Error occured while processing action."}
+					</ErrorMessage>
+				)}
 			</DialogContent>
 			<DialogActions>
 				<Button

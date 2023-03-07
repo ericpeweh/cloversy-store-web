@@ -106,7 +106,7 @@ const CheckoutData = ({
 			</Stack>
 			{checkoutError && (
 				<Alert severity="error" sx={{ mt: 2, ml: { xs: 2, lg: 0 } }}>
-					{checkoutError.data.message}
+					{checkoutError?.data?.message || "Error occured while fetching checkout data."}
 				</Alert>
 			)}
 		</Box>
