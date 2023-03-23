@@ -5,7 +5,6 @@ self.addEventListener("notificationclick", event => {
 
 	// If user clicked on "Ignore" action button
 	if (event.action === "ignore") return;
-	s;
 
 	// Handle notification clicked on action buttons
 	if (event.action) {
