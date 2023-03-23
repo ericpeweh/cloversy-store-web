@@ -16,7 +16,6 @@ interface RecommendationsProps {
 }
 
 const Recommendations = ({ products }: RecommendationsProps) => {
-  
 	return (
 		<Section title="Produk terlaris">
 			<SectionContent>
@@ -25,8 +24,12 @@ const Recommendations = ({ products }: RecommendationsProps) => {
 					rowSpacing={{ xs: 1, sm: 2, md: 4, xl: 6 }}
 					size={{ xs: 6, sm: 6, lg: 4 }}
 				>
-					{products.map(product => (
-						<ProductCard key={product.id} productData={product} />
+					{products.map((product, i) => (
+						<ProductCard
+							key={product.id}
+							productData={product}
+							testIds={{ productTitle: `recommendation-${i + 1}` }}
+						/>
 					))}
 				</ProductsContainer>
 			</SectionContent>

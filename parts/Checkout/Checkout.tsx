@@ -114,8 +114,7 @@ const Checkout = () => {
 			data: checkoutResultData,
 			isLoading: isCheckoutLoading,
 			error: checkoutErrorData,
-			isSuccess: isCheckoutSuccess,
-			reset: resetCheckout
+			isSuccess: isCheckoutSuccess
 		}
 	] = useCheckoutMutation();
 	const checkoutResult = checkoutResultData?.data.transaction;

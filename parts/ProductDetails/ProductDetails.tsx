@@ -117,7 +117,7 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 						/>
 					</ImageCarouselContainer>
 					<ProductInfoContainer item xs={12} md={6}>
-						<ProductTitle>{productData?.title}</ProductTitle>
+						<ProductTitle data-testid="product-title">{productData?.title}</ProductTitle>
 						<Stack direction="row" alignItems="center" gap="1rem">
 							{productData?.rating ? (
 								<>
@@ -158,6 +158,7 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 							color="primary"
 							onClick={addProductToCartHandler}
 							loading={isAddToCartLoading}
+							data-testid="add-to-cart"
 						>
 							Tambahkan ke keranjang
 						</Button>

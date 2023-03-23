@@ -111,7 +111,7 @@ const CheckoutShipping = ({ setFormInitialValues }: CheckoutShippingProps) => {
 					{shippingCostsData &&
 						isGetShippingCostsSuccess &&
 						!noShippingCostsDataFound &&
-						shippingCostsData.data.costs.map((cost: ShippingCost) => (
+						shippingCostsData.data.costs.map((cost: ShippingCost, i) => (
 							<OptionContainer
 								key={`${cost.courier} ${cost.service}`}
 								selected={
@@ -120,7 +120,14 @@ const CheckoutShipping = ({ setFormInitialValues }: CheckoutShippingProps) => {
 							>
 								<FormControlLabel
 									value={`${cost.courier} ${cost.service} ${cost.value}`}
-									control={<Radio />}
+									control={
+										<Radio
+											inputProps={{
+												// @ts-ignore
+												"data-testid": `shipping-method-${i + 1}`
+											}}
+										/>
+									}
 									sx={{
 										p: "1rem 1.5rem 1rem 1rem",
 										width: "100%",

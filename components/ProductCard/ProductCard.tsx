@@ -39,13 +39,17 @@ interface ProductCardProps {
 	disableActionButtons?: boolean;
 	productData: Product;
 	openDetailsCallback?: Function;
+	testIds?: {
+		productTitle?: string;
+	};
 }
 
 const ProductCard = ({
 	size = "medium",
 	disableActionButtons = false,
 	productData,
-	openDetailsCallback
+	openDetailsCallback,
+	testIds
 }: ProductCardProps) => {
 	const { isWishlisted, addToWishlistHandler, deleteFromWishlistHandler } =
 		useWishlist(productData);
@@ -88,7 +92,9 @@ const ProductCard = ({
 			<Stack direction="row" justifyContent="space-between" alignItems="center">
 				<CardContent>
 					<Link href={`/products/${productData?.slug}`}>
-						<ProductTitle onClick={openProductDetailsHandler}>{productData?.title}</ProductTitle>
+						<ProductTitle onClick={openProductDetailsHandler} data-testid={testIds?.productTitle}>
+							{productData?.title}
+						</ProductTitle>
 					</Link>
 					<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
 				</CardContent>

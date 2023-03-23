@@ -183,7 +183,7 @@ const CartDrawer = () => {
 			)}
 			{cartItemsData && isGetCartItemsSuccess && !noDataFound && (
 				<>
-					<CartLists>
+					<CartLists data-testid="cart-drawer-lists">
 						{cartItems.map((item: CartItemDetails, i: number, arr) => (
 							<React.Fragment key={item.id}>
 								<CartDrawerItem itemData={item} onDelete={setAndOpenDeleteCartItemModalHandler} />

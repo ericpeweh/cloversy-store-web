@@ -163,7 +163,11 @@ const Navbar = () => {
 				<IconButton aria-label="search" onClick={openSearchDrawerHandler}>
 					<Search sx={{ fontSize: 30 }} color="secondary" />
 				</IconButton>
-				<IconButton aria-label="shopping-cart" onClick={openCartDrawerHandler}>
+				<IconButton
+					aria-label="shopping-cart"
+					onClick={openCartDrawerHandler}
+					data-testid="shopping-cart-button"
+				>
 					<Badge badgeContent={cartQuantityCount} color="primary">
 						<ShoppingBagOutlined sx={{ fontSize: 30 }} color="secondary" />
 					</Badge>

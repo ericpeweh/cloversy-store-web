@@ -183,6 +183,7 @@ const CheckoutInfo = ({ setFormInitialValues }: CheckoutInfoProps) => {
 					onChange={handleChange}
 					onBlur={handleBlur}
 					performant
+					inputProps={{ "data-testid": "checkout-order-note" }}
 				/>
 				{errors.customer_note && touched.customer_note && (
 					<Alert severity="error" sx={{ mb: 2 }}>
@@ -201,6 +202,7 @@ const CheckoutInfo = ({ setFormInitialValues }: CheckoutInfoProps) => {
 					checked={values.send_as_gift}
 					name="send_as_gift"
 					onChange={handleChange}
+					data-testid="checkout-gift-checkbox"
 				/>
 				{values.send_as_gift && (
 					<TextInput
@@ -214,6 +216,7 @@ const CheckoutInfo = ({ setFormInitialValues }: CheckoutInfoProps) => {
 						onBlur={handleBlur}
 						error={Boolean(errors.gift_note && touched.gift_note)}
 						performant
+						inputProps={{ "data-testid": "checkout-gift-note" }}
 					/>
 				)}
 				{errors.gift_note && touched.gift_note && (

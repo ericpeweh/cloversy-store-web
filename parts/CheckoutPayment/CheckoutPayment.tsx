@@ -51,11 +51,18 @@ const CheckoutPayment = () => {
 			<Subtitle>Metode pembayaran</Subtitle>
 			<RadioGroup value={values.payment_method} name="payment_method" onChange={handleChange}>
 				<InputContainer>
-					{paymentMethods.map(method => (
+					{paymentMethods.map((method, i) => (
 						<OptionContainer key={method.name} selected={method.name === values.payment_method}>
 							<FormControlLabel
 								value={method.name}
-								control={<Radio />}
+								control={
+									<Radio
+										inputProps={{
+											// @ts-ignore
+											"data-testid": `payment-method-${i + 1}`
+										}}
+									/>
+								}
 								sx={{
 									p: "1rem 1.5rem 1rem 1rem",
 									width: "100%",
