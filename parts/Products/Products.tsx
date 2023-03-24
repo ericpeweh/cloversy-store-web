@@ -159,6 +159,7 @@ const Products = () => {
 						startIcon={<TuneIcon />}
 						endIcon={<Badge badgeContent={filterCount + ""} color="primary" sx={{ ml: 1 }}></Badge>}
 						onClick={showFilterDrawerHandler}
+						data-testid="filter-button"
 					>
 						Filters
 					</Button>
@@ -191,10 +192,20 @@ const Products = () => {
 						aria-label="products display mode"
 						sx={{ border: "none" }}
 					>
-						<ToggleButton value="card" size="small" sx={{ border: "none" }}>
+						<ToggleButton
+							value="card"
+							size="small"
+							sx={{ border: "none" }}
+							data-testid="grid-view-button"
+						>
 							<GridViewIcon />
 						</ToggleButton>
-						<ToggleButton value="list" size="small" sx={{ border: "none" }}>
+						<ToggleButton
+							value="list"
+							size="small"
+							sx={{ border: "none" }}
+							data-testid="list-view-button"
+						>
 							<TableRowsIcon />
 						</ToggleButton>
 					</ToggleButtonGroup>

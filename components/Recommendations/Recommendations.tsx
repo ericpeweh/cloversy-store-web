@@ -28,7 +28,12 @@ const Recommendations = ({ products }: RecommendationsProps) => {
 						<ProductCard
 							key={product.id}
 							productData={product}
-							testIds={{ productTitle: `recommendation-${i + 1}` }}
+							testIds={{
+								productContainer: `recommendation-${i + 1}-container`,
+								productTitle: `recommendation-${i + 1}`,
+								productPrice: `recommendation-${i + 1}-price`,
+								quickViewButton: `recommendation-quick-view-${i + 1}`
+							}}
 						/>
 					))}
 				</ProductsContainer>

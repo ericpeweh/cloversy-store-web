@@ -40,7 +40,10 @@ interface ProductCardProps {
 	productData: Product;
 	openDetailsCallback?: Function;
 	testIds?: {
+		productContainer?: string;
 		productTitle?: string;
+		productPrice?: string;
+		quickViewButton?: string;
 	};
 }
 
@@ -67,10 +70,12 @@ const ProductCard = ({
 	};
 
 	return (
-		<ProductCardContainer>
+		<ProductCardContainer data-testid={testIds?.productContainer}>
 			<ProductImageContainer>
 				{!showProductView && !disableActionButtons && (
-					<QuickViewButton onClick={openProductViewHandler}>Quick View</QuickViewButton>
+					<QuickViewButton onClick={openProductViewHandler} data-testid={testIds?.quickViewButton}>
+						Quick View
+					</QuickViewButton>
 				)}
 				<Link href={`/products/${productData?.slug}`}>
 					<ProductImage
@@ -96,7 +101,9 @@ const ProductCard = ({
 							{productData?.title}
 						</ProductTitle>
 					</Link>
-					<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
+					<ProductPrice data-testid={testIds?.productPrice}>
+						{formatToRupiah(productData?.price)}
+					</ProductPrice>
 				</CardContent>
 				{!disableActionButtons && isAuth && (
 					<Stack direction="row" justifyContent="space-between" alignItems="center">

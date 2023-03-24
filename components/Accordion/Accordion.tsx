@@ -14,9 +14,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 interface AccordionProps {
 	title: string;
 	description: React.ReactNode | React.ReactNode[] | string;
+	testIds?: {
+		summary?: string;
+	};
 }
 
-const Accordion = ({ title, description }: AccordionProps) => {
+const Accordion = ({ title, description, testIds }: AccordionProps) => {
 	const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
 	const expandChangeHandler = (_: React.SyntheticEvent, newValue: boolean) => {
@@ -25,7 +28,7 @@ const Accordion = ({ title, description }: AccordionProps) => {
 
 	return (
 		<AccordionContainer expanded={isExpanded} onChange={expandChangeHandler}>
-			<Summary expandIcon={<ExpandMoreIcon />}>
+			<Summary expandIcon={<ExpandMoreIcon />} data-testid={testIds?.summary}>
 				<ContentTitle
 					color={isExpanded ? "primary" : "black"}
 					sx={{ mb: { xs: 0, md: 1, xl: 1.2 } }}

@@ -96,6 +96,7 @@ const ProductViewModal = () => {
 			<CloseButton
 				onClick={closeProductViewHandler}
 				sx={{ top: "1rem", right: "1rem", width: "3rem", height: "3rem" }}
+				data-testid="dialog-close-button"
 			/>
 			<ContentContainer container spacing={3}>
 				<Grid item xs={6}>
@@ -111,7 +112,7 @@ const ProductViewModal = () => {
 				</Grid>
 				<Grid item xs={6}>
 					<ProductDetails>
-						<ProductTitle>{productViewData?.title}</ProductTitle>
+						<ProductTitle data-testid="dialog-product-title">{productViewData?.title}</ProductTitle>
 						<Stack direction="row" alignItems="center" gap="1rem">
 							{productViewData?.rating ? (
 								<>
@@ -124,7 +125,9 @@ const ProductViewModal = () => {
 								<RatingText>- Belum ada ulasan -</RatingText>
 							)}
 						</Stack>
-						<ProductPrice>{formatToRupiah(productViewData?.price || 0)}</ProductPrice>
+						<ProductPrice data-testid="dialog-product-price">
+							{formatToRupiah(productViewData?.price || 0)}
+						</ProductPrice>
 						<ProductDesription>{productDescription}</ProductDesription>
 						<Link
 							onClick={() => {

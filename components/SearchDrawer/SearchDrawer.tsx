@@ -90,6 +90,9 @@ const SearchDrawer = () => {
 							</InputAdornment>
 						)
 					}}
+					inputProps={{
+						"data-testid": "search-input"
+					}}
 					variant="standard"
 					inputRef={searchInputRef}
 					value={searchInput}
