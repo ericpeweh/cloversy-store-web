@@ -88,6 +88,7 @@ const MyVoucher = () => {
 						width: "3rem",
 						height: "3rem"
 					}}
+					data-testid="dialog-close-button"
 				/>
 				<DialogTitle
 					sx={{

@@ -10,7 +10,11 @@ interface StatusBadgeProps {
 }
 
 const StatusBadge = ({ children, color = "primary" }: StatusBadgeProps) => {
-	return <StatusBadgeContainer color={color}>{children}</StatusBadgeContainer>;
+	return (
+		<StatusBadgeContainer color={color} data-testid="status-badge">
+			{children}
+		</StatusBadgeContainer>
+	);
 };
 
 export default StatusBadge;

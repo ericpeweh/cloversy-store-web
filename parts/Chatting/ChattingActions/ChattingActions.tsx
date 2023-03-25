@@ -116,7 +116,7 @@ const ChattingActions = ({
 				onInput={throttledMessageTypingHandler}
 				ref={messageInputRef}
 			/>
-			<IconButton type="submit">
+			<IconButton type="submit" data-testid="send-chat-button">
 				<SendIcon />
 			</IconButton>
 		</ChattingActionsForm>

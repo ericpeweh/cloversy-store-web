@@ -124,6 +124,7 @@ const InputAddressModal = ({
 					width: "3rem",
 					height: "3rem"
 				}}
+				data-testid="address-close-button"
 			/>
 			<ModalTitle>{modalTitle}</ModalTitle>
 			<Divider sx={{ mb: 1 }} />

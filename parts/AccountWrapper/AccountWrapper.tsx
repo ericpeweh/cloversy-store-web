@@ -78,48 +78,63 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 						<MenuContainer>
 							<MenuList>
 								<Link href="/account">
-									<MenuItem isActive={currentPath === "/account"}>
+									<MenuItem isActive={currentPath === "/account"} data-testid="link-dashboard">
 										<DashboardOutlinedIcon />
 										<MenuLabel>Dashboard</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/orders">
-									<MenuItem isActive={currentPath === "/account/orders"}>
+									<MenuItem
+										isActive={currentPath === "/account/orders"}
+										data-testid="link-my-orders"
+									>
 										<ShoppingBasketOutlinedIcon />
 										<MenuLabel>Pesanan saya</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/wishlist">
-									<MenuItem isActive={currentPath === "/account/wishlist"}>
+									<MenuItem
+										isActive={currentPath === "/account/wishlist"}
+										data-testid="link-wishlist"
+									>
 										<FavoriteBorderOutlinedIcon />
 										<MenuLabel>Wishlist</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/voucher">
-									<MenuItem isActive={currentPath === "/account/voucher"}>
+									<MenuItem
+										isActive={currentPath === "/account/voucher"}
+										data-testid="link-vouchers"
+									>
 										<ConfirmationNumberOutlinedIcon />
 										<MenuLabel>Voucher</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/address">
-									<MenuItem isActive={currentPath === "/account/address"}>
+									<MenuItem
+										isActive={currentPath === "/account/address"}
+										data-testid="link-address"
+									>
 										<RoomOutlinedIcon />
 										<MenuLabel>Alamat pengiriman</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/chat">
-									<MenuItem isActive={currentPath === "/account/chat"}>
+									<MenuItem isActive={currentPath === "/account/chat"} data-testid="link-chat">
 										<ChatOutlinedIcon />
 										<MenuLabel>Pesan</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/details">
-									<MenuItem isActive={currentPath === "/account/details"}>
+									<MenuItem
+										isActive={currentPath === "/account/details"}
+										data-testid="link-account-details"
+									>
 										<PermIdentityOutlinedIcon />
 										<MenuLabel>Detail akun</MenuLabel>
 									</MenuItem>
 								</Link>
-								<MenuItem onClick={logoutHandler}>
+								<MenuItem onClick={logoutHandler} data-testid="link-logout">
 									<LogoutOutlinedIcon />
 									<MenuLabel>Logout</MenuLabel>
 								</MenuItem>
