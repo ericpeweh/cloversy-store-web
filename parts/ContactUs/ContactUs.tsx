@@ -37,8 +37,8 @@ import TextInput from "../../components/TextInput/TextInput";
 const contacts = [
 	{ icon: EmailIcon, label: "cloversyid@gmail.com" },
 	{ icon: InstagramIcon, label: "@cloversy.id" },
-	{ icon: WhatsAppIcon, label: "+62 1234 5678 9012" },
-	{ icon: PhoneIcon, label: "+62 878 1234 5678" },
+	{ icon: WhatsAppIcon, label: "+62 821 5898 0966" },
+	{ icon: PhoneIcon, label: "+62 878 1800 1061" },
 	{ icon: LocationOnIcon, label: "Kalbar, Pontianak Kota" }
 ];
 
