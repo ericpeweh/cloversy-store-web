@@ -280,6 +280,7 @@ const Products = () => {
 				dataLength={products.length}
 				style={{ height: "100%", width: "100%" }}
 				next={loadMoreHandler}
+				scrollThreshold={0.7}
 				hasMore={page < (productsData?.totalPages || 0)}
 				loader={
 					currentPage !== 0 && (
