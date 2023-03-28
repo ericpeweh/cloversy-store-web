@@ -21,6 +21,7 @@ import useSelector from "../../hooks/useSelector";
 import useDispatch from "../../hooks/useDispatch";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
+import { useTrackProductSeenMutation } from "../../api/activity.api";
 
 // Actions
 import { closeProductView } from "../../store/slices/globalSlice";
@@ -39,7 +40,7 @@ import CloseButton from "../CloseButton/CloseButton";
 import SizeRadio from "../SizeRadio/SizeRadio";
 import QuantityInput from "../QuantityInput/QuantityInput";
 import Button from "../Button/Button";
-import { useTrackProductSeenMutation } from "../../api/activity.api";
+import ImageViewer from "../ImageViewer/ImageViewer";
 
 const ProductViewModal = () => {
 	const router = useRouter();
@@ -58,6 +59,10 @@ const ProductViewModal = () => {
 
 	const [shoesSize, setShoesSize] = useState(productViewData?.sizes[0] || "36");
 	const [quantity, setQuantity] = useState(1);
+
+	// Lightbox
+	const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+	const [lightboxIndex, setLightboxIndex] = useState(0);
 
 	const { addToCartHandler, isAddToCartLoading } = useCart();
 
@@ -93,6 +98,16 @@ const ProductViewModal = () => {
 
 	return (
 		<ProductViewContainer open={showProductView} onClose={closeProductViewHandler}>
+			<ImageViewer
+				isOpen={isLightboxOpen}
+				onClose={() => setIsLightboxOpen(false)}
+				imageIndex={lightboxIndex}
+				slides={
+					productViewData?.images?.length !== 0
+						? productViewData?.images.map(url => ({ src: url }))
+						: [{ src: "/images/no-image.png" }]
+				}
+			/>
 			<CloseButton
 				onClick={closeProductViewHandler}
 				sx={{ top: "1rem", right: "1rem", width: "3rem", height: "3rem" }}
@@ -107,6 +122,10 @@ const ProductViewModal = () => {
 									? productViewData?.images!
 									: ["/images/no-image.png"]
 							}
+							onImageClick={(imageIndex: number) => {
+								setLightboxIndex(imageIndex);
+								setIsLightboxOpen(true);
+							}}
 						/>
 					</ImageCarousel>
 				</Grid>

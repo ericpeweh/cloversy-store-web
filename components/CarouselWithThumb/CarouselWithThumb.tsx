@@ -39,9 +39,15 @@ interface CarouselWithThumbProps {
 	size?: "small" | "medium" | "large";
 	sx?: SxProps;
 	images: string[];
+	onImageClick?: (index: number) => void;
 }
 
-const CarouselWithThumb = ({ size = "small", sx, images }: CarouselWithThumbProps) => {
+const CarouselWithThumb = ({
+	size = "small",
+	sx,
+	images,
+	onImageClick
+}: CarouselWithThumbProps) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType>();
 
 	const productImages = images ?? ["/images/no-image.png"];
@@ -52,9 +58,14 @@ const CarouselWithThumb = ({ size = "small", sx, images }: CarouselWithThumbProp
 				{...carouselOptions}
 				thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
 			>
-				{productImages.map(image => (
+				{productImages.map((image, i) => (
 					<SwiperSlide key={image}>
-						<CarouselImage imageurl={image} size={size} />
+						<CarouselImage
+							imageurl={image}
+							size={size}
+							onClick={() => onImageClick && onImageClick(i)}
+							pressable={Boolean(onImageClick)}
+						/>
 					</SwiperSlide>
 				))}
 			</MainCarousel>

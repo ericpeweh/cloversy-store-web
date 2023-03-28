@@ -49,6 +49,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
 import ShareProduct from "../../components/ShareProduct/ShareProduct";
+import ImageViewer from "../../components/ImageViewer/ImageViewer";
 
 interface ProductDetailsProps {
 	productData: Product;
@@ -61,6 +62,8 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 		productData.sizes?.length > 0 ? productData.sizes[0] : "36"
 	);
 	const [quantity, setQuantity] = useState(1);
+	const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+	const [lightboxIndex, setLightboxIndex] = useState(0);
 
 	const { addToCartHandler, isAddToCartLoading } = useCart();
 
@@ -105,6 +108,16 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 			</Head>
 
 			<ProductDetailsContainer>
+				<ImageViewer
+					isOpen={isLightboxOpen}
+					onClose={() => setIsLightboxOpen(false)}
+					imageIndex={lightboxIndex}
+					slides={
+						productData?.images?.length !== 0
+							? productData?.images.map(url => ({ src: url }))
+							: [{ src: "/images/no-image.png" }]
+					}
+				/>
 				<ProductViewModal />
 				<PageBreadcrumbs links={links} />
 				<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }}>
@@ -114,6 +127,10 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 							images={
 								productData?.images?.length !== 0 ? productData?.images! : ["/images/no-image.png"]
 							}
+							onImageClick={(imageIndex: number) => {
+								setLightboxIndex(imageIndex);
+								setIsLightboxOpen(true);
+							}}
 						/>
 					</ImageCarouselContainer>
 					<ProductInfoContainer item xs={12} md={6}>
