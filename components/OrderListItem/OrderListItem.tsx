@@ -70,6 +70,8 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 				{orderData.item_details.map((item, i, arr) => (
 					<React.Fragment key={item.product_id}>
 						<OrderCard
+							slug={item.slug}
+							clickable={true}
 							title={item.title}
 							sizeDesc={`EU ${item.product_size}`}
 							qtyDesc={item.quantity.toString()}

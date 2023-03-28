@@ -351,7 +351,7 @@ const InputAddressModal = ({
 							</InputContainer>
 							<Grid item xs={12}>
 								{error && (
-									<Alert severity="error">
+									<Alert severity="error" sx={{ mb: 2 }}>
 										{error?.data?.message || "Error occured while creating new address."}
 									</Alert>
 								)}
