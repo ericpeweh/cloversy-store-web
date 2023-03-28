@@ -36,23 +36,31 @@ const ProductDetailsPage: NextPage<ProductDetailsPageProps> = ({ productData }) 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, params }) => {
 	const productSlug = params?.productSlug;
 
-	const response = await axios.get(`${BASE_URL}/products/${productSlug}`, {
-		withCredentials: true,
-		headers: {
-			cookie: req.headers.cookie ?? ""
-		}
-	});
-	const result: ResponseBody<{ product: Product }> = response.data;
+	try {
+		const response = await axios.get(`${BASE_URL}/products/${productSlug}`, {
+			withCredentials: true,
+			headers: {
+				cookie: req.headers.cookie ?? ""
+			}
+		});
+		const result: ResponseBody<{ product: Product }> = response.data;
 
-	if (response.headers["set-cookie"]) {
-		res.setHeader("Set-Cookie", response.headers["set-cookie"]);
+		if (response.headers["set-cookie"]) {
+			res.setHeader("Set-Cookie", response.headers["set-cookie"]);
+		}
+
+		return {
+			props: {
+				productData: result.data.product
+			}
+		};
+	} catch (error) {
+		return {
+			props: {
+				productData: null
+			}
+		};
 	}
-
-	return {
-		props: {
-			productData: result.data.product
-		}
-	};
 };
 
 export default ProductDetailsPage;
