@@ -83,7 +83,10 @@ const Navbar = () => {
 
 	const logoutHandler = async () => {
 		await unsubscribeFromPush(authToken);
-		logout({ returnTo: "http://localhost:3000/" });
+		logout({
+			returnTo:
+				process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://cloversy.id/"
+		});
 	};
 
 	return (

@@ -5,9 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
 export const BASE_URL =
-	process.env.NODE_ENV === "development"
-		? "http://localhost:5000"
-		: "<production backend url goes here>";
+	process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://api.cloversy.id";
 
 export const API = createApi({
 	baseQuery: fetchBaseQuery({

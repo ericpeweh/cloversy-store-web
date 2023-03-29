@@ -89,7 +89,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 							domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
 							clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENTID!}
 							audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE!}
-							redirectUri="http://localhost:3000/"
+							redirectUri={
+								process.env.NODE_ENV === "development"
+									? "http://localhost:3000/"
+									: "https://cloversy.id/"
+							}
 							scope="openid profile email"
 							onRedirectCallback={redirectCallbackHandler}
 						>
