@@ -21,6 +21,23 @@ export const CheckoutContainer = styled("div")(({ theme }) => ({
 	}
 }));
 
+export const Subtitle = styled(Typography)(({ theme }) => ({
+	fontSize: "2rem",
+	fontWeight: "600",
+	marginBottom: "1rem",
+	fontFamily: "var(--font-secondary)",
+	[theme.breakpoints.down("lg")]: {
+		fontSize: "1.7rem"
+	},
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem",
+		marginLeft: "1rem"
+	}
+})) as typeof Typography;
+
 export const StepperContainer = styled("div")({
 	marginTop: "-2rem"
 });
@@ -87,14 +104,29 @@ export const TransactionTotal = styled("p")(({ theme }) => ({
 	}
 }));
 
-export const FormContainer = styled("form")(({ theme }) => ({
+export const InputContainer = styled("div")(({ theme }) => ({
 	display: "flex",
 	flexDirection: "column",
 	overflow: "auto",
-	padding: "2rem 2rem 2rem 0",
+	padding: "1rem 2rem 2rem 0",
+	gap: "1rem",
+	[theme.breakpoints.down("xl")]: {
+		padding: "1rem 1rem 2rem 0rem"
+	},
+	[theme.breakpoints.down("lg")]: {
+		padding: "1rem 0rem 2rem 0rem"
+	},
 	[theme.breakpoints.down("sm")]: {
 		padding: "1rem 1rem 2rem 1rem"
 	}
+}));
+
+type AddressContainerType = { selected: boolean };
+
+export const OptionContainer = styled("div")<AddressContainerType>(({ theme, selected }) => ({
+	borderRadius: "0.5rem",
+	userSelect: "none",
+	border: `1px solid ${selected ? theme.palette.primary.main : theme.palette.grey[400]}`
 }));
 
 export const OrderCardsContainer = styled("div")({
@@ -121,57 +153,35 @@ export const SummaryTitle = styled(Typography)(({ theme }) => ({
 export const SummaryDesc = styled(Typography)(({ theme }) => ({
 	fontSize: "1.8rem",
 	textAlign: "right",
-	minWidth: "13rem",
+	minWidth: "14rem",
 	[theme.breakpoints.down("lg")]: {
 		fontSize: "1.7rem"
 	},
 	[theme.breakpoints.down("md")]: {
 		fontSize: "1.6rem",
-		minWidth: "12rem"
+		minWidth: "13rem"
 	},
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.5rem",
-		minWidth: "11rem"
+		minWidth: "12rem"
 	}
 })) as typeof Typography;
 
-export const ConfirmationContainer = styled("div")({
-	display: "flex",
-	flexDirection: "column",
-	alignItems: "center"
-});
-
-export const ConfirmationTitle = styled("h3")(({ theme }) => ({
-	fontSize: "3rem",
-	fontWeight: 400,
-	fontFamily: "var(--font-secondary)",
-	marginBottom: "8rem",
-	[theme.breakpoints.down("xl")]: {
-		fontSize: "2.8rem"
-	},
+export const TotalAmount = styled(Typography)(({ theme }) => ({
+	fontSize: "2rem",
+	textAlign: "right",
+	fontWeight: "bold",
+	minWidth: "14rem",
+	color: theme.palette.primary.main,
 	[theme.breakpoints.down("lg")]: {
-		fontSize: "2.7rem",
-		marginBottom: "6rem"
+		fontSize: "1.9rem"
 	},
 	[theme.breakpoints.down("md")]: {
-		fontSize: "2.6rem"
+		fontSize: "1.8rem",
+		minWidth: "13rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "2.5rem",
-		marginBottom: "4rem"
+		fontSize: "1.7rem",
+		minWidth: "12rem"
 	}
-}));
-
-export const ConfirmationDesc = styled("p")(({ theme }) => ({
-	fontSize: "1.7rem",
-	fontWeight: 400,
-	color: theme.palette.grey[500],
-	marginBottom: "1rem",
-	textAlign: "center",
-	[theme.breakpoints.down("md")]: {
-		fontSize: "1.6rem"
-	},
-	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.5rem"
-	}
-}));
+})) as typeof Typography;

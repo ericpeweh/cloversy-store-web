@@ -1,34 +1,39 @@
-// Dependencies
-import { shallowEqual } from "react-redux";
-
 // Hooks
-import useSelector from "../../hooks/useSelector";
-import useDispatch from "../../hooks/useDispatch";
-
-// Action
-import { closeSearchDrawer, closeCartDrawer } from "../../store/slices/globalSlice";
+import useDataInit from "../../hooks/useDataInit";
 
 // Components
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import CartDrawer from "../../components/CartDrawer/CartDrawer";
 import SearchDrawer from "../../components/SearchDrawer/SearchDrawer";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+import AddToCartSnackbar from "../../components/AddToCartSnackbar/AddToCartSnackbar";
+import SyncCart from "../../components/SyncCart/SyncCart";
+import NotificiationLayer from "../NotificationLayer/NotificiationLayer";
 
 interface AppWrapperProps {
 	children: React.ReactNode;
 }
 
 const AppWrapper = ({ children }: AppWrapperProps) => {
-	const { showSearchModal, showCartModal } = useSelector(state => state.global, shallowEqual);
-	const dispatch = useDispatch();
+	const { isLoading, isAuthenticated, currentPath } = useDataInit();
 
 	return (
 		<>
-			<Navbar />
-			<SearchDrawer open={showSearchModal} onClose={() => dispatch(closeSearchDrawer())} />
-			<CartDrawer open={showCartModal} onClose={() => dispatch(closeCartDrawer())} />
-			{children}
-			<Footer />
+			{isLoading || (!isAuthenticated && currentPath.includes("/account")) ? (
+				<LoadingScreen isOpen={isLoading} />
+			) : (
+				<>
+					<Navbar />
+					<AddToCartSnackbar />
+					<NotificiationLayer />
+					<SyncCart />
+					<SearchDrawer />
+					<CartDrawer />
+					{children}
+					<Footer />
+				</>
+			)}
 		</>
 	);
 };

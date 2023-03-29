@@ -2,109 +2,131 @@
 import React from "react";
 
 // Styles
-import {
-	MyOrdersContainer,
-	OrderCardsContainer,
-	Transaction,
-	TransactionDetails,
-	TransactionDate,
-	TransactionCode,
-	TransactionSummary,
-	TransactionTotal,
-	TransactionActions
-} from "./MyOrders.styles";
+import { MyOrdersContainer } from "./MyOrders.styles";
 
-// Icon
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+// Types
+import { TransactionStatus, TransactionListItem } from "../../interfaces";
+
+// Actions
+import { setOrdersTabIndex } from "../../store/slices/globalSlice";
 
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
+import useDispatch from "../../hooks/useDispatch";
+import { useGetAllTransactionsQuery } from "../../api/transaction.api";
+import useSelector from "../../hooks/useSelector";
 
 // Components
-import { Divider } from "@mui/material";
-import Button from "../../components/Button/Button";
 import TabsNavigation from "../../components/TabsNavigation/TabsNavigation";
 import TabsPanel from "../../components/TabsPanel/TabsPanel";
-import OrderCard from "../../components/OrderCard/OrderCard";
-import StatusBadge from "../../components/StatusBadge/StatusBadge";
+import OrderListItem from "../../components/OrderListItem/OrderListItem";
+import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
+import { Alert, CircularProgress, Typography } from "@mui/material";
+import BoxButton from "../../components/BoxButton/BoxButton";
 
-const TemporaryTransactionsComponent: React.FC = () => (
-	<>
-		<Transaction>
-			<TransactionDetails>
-				<StatusBadge>Belum bayar</StatusBadge>
-				<TransactionCode>PROD/21072022/00001</TransactionCode>
-				<TransactionDate>21 Juli 2022</TransactionDate>
-			</TransactionDetails>
-			<OrderCardsContainer>
-				<OrderCard title="Nike AF1 Homesick" sizeDesc="EU 40" qtyDesc="2" price="6.240.000" />
-				<Divider flexItem />
-				<OrderCard title="Ventela Lost Angel" sizeDesc="EU 37" qtyDesc="1" price="700.000" />
-			</OrderCardsContainer>
-			<TransactionSummary>
-				<strong>Total Pesanan: </strong>
-				<TransactionTotal>Rp 6.940.000</TransactionTotal>
-			</TransactionSummary>
-			<TransactionActions>
-				<Button size="small" variant="text" endIcon={<DescriptionOutlinedIcon />}>
-					Lihat detail pesanan
-				</Button>
-				<Button size="small" color="primary">
-					Bayar sekarang
-				</Button>
-			</TransactionActions>
-		</Transaction>
-		<Transaction>
-			<TransactionDetails>
-				<StatusBadge>Selesai</StatusBadge>
-				<TransactionCode>PROD/21072022/00001</TransactionCode>
-				<TransactionDate>21 Juli 2022</TransactionDate>
-			</TransactionDetails>
-			<OrderCardsContainer>
-				<OrderCard title="Nike AF1 Homesick" sizeDesc="EU 40" qtyDesc="2" price="6.240.000" />
-				<Divider flexItem />
-			</OrderCardsContainer>
-			<TransactionSummary>
-				<strong>Total Pesanan: </strong>
-				<TransactionTotal>Rp 6.940.000</TransactionTotal>
-			</TransactionSummary>
-			<TransactionActions>
-				<Button size="small" variant="text" endIcon={<DescriptionOutlinedIcon />}>
-					Lihat detail pesanan
-				</Button>
-				<Button size="small">Beri ulasan</Button>
-				<Button size="small" color="primary">
-					Beli lagi
-				</Button>
-			</TransactionActions>
-		</Transaction>
-	</>
-);
+const tabOptions: { label: string; status: TransactionStatus | "" }[] = [
+	{
+		label: "Semua",
+		status: ""
+	},
+	{
+		label: "Belum Bayar",
+		status: "pending"
+	},
+	{
+		label: "Diproses",
+		status: "process"
+	},
+	{
+		label: "Dikirim",
+		status: "sent"
+	},
+	{
+		label: "Selesai",
+		status: "success"
+	},
+	{
+		label: "Dibatalkan",
+		status: "cancel"
+	}
+];
+
+const _getTransactionComponent = (
+	isLoading: boolean,
+	isSuccess: boolean,
+	refetch: Function,
+	error: any,
+	transactions: TransactionListItem[]
+) => {
+	return (
+		<>
+			{isSuccess &&
+				transactions &&
+				transactions.map(transaction => (
+					<OrderListItem key={transaction.id} orderData={transaction} />
+				))}
+			{isLoading && (
+				<FallbackContainer>
+					<CircularProgress />
+				</FallbackContainer>
+			)}
+			{!isLoading && error && (
+				<FallbackContainer>
+					<Alert severity="error" sx={{ mb: 2 }}>
+						{error?.data?.message || "Error occured while fetching orders data."}
+					</Alert>
+					<BoxButton onClick={() => refetch()}>Try again</BoxButton>
+				</FallbackContainer>
+			)}
+			{!isLoading && isSuccess && transactions.length === 0 && (
+				<FallbackContainer>
+					<Typography>Transaksi tidak ditemukan</Typography>
+				</FallbackContainer>
+			)}
+		</>
+	);
+};
 
 const MyOrders = () => {
+	const dispatch = useDispatch();
+	const ordersTabIndex = useSelector(state => state.global.ordersTabIndex);
+	const isAuth = useSelector(state => state.auth.isAuth);
 	const { wWidth } = useWindowSize();
+
+	const {
+		data: transactionsData,
+		isLoading: isGetTransactionsLoading,
+		isSuccess: isGetTransactionsSuccess,
+		error: getTransactionsErrorData,
+		refetch: refetchTransactions
+	} = useGetAllTransactionsQuery(isAuth, { skip: !isAuth, pollingInterval: 1000 * 60 * 2 }); // Refetch transactions every 2 minutes
+	const getTransactionsError: any = getTransactionsErrorData;
+	const transactions = transactionsData?.data.transactions;
+
+	const tabPanelChangeHandler = (newValue: number) => {
+		dispatch(setOrdersTabIndex(newValue));
+	};
 
 	return (
 		<MyOrdersContainer>
-			<TabsNavigation variant={wWidth <= 600 ? "scrollable" : "fullWidth"}>
-				<TabsPanel label="Semua" noHorizontalSpacing>
-					<TemporaryTransactionsComponent />
-				</TabsPanel>
-				<TabsPanel label="Belum Bayar" noHorizontalSpacing>
-					<TemporaryTransactionsComponent />
-				</TabsPanel>
-				<TabsPanel label="Dikemas" noHorizontalSpacing>
-					<TemporaryTransactionsComponent />
-				</TabsPanel>
-				<TabsPanel label="Dikirim" noHorizontalSpacing>
-					<TemporaryTransactionsComponent />
-				</TabsPanel>
-				<TabsPanel label="Selesai" noHorizontalSpacing>
-					<TemporaryTransactionsComponent />
-				</TabsPanel>
-				<TabsPanel label="Dibatalkan" noHorizontalSpacing>
-					<TemporaryTransactionsComponent />
-				</TabsPanel>
+			<TabsNavigation
+				variant={wWidth <= 600 ? "scrollable" : "fullWidth"}
+				value={ordersTabIndex}
+				onChangeCb={tabPanelChangeHandler}
+			>
+				{tabOptions.map(option => (
+					<TabsPanel label={option.label} noHorizontalSpacing key={option.status}>
+						{_getTransactionComponent(
+							isGetTransactionsLoading,
+							isGetTransactionsSuccess,
+							refetchTransactions,
+							getTransactionsError,
+							transactions?.filter(order =>
+								option.status === "" ? true : order.order_status === option.status
+							) || []
+						)}
+					</TabsPanel>
+				))}
 			</TabsNavigation>
 		</MyOrdersContainer>
 	);

@@ -1,6 +1,7 @@
 // Dependencies
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { shallowEqual } from "react-redux";
 
 // Icons
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
@@ -27,10 +28,14 @@ import {
 } from "./AccountWrapper.styles";
 
 // Hooks
-import useWindowSize from "../../hooks/useWindowSize";
+import useSelector from "../../hooks/useSelector";
+import { useAuth0 } from "@auth0/auth0-react";
+
+// Config
+import { unsubscribeFromPush } from "../../config/firebaseInit";
 
 // Components
-import { Avatar, Divider, Grid } from "@mui/material";
+import { Avatar, Divider, Grid, Skeleton } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
 
 interface AccountWrapperProps {
@@ -39,9 +44,23 @@ interface AccountWrapperProps {
 }
 
 const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
+	const { logout } = useAuth0();
+	const {
+		full_name,
+		profile_picture,
+		status,
+		token: authToken
+	} = useSelector(state => state.auth, shallowEqual);
 	const router = useRouter();
 	const currentPath = router.asPath;
-	const { wWidth } = useWindowSize();
+
+	const logoutHandler = async () => {
+		await unsubscribeFromPush(authToken);
+		logout({
+			returnTo:
+				process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://cloversy.id/"
+		});
+	};
 
 	return (
 		<MyAccountContainer>
@@ -49,64 +68,93 @@ const AccountWrapper = ({ children, title }: AccountWrapperProps) => {
 			<OuterContainer>
 				<GridContainer container spacing={{ xs: 2, md: 3, lg: 4 }}>
 					<AccountMenu item xs={12} lg={3}>
-						<Avatar alt="profile icon" src="/images/1.jpg" sx={{ width: 60, height: 60 }} />
-						<AccountName>Hello, Mikici Cimol</AccountName>
+						{status === "loading" ? (
+							<Skeleton variant="circular" width={60} height={60} animation="wave" />
+						) : (
+							<Avatar
+								alt="profile icon"
+								src={profile_picture}
+								sx={{ width: 60, height: 60, border: "1px solid #999" }}
+							/>
+						)}
+						<AccountName>{status === "loading" ? "Loading..." : `Hello, ${full_name}`}</AccountName>
 						<MenuContainer>
 							<MenuList>
 								<Link href="/account">
-									<MenuItem isActive={currentPath === "/account"}>
+									<MenuItem isActive={currentPath === "/account"} data-testid="link-dashboard">
 										<DashboardOutlinedIcon />
 										<MenuLabel>Dashboard</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/orders">
-									<MenuItem isActive={currentPath === "/account/orders"}>
+									<MenuItem
+										isActive={currentPath === "/account/orders"}
+										data-testid="link-my-orders"
+									>
 										<ShoppingBasketOutlinedIcon />
 										<MenuLabel>Pesanan saya</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/wishlist">
-									<MenuItem isActive={currentPath === "/account/wishlist"}>
+									<MenuItem
+										isActive={currentPath === "/account/wishlist"}
+										data-testid="link-wishlist"
+									>
 										<FavoriteBorderOutlinedIcon />
 										<MenuLabel>Wishlist</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/voucher">
-									<MenuItem isActive={currentPath === "/account/voucher"}>
+									<MenuItem
+										isActive={currentPath === "/account/voucher"}
+										data-testid="link-vouchers"
+									>
 										<ConfirmationNumberOutlinedIcon />
 										<MenuLabel>Voucher</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/address">
-									<MenuItem isActive={currentPath === "/account/address"}>
+									<MenuItem
+										isActive={currentPath === "/account/address"}
+										data-testid="link-address"
+									>
 										<RoomOutlinedIcon />
 										<MenuLabel>Alamat pengiriman</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/chat">
-									<MenuItem isActive={currentPath === "/account/chat"}>
+									<MenuItem isActive={currentPath === "/account/chat"} data-testid="link-chat">
 										<ChatOutlinedIcon />
 										<MenuLabel>Pesan</MenuLabel>
 									</MenuItem>
 								</Link>
 								<Link href="/account/details">
-									<MenuItem isActive={currentPath === "/account/details"}>
+									<MenuItem
+										isActive={currentPath === "/account/details"}
+										data-testid="link-account-details"
+									>
 										<PermIdentityOutlinedIcon />
 										<MenuLabel>Detail akun</MenuLabel>
 									</MenuItem>
 								</Link>
-								<MenuItem>
+								<MenuItem onClick={logoutHandler} data-testid="link-logout">
 									<LogoutOutlinedIcon />
 									<MenuLabel>Logout</MenuLabel>
 								</MenuItem>
 							</MenuList>
 						</MenuContainer>
 					</AccountMenu>
-					{wWidth <= 1200 && (
-						<Grid item xs={12}>
-							<Divider />
-						</Grid>
-					)}
+					<Grid
+						item
+						xs={12}
+						sx={{
+							"@media screen and (min-width: 1200px)": {
+								display: "none"
+							}
+						}}
+					>
+						<Divider />
+					</Grid>
 					<ContentContainer item xs={12} lg={9}>
 						{children}
 					</ContentContainer>

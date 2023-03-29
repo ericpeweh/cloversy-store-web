@@ -82,7 +82,8 @@ export const ProductDesription = styled("p")(({ theme }) => ({
 	lineHeight: "2.4rem",
 	fontWeight: 400,
 	color: theme.palette.grey[800],
-	marginBottom: "2rem"
+	marginBottom: "2rem",
+	whiteSpace: "pre-wrap"
 }));
 
 export const MainText = styled("p")(({ theme }) => ({

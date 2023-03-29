@@ -2,7 +2,7 @@ import { styled } from "@mui/system";
 import { Stack, Grid } from "@mui/material";
 
 export const VoucherInputContainer = styled("div")(({ theme }) => ({
-	marginTop: "5rem",
+	marginTop: "3rem",
 	borderRadius: "0.5rem",
 	overflow: "hidden",
 	border: `1px solid ${theme.palette.grey[300]}`,

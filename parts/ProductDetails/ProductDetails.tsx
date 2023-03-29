@@ -1,5 +1,6 @@
 // Dependencies
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
 
 // Styles
 import {
@@ -13,22 +14,34 @@ import {
 	ProductDesription,
 	MainText,
 	ReviewsPagination,
-	ProductsRecommendation
+	ProductsRecommendation,
+	FallbackImageContainer,
+	FallbackImageText,
+	FallbackContainer
 } from "./ProductDetails.styles";
 
 // Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TelegramIcon from "@mui/icons-material/Telegram";
+import ClearIcon from "@mui/icons-material/Clear";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+// Utils
+import formatToRupiah from "../../utils/formatToRupiah";
+
+// Types
+import { Product } from "../../interfaces";
 
 // Hooks
 import useWindowSize from "../../hooks/useWindowSize";
+import useSelector from "../../hooks/useSelector";
+import useWishlist from "../../hooks/useWishlist";
+import useCart from "../../hooks/useCart";
+import usePagination from "../../hooks/usePagination";
+import { useTrackProductSeenMutation } from "../../api/activity.api";
+import { useRouter } from "next/router";
 
 // Components
-import { Divider, Rating, Stack, Grid, IconButton } from "@mui/material";
+import { Divider, Rating, Stack, Grid, Typography } from "@mui/material";
 import Button from "../../components/Button/Button";
 import CarouselWithThumb from "../../components/CarouselWithThumb/CarouselWithThumb";
 import SizeRadio from "../../components/SizeRadio/SizeRadio";
@@ -40,137 +53,245 @@ import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import ProductViewModal from "../../components/ProductViewModal/ProductViewModal";
+import ShareProduct from "../../components/ShareProduct/ShareProduct";
+import ImageViewer from "../../components/ImageViewer/ImageViewer";
+import Image from "next/image";
 
-const links = [
-	{ label: "Products", url: "#" },
-	{ label: "Nike AF1", url: "#" },
-	{ label: "Nike Air Force 1 Homesick", url: "current" }
-];
+interface ProductDetailsProps {
+	productData: Product;
+}
 
-const ProductDetails = () => {
+const ProductDetails = ({ productData }: ProductDetailsProps) => {
+	const isAuth = useSelector(state => state.auth.isAuth);
+	const router = useRouter();
 	const { wWidth } = useWindowSize();
-	const [shoesSize, setShoesSize] = useState(36);
+	const [shoesSize, setShoesSize] = useState(
+		productData?.sizes?.length > 0 ? productData?.sizes[0] : "36"
+	);
+	const [quantity, setQuantity] = useState(1);
+	const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+	const [lightboxIndex, setLightboxIndex] = useState(0);
+
+	const { addToCartHandler, isAddToCartLoading } = useCart();
+
+	// Reviews pagination
+	const { page: reviewPage, onChange: reviewPaginationChangeHandler } = usePagination();
+
+	// Track user product last seen
+	const [trackProductSeen] = useTrackProductSeenMutation();
+
+	useEffect(() => {
+		if (isAuth && productData) {
+			trackProductSeen(productData?.id);
+		}
+	}, [isAuth, productData, trackProductSeen]);
+
+	const {
+		isWishlisted,
+		addToWishlistHandler,
+		isAddToWishlistLoading,
+		deleteFromWishlistHandler,
+		isDeleteFromWishlistLoading
+	} = useWishlist(productData);
+
+	const links = [
+		{ label: "Beranda", url: "/" },
+		{ label: "Produk", url: "/products" },
+		{ label: productData?.title, url: "current" }
+	];
+
+	const addProductToCartHandler = () => {
+		if (!productData?.sizes || !shoesSize || !quantity) return;
+
+		const newCartItem = { product_id: productData.id, size: shoesSize, quantity };
+
+		addToCartHandler(newCartItem, productData);
+	};
 
 	return (
-		<ProductDetailsContainer>
-			<ProductViewModal />
-			<PageBreadcrumbs links={links} />
-			<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }}>
-				<ImageCarouselContainer item xs={12} md={6}>
-					<CarouselWithThumb size="medium" />
-				</ImageCarouselContainer>
-				<ProductInfoContainer item xs={12} md={6}>
-					<ProductTitle>Nike AF1 Homesick</ProductTitle>
-					<Stack direction="row" alignItems="center" gap="1rem">
-						<Rating value={4.5} readOnly precision={0.5} />
-						<RatingText>4.8 | 24 Reviews</RatingText>
-					</Stack>
-					<ProductPrice>Rp3.899.000</ProductPrice>
-					<ProductDesription>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur officia odio
-						molestiae consectetur nemo maiores commodi, eveniet mollitia? Obcaecati delectus libero
-						ratione dolorem dignissimos, ab officiis officia similique omnis harum animi in,
-						praesentium, quo nisi culpa odit molestias dolor suscipit alias illum ut sed iusto
-						quidem est. Officiis eligendi illo doloremque quibusdam praesentium incidunt
-					</ProductDesription>
-					<Divider sx={{ mb: { xs: 2, sm: 0 } }} />
-					<MainText>Ukuran: EU</MainText>
-					<SizeRadio
-						value={shoesSize}
-						onChange={setShoesSize}
-						size={{ xs: 3, sm: 2, md: 3, lg: 2 }}
-					/>
-					<Divider sx={{ mt: 2 }} />
-					<Stack direction="row" alignItems="center" mt={3} mb={5} gap={2}>
-						<MainText>Jumlah barang: </MainText>
-						<QuantityInput value={5} size={wWidth <= 600 ? "small" : "medium"} />
-					</Stack>
-					<Button
-						variant="contained"
-						fullWidth
-						size={wWidth <= 600 ? "small" : "large"}
-						color="primary"
-					>
-						Tambahkan ke keranjang
-					</Button>
-					<Button
-						variant="outlined"
-						sx={{ mt: { xs: 1.5, sm: 2 } }}
-						fullWidth
-						color="primary"
-						endIcon={<FavoriteIcon sx={{ color: "primary.light" }} />}
-						size={wWidth <= 600 ? "small" : "large"}
-					>
-						Tambahkan ke wishlist
-					</Button>
-					<Stack direction="row" alignItems="center" mt={2} gap={2}>
-						<MainText>Share: </MainText>
-						<Stack direction="row">
-							<IconButton>
-								<FacebookIcon />
-							</IconButton>
-							<IconButton>
-								<TwitterIcon />
-							</IconButton>
-							<IconButton>
-								<WhatsAppIcon />
-							</IconButton>
-							<IconButton>
-								<InstagramIcon />
-							</IconButton>
-							<IconButton>
-								<TelegramIcon />
-							</IconButton>
-						</Stack>
-					</Stack>
-				</ProductInfoContainer>
-			</GridContainer>
-			<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }} rowSpacing={1} pt={5}>
-				<Grid item xs={12}>
-					<TabsNavigation>
-						<TabsPanel label="Deskripsi">
-							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem debitis, itaque nobis
-								accusamus perspiciatis exercitationem, soluta quisquam eum sed hic neque excepturi,
-								nam iusto tenetur quibusdam necessitatibus quia. Nesciunt dolore voluptate eligendi
-								sed blanditiis corrupti? Ratione autem et nihil eveniet explicabo ad culpa
-								perferendis architecto. Ipsam ducimus amet optio culpa!
-							</p>
-							<br />
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis, eveniet libero
-								labore corporis tempora consequatur iure amet dignissimos accusamus provident ad ut
-								possimus nihil sapiente perspiciatis quis commodi vitae qui. Ipsa quia quisquam
-								beatae excepturi. Fuga earum nihil voluptatibus modi perspiciatis omnis temporibus,
-								doloremque aliquid hic illo laboriosam, possimus quibusdam unde blanditiis
-								repellendus vel dolor ducimus molestiae amet ex optio ad fugiat obcaecati.
-								Accusantium porro itaque hic! Harum voluptas hic doloremque neque aspernatur fugit,
-								atque modi aut sit soluta saepe tempora assumenda eius recusandae corporis?
-								Molestiae perferendis nobis debitis dolore cupiditate! Ducimus aspernatur quidem
-								fuga cum porro! Expedita, ad veritatis!
-							</p>
-						</TabsPanel>
-						<TabsPanel label="Ulasan (5)">
-							<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-								<ReviewItem />
-								<ReviewItem />
-								<ReviewItem />
+		<>
+			<Head>
+				<title>Product Details | {productData?.title}</title>
+			</Head>
+			<ProductDetailsContainer>
+				{productData ? (
+					<>
+						<ImageViewer
+							isOpen={isLightboxOpen}
+							onClose={() => setIsLightboxOpen(false)}
+							imageIndex={lightboxIndex}
+							slides={
+								productData?.images?.length !== 0
+									? productData?.images.map(url => ({ src: url }))
+									: [{ src: "/images/no-image.png" }]
+							}
+						/>
+						<ProductViewModal />
+						<PageBreadcrumbs links={links} />
+						<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }}>
+							<ImageCarouselContainer item xs={12} md={6}>
+								<CarouselWithThumb
+									size="medium"
+									images={
+										productData?.images?.length !== 0
+											? productData?.images!
+											: ["/images/no-image.png"]
+									}
+									onImageClick={(imageIndex: number) => {
+										setLightboxIndex(imageIndex);
+										setIsLightboxOpen(true);
+									}}
+								/>
+							</ImageCarouselContainer>
+							<ProductInfoContainer item xs={12} md={6}>
+								<ProductTitle data-testid="product-title">{productData?.title}</ProductTitle>
+								<Stack direction="row" alignItems="center" gap="1rem">
+									{productData?.rating ? (
+										<>
+											<Rating value={+productData.rating} readOnly precision={0.1} />
+											<RatingText>
+												{(+productData?.rating).toFixed(1)} | {productData.review_count} Ulasan
+											</RatingText>
+										</>
+									) : (
+										<RatingText>- Belum ada ulasan -</RatingText>
+									)}
+								</Stack>
+								<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
+								<ProductDesription>
+									{productData?.description.split("\n\r")[0] || "No description provided."}
+								</ProductDesription>
+								<Divider sx={{ mb: { xs: 2, sm: 0 } }} />
+								<MainText>Ukuran: EU</MainText>
+								<SizeRadio
+									value={shoesSize}
+									onChange={setShoesSize}
+									size={{ xs: 3, sm: 2, md: 3, lg: 2 }}
+									sizeOptions={productData?.sizes ?? []}
+								/>
+								<Divider sx={{ mt: 2 }} />
+								<Stack direction="row" alignItems="center" mt={3} mb={5} gap={2}>
+									<MainText>Jumlah barang: </MainText>
+									<QuantityInput
+										size={wWidth <= 600 ? "small" : "medium"}
+										value={quantity}
+										onChangeQuantity={setQuantity}
+									/>
+								</Stack>
+								<Button
+									variant="contained"
+									fullWidth
+									size={wWidth <= 600 ? "small" : "large"}
+									color="primary"
+									onClick={addProductToCartHandler}
+									loading={isAddToCartLoading}
+									data-testid="add-to-cart"
+								>
+									Tambahkan ke keranjang
+								</Button>
+								{isAuth && (
+									<Button
+										variant="outlined"
+										sx={{ mt: { xs: 1.5, sm: 2 } }}
+										fullWidth
+										color={isWishlisted ? "error" : "primary"}
+										endIcon={
+											isDeleteFromWishlistLoading ||
+											isAddToWishlistLoading ? null : isWishlisted ? (
+												<ClearIcon sx={{ color: "error.primary" }} />
+											) : (
+												<FavoriteIcon sx={{ color: "primary.light" }} />
+											)
+										}
+										onClick={() =>
+											isWishlisted
+												? deleteFromWishlistHandler(productData.id)
+												: addToWishlistHandler(productData.id)
+										}
+										loading={isDeleteFromWishlistLoading || isAddToWishlistLoading}
+										size={wWidth <= 600 ? "small" : "large"}
+									>
+										{isWishlisted ? "Hapus dari wishlist" : "Tambahkan ke wishlist"}
+									</Button>
+								)}
+								<ShareProduct
+									url={`https://github.com`}
+									title={productData.title}
+									text={`${productData.description.slice(0, 200)}...`}
+								/>
+							</ProductInfoContainer>
+						</GridContainer>
+						<GridContainer container spacing={{ xs: 3, lg: 4, xl: 5 }} rowSpacing={1} pt={5}>
+							<Grid item xs={12}>
+								<TabsNavigation>
+									<TabsPanel label="Deskripsi">
+										<Typography sx={{ whiteSpace: "pre-wrap" }}>
+											{productData?.description || "No description provided."}
+										</Typography>
+									</TabsPanel>
+									<TabsPanel label={`Ulasan (${productData?.review_count || "0"})`}>
+										{productData.reviews.length === 0 && (
+											<Typography textAlign="center">- Belum ada ulasan -</Typography>
+										)}
+										{productData.reviews.length !== 0 && (
+											<>
+												<Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+													{productData.reviews
+														.slice((reviewPage - 1) * 4, (reviewPage - 1) * 4 + 4)
+														.map(review => (
+															<ReviewItem reviewData={review} key={review.id} />
+														))}
+												</Grid>
+												{Math.ceil(productData.reviews.length / 4) > 1 && (
+													<ReviewsPagination
+														page={reviewPage}
+														onChange={reviewPaginationChangeHandler}
+														count={Math.ceil(productData.reviews.length / 4)}
+														shape="rounded"
+														color="primary"
+													/>
+												)}
+											</>
+										)}
+									</TabsPanel>
+								</TabsNavigation>
 							</Grid>
-							<ReviewsPagination count={5} shape="rounded" color="primary" />
-						</TabsPanel>
-					</TabsNavigation>
-				</Grid>
-			</GridContainer>
-			<ProductsRecommendation>
-				<MainText>Produk lainnya</MainText>
-				<ProductsContainer spacing={{ xs: 1, sm: 2, lg: 3 }} size={{ xs: 6, md: 3, xl: 3 }}>
-					<ProductCard size="small" />
-					<ProductCard size="small" />
-					<ProductCard size="small" />
-					<ProductCard size="small" />
-				</ProductsContainer>
-			</ProductsRecommendation>
-		</ProductDetailsContainer>
+						</GridContainer>
+						{productData?.recommendations.length > 0 && (
+							<ProductsRecommendation>
+								<MainText>Produk lainnya</MainText>
+								<ProductsContainer spacing={{ xs: 1, sm: 2, lg: 3 }} size={{ xs: 6, md: 3, xl: 3 }}>
+									{productData?.recommendations.map(productData => (
+										<ProductCard size="small" productData={productData} key={productData.id} />
+									))}
+								</ProductsContainer>
+							</ProductsRecommendation>
+						)}
+					</>
+				) : (
+					<FallbackContainer>
+						<FallbackImageContainer>
+							<Image
+								src="/images/no-product.png"
+								alt="produk tidak ditemukan"
+								height={512}
+								width={512}
+								layout="responsive"
+							/>
+						</FallbackImageContainer>
+						<FallbackImageText>Produk tidak ditemukan!</FallbackImageText>
+						<Button
+							variant="outlined"
+							size="small"
+							startIcon={<ArrowBackIcon />}
+							onClick={() => router.replace("/")}
+						>
+							Kembali ke Beranda
+						</Button>
+					</FallbackContainer>
+				)}
+			</ProductDetailsContainer>
+		</>
 	);
 };
 

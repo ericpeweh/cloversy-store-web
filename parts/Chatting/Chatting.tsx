@@ -1,117 +1,188 @@
 // Dependencies
-import { Avatar, Badge, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { shallowEqual } from "react-redux";
 
 // Styles
-import {
-	BubbleGroup,
-	ChatBubble,
-	ChattingContainer,
-	ChattingHeader,
-	ConversationContainer,
-	GroupTimestamp,
-	Name,
-	NameContainer,
-	Position,
-	BubbleTimestamp,
-	ChattingActions,
-	ChatInput
-} from "./Chatting.styles";
+import { ChattingContainer } from "./Chatting.styles";
 
-// Icons
-import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import CloseIcon from "@mui/icons-material/Close";
+// Utils
+import initSocketIO from "../../utils/initSocketIO";
 
 // Components
-import EmojiPicker from "../../components/EmojiPicker/EmojiPicker";
+import { Alert } from "@mui/material";
+
+// Types
+import { Message, User } from "../../interfaces";
+
+// Actions
+import {
+	setMessages,
+	setChatCursor,
+	setCurrentCursor,
+	setConversationData,
+	addNewMessage,
+	setActiveUsers
+} from "../../store/slices/chatSlice";
+
+// Hooks
+import { useGetConversationQuery } from "../../api/chat.api";
+import useDispatch from "../../hooks/useDispatch";
+import useSelector from "../../hooks/useSelector";
+
+// Parts
+import ChattingActions from "./ChattingActions/ChattingActions";
+import ChattingHeader from "./ChattingHeader/ChattingHeader";
+import Conversation from "./Conversation/Conversation";
+
+// Init web socket connection
+const socketClient = initSocketIO();
 
 const Chatting = () => {
-	const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+	const dispatch = useDispatch();
+	const { conversationId, messages, currentCursor, chatCursor, minCursor, nextCursor } =
+		useSelector(state => state.chat, shallowEqual);
+	const [connectError, setConnectError] = useState(false);
+	const { isAuth, token, email: authEmail } = useSelector(state => state.auth, shallowEqual);
+	const [scrollToMessageId, setScrollToMessageId] = useState("");
 
-	const showEmojiPickerHandler = () => setShowEmojiPicker(true);
+	// Scroll to bottom feature
+	const scrollToBottomRef = useRef<HTMLSpanElement>(null);
+	const [messageAtBottom, setMessageAtBottom] = useState(0);
 
-	const hideEmojiPickerHandler = () => setShowEmojiPicker(false);
+	// User typing feature
+	const [userTyping, setUserTyping] = useState("");
+
+	const {
+		data: conversationData,
+		isFetching: isGetConversationFetching,
+		isLoading: isGetConversationLoading,
+		isSuccess: isGetConversationSuccess
+	} = useGetConversationQuery(
+		{ currentCursor: chatCursor },
+		{
+			skip: !isAuth
+		}
+	);
+
+	useEffect(() => {
+		if (conversationData && isGetConversationSuccess && !isGetConversationFetching) {
+			if (currentCursor === -1 || currentCursor > conversationData.currentCursor) {
+				const { currentCursor, data, minCursor, maxCursor, nextCursor } = conversationData;
+
+				// Store first mesage id to allow scroll to view
+				setScrollToMessageId(data.conversation.messages[0]?.id + "");
+
+				dispatch(setMessages(data.conversation.messages));
+				dispatch(setCurrentCursor(currentCursor));
+				dispatch(
+					setConversationData({
+						min: minCursor,
+						max: maxCursor,
+						next: nextCursor,
+						conversationId: data.conversation.id
+					})
+				);
+			}
+		}
+	}, [
+		conversationData,
+		currentCursor,
+		isGetConversationSuccess,
+		isGetConversationFetching,
+		dispatch
+	]);
+
+	const loadMoreMessageHandler = () => {
+		if (conversationData) {
+			dispatch(setChatCursor(conversationData.nextCursor));
+		}
+	};
+
+	// Websocket connection & events
+	useEffect(() => {
+		if (isAuth && token) {
+			socketClient.connect(token);
+
+			// Connection success
+			socketClient.socket.on("connect", () => {
+				setConnectError(false);
+			});
+
+			// Failed connect to websocket server
+			socketClient.socket.on("connect_error", () => {
+				setConnectError(true);
+			});
+
+			// Handle incoming message
+			socketClient.socket.on("newMessageResponse", (newMessage: Message) => {
+				// Store message to conversation messages
+				dispatch(addNewMessage(newMessage));
+
+				// Increase message at bottom count if user at the current conversation tab
+				if (newMessage.conversation_id === conversationId && newMessage.email !== authEmail) {
+					setMessageAtBottom(prev => prev + 1);
+				}
+			});
+		}
+
+		// Active users feature
+		socketClient.socket.on("activeUsers", (users: Partial<User>[]) => {
+			dispatch(setActiveUsers(users));
+		});
+
+		// User typing feature
+		socketClient.socket.on(
+			"userTypingResponse",
+			(data: { is_typing: boolean; full_name: string; conversation_id: string; email: string }) => {
+				// If user typing is chat opponent
+				if (data.email !== authEmail) {
+					const { is_typing, conversation_id, full_name } = data;
+					if (+conversation_id !== conversationId) return;
+
+					setUserTyping(is_typing ? `${full_name} sedang mengetik...` : "");
+				}
+			}
+		);
+
+		return () => {
+			socketClient.socket.off("connect");
+			socketClient.socket.off("connect_error");
+			socketClient.socket.off("newMessageResponse");
+			socketClient.socket.off("activeUsers");
+			socketClient.socket.off("userTypingResponse");
+		};
+	}, [isAuth, token, dispatch, conversationId, authEmail]);
+
+	const resetMessageAtBottomHandler = () => {
+		setMessageAtBottom(0);
+	};
 
 	return (
 		<ChattingContainer>
-			<ChattingHeader>
-				<Badge color="primary" overlap="circular" badgeContent=" " variant="dot">
-					<Avatar
-						sx={{ width: { xs: 45, sm: 52, md: 60 }, height: { xs: 45, sm: 52, md: 60 } }}
-						src="/images/2.jpg"
-					/>
-				</Badge>
-				<NameContainer>
-					<Name>Cloversy Admin</Name>
-					<Position>Costumer Service</Position>
-				</NameContainer>
-			</ChattingHeader>
-			<ConversationContainer>
-				<BubbleGroup>
-					<ChatBubble align="right">
-						Halo selamat pagi admin cloversy?<BubbleTimestamp>12:42</BubbleTimestamp>
-					</ChatBubble>
-					<ChatBubble align="right">
-						Mau tanya untuk pengiriman PROD/2022123131/00001 apakah sudah dikirim?
-						<BubbleTimestamp>12:43</BubbleTimestamp>
-					</ChatBubble>
-				</BubbleGroup>
-				<GroupTimestamp>25 Jul 2022</GroupTimestamp>
-				<BubbleGroup>
-					<ChatBubble>
-						Halo selamat pagi juga kak <BubbleTimestamp>13:01</BubbleTimestamp>
-					</ChatBubble>
-					<ChatBubble>
-						Untuk saat ini pesanan dengna invoice PROD/2022123131/00001 sudah kita kirim ya, resinya
-						akan kita kirim kembali disini saat sudah dicetak dan juga bisa dilihat melalui tab
-						pesanan kakak. :) <BubbleTimestamp>13:02</BubbleTimestamp>
-					</ChatBubble>
-					<ChatBubble>
-						Terima kasih<BubbleTimestamp>13:02</BubbleTimestamp>
-					</ChatBubble>
-				</BubbleGroup>
-				<GroupTimestamp>26 Jul 2022</GroupTimestamp>
-				<BubbleGroup>
-					<ChatBubble align="right">
-						Oke min terima kasih<BubbleTimestamp>20:00</BubbleTimestamp>
-					</ChatBubble>
-					<ChatBubble align="right">
-						Nanti saya cek lagi untuk tracking pengirimannya
-						<BubbleTimestamp>20:00</BubbleTimestamp>
-					</ChatBubble>
-				</BubbleGroup>
-				<BubbleGroup>
-					<ChatBubble>
-						Siap kak sama-sama<BubbleTimestamp>20:30</BubbleTimestamp>
-					</ChatBubble>
-					<ChatBubble>
-						Ada lagi yang bisa kita bantu jawab kak ?<BubbleTimestamp>20:31</BubbleTimestamp>
-					</ChatBubble>
-				</BubbleGroup>
-				<BubbleGroup>
-					<ChatBubble align="right">
-						Untuk sekarang itu aja min<BubbleTimestamp>20:33</BubbleTimestamp>
-					</ChatBubble>
-				</BubbleGroup>
-			</ConversationContainer>
-			<ChattingActions>
-				{showEmojiPicker && <EmojiPicker />}
-				{showEmojiPicker && (
-					<IconButton onClick={hideEmojiPickerHandler}>
-						<CloseIcon />
-					</IconButton>
-				)}
-				{!showEmojiPicker && (
-					<IconButton onClick={showEmojiPickerHandler}>
-						<EmojiEmotionsOutlinedIcon />
-					</IconButton>
-				)}
-				<ChatInput placeholder="Ketik pesan" />
-				<IconButton>
-					<SendIcon />
-				</IconButton>
-			</ChattingActions>
+			{connectError && (
+				<Alert severity="error" sx={{ mb: 2 }}>
+					Failed to connect to chat system, reconnecting...
+				</Alert>
+			)}
+			<ChattingHeader userTyping={userTyping} />
+			<Conversation
+				messages={messages}
+				onLoadMore={loadMoreMessageHandler}
+				hasMore={nextCursor > minCursor && !isGetConversationFetching}
+				currentCursor={currentCursor}
+				scrollToMessageId={scrollToMessageId}
+				setScrollToMessageId={setScrollToMessageId}
+				isLoading={isGetConversationLoading}
+				ref={scrollToBottomRef}
+				onResetMessageAtBottom={resetMessageAtBottomHandler}
+			/>
+			<ChattingActions
+				conversationId={conversationId}
+				socket={socketClient.socket}
+				scrollToBottomRef={scrollToBottomRef}
+				messageAtBottom={messageAtBottom}
+				onResetMessageAtBottom={resetMessageAtBottomHandler}
+			/>
 		</ChattingContainer>
 	);
 };

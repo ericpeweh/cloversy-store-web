@@ -1,17 +1,27 @@
 // Dependencies
-import { InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
+import { InputLabel, Select, SelectProps, SxProps } from "@mui/material";
 import React from "react";
 
 // Styles
 import { SelectInputContainer, SelectMenuItem } from "./SelectInput.styles";
 
 interface SelectInputProps extends SelectProps {
-	options: string[];
+	options: { label: string; value: string | number }[];
+	onOptionClick?: Function;
 	label?: string;
 	value: string | number;
+	sx?: SxProps;
 }
 
-const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
+const SelectInput = ({
+	options,
+	label,
+	value,
+	sx,
+	onChange,
+	onOptionClick,
+	...props
+}: SelectInputProps) => {
 	return (
 		<SelectInputContainer fullWidth>
 			{label && <InputLabel id={label}>{label}</InputLabel>}
@@ -20,7 +30,7 @@ const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
 				id={label}
 				value={value}
 				label={label}
-				onChange={() => {}}
+				onChange={onChange}
 				MenuProps={{ sx: { maxHeight: { xs: "40rem", sm: "20rem" } } }}
 				sx={{
 					fontSize: {
@@ -31,13 +41,21 @@ const SelectInput = ({ options, label, value, ...props }: SelectInputProps) => {
 					height: {
 						xs: "5rem",
 						sm: "6rem"
-					}
+					},
+					...sx
 				}}
 				{...props}
 			>
-				{options.map(option => (
-					<SelectMenuItem value={option} key={option}>
-						{option}
+				{options.map(({ label, value }) => (
+					<SelectMenuItem
+						value={value}
+						key={value}
+						onClick={() => {
+							if (!onOptionClick) return;
+							onOptionClick(label);
+						}}
+					>
+						{label}
 					</SelectMenuItem>
 				))}
 			</Select>

@@ -19,8 +19,8 @@ export const QuantityInputField = styled("input")(({ theme }) => ({
 	borderStyle: "solid",
 	borderColor: theme.palette.grey[400],
 	"&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-		"-webkit-appearance": "none",
-		"-moz-appearance": "textfield"
+		WebkitAppearance: "none",
+		MozAppearance: "textfield"
 	},
 	[theme.breakpoints.down("md")]: {
 		fontSize: "1.5rem !important",

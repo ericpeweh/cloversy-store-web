@@ -4,7 +4,11 @@ import { styled } from "@mui/system";
 
 export const RadioInputContainer = styled(FormControl)({}) as typeof FormControl;
 
-export const RadioInputLabel = styled(FormLabel)({}) as typeof FormLabel;
+export const RadioInputLabel = styled(FormLabel, {
+	shouldForwardProp: props => props !== "error"
+})<{ error: boolean }>(({ error, theme }) => ({
+	color: error ? theme.palette.error.main : theme.palette.primary.main
+})) as typeof FormLabel;
 
 export const RadioContainer = styled(RadioGroup)({
 	gap: "4rem",

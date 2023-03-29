@@ -16,7 +16,7 @@ export type ResponsiveSizing = {
 };
 
 interface ProductsContainerProps {
-	children: React.ReactElement[];
+	children: React.ReactNode;
 	spacing?: GridSpacing | ResponsiveSizing;
 	columns?: number;
 	rowSpacing?: number | ResponsiveSizing;
@@ -36,7 +36,7 @@ const ProductsContainer = ({
 	};
 
 	return (
-		<Box sx={{ flexGrow: 1, mr: -spacing }}>
+		<Box sx={{ flexGrow: 1, mr: -spacing, width: "100%" }}>
 			<ProductsGrid container spacing={spacing} rowSpacing={rowSpacing}>
 				{React.Children.map(children, child => {
 					return (

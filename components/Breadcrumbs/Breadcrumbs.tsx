@@ -2,6 +2,9 @@
 import { Link, Typography } from "@mui/material";
 import React from "react";
 
+// Hooks
+import { useRouter } from "next/router";
+
 // Styles
 import { BreadcrumbsContainer } from "./Breadcrumbs.styles";
 
@@ -15,15 +18,23 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs = ({ links }: BreadcrumbsProps) => {
+	const router = useRouter();
+
 	return (
 		<BreadcrumbsContainer>
 			{links.map(link => {
 				return link.url === "current" ? (
-					<Typography color="primary" fontWeight={500}>
+					<Typography color="primary" fontWeight={500} key={link.url}>
 						{link.label}
 					</Typography>
 				) : (
-					<Link underline="hover" color="text.primary" href={link.url}>
+					<Link
+						key={link.label}
+						underline="hover"
+						color="text.primary"
+						onClick={() => router.push(link.url)}
+						sx={{ cursor: "pointer" }}
+					>
 						{link.label}
 					</Link>
 				);

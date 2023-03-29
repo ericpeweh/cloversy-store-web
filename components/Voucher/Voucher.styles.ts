@@ -102,3 +102,10 @@ export const VoucherImage = styled("div")(({ theme }) => ({
 		width: "8rem"
 	}
 }));
+
+export const VoucherActions = styled("div")({
+	padding: "0 2rem",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center"
+});

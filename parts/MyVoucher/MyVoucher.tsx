@@ -1,5 +1,5 @@
 // Dependencies
-import React from "react";
+import React, { useState } from "react";
 
 // Styles
 import {
@@ -15,29 +15,70 @@ import InfoIcon from "@mui/icons-material/Info";
 
 // Hooks
 import useModal from "../../hooks/useModal";
+import useSelector from "../../hooks/useSelector";
+import { useGetVouchersQuery } from "../../api/voucher.api";
+
+// Utils
+import { formatDateFullMonth } from "../../utils/formatDate";
+
+// Types
+import { Voucher as VoucherType } from "../../interfaces";
 
 // Components
 import {
+	Alert,
+	CircularProgress,
 	Dialog,
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
 	Divider,
-	Grid
+	Grid,
+	Snackbar,
+	Typography
 } from "@mui/material";
 import Button from "../../components/Button/Button";
 import Voucher from "../../components/Voucher/Voucher";
 import CloseButton from "../../components/CloseButton/CloseButton";
+import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import BoxButton from "../../components/BoxButton/BoxButton";
 
 const MyVoucher = () => {
+	const isAuth = useSelector(state => state.auth.isAuth);
+	const [successCopy, setSuccessCopy] = useState(false);
+
 	const {
 		isOpen: isInfoVoucherModalOpen,
 		openHandler: openInfoVoucherModalHandler,
 		closeHandler: closeInfoVoucherModalHandler
 	} = useModal();
 
+	const {
+		data: vouchersData,
+		isLoading: isGetVouchersLoading,
+		isSuccess: isGetVouchersSuccess,
+		error: getVouchersError,
+		refetch: refetchVouchers
+	} = useGetVouchersQuery(isAuth, { skip: !isAuth });
+	const vouchersError: any = getVouchersError;
+	const noDataFound = vouchersData?.data.vouchers.length === 0;
+
+	const copyVoucherCodeHandler = async (voucherCode: string) => {
+		await navigator.clipboard.writeText(voucherCode);
+		setSuccessCopy(true);
+	};
+
 	return (
 		<MyVoucherContainer>
+			<Snackbar
+				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+				open={successCopy}
+				onClose={() => setSuccessCopy(false)}
+				message="Voucher code copied!"
+				key={"voucher_code_copy"}
+				autoHideDuration={1500}
+			/>
 			<Dialog open={isInfoVoucherModalOpen} onClose={closeInfoVoucherModalHandler}>
 				<CloseButton
 					onClick={closeInfoVoucherModalHandler}
@@ -47,6 +88,7 @@ const MyVoucher = () => {
 						width: "3rem",
 						height: "3rem"
 					}}
+					data-testid="dialog-close-button"
 				/>
 				<DialogTitle
 					sx={{
@@ -99,16 +141,38 @@ const MyVoucher = () => {
 					</DialogContentText>
 				</DialogContent>
 			</Dialog>
+			{!isGetVouchersLoading && getVouchersError && (
+				<FallbackContainer>
+					<Alert severity="error">
+						{vouchersError?.data?.message || "Error occured while fetching vouchers data."}
+					</Alert>
+					<BoxButton onClick={refetchVouchers}>Try again</BoxButton>
+				</FallbackContainer>
+			)}
+			{isGetVouchersLoading && (
+				<FallbackContainer>
+					<CircularProgress />
+				</FallbackContainer>
+			)}
+			{!isGetVouchersLoading && isGetVouchersSuccess && noDataFound && (
+				<FallbackContainer>
+					<Typography>No voucher found!</Typography>
+				</FallbackContainer>
+			)}
 			<VoucherContainer container spacing={2}>
-				<Grid item xs={12} md={6}>
-					<Voucher title={"Diskon Rp 25.000"} expiryDate={"23 Jul 2022"} code={"ACBD98DC88"} />
-				</Grid>
-				<Grid item xs={12} md={6}>
-					<Voucher title={"Diskon Rp 25.000"} expiryDate={"26 Jul 2022"} code={"FF3298DC88"} />
-				</Grid>
-				<Grid item xs={12} md={6}>
-					<Voucher title={"Diskon Rp 25.000"} expiryDate={"3 Aug 2022"} code={"BAAD98D828"} />
-				</Grid>
+				{vouchersData &&
+					isGetVouchersSuccess &&
+					!noDataFound &&
+					vouchersData.data.vouchers.map((voucher: VoucherType) => (
+						<Grid key={voucher.code} item xs={12} md={6}>
+							<Voucher
+								title={voucher.title}
+								expiryDate={formatDateFullMonth(voucher.expiry_date)}
+								code={voucher.code}
+								onCopyCode={copyVoucherCodeHandler}
+							/>
+						</Grid>
+					))}
 			</VoucherContainer>
 			<Divider flexItem />
 			<Button

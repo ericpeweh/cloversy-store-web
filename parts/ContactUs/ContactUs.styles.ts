@@ -11,8 +11,8 @@ export const ContactUsContainer = styled("section")({
 	minHeight: "100vh"
 });
 
-export const ContactContainer = styled(Grid)({
-	width: "160rem",
+export const ContactContainer = styled("div")({
+	width: "160rem ",
 	marginBottom: "5rem",
 	"@media screen and (max-width: 1700px)": {
 		width: "95vw"
@@ -91,10 +91,14 @@ export const ContactInformationText = styled(ListItemText)({
 
 // Contact Form
 export const ContactForm = styled("form")(({ theme }) => ({
-	padding: "4rem 2rem",
+	padding: "4rem",
 	backgroundColor: "#fff",
 	borderRadius: "0.5rem",
+	border: `1px solid ${theme.palette.grey[400]}`,
+	[theme.breakpoints.down("md")]: {
+		marginTop: "2rem"
+	},
 	[theme.breakpoints.down("sm")]: {
-		padding: "3rem 1rem"
+		padding: "3rem 2rem"
 	}
 }));

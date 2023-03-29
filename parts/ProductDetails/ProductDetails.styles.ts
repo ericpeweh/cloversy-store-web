@@ -161,3 +161,33 @@ export const ProductsRecommendation = styled("div")(({ theme }) => ({
 		paddingRight: "1.7rem"
 	}
 }));
+
+export const FallbackContainer = styled("div")({
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	flexDirection: "column",
+	flex: 1,
+	gap: "2rem"
+});
+
+export const FallbackImageContainer = styled("div")(({ theme }) => ({
+	width: "30rem",
+	[theme.breakpoints.down("sm")]: {
+		width: "100%"
+	}
+}));
+
+export const FallbackImageText = styled("p")(({ theme }) => ({
+	textAlign: "center",
+	fontWeight: "bold",
+	fontSize: "2rem",
+	width: "max-content",
+	fontFamily: "var(--font-secondary)",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.8rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.7rem"
+	}
+}));

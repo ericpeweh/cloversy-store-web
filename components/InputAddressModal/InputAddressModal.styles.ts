@@ -45,9 +45,17 @@ export const FormContainer = styled("form")({
 	padding: "2rem 2rem 2rem 0"
 });
 
-export const InputContainer = styled(Grid)({}) as typeof Grid;
+export const InputContainer = styled(Grid)({
+	position: "relative"
+}) as typeof Grid;
 
 export const InputLimitText = styled("p")(({ theme }) => ({
 	fontSize: "1.5rem",
-	color: theme.palette.grey[400]
+	color: theme.palette.grey[400],
+	position: "absolute",
+	bottom: "1rem",
+	right: "1rem",
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.4rem"
+	}
 }));

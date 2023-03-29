@@ -1,113 +1,216 @@
 // Dependencies
-import React from "react";
-import Link from "next/link";
+import React, { useEffect, useMemo, useState } from "react";
+import { shallowEqual } from "react-redux";
 
 // Styles
 import {
 	CartActionButtons,
 	CartDrawerContainer,
-	CartItem,
-	CartItemContent,
-	CartItemImage,
-	CartItemInfo,
-	CartItemPrice,
 	CartLists,
-	HideCartButton,
-	Badge
+	HideCartButton
 } from "./CartDrawer.styles";
+
+// Hooks
+import { useGetCartItemsQuery } from "../../api/cart.api";
+import { useRouter } from "next/router";
+import { useAuth0 } from "@auth0/auth0-react";
+import useSelector from "../../hooks/useSelector";
+import useDispatch from "../../hooks/useDispatch";
+import useModal from "../../hooks/useModal";
+import useCart from "../../hooks/useCart";
+
+// Actions
+import { setUserCart, closeCartDrawer } from "../../store/slices/globalSlice";
 
 // Icons
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
+// Types
+import { CartItemDetails } from "../../interfaces";
+
+// Utils
+import formatToRupiah from "../../utils/formatToRupiah";
+
 // Components
-import { ListItemAvatar, Divider, Typography, Stack } from "@mui/material";
+import { Divider, Typography, Stack, CircularProgress, Alert } from "@mui/material";
+import CartDrawerItem from "../CartDrawerItem/CartDrawerItem";
 import Button from "../Button/Button";
-import QuantityInput from "../QuantityInput/QuantityInput";
+import FallbackContainer from "../FallbackContainer/FallbackContainer";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import BoxButton from "../BoxButton/BoxButton";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
-interface CartDrawerProps {
-	open: boolean;
-	onClose: () => void;
-}
+const CartDrawer = () => {
+	const { isAuthenticated, loginWithRedirect } = useAuth0();
+	const [isInitialized, setIsInitialized] = useState(false);
+	const router = useRouter();
+	const dispatch = useDispatch();
+	const { userCart: cartItems, showCartModal } = useSelector(state => state.global, shallowEqual);
+	const authStatus = useSelector(state => state.auth.status);
+	const [cartItemToDelete, setCartItemToDelete] = useState<CartItemDetails | null>(null);
 
-const cartItems = [
-	{
-		name: "Nike AF1 Homesick",
-		sizeType: "EU",
-		size: "43",
-		sale: "50% OFF",
-		qty: 3,
-		price: "3.599.000"
-	},
-	{
-		name: "Vans Lost Angel",
-		sizeType: "EU",
-		size: "40",
-		qty: 12,
-		price: "12.399.000"
-	},
-	{
-		name: "Ventela Creation of Adam",
-		sizeType: "EU",
-		size: "39",
-		sale: "10% OFF",
-		qty: 5,
-		price: "24.399.000"
-	}
-];
+	const {
+		data: cartItemsData,
+		isLoading: isGetCartItemsLoading,
+		isSuccess: isGetCartItemsSuccess,
+		error: getCartItemsErrorData,
+		refetch: refetchCartItems
+	} = useGetCartItemsQuery(authStatus, { skip: authStatus !== "fulfilled" });
 
-const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
+	const getCartItemsError: any = getCartItemsErrorData;
+	const noDataFound = cartItemsData?.data.cart.length === 0;
+
+	const subtotal = useMemo(
+		() =>
+			cartItems?.reduce(
+				(total: number, curr: CartItemDetails) => (total += curr.price * curr.quantity),
+				0
+			),
+		[cartItems]
+	);
+
+	useEffect(() => {
+		if (cartItemsData && isGetCartItemsSuccess && !isInitialized) {
+			dispatch(setUserCart(cartItemsData.data));
+			setIsInitialized(true);
+		}
+	}, [cartItemsData, dispatch, isGetCartItemsSuccess, isInitialized]);
+
+	const {
+		deleteCartItemHandler,
+		isDeleteCartItemLoading,
+		deleteCartItemError,
+		isDeleteCartItemSuccess
+	} = useCart();
+
+	const closeCartDrawerHandler = () => dispatch(closeCartDrawer());
+
+	const openCartDetailsHandler = () => {
+		closeCartDrawerHandler();
+		router.push("/cart");
+	};
+
+	const {
+		isOpen: isDeleteCartItemModalOpen,
+		openHandler: openDeleteCartItemModalHandler,
+		closeHandler: closeDeleteCartItemModalHandler
+	} = useModal();
+
+	const setAndOpenDeleteCartItemModalHandler = (cartItem: CartItemDetails) => {
+		setCartItemToDelete(cartItem);
+		openDeleteCartItemModalHandler();
+	};
+
+	const cancelDeleteCartItemHandler = () => {
+		closeDeleteCartItemModalHandler();
+		setTimeout(() => {
+			setCartItemToDelete(null);
+		}, 500);
+	};
+
+	const shopNowButtonClickHandler = () => {
+		router.push("/products");
+		closeCartDrawerHandler();
+	};
+
+	const checkoutHandler = () => {
+		if (isAuthenticated) {
+			router.push("/checkout");
+			closeCartDrawerHandler();
+		} else {
+			loginWithRedirect({
+				appState: {
+					returnTo: "/checkout"
+				}
+			});
+		}
+	};
+
+	useEffect(() => {
+		cancelDeleteCartItemHandler();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isDeleteCartItemSuccess]);
+
 	return (
-		<CartDrawerContainer open={open} onClose={onClose} anchor="right">
-			<HideCartButton variant="text" endIcon={<ChevronRightIcon />} onClick={onClose}>
+		<CartDrawerContainer
+			open={showCartModal}
+			onClose={closeCartDrawerHandler}
+			anchor="right"
+			keepMounted
+		>
+			<ConfirmationModal
+				modalTitle="Hapus Produk"
+				modalDescription={`Apakah Anda yakin untuk menghapus produk ${cartItemToDelete?.title} ukuran ${cartItemToDelete?.size} dari keranjang belanja anda?`}
+				onClose={cancelDeleteCartItemHandler}
+				open={isDeleteCartItemModalOpen}
+				confirmText="Delete"
+				confirmColor="error"
+				cancelText="Cancel"
+				cancelColor="secondary"
+				error={deleteCartItemError}
+				isLoading={isDeleteCartItemLoading}
+				onConfirm={() => {
+					if (cartItemToDelete) deleteCartItemHandler(cartItemToDelete.id + "");
+				}}
+			/>
+			<HideCartButton
+				variant="text"
+				endIcon={<ChevronRightIcon />}
+				onClick={closeCartDrawerHandler}
+			>
 				Continue Shopping
 			</HideCartButton>
-			<CartLists>
-				{[...cartItems, ...cartItems].map((item, i) => (
-					<React.Fragment key={item.name + i}>
-						<CartItem>
-							<ListItemAvatar sx={{ marginRight: "2rem" }}>
-								<Link href="#">
-									<CartItemImage alt={item.name} src="/images/product.jpg" variant="rounded" />
-								</Link>
-								{item.sale && <Badge>{item.sale}</Badge>}
-							</ListItemAvatar>
-							<CartItemContent
-								primary={<Link href="#">{item.name}</Link>}
-								secondary={
-									<>
-										<Typography
-											sx={{ display: "inline" }}
-											component="span"
-											variant="body2"
-											color="text.primary"
-										>
-											Size:{"  "}
-										</Typography>
-										{`${item.sizeType} | ${item.size}`}
-										<CartItemInfo>
-											<QuantityInput value={item.qty} />
-											<CartItemPrice>Rp{item.price}</CartItemPrice>
-										</CartItemInfo>
-									</>
-								}
-							/>
-						</CartItem>
-						<Divider variant="fullWidth" component="li" sx={{ mb: "2rem" }} />
-					</React.Fragment>
-				))}
-			</CartLists>
-			<CartActionButtons>
-				<Stack direction="row" justifyContent="space-between" mb="1rem">
-					<Typography fontWeight={500} sx={{ fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
-						Subtotal:
-					</Typography>
-					<Typography sx={{ fontWeight: 500, fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
-						Rp35.880.000
-					</Typography>
-				</Stack>
-				<Button variant="outlined">Lihat Keranjang</Button>
-				<Button color="primary">Checkout</Button>
-			</CartActionButtons>
+			{isGetCartItemsLoading && (
+				<FallbackContainer>
+					<CircularProgress />
+				</FallbackContainer>
+			)}
+			{!isGetCartItemsLoading && getCartItemsErrorData && (
+				<FallbackContainer>
+					<Alert severity="error">
+						{getCartItemsError?.data?.message || "Error occured while fetching cart items."}
+					</Alert>
+					<BoxButton onClick={refetchCartItems}>Try again</BoxButton>
+				</FallbackContainer>
+			)}
+			{!isGetCartItemsLoading && isGetCartItemsSuccess && noDataFound && (
+				<FallbackContainer>
+					<Typography>Keranjang belanja kamu kosong!</Typography>
+					<BoxButton onClick={shopNowButtonClickHandler} sx={{ mt: 2 }}>
+						Belanja sekarang
+					</BoxButton>
+				</FallbackContainer>
+			)}
+			{cartItemsData && isGetCartItemsSuccess && !noDataFound && (
+				<>
+					<CartLists data-testid="cart-drawer-lists">
+						{cartItems.map((item: CartItemDetails, i: number, arr) => (
+							<React.Fragment key={item.id}>
+								<CartDrawerItem itemData={item} onDelete={setAndOpenDeleteCartItemModalHandler} />
+								{i !== arr.length - 1 && (
+									<Divider variant="fullWidth" component="li" sx={{ mb: "2rem" }} />
+								)}
+							</React.Fragment>
+						))}
+					</CartLists>
+					<CartActionButtons>
+						<Stack direction="row" justifyContent="space-between" mb="1rem">
+							<Typography fontWeight={500} sx={{ fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
+								Subtotal:
+							</Typography>
+							<Typography sx={{ fontWeight: 500, fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
+								{formatToRupiah(subtotal)}
+							</Typography>
+						</Stack>
+						<Button variant="outlined" onClick={openCartDetailsHandler}>
+							Lihat Keranjang
+						</Button>
+						<Button color="primary" onClick={checkoutHandler}>
+							Checkout
+						</Button>
+					</CartActionButtons>
+				</>
+			)}
 		</CartDrawerContainer>
 	);
 };

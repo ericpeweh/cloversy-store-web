@@ -1,279 +1,228 @@
 // Dependencies
 import React, { useState } from "react";
+import { Formik, FormikHelpers } from "formik";
+import * as Yup from "yup";
+
+// Actions
+import { setUserCart } from "../../store/slices/globalSlice";
 
 // Hooks
+import useDispatch from "../../hooks/useDispatch";
+import useSelector from "../../hooks/useSelector";
 import useStepper from "../../hooks/useStepper";
-import useModal from "../../hooks/useModal";
+import { useRouter } from "next/router";
+import { useCheckoutMutation } from "../../api/transaction.api";
+import { useGetCheckoutCartItemsQuery } from "../../api/cart.api";
 
 // Styles
-import {
-	CheckoutContainer,
-	ConfirmationContainer,
-	ConfirmationDesc,
-	ConfirmationTitle,
-	ContentContainer,
-	FormContainer,
-	OrderCardsContainer,
-	StepperContainer,
-	SummaryDesc,
-	SummaryTitle
-} from "./Checkout.styles";
+import { CheckoutContainer, ContentContainer, StepperContainer } from "./Checkout.styles";
 
-// Icons
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import CheckIcon from "@mui/icons-material/Check";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PaymentsIcon from "@mui/icons-material/Payments";
+// Types
+import { CheckoutBody, CheckoutFormValues } from "../../interfaces";
+
+// Utils
+import scrollToTop from "../../utils/scrollToTop";
+
+// Parts
+import CheckoutDetail from "../CheckoutDetail/CheckoutDetail";
+import CheckoutData from "../CheckoutData/CheckoutData";
+import CheckoutInfo from "../CheckoutInfo/CheckoutInfo";
+import CheckoutShipping from "../CheckoutShipping/CheckoutShipping";
+import CheckoutPayment from "../CheckoutPayment/CheckoutPayment";
+import CheckoutSuccess from "../CheckoutSuccess/CheckoutSuccess";
 
 // Components
-import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Stepper from "../../components/Stepper/Stepper";
-import CartTable from "../../components/CartTable/CartTable";
-import ShippingInput from "../../components/ShippingInput/ShippingInput";
-import VoucherInput from "../../components/VoucherInput/VoucherInput";
-import Button from "../../components/Button/Button";
-import TextInput from "../../components/TextInput/TextInput";
-import SelectInput from "../../components/SelectInput/SelectInput";
-import Checkbox from "../../components/Checkbox/Checkbox";
-import OrderCard from "../../components/OrderCard/OrderCard";
-import AddressPickerModal from "../../components/AddressPickerModal/AddressPickerModal";
+import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
+import BoxButton from "../../components/BoxButton/BoxButton";
+
+const VoucherValidationSchema = {
+	voucher_code: Yup.string().test(
+		"10 characters long or empty",
+		"Kode voucher tidak valid, harus terdiri dari 10 karakter",
+		value => value === "" || value === undefined || value?.length === 10
+	),
+	voucher_type: Yup.string().when("voucher_code", {
+		is: (value: string) => value !== "" && value !== undefined,
+		then: Yup.string().not(["default"], "Voucher yang digunakan tidak valid").required(),
+		otherwise: Yup.string()
+	}),
+	voucher_discount: Yup.number().when("voucher_code", {
+		is: (value: string) => value !== "" && value !== undefined,
+		then: Yup.number().min(0).required()
+	})
+};
+
+const CheckoutSchema = [
+	Yup.object().shape({
+		...VoucherValidationSchema,
+		address_id: Yup.number().not([-1], "Kamu harus memilih alamat tersimpan").required(),
+		customer_note: Yup.string(),
+		send_as_gift: Yup.boolean().required(),
+		gift_note: Yup.string().when("send_as_gift", {
+			is: true,
+			then: Yup.string().required("Mohon berikan informasi mengenai hadiah")
+		})
+	}),
+	Yup.object().shape({
+		...VoucherValidationSchema,
+		shipping_courier: Yup.string()
+			.not(["default"], "Kamu harus memilih metode pengiriman")
+			.required()
+	}),
+	Yup.object().shape({
+		...VoucherValidationSchema,
+		payment_method: Yup.string()
+			.oneOf(["mandiri", "permata", "bri", "bni", "gopay"], "Metode pembayaran tidak valid")
+			.required()
+	})
+];
 
 const Checkout = () => {
-	const {
-		isOpen: isChooseAddressModalOpen,
-		openHandler: openChooseAddressModalHandler,
-		closeHandler: closeChooseAddressModalHandler
-	} = useModal();
-	const { activeStep, backHandler, nextHandler } = useStepper();
-	const [useAvailableAddress, setUseAvailableAddress] = useState(false);
-	const [sendAsGift, setSendAsGift] = useState(false);
+	const dispatch = useDispatch();
+	const isAuth = useSelector(state => state.auth.isAuth);
+	const router = useRouter();
 
-	const isOrderSummary = activeStep === 0;
-	const isAddressInfo = activeStep === 1;
-	const isConfirmation = activeStep === 2;
+	const {
+		data: cartItemsData,
+		error: getCartItemsErrorData,
+		isLoading: isGetCartItemsLoading,
+		isSuccess: isGetCartItemsSuccess,
+		isUninitialized: isGetCartItemsUninitialized
+	} = useGetCheckoutCartItemsQuery(isAuth, { skip: !isAuth });
+	const getCartItemsError: any = getCartItemsErrorData;
+	const noCartItemsDataFound = cartItemsData?.data.cart.length === 0;
+
+	const { activeStep, backHandler, nextHandler } = useStepper();
+	const [formInitialValues, setFormInitialValues] = useState<CheckoutFormValues>({
+		voucher_code: "",
+		voucher_type: "default",
+		voucher_discount: 0,
+		address_id: -1,
+		customer_note: "",
+		send_as_gift: false,
+		gift_note: "",
+		shipping_courier: "default",
+		payment_method: "gopay"
+	});
+
+	const [
+		checkoutHandler,
+		{
+			data: checkoutResultData,
+			isLoading: isCheckoutLoading,
+			error: checkoutErrorData,
+			isSuccess: isCheckoutSuccess
+		}
+	] = useCheckoutMutation();
+	const checkoutResult = checkoutResultData?.data.transaction;
+	const checkoutError: any = checkoutErrorData;
+
+	const goBackHandler = () => {
+		if (activeStep === 0) return router.replace("/cart");
+		backHandler();
+		scrollToTop();
+	};
+
+	const submitHandler = async (
+		values: CheckoutFormValues,
+		actions: FormikHelpers<CheckoutFormValues>
+	) => {
+		if (activeStep === 2 && !isCheckoutLoading && !isCheckoutSuccess) {
+			const checkoutData: CheckoutBody = {
+				address_id: values.address_id.toString(),
+				payment_method: values.payment_method,
+				shipping_courier: values.shipping_courier,
+				voucher_code: values.voucher_code,
+				customer_note: values.customer_note,
+				...(values.send_as_gift && { gift_note: values.gift_note })
+			};
+
+			const result = await checkoutHandler(checkoutData).unwrap();
+			if (result.data.transaction) {
+				nextHandler();
+				scrollToTop();
+				dispatch(setUserCart({ cart: [] }));
+			}
+			actions.setTouched({});
+			actions.setSubmitting(false);
+			return;
+		}
+
+		nextHandler();
+		scrollToTop();
+		actions.setTouched({});
+		actions.setSubmitting(false);
+	};
+
+	const isInformation = activeStep === 0;
+	const isShipping = activeStep === 1;
+	const isPayment = activeStep === 2;
+	const isSuccess = activeStep === 3;
 
 	return (
 		<CheckoutContainer>
-			<AddressPickerModal
-				open={isChooseAddressModalOpen}
-				onClose={closeChooseAddressModalHandler}
-			/>
 			<PageTitle>Checkout</PageTitle>
-			<StepperContainer>
-				<Stepper
-					steps={["Detail Pesanan", "Alamat & Informasi", "Pesanan dikonfirmasi"]}
-					activeStep={activeStep}
-				/>
-			</StepperContainer>
-			<ContentContainer>
-				<Grid container spacing={{ xs: 1, lg: 2, xl: 3 }}>
-					{isOrderSummary && (
-						<>
-							<Grid item xs={12}>
-								<CartTable readOnly />
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<ShippingInput />
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<VoucherInput />
-							</Grid>
-						</>
-					)}
-					{isAddressInfo && (
-						<>
-							<Grid item md={12} lg={7} xl={8}>
-								<FormContainer>
-									<Grid container spacing={{ xs: 2.5, md: 3 }}>
-										<Grid item xs={12} sm={6}>
-											<TextInput label="Nama Penerima" id="namaPenerima" />
-										</Grid>
-										<Grid item xs={12} sm={6}>
-											<TextInput label="Nomor HP" id="nomorHP" />
-										</Grid>
-
-										<Grid item xs={12} sm={6}>
-											<SelectInput
-												options={[
-													"Kalimantan Barat",
-													"Kalimantan Utara",
-													"Kalimantan Timur",
-													"Kalimantan Selatan",
-													"Kalimantan Tengah"
-												]}
-												value="Kalimantan Barat"
-												label="Kabupaten / Kota"
+			{(checkoutResult ||
+				(isGetCartItemsSuccess && !getCartItemsError && !noCartItemsDataFound)) && (
+				<>
+					<StepperContainer>
+						<Stepper steps={["Informasi", "Pengiriman", "Pembayaran"]} activeStep={activeStep} />
+					</StepperContainer>
+					<ContentContainer>
+						<Formik
+							initialValues={formInitialValues}
+							validationSchema={CheckoutSchema[activeStep]}
+							onSubmit={submitHandler}
+							enableReinitialize={true}
+						>
+							{({ handleSubmit }) => (
+								<form onSubmit={handleSubmit}>
+									<Grid container spacing={1}>
+										<>
+											{isInformation && (
+												<CheckoutInfo setFormInitialValues={setFormInitialValues} />
+											)}
+											{isShipping && (
+												<CheckoutShipping setFormInitialValues={setFormInitialValues} />
+											)}
+											{isPayment && <CheckoutPayment />}
+											{isSuccess && checkoutResult && (
+												<CheckoutSuccess checkoutResultData={checkoutResult} />
+											)}
+											{!isSuccess && <CheckoutDetail />}
+										</>
+										{!isSuccess && (
+											<CheckoutData
+												backHandler={goBackHandler}
+												activeStep={activeStep}
+												isCheckoutLoading={isCheckoutLoading}
+												checkoutError={checkoutError}
 											/>
-										</Grid>
-										<Grid item xs={12} sm={6}>
-											<SelectInput
-												options={[
-													"Pontianak Barat",
-													"Pontianak Utara",
-													"Pontianak Timur",
-													"Pontianak Selatan",
-													"Pontianak Tengah",
-													"Pontianak Tenggara"
-												]}
-												value="Pontianak Utara"
-												label="Kecamatan"
-											/>
-										</Grid>
-										<Grid item xs={12} sm={6}>
-											<TextInput label="Kode Pos" id="kodePos" />
-										</Grid>
-										<Grid item xs={12} sm={6}>
-											<TextInput label="Catatan Pengiriman" id="catatan" />
-										</Grid>
-										<Grid item xs={12}>
-											<TextInput label="Alamat Lengkap" id="alamatLengkap" multiline rows={4} />
-										</Grid>
-										<Grid item xs={12}>
-											<TextInput
-												label="Catatan Pesanan (optional)"
-												id="catatan"
-												multiline
-												rows={2}
-											/>
-										</Grid>
-
-										<Grid item xs={12}>
-											<Divider flexItem>
-												<Typography variant="body2">ATAU</Typography>
-											</Divider>
-										</Grid>
-										<Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-											<Button color="primary" onClick={openChooseAddressModalHandler}>
-												Pilih alamat tersimpan
-											</Button>
-										</Grid>
-										<Grid item xs={12}>
-											<Checkbox
-												label={
-													<Stack direction="row" alignItems="center" gap={1}>
-														<Typography sx={{ fontSize: { xs: "1.5rem", sm: "1.6rem" } }}>
-															Kirim sebagai hadiah
-														</Typography>
-														<CardGiftcardIcon />
-													</Stack>
-												}
-												checked={sendAsGift}
-												onChange={setSendAsGift}
-											/>
-										</Grid>
-										{sendAsGift && (
-											<Grid item xs={12}>
-												<TextInput
-													label="Catatan hadiah (permintaan)"
-													id="catatan"
-													multiline
-													rows={4}
-												/>
-											</Grid>
 										)}
 									</Grid>
-								</FormContainer>
-							</Grid>
-							<Grid item xs={12} md={12} lg={5} xl={4}>
-								<OrderCardsContainer>
-									<OrderCard
-										title="Nike AF1 Homesick"
-										sizeDesc="EU 40"
-										qtyDesc="2"
-										price="6.240.000"
-									/>
-									<Divider flexItem />
-									<OrderCard
-										title="Nike AF1 Homesick"
-										sizeDesc="EU 40"
-										qtyDesc="2"
-										price="6.240.000"
-									/>
-									<Divider flexItem />
-									<OrderCard
-										title="Ventela Lost Angel"
-										sizeDesc="EU 37"
-										qtyDesc="1"
-										price="700.000"
-									/>
-								</OrderCardsContainer>
-							</Grid>
-						</>
-					)}
-					{isConfirmation && (
-						<>
-							<Grid item xs={12}>
-								<ConfirmationContainer>
-									<CheckCircleIcon
-										sx={{
-											width: { xs: 100, md: 150, lg: 200 },
-											height: { xs: 100, md: 150, lg: 200 },
-											mt: { xs: 4, sm: 0 }
-										}}
-										color="primary"
-									/>
-									<ConfirmationTitle>Terima Kasih!</ConfirmationTitle>
-									<ConfirmationDesc>
-										Pesanan telah berhasil dibuat. Detail pesanan akan dikirimkan ke alamat email
-										anda.
-									</ConfirmationDesc>
-									<ConfirmationDesc>
-										Klik tombol dibawah untuk melakukan pembayaran.
-									</ConfirmationDesc>
-									<Stack direction="row" gap={1} sx={{ mt: 5 }}>
-										<Button variant="outlined">Lihat daftar pesanan</Button>
-										<Button color="primary" startIcon={<PaymentsIcon />}>
-											Bayar sekarang
-										</Button>
-									</Stack>
-								</ConfirmationContainer>
-							</Grid>
-						</>
-					)}
-					{!isConfirmation && (
-						<Box sx={{ width: "100%" }}>
-							<Divider flexItem sx={{ my: 4 }} />
-							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<SummaryTitle>Subtotal:</SummaryTitle>
-								<SummaryDesc>Rp123.000.000</SummaryDesc>
-							</Stack>
-							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<SummaryTitle>Pengiriman:</SummaryTitle>
-								<SummaryDesc>Rp120.000</SummaryDesc>
-							</Stack>
-							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1}>
-								<SummaryTitle>Jumlah:</SummaryTitle>
-								<SummaryDesc>Rp123.120.000</SummaryDesc>
-							</Stack>
-							<Stack
-								direction="row"
-								justifyContent={isOrderSummary ? "flex-end" : "space-between"}
-								mt={3}
-							>
-								{!isOrderSummary && (
-									<Button
-										variant="outlined"
-										startIcon={<ArrowBackIcon />}
-										onClick={backHandler}
-										sx={{ ml: { xs: 2, sm: 0 } }}
-									>
-										Kembali
-									</Button>
-								)}
-								<Button
-									endIcon={isAddressInfo ? <CheckIcon /> : <ArrowForwardIcon />}
-									onClick={nextHandler}
-								>
-									{isAddressInfo ? "Buat Pesanan" : "Selanjutnya"}
-								</Button>
-							</Stack>
-						</Box>
-					)}
-				</Grid>
-			</ContentContainer>
+								</form>
+							)}
+						</Formik>
+					</ContentContainer>
+				</>
+			)}
+			{(isGetCartItemsUninitialized || isGetCartItemsLoading) && (
+				<FallbackContainer sx={{ minHeight: "50vh" }}>
+					<CircularProgress />
+				</FallbackContainer>
+			)}
+			{!checkoutResultData && noCartItemsDataFound && (
+				<FallbackContainer sx={{ minHeight: "50vh" }}>
+					<Typography>You have no item in your cart!</Typography>
+					<BoxButton onClick={() => router.push("/products")} sx={{ mt: 2 }}>
+						{" "}
+						Belanja sekarang
+					</BoxButton>
+				</FallbackContainer>
+			)}
 		</CheckoutContainer>
 	);
 };

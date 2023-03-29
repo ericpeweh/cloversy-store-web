@@ -8,6 +8,9 @@ export const ProductsContainer = styled("div")(({ theme }) => ({
 	alignItems: "center",
 	flexDirection: "column",
 	marginBottom: "10rem",
+	"& > div.infinite-scroll-component__outerdiv": {
+		width: "100%"
+	},
 	[theme.breakpoints.down("lg")]: {
 		marginBottom: "8rem"
 	},
@@ -30,7 +33,7 @@ export const ProductsHeader = styled(Stack)(({ theme }) => ({
 		width: "95vw"
 	},
 	[theme.breakpoints.down("md")]: {
-		width: "100vw",
+		width: "100%",
 		padding: "0 2rem"
 	},
 	[theme.breakpoints.down("sm")]: {
@@ -50,7 +53,32 @@ export const ProductsContent = styled("div")(({ theme }) => ({
 		width: "95vw"
 	},
 	[theme.breakpoints.down("md")]: {
-		width: "100vw",
+		width: "100%",
 		padding: "0 2rem"
+	}
+}));
+
+export const FallbackImageContainer = styled("div")(({ theme }) => ({
+	marginTop: "10rem",
+	width: "30rem",
+	[theme.breakpoints.down("md")]: {
+		width: "25rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		width: "50%"
+	}
+}));
+
+export const FallbackImageText = styled("p")(({ theme }) => ({
+	textAlign: "center",
+	marginTop: "2rem",
+	fontWeight: "bold",
+	fontSize: "2rem",
+	fontFamily: "var(--font-secondary)",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.8rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.7rem"
 	}
 }));

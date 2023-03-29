@@ -1,7 +1,7 @@
 // Dependencies
 import { styled } from "@mui/system";
 
-export const ContentDescriptionContainer = styled("p")(({ theme }) => ({
+export const ContentDescriptionContainer = styled("div")(({ theme }) => ({
 	fontSize: "1.6rem",
 	fontWeight: 400,
 	lineHeight: "3rem",

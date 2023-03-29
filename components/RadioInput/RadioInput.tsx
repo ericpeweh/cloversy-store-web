@@ -10,19 +10,21 @@ import {
 } from "./RadioInput.styles";
 
 // Components
-import { Radio } from "@mui/material";
+import { Radio, RadioProps } from "@mui/material";
 
-interface RadioInputProps {
+interface RadioInputProps extends Omit<RadioProps, "onChange"> {
 	label?: string;
 	options: string[];
 	row?: boolean;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
+	error?: boolean;
 }
 
-const RadioInput = ({ label, options, row }: RadioInputProps) => {
+const RadioInput = ({ label, options, row, onChange, name, value, error }: RadioInputProps) => {
 	return (
 		<RadioInputContainer>
-			<RadioInputLabel>{label}</RadioInputLabel>
-			<RadioContainer row={row}>
+			<RadioInputLabel error={error}>{label}</RadioInputLabel>
+			<RadioContainer row={row} name={name} value={value} onChange={onChange}>
 				{options.map(option => (
 					<RadioLabel value={option} key={option} label={option} control={<Radio />} />
 				))}

@@ -8,10 +8,10 @@ export const CartDrawerContainer = styled(Drawer)(({ theme }) => ({
 		width: "50rem",
 		display: "flex",
 		flexDirection: "column",
-		padding: "2rem 3rem 3rem 4rem",
+		padding: "2rem 3rem 3rem 3rem",
 		[theme.breakpoints.down("sm")]: {
 			width: "100%",
-			padding: "2rem 3rem 3rem"
+			padding: "2rem"
 		}
 	}
 })) as typeof Drawer;
@@ -21,73 +21,17 @@ export const HideCartButton = styled(Button)(({ theme }) => ({
 	fontSize: "1.4rem",
 	alignSelf: "flex-start",
 	paddingLeft: "0",
-	[theme.breakpoints.down("sm")]: {
+	[theme.breakpoints.down("md")]: {
 		fontSize: "1.3rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.2rem"
 	}
 }));
 
 export const CartLists = styled(List)(({ theme }) => ({
 	width: "100%"
 })) as typeof List;
-
-export const CartItem = styled(ListItem)({
-	alignItems: "flex-start",
-	paddingRight: "0",
-	paddingLeft: "0"
-});
-
-export const CartItemImage = styled(Avatar)({
-	width: "8rem",
-	height: "6rem",
-	cursor: "pointer"
-}) as typeof Avatar;
-
-export const CartItemContent = styled(ListItemText)(({ theme }) => ({
-	marginTop: "0",
-	"& .MuiListItemText-primary": {
-		fontWeight: 600,
-		textTransform: "uppercase",
-		fontSize: "1.7rem",
-		cursor: "pointer",
-		[theme.breakpoints.down("lg")]: {
-			fontSize: "1.6rem"
-		},
-		[theme.breakpoints.down("md")]: {
-			fontSize: "1.5rem"
-		},
-		[theme.breakpoints.down("sm")]: {
-			fontSize: "1.4rem"
-		}
-	},
-	"& .MuiListItemText-secondary": {
-		[theme.breakpoints.down("lg")]: {
-			fontSize: "1.5rem"
-		},
-		[theme.breakpoints.down("md")]: {
-			fontSize: "1.4rem"
-		},
-		[theme.breakpoints.down("sm")]: {
-			fontSize: "1.3rem"
-		}
-	}
-})) as typeof ListItemText;
-
-export const Badge = styled("div")(({ theme }) => ({
-	fontSize: "1.5rem",
-	backgroundColor: theme.palette.primary.main,
-	color: "#fff",
-	borderRadius: "0.5rem",
-	textAlign: "center",
-	fontFamily: "var(--font-secondary)",
-	padding: "0.3rem",
-	margin: "1rem 0",
-	[theme.breakpoints.down("md")]: {
-		fontSize: "1.5rem"
-	},
-	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.4rem"
-	}
-}));
 
 export const CartActionButtons = styled("div")({
 	justifySelf: "flex-end",
@@ -96,20 +40,3 @@ export const CartActionButtons = styled("div")({
 	marginTop: "auto",
 	gap: "1rem"
 });
-
-export const CartItemInfo = styled("div")({
-	display: "flex",
-	justifyContent: "space-between",
-	alignItems: "center",
-	marginTop: "2rem"
-});
-
-export const CartItemPrice = styled("p")(({ theme }) => ({
-	fontSize: "1.6rem",
-	[theme.breakpoints.down("md")]: {
-		fontSize: "1.5rem"
-	},
-	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.4rem"
-	}
-}));
