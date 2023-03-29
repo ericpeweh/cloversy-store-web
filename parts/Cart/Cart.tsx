@@ -22,14 +22,12 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Components
-import { CircularProgress, Divider, Grid, Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
 import CartTable from "../../components/CartTable/CartTable";
 import Button from "../../components/Button/Button";
-import ShippingInput from "../../components/ShippingInput/ShippingInput";
-import VoucherInput from "../../components/VoucherInput/VoucherInput";
 import FallbackContainer from "../../components/FallbackContainer/FallbackContainer";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import BoxButton from "../../components/BoxButton/BoxButton";
