@@ -65,4 +65,4 @@ const Faq = () => {
 	);
 };
 
-module.exports = Faq;
+export default Faq;
