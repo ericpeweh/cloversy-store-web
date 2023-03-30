@@ -261,7 +261,7 @@ const OrderDetails = () => {
 													<ImageContainer>
 														<Image
 															src={`/images/${
-																shipping.shipping_courier === "j&t"
+																shipping.shipping_courier === "J&T"
 																	? "jnt"
 																	: shipping.shipping_courier
 															}.png`}
