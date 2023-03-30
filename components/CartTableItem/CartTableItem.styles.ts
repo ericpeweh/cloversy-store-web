@@ -24,25 +24,25 @@ export const CartItemImage = styled("img")({
 });
 
 export const CartItemTitle = styled("h2")(({ theme }) => ({
-	fontSize: "1.6rem",
+	fontSize: "1.7rem",
 	fontWeight: 500,
 	width: "100%",
 	cursor: "pointer",
+	[theme.breakpoints.down("md")]: {
+		fontSize: "1.6rem"
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1.5rem"
+	}
+}));
+
+export const CartItemDesc = styled("p")(({ theme }) => ({
+	fontSize: "1.6rem",
+	width: "max-content",
 	[theme.breakpoints.down("md")]: {
 		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.4rem"
-	}
-}));
-
-export const CartItemDesc = styled("p")(({ theme }) => ({
-	fontSize: "1.5rem",
-	width: "max-content",
-	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
-	},
-	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
 	}
 }));

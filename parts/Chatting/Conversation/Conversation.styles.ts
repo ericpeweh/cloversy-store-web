@@ -23,7 +23,7 @@ export const GroupTimestamp = styled("div")(({ theme }) => ({
 	borderRadius: "0.5rem",
 	backgroundColor: theme.palette.grey[200],
 	color: theme.palette.grey[600],
-	fontSize: "1.4rem",
+	fontSize: "1.5rem",
 	textAlign: "center",
 	padding: "0.5rem 1rem",
 	alignSelf: "center",
@@ -31,7 +31,7 @@ export const GroupTimestamp = styled("div")(({ theme }) => ({
 	marginBottom: "1rem",
 	fontFamily: "var(--font-secondary)",
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem",
+		fontSize: "1.4rem",
 		marginTop: "3rem"
 	}
 }));
@@ -76,10 +76,10 @@ export const BubbleTimestamp = styled("p")(({ theme }) => ({
 	position: "absolute",
 	bottom: "0.5rem",
 	right: "1rem",
-	fontSize: "1.4rem",
+	fontSize: "1.5rem",
 	fontFamily: "var(--font-secondary)",
 	color: "inherit",
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));

@@ -37,12 +37,12 @@ export const WishlistItemTitle = styled("h2")(({ theme }) => ({
 }));
 
 export const WishlistItemDesc = styled("p")(({ theme }) => ({
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	width: "max-content",
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));

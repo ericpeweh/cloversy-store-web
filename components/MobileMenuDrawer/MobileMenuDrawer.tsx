@@ -215,7 +215,7 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 								alignItems="center"
 								sx={{ p: { xs: "1.5rem 0", sm: "2rem 0" }, width: "100%" }}
 							>
-								<Typography>{item.title}</Typography>
+								<Typography sx={{ fontSize: "1.6rem" }}>{item.title}</Typography>
 								{item.icon}
 							</Stack>
 						</ButtonBase>

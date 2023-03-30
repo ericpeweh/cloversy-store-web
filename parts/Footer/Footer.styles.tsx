@@ -72,7 +72,6 @@ export const FooterSectionTitle = styled("h5")(({ theme }) => ({
 		marginBottom: "2.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem",
 		marginBottom: "2rem"
 	}
 }));
@@ -95,7 +94,6 @@ export const FooterListItem = styled("li")(({ theme }) => ({
 		paddingBottom: "2rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem",
 		paddingBottom: "1.8rem"
 	}
 }));

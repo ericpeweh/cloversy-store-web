@@ -70,15 +70,15 @@ export const ProductTitle = styled("h3")(({ theme }) => ({
 }));
 
 export const RatingText = styled("p")(({ theme }) => ({
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	display: "flex",
 	letterSpacing: "1px",
 	marginBottom: "-1px",
 	[theme.breakpoints.down("lg")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));
 
@@ -104,17 +104,17 @@ export const ProductPrice = styled("p")(({ theme }) => ({
 }));
 
 export const ProductDesription = styled("p")(({ theme }) => ({
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	lineHeight: "2.4rem",
 	fontWeight: 400,
 	color: theme.palette.grey[800],
 	marginBottom: "2rem",
 	[theme.breakpoints.down("lg")]: {
-		fontSize: "1.4rem",
+		fontSize: "1.5rem",
 		lineHeight: "2.2rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem",
+		fontSize: "1.4rem",
 		lineHeight: "1.9rem"
 	}
 }));
@@ -139,14 +139,13 @@ export const ReviewsPagination = styled(Pagination)(({ theme }) => ({
 	marginTop: "4rem",
 	display: "flex",
 	justifyContent: "center",
-
 	[theme.breakpoints.down("md")]: {
 		marginTop: "3.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
 		marginTop: "2.5rem",
 		"& .MuiPagination-ul button": {
-			fontSize: "1.3rem !important"
+			fontSize: "1.4rem !important"
 		}
 	}
 })) as typeof Pagination;

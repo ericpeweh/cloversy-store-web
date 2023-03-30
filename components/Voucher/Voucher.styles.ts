@@ -55,13 +55,13 @@ export const VoucherTitle = styled("h2")(({ theme }) => ({
 }));
 
 export const VoucherExpiry = styled("p")(({ theme }) => ({
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	color: theme.palette.grey[500],
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));
 
