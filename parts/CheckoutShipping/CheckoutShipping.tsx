@@ -141,7 +141,7 @@ const CheckoutShipping = ({ setFormInitialValues }: CheckoutShippingProps) => {
 											<CostItemDetail>
 												<CourierImage>
 													<Image
-														src={`/images/${cost.courier}.png`}
+														src={`/images/${cost.courier === "j&t" ? "jnt" : cost.courier}.png`}
 														alt={cost.courier + cost.service}
 														height={200}
 														width={400}

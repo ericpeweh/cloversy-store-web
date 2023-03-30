@@ -101,7 +101,9 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 									<Stack direction="row" alignItems="center" gap={2}>
 										<ImageContainer>
 											<Image
-												src={`/images/${shipping.shipping_courier}.png`}
+												src={`/images/${
+													shipping.shipping_courier === "j&t" ? "jnt" : shipping.shipping_courier
+												}.png`}
 												alt={"shipping courier logo"}
 												height={200}
 												width={400}
