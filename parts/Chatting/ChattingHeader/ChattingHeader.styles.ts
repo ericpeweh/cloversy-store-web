@@ -30,12 +30,12 @@ export const Name = styled("h3")(({ theme }) => ({
 }));
 
 export const Position = styled("p")(({ theme }) => ({
-	fontSize: "1.4rem",
+	fontSize: "1.5rem",
 	fontWeight: 400,
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.2rem"
+		fontSize: "1.3rem"
 	}
 }));

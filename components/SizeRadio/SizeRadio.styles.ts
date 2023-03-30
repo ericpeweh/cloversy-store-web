@@ -16,7 +16,7 @@ interface SizeRadioButtonProps extends ButtonProps {
 export const SizeRadioButton = styled(Button, {
 	shouldForwardProp: props => props !== "selected"
 })<SizeRadioButtonProps>(({ theme, selected }) => ({
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	backgroundColor: selected ? theme.palette.primary.main : "#fff",
 	color: selected ? "#fff" : theme.palette.primary.dark,
 	"&:hover": {
@@ -24,9 +24,9 @@ export const SizeRadioButton = styled(Button, {
 		backgroundColor: selected ? theme.palette.primary.main : "#fff"
 	},
 	[theme.breakpoints.down("lg")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));

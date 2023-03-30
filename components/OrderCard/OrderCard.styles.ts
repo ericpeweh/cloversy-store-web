@@ -65,22 +65,22 @@ export const CardTitle = styled("h3", {
 
 export const CardDescription = styled("p")(({ theme }) => ({
 	color: theme.palette.grey[500],
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));
 
 export const CardQuantity = styled("p")(({ theme }) => ({
 	fontSize: "1.7rem",
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));
 

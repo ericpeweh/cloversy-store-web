@@ -77,27 +77,27 @@ export const ContentTitle = styled("h3")(({ theme }) => ({
 }));
 
 export const InformationText = styled("p")(({ theme }) => ({
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	color: theme.palette.grey[600],
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));
 
 export const ContentBadge = styled("span")(({ theme }) => ({
 	borderRadius: "0.5rem",
 	backgroundColor: theme.palette.primary.main,
-	fontSize: "1.5rem",
+	fontSize: "1.6rem",
 	width: "max-content",
 	color: "#fff",
 	padding: "0.2rem 1rem",
 	[theme.breakpoints.down("md")]: {
-		fontSize: "1.4rem"
+		fontSize: "1.5rem"
 	},
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "1.3rem"
+		fontSize: "1.4rem"
 	}
 }));
