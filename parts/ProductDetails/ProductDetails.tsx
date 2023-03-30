@@ -80,6 +80,14 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 	// Track user product last seen
 	const [trackProductSeen] = useTrackProductSeenMutation();
 
+	// Re-set shoesSize if productData is changed
+	useEffect(() => {
+		if (productData && !productData.sizes.includes(shoesSize)) {
+			setShoesSize(productData?.sizes?.length > 0 ? productData?.sizes[0] : "36");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [productData]);
+
 	useEffect(() => {
 		if (isAuth && productData) {
 			trackProductSeen(productData?.id);
@@ -154,7 +162,7 @@ const ProductDetails = ({ productData }: ProductDetailsProps) => {
 											</RatingText>
 										</>
 									) : (
-										<RatingText>- Belum ada ulasan -</RatingText>
+										<RatingText sx={{ mt: 2 }}>- Belum ada ulasan -</RatingText>
 									)}
 								</Stack>
 								<ProductPrice>{formatToRupiah(productData?.price)}</ProductPrice>
