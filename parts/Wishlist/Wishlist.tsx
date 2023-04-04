@@ -66,36 +66,38 @@ const Wishlist = () => {
 					</FallbackContainer>
 				)}
 				{wishlistData && isGetWishlistSuccess && !noDataFound && !isGetWishlistLoading && (
-					<WishlistTable wishlistData={wishlistData?.data.wishlist} />
+					<>
+						<WishlistTable wishlistData={wishlistData?.data.wishlist} />
+						<Stack
+							mt={{ xs: 4, sm: 5, lg: 6 }}
+							direction="row"
+							justifyContent="flex-end"
+							alignSelf="stretch"
+						>
+							<Stack
+								spacing={{ xs: 1, sm: 2 }}
+								direction={{ xs: "column", sm: "row" }}
+								flex={1}
+								justifyContent={{ xs: "stretch", sm: "flex-end" }}
+							>
+								{!noDataFound && (
+									<Button
+										endIcon={<DeleteIcon />}
+										onClick={emptyWishlistHandler}
+										loading={isEmptyWishlistLoading}
+									>
+										Kosongkan wishlist
+									</Button>
+								)}
+							</Stack>
+						</Stack>
+					</>
 				)}
 				{!isGetWishlistLoading && isGetWishlistSuccess && noDataFound && (
 					<FallbackContainer>
 						<Typography>You have no items in your wishlist.</Typography>
 					</FallbackContainer>
 				)}
-				<Stack
-					mt={{ xs: 4, sm: 5, lg: 6 }}
-					direction="row"
-					justifyContent="flex-end"
-					alignSelf="stretch"
-				>
-					<Stack
-						spacing={{ xs: 1, sm: 2 }}
-						direction={{ xs: "column", sm: "row" }}
-						flex={1}
-						justifyContent={{ xs: "stretch", sm: "flex-end" }}
-					>
-						{!noDataFound && (
-							<Button
-								endIcon={<DeleteIcon />}
-								onClick={emptyWishlistHandler}
-								loading={isEmptyWishlistLoading}
-							>
-								Kosongkan wishlist
-							</Button>
-						)}
-					</Stack>
-				</Stack>
 			</WishlistTableContainer>
 		</WishlistContainer>
 	);

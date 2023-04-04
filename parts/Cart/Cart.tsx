@@ -114,7 +114,14 @@ const Cart = () => {
 									{formatToRupiah(subtotal ?? 0)}
 								</Typography>
 							</Stack>
-							<Stack direction="row" spacing={2} justifyContent="flex-end" mb={1} mt={2}>
+							<Stack
+								direction="row"
+								spacing={2}
+								justifyContent="flex-end"
+								mb={1}
+								mt={2}
+								sx={{ fontSize: { xs: "1.4rem", sm: "1.5rem", md: "1.6rem" } }}
+							>
 								<Typography textAlign="right">
 									*Pengiriman dan voucher akan dihitung saat checkout
 								</Typography>

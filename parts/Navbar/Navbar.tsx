@@ -123,12 +123,7 @@ const Navbar = () => {
 					}
 				}}
 			>
-				<MenuIcon
-					sx={{
-						fontSize: 30
-					}}
-					color="secondary"
-				/>
+				<MenuIcon sx={{ fontSize: { xs: 26, sm: 30 } }} color="secondary" />
 			</IconButton>
 			<Link href="/">
 				<HeaderLogo>
@@ -168,7 +163,7 @@ const Navbar = () => {
 				)}
 
 				<IconButton aria-label="search" onClick={openSearchDrawerHandler}>
-					<Search sx={{ fontSize: 30 }} color="secondary" />
+					<Search sx={{ fontSize: { xs: 26, sm: 30 } }} color="secondary" />
 				</IconButton>
 				<IconButton
 					aria-label="shopping-cart"
@@ -176,7 +171,7 @@ const Navbar = () => {
 					data-testid="shopping-cart-button"
 				>
 					<Badge badgeContent={cartQuantityCount} color="primary">
-						<ShoppingBagOutlined sx={{ fontSize: 30 }} color="secondary" />
+						<ShoppingBagOutlined sx={{ fontSize: { xs: 26, sm: 30 } }} color="secondary" />
 					</Badge>
 				</IconButton>
 				{wWidth >= 900 && isAuthenticated && (
