@@ -20,11 +20,16 @@ import {
 	openFilterDrawer,
 	resetFilter,
 	setPriceFilter,
-	setPriceRange
+	setPriceRange,
+	setProducts,
+	setSortBy,
+	setCurrentPage,
+	setPage,
+	setDisplayMode
 } from "../../store/slices/productsSlice";
 
 // Types
-import { Product, ProductsSortValues } from "../../interfaces";
+import { ProductsSortValues } from "../../interfaces";
 
 // Hooks
 import { useGetProductsQuery } from "../../api/product.api";
@@ -70,15 +75,17 @@ const Products = () => {
 	const { q: searchQuery = "" } = query;
 
 	const dispatch = useDispatch();
-	const { brandFilter, priceFilter, isInitialized, priceRange } = useSelector(
-		state => state.products,
-		shallowEqual
-	);
-	const [products, setProducts] = useState<Product[]>([]);
-	const [sortBy, setSortBy] = useState<ProductsSortValues>("id");
-	const [currentPage, setCurrentPage] = useState(0);
-	const [page, setPage] = useState(1);
-	const [displayMode, setDisplayMode] = useState<DisplayModeType>("card");
+	const {
+		brandFilter,
+		priceFilter,
+		isInitialized,
+		priceRange,
+		products,
+		sortBy,
+		currentPage,
+		page,
+		displayMode
+	} = useSelector(state => state.products, shallowEqual);
 	const isDisplayModeCard = displayMode === "card";
 
 	const {
@@ -106,27 +113,27 @@ const Products = () => {
 	}, [productsData, isGetProductsSuccess, dispatch, isInitialized]);
 
 	useEffect(() => {
-		setProducts([]);
-		setCurrentPage(0);
-		setPage(1);
-	}, [brandFilter, sortBy, priceFilter, searchQuery]);
+		dispatch(setProducts([]));
+		dispatch(setCurrentPage(0));
+		dispatch(setPage(1));
+	}, [brandFilter, sortBy, priceFilter, searchQuery, dispatch]);
 
 	useEffect(() => {
 		if (productsData && isGetProductsSuccess && !isGetProductsFetching) {
 			if (currentPage < productsData.page) {
-				setProducts(prev => [...prev, ...productsData.data.products]);
-				setCurrentPage(productsData.page);
+				dispatch(setProducts(productsData.data.products));
+				dispatch(setCurrentPage(productsData.page));
 			}
 		}
-	}, [productsData, currentPage, isGetProductsSuccess, isGetProductsFetching]);
+	}, [productsData, currentPage, isGetProductsSuccess, isGetProductsFetching, dispatch]);
 
 	const loadMoreHandler = () => {
-		setPage(prev => prev + 1);
+		dispatch(setPage(page + 1));
 	};
 
 	const displayModeChangeHandler = (_: React.SyntheticEvent, newDisplayMode: DisplayModeType) => {
 		if (newDisplayMode !== null) {
-			setDisplayMode(newDisplayMode);
+			dispatch(setDisplayMode(newDisplayMode));
 		}
 	};
 
@@ -135,7 +142,7 @@ const Products = () => {
 	};
 
 	const sortByChangeHandler = (e: SelectChangeEvent<unknown>) => {
-		setSortBy(e.target.value as ProductsSortValues);
+		dispatch(setSortBy(e.target.value as ProductsSortValues));
 	};
 
 	return (

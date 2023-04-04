@@ -71,7 +71,7 @@ const ConfirmationModal = ({
 					</Alert>
 				)}
 			</DialogContent>
-			<DialogActions>
+			<DialogActions sx={{ flexDirection: { xs: "column", sm: "row" }, gap: 1 }}>
 				<Button
 					onClick={isLoading ? () => {} : onClose}
 					variant="outlined"
@@ -80,7 +80,13 @@ const ConfirmationModal = ({
 				>
 					{cancelText}
 				</Button>
-				<Button onClick={onConfirm} color={confirmColor} size="small" loading={isLoading}>
+				<Button
+					onClick={onConfirm}
+					color={confirmColor}
+					size="small"
+					loading={isLoading}
+					sx={{ ml: 0 }}
+				>
 					{confirmText}
 				</Button>
 			</DialogActions>
