@@ -71,7 +71,13 @@ const ConfirmationModal = ({
 					</Alert>
 				)}
 			</DialogContent>
-			<DialogActions sx={{ flexDirection: { xs: "column", sm: "row" }, gap: 1 }}>
+			<DialogActions
+				sx={{
+					flexDirection: { xs: "column", sm: "row" },
+					gap: 1,
+					alignItems: { xs: "stretch", sm: "center" }
+				}}
+			>
 				<Button
 					onClick={isLoading ? () => {} : onClose}
 					variant="outlined"
@@ -85,7 +91,7 @@ const ConfirmationModal = ({
 					color={confirmColor}
 					size="small"
 					loading={isLoading}
-					sx={{ ml: 0 }}
+					sx={{ ml: "0 !important" }}
 				>
 					{confirmText}
 				</Button>

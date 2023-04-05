@@ -64,14 +64,8 @@ const productsSlice = createSlice({
 		) => {
 			state.brandFilter = newBrandFilter;
 		},
-		setProducts: (state: ProductsState, { payload: products }: PayloadAction<Product[]>) => {
-			state.products = [...state.products, ...products];
-		},
 		setSortBy: (state: ProductsState, { payload: sortBy }: PayloadAction<ProductsSortValues>) => {
 			state.sortBy = sortBy;
-		},
-		setCurrentPage: (state: ProductsState, { payload: currentPage }: PayloadAction<number>) => {
-			state.currentPage = currentPage;
 		},
 		setPage: (state: ProductsState, { payload: page }: PayloadAction<number>) => {
 			state.page = page;
@@ -81,6 +75,18 @@ const productsSlice = createSlice({
 			{ payload: displayMode }: PayloadAction<"list" | "card">
 		) => {
 			state.displayMode = displayMode;
+		},
+		storeProducts: (
+			state: ProductsState,
+			{ payload: data }: PayloadAction<{ products: Product[]; currentPage: number }>
+		) => {
+			state.currentPage = data.currentPage;
+			state.products = [...state.products, ...data.products];
+		},
+		resetProductsData: (state: ProductsState) => {
+			state.products = [];
+			state.currentPage = 0;
+			state.page = 1;
 		}
 	}
 });
@@ -92,11 +98,11 @@ export const {
 	setPriceFilter,
 	setPriceRange,
 	resetFilter,
-	setProducts,
 	setSortBy,
-	setCurrentPage,
 	setPage,
-	setDisplayMode
+	setDisplayMode,
+	storeProducts,
+	resetProductsData
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

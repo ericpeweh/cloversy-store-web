@@ -78,6 +78,7 @@ const CheckoutSuccess = ({ checkoutResultData: result }: CheckoutSuccessProps) =
 							<DetailContainerText>
 								Kamu bisa melihat status pesanan dan pengiriman pada&nbsp;
 								<Link
+									onClick={() => router.push(`/account/orders/${result.id}`)}
 									href={`/account/orders/${result.id}`}
 									component="span"
 									sx={{ cursor: "pointer" }}
