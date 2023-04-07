@@ -115,9 +115,9 @@ const OrderListItem = ({ orderData }: OrderListItemProps) => {
 					</>
 				)}
 				{(orderData.order_status === "process" || orderData.order_status === "sent") && (
-					<>
-						<Button size="small">Hubungi admin</Button>
-					</>
+					<Button size="small" onClick={() => router.push("/account/chat")}>
+						Hubungi admin
+					</Button>
 				)}
 				{orderData.order_status === "success" && (
 					<>
