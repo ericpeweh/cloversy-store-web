@@ -15,90 +15,132 @@ const TermsConditions = () => {
 			<PageTitle>Syarat & Ketentuan</PageTitle>
 			<ContentContainer>
 				<ContentDescription>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia adipisci accusantium
-					doloremque vero minus autem sapiente magni quisquam voluptatibus labore! Omnis saepe
-					obcaecati harum repellat accusamus optio consequuntur sed ullam? Lorem ipsum dolor sit
-					amet consectetur adipisicing elit. Quas consequatur maiores nihil, mollitia magni
-					praesentium sed quibusdam repellat sint reiciendis! Lorem ipsum, dolor sit amet
-					consectetur adipisicing
+					Berikut adalah beberapa poin penting untuk syarat dan ketentuan yang kami tetapkan dalam
+					setiap proses pelayanan dan penjualan produk, pastikan kamu telah menyetujui ketentuan
+					yang kami rangkum dibawah ini sebelum melakukan pembelian produk.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, nemo!
-				</ContentTitle>
+				<ContentTitle>Ketersediaan Produk</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam ratione, quos dicta a
-					atque officiis sunt corrupti nulla molestias quaerat dolore dolorum cumque! Tempore quae
-					maiores est. Corrupti necessitatibus ullam ea similique adipisci aspernatur perferendis
-					assumenda sint?
+					Semua ukuran sepatu yang tersedia pada list produk bukan merupakan data real time, oleh
+					karena itu, pastikan untuk menghubungi admin Cloversy.id untuk menghubungi terkait ukuran
+					yang tersedia pada list ataupun ketersediaan ukuran lainnya (request). Selain itu,
+					pengguna juga dapat menghubungi admin untuk meminta request produk custom untuk pilihan
+					sepatu atau design yang tidak tersedia pada list produk.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>Lorem ipsum dolor sit</ContentTitle>
+				<ContentTitle>Penawaran dan Pembelian Produk</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam Lorem ipsum dolor sit amet
-					consectetur, adipisicing elit. Eveniet, earum.
+					Setiap produk yang ditampilkan pada website &quot;Cloversy Store&quot; merupakan produk
+					resmi dari Cloversy.id dan hanya berlaku diperjualbelikan pada konteks custom painting
+					Cloversy.id. Setiap pembelian yang dilakukan oleh konsumen akan patuh kepada poin-poin
+					aturan yang berhubungan. Saat konsumen melakukan pembelian, sistem akan mengirimkan email
+					berupa konfirmasi pembayaran. Konsumen dapat melakukan tracking produk yang telah dibeli
+					pada menu &quot;Pesanan Saya&quot;. Pastikan setiap informasi yang diisi merupakan
+					informasi yang tepat untuk memastikan tidak ada kesalahan yang terjadi baik saat proses
+					pengerjaan ataupun penyelesaian pesanan.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>Expedita, nulla doloribus! Quis, facilis.</ContentTitle>
+				<ContentTitle>Pembatalan Pesanan</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam Lorem ipsum dolor sit amet
-					consectetur, adipisicing elit. Eveniet, earum.
+					Konsumen dapat membatalkan pesanan hanya ketika pesanan berada pada status &quot;Belum
+					Bayar&quot; atau Pending. Pesanan yang telah memasuki tahap pengerjaan dan sudah diproses
+					oleh tim Cloversy.id tidak dapat dibatalkan. Untuk aturan atau kendala lain mengenai
+					pembatalan pesanan, silahkan menghubungi tim Cloversy.id melalui kontak yang tersedia.
+				</ContentDescription>
+			</ContentContainer>
+			<ContentContainer>
+				<ContentTitle>Metode Pembayaran</ContentTitle>
+				<ContentDescription>
+					Konsumen akan diberikan pilihan terkait metode pembayaran yang tersedia saat melakukan
+					checkout produk.
 					<ListContainer>
 						<Lists>
 							<ListItem>
-								- &nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing et. Illo, illum!
+								- &nbsp;Metode pembayaran yang sah hanyalah metode pembayaran yang tersedia pada
+								saat melakukan checkout.
 							</ListItem>
 							<ListItem>
-								- &nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing eLis. Illo, illum!
+								- &nbsp;Apabila pembayaran melibatkan sistem atau pengelola pihak ketiga, semua
+								kesalahan dan kekeliruan pembayaran tidak ditanggung oleh pihak Cloversy.id.
 							</ListItem>
 							<ListItem>
-								- &nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing etItemt. Illo, illum!
+								- &nbsp;Pastikan untuk menyimpan bukti pembayaran saat berhasil melakukan pembayaran
+								sebagai alternatif apabila terjadi kesalahan sistem yang tidak terduga.
 							</ListItem>
 							<ListItem>
-								- &nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing eLiemt. Illo, illum!
+								- &nbsp;Semua produk dan pembayaran dilakukan menggunakan mata uang Rupiah
+								Indonesia, apabila terdapat pajak atau biaya pengelolaan eksternal, maka konsumenlah
+								yang menanggung biaya tersebut.
 							</ListItem>
 						</Lists>
 					</ListContainer>
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>Lorem ipsum dolor sit</ContentTitle>
+				<ContentTitle>Pengiriman</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam Lorem ipsum dolor sit amet
-					consectetur, adipisicing elit. Eveniet, earum.
-				</ContentDescription>
-				<ContentDescription>
-					Acere sequi inventore, perspiciatis molestias ullam deleniti odit corporis nulla beatae
-					ducimus. Distinctio dignissimos, quisquam Lorem ipsum dolor sit amet consectetur,
-					adipisicing elit. Eveniet, earum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Cum minima numquam, nemo sed quod sapiente doloribus ratione, voluptatibus cupiditate
-					veritatis corporis incidunt, placeat quasi blanditiis tempore iste magni. Qui modi
-					possimus, necessitatibus illum, dolore vero, voluptatem perspiciatis sapiente cumque quasi
-					sunt assumenda at corrupti! Exercitationem qui cum aliquam magnam minus?
+					Konsumen akan diberikan pilihan terkait metode pengiriman yang tersedia saat melakukan
+					checkout produk.
+					<ListContainer>
+						<Lists>
+							<ListItem>
+								- &nbsp;Metode pengiriman yang sah hanyalah metode pengiriman yang tersedia pada
+								saat melakukan checkout.
+							</ListItem>
+							<ListItem>
+								- &nbsp;Cloversy.id menyediakan jasa pengiriman untuk wilayah Indonesia. Untuk
+								pengiriman luar negeri atau lokasi lainnya yang tidak tersedia pada pengiriman,
+								mohon hubungi admin.
+							</ListItem>
+							<ListItem>
+								- &nbsp;Waktu pengiriman yang tertera pada daftar pilihan metode pengiriman
+								merupakan estimasi yang diberikan oleh jasa pengiriman dan dapat meleset tergantung
+								kepada jasa pengirimannya masing- masing.
+							</ListItem>
+							<ListItem>
+								- &nbsp;Estimasi waktu pengiriman yang tertera tidak mencakup waktu pengerjaan
+								produk (tergantung tingkat kesulitan design dan antrian pengerjaan)
+							</ListItem>
+							<ListItem>
+								- &nbsp;Semua bentuk kerusakan, cacat, pengeluaran tambahan yang berhubungan dengan
+								pengiriman pihak ketiga berada diluar tanggung jawab kami.
+							</ListItem>
+							<ListItem>
+								- &nbsp;Apabila terdapat komplain atau ketidaksesuaian barang yang dikirim dengan
+								produk yang kami fotokan sesaat sebelum pengiriman, pastikan konsumen memiliki
+								rekaman dan foto packaging saat dibuka.
+							</ListItem>
+							<ListItem>
+								- &nbsp;Pengiriman produk akan kami lakukan sesuai dengan alamat yang konsumen
+								berikan, apabila terdapat kesalahan alamat maka itu diluar tanggung jawab kami.
+							</ListItem>
+							<ListItem>
+								- &nbsp;Pastikan untuk memeriksa produk yang kamu terima sesaat setelah menerima
+								pesanan dan melakukan konfirmasi kepada admin Cloversy.id.
+							</ListItem>
+						</Lists>
+					</ListContainer>
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, nemo!
-				</ContentTitle>
+				<ContentTitle>Pengembalian Produk</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam ratione, quos dicta a
-					atque officiis sunt corrupti nulla molestias quaerat dolore dolorum cumque! Tempore quae
-					maiores est. Corrupti necessitatibus ullam ea similique adipisci aspernatur perferendis
-					assumenda sint?
+					Produk yang telah dibeli dan dikirim setelah konfirmasi konsumen tidak dapat dikembalikan
+					dengan alasan apapun terkecuali produk yang dikirimkan tidak sesuai (berbeda produk) bukan
+					berbeda design / detail. Karena foto produk akan selalu dikirim ke konsumen sesaat sebelum
+					packaging dan setiap tahap pengerjaan produk.
+				</ContentDescription>
+			</ContentContainer>
+			<ContentContainer>
+				<ContentTitle>Ketentuan Lainnya</ContentTitle>
+				<ContentDescription>
+					Syarat dan Ketentuan yang dituliskan pada halaman ini dapat berubah dari waktu ke waktu
+					tanpa terdapat pemberitahuan terlebih dahulu untuk menyesuaikan proses penjualan yang
+					berlaku.
 				</ContentDescription>
 			</ContentContainer>
 		</TermsConditionsContainer>
