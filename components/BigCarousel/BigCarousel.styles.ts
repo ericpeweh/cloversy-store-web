@@ -19,7 +19,13 @@ export const CarouselImage = styled("div", {
 	shouldForwardProp: prop => prop !== "imageurl"
 })<CarouselImageType>(({ imageurl, theme }) => ({
 	height: "calc(100vh - 9rem)",
-	backgroundImage: `url(${imageurl})`,
+	backgroundImage: `
+    linear-gradient(
+      90deg, 
+    rgba(13,13,13,0.10) 0%, 
+    rgba(0,0,0,0.10) 65%
+    ), 
+    url(${imageurl})`,
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "flex-start",

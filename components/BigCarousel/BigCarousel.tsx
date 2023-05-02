@@ -2,6 +2,9 @@
 import React from "react";
 import { Pagination, Navigation, Autoplay, EffectFade, SwiperOptions } from "swiper";
 
+// Hooks
+import { useRouter } from "next/router";
+
 // Components
 import { Swiper, SwiperSlide } from "swiper/react";
 import Button from "../Button/Button";
@@ -32,44 +35,61 @@ const carouselOptions: SwiperOptions = {
 };
 
 const BigCarousel = () => {
+	const router = useRouter();
+
 	return (
 		<BigCarouselContainer>
 			<Swiper {...carouselOptions}>
 				<SwiperSlide>
-					<CarouselImage imageurl="/images/1.jpg">
+					<CarouselImage imageurl="/images/carousel-1.webp">
 						<CarouselContent alignRight>
 							<CarouselTag>Special Edition</CarouselTag>
 							<CarouselTitle>Nike AF1 Homesick</CarouselTitle>
 							<CarouselDescription alignRight>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, eaque.
+								&apos;Homesick&apos;: Rindu, kangen terhadap kampung halaman / rumah.
 							</CarouselDescription>
-							<Button size="large" sx={{ marginTop: "3rem" }}>
+							<Button
+								size="large"
+								sx={{ marginTop: "3rem" }}
+								onClick={() => router.push(`/products/nike-af1-low-homesick-special-edition`)}
+							>
 								Shop Now
 							</Button>
 						</CarouselContent>
 					</CarouselImage>
 				</SwiperSlide>
 				<SwiperSlide>
-					<CarouselImage imageurl="/images/2.jpg">
-						<CarouselContent>
-							<CarouselTag>Local Brands</CarouselTag>
-							<CarouselTitle>Ventela Lost Angel</CarouselTitle>
-							<CarouselDescription>Lorem ipsum dolor sit amet.</CarouselDescription>
-							<Button size="large" sx={{ marginTop: "3rem" }}>
-								Shop Now
-							</Button>
-						</CarouselContent>
-					</CarouselImage>
-				</SwiperSlide>
-				<SwiperSlide>
-					<CarouselImage imageurl="/images/3.jpg">
+					<CarouselImage imageurl="/images/carousel-2.webp">
 						<CarouselContent>
 							<CarouselTag>Cartoon & Games Series</CarouselTag>
-							<CarouselTitle>Mario Bros Series</CarouselTitle>
+							<CarouselTitle>Super Mario Series</CarouselTitle>
 							<CarouselDescription>
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+								5 jenis pilihan design bertema Mario Bros. Menggunakan sepatu lokal Ventela
 							</CarouselDescription>
-							<Button size="large" sx={{ marginTop: "3rem" }}>
+							<Button
+								size="large"
+								sx={{ marginTop: "3rem" }}
+								onClick={() => router.push(`/products/ventela-basic-super-mario-bros-series`)}
+							>
+								Shop Now
+							</Button>
+						</CarouselContent>
+					</CarouselImage>
+				</SwiperSlide>
+				<SwiperSlide>
+					<CarouselImage imageurl="/images/carousel-3.webp">
+						<CarouselContent>
+							<CarouselTag>Nature & Nusantara</CarouselTag>
+							<CarouselTitle>Lukisan Alam</CarouselTitle>
+							<CarouselDescription>
+								Lukisan alam, tentang Indonesia. Dengan berbagai makna tersirat. Bangga menjadi
+								Indonesia!
+							</CarouselDescription>
+							<Button
+								size="large"
+								sx={{ marginTop: "3rem" }}
+								onClick={() => router.push(`/products/ventela-basic-lukisan-alam`)}
+							>
 								Shop Now
 							</Button>
 						</CarouselContent>
