@@ -16,9 +16,9 @@ import { useRouter } from "next/router";
 import { BrandCard, BrandCards, CardContent, CardImage, CardTitle } from "./BrandCardList.styles";
 
 const brandCardData = [
-	{ label: "Custom Nike", image: "/images/1.jpg", brandId: 1 },
-	{ label: "Custom Adidas", image: "/images/2.jpg", brandId: 2 },
-	{ label: "Custom Ventela", image: "/images/3.jpg", brandId: 4 }
+	{ label: "Custom Nike", image: "/images/nikeaf1.webp", brandId: 1 },
+	{ label: "Custom Jordan", image: "/images/jordan.webp", brandId: 2 },
+	{ label: "Custom Vans", image: "/images/vans.webp", brandId: 6 }
 ];
 
 const BrandCardList = () => {
