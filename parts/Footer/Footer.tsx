@@ -1,7 +1,6 @@
 // Dependencies
 import React, { useState } from "react";
 import * as Yup from "yup";
-import { ValidationError } from "yup";
 
 // Styles
 import {
@@ -28,7 +27,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 // Components
-import { Alert, Divider, Grid, Stack } from "@mui/material";
+import { Alert, Divider, Grid, Stack, Link as MUILink } from "@mui/material";
 import Link from "next/link";
 
 const EmailSchema = Yup.string()
@@ -153,12 +152,20 @@ const Footer = () => {
 			<FooterBottom>
 				<CopyrightText>&copy;2023 Cloversy.id - All Rights Reserved</CopyrightText>
 				<Stack direction="row">
-					<SocialIcon>
-						<InstagramIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />
-					</SocialIcon>
-					<SocialIcon>
-						<WhatsAppIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />
-					</SocialIcon>
+					<MUILink target="_blank" rel="noreferrer" href="https://instagram.com/cloversy.id">
+						<SocialIcon>
+							<InstagramIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />
+						</SocialIcon>
+					</MUILink>
+					<MUILink
+						target="_blank"
+						rel="noreferrer"
+						href="https://api.whatsapp.com/send?phone=6287818001061&text=Halo,%20Saya%20mau%20Konsultasi%20/%20Design%20|%20CLOVERSY"
+					>
+						<SocialIcon>
+							<WhatsAppIcon sx={{ fontSize: { xs: "2.2rem", md: "large" } }} />
+						</SocialIcon>
+					</MUILink>
 				</Stack>
 			</FooterBottom>
 		</FooterContainer>
