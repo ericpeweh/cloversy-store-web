@@ -79,7 +79,7 @@ const AddToCartSnackbar = () => {
 						<CardImageContainer>
 							<CardImage
 								component="img"
-								image={(cartSnackbarData?.images || [])[0] || "/images/2.jpg"}
+								image={(cartSnackbarData?.images || [])[0] || "/images/no-image.png"}
 							/>
 						</CardImageContainer>
 						<ProductText>
