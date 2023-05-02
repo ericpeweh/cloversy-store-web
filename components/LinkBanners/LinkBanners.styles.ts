@@ -33,6 +33,7 @@ export const Banner = styled(Grid)({
 	cursor: "pointer",
 	position: "relative",
 	"&::after": {
+		zIndex: 2,
 		content: "''",
 		position: "absolute",
 		top: "0",
