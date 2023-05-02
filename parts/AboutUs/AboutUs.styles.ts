@@ -20,7 +20,7 @@ export const AboutUsHero = styled("div")(({ theme }) => ({
 	height: "calc(100vh - 9rem)",
 	width: "100%",
 	backgroundImage:
-		"linear-gradient(to right, rgba(0 0 0 / 20%), rgba(0 0 0 / 30%)), url(/images/1.jpg)",
+		"linear-gradient(to right, rgba(0 0 0 / 20%), rgba(0 0 0 / 30%)), url(/images/about-us-1.webp)",
 	backgroundSize: "cover",
 	backgroundPosition: "center",
 	display: "flex",

@@ -196,7 +196,7 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 				))}
 			</MobileMenuLists>
 			<MobileMenuActionButtons>
-				<Divider sx={{ mb: "2rem" }} />
+				{isAuthenticated && <Divider sx={{ mb: "2rem" }} />}
 				{mobileMenuActions.map(item => {
 					if (!isAuthenticated && item.title !== "Cart") return null;
 
@@ -215,7 +215,7 @@ const MobileMenuDrawer = ({ open, onClose }: MobileMenuDrawerProps) => {
 								alignItems="center"
 								sx={{ p: { xs: "1.5rem 0", sm: "2rem 0" }, width: "100%" }}
 							>
-								<Typography sx={{ fontSize: { xs: "1.6rem", sm: "1.7rem" } }}>
+								<Typography sx={{ fontSize: { xs: "1.6rem !important", sm: "1.7rem" } }}>
 									{item.title}
 								</Typography>
 								{item.icon}

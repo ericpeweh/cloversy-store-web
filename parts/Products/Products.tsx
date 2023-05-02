@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 // Styles
 import {
@@ -21,11 +21,11 @@ import {
 	resetFilter,
 	setPriceFilter,
 	setPriceRange,
-	setProducts,
 	setSortBy,
-	setCurrentPage,
 	setPage,
-	setDisplayMode
+	setDisplayMode,
+	storeProducts,
+	resetProductsData
 } from "../../store/slices/productsSlice";
 
 // Types
@@ -113,19 +113,21 @@ const Products = () => {
 	}, [productsData, isGetProductsSuccess, dispatch, isInitialized]);
 
 	useEffect(() => {
-		dispatch(setProducts([]));
-		dispatch(setCurrentPage(0));
-		dispatch(setPage(1));
+		dispatch(resetProductsData());
 	}, [brandFilter, sortBy, priceFilter, searchQuery, dispatch]);
 
 	useEffect(() => {
 		if (productsData && isGetProductsSuccess && !isGetProductsFetching) {
-			if (currentPage < productsData.page) {
-				dispatch(setProducts(productsData.data.products));
-				dispatch(setCurrentPage(productsData.page));
+			if (
+				currentPage < productsData.page &&
+				(products.length < productsData.page * 12 || products.length === 0)
+			) {
+				dispatch(
+					storeProducts({ products: productsData.data.products, currentPage: productsData.page })
+				);
 			}
 		}
-	}, [productsData, currentPage, isGetProductsSuccess, isGetProductsFetching, dispatch]);
+	}, [productsData, currentPage, isGetProductsSuccess, isGetProductsFetching, dispatch, products]);
 
 	const loadMoreHandler = () => {
 		dispatch(setPage(page + 1));

@@ -55,6 +55,9 @@ export const CardContent = styled("div")({
 	justifyContent: "center",
 	alignItems: "center",
 	flexDirection: "column",
+	"& img": {
+		filter: "brightness(0.95)"
+	},
 	"&:hover img": {
 		transform: "scale(1.1)"
 	}

@@ -15,57 +15,44 @@ const PrivacyPolicy = () => {
 		<PrivacyPolicyContainer>
 			<PageTitle>Kebijakan Privasi</PageTitle>
 			<ContentContainer>
-				<ContentTitle>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, nemo!
-				</ContentTitle>
+				<ContentTitle>Data yang kami kumpulkan</ContentTitle>
 				<ContentDescription>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia adipisci accusantium
-					doloremque vero minus autem sapiente magni quisquam voluptatibus labore! Omnis saepe
-					obcaecati harum repellat accusamus optio consequuntur sed ullam? Lorem ipsum dolor sit
-					amet consectetur adipisicing elit. Quas consequatur maiores nihil, mollitia magni
-					praesentium sed quibusdam repellat sint reiciendis! Lorem ipsum, dolor sit amet
-					consectetur adipisicing
+					Data yang kami kumpulkan berupa informasi yang dimasukkan oleh konsumen baik melalui input
+					langsung ataupun bentuk interaksi dengan website atau aplikasi kami. Informasi yang
+					diambil nama konsumen, email, alamat, kontak, foto profil dan data penunjang lainnya yang
+					digunakan untuk meningkatkan pengalaman pengguna.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>Lorem ipsum dolor sit amet, conse</ContentTitle>
+				<ContentTitle>Pemanfaatan Data</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam ratione, lla molestias
-					quaerat dolore dolorum cumque! Tempore quae maiores est. Corrupti necessitatibus ullam ea
-					similique adipisci aspernatur perferendis assumenda sint?
+					Data diperoleh dari pengguna hanya dimanfaatkan untuk keperluan transaksi dan marketing
+					kami untuk meningkatkan pengalaman pengguna dalam menggunakan aplikasi dan websiite kami.
+					Selain itu, menjadi bahan pertimbangan kami dalam memberikan penawaran- penawaran terbaik
+					bagi konsumen atau calon konsumen kami.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>Lorem ipsum dolor sit</ContentTitle>
+				<ContentTitle>Analytics</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam Lorem ipsum dolor sit amet
-					consectetur, adipisicing elit. Eveniet, earum.
+					Website dan aplikasi kami terintegrasi dengan Google Analytics yang mengumpulkan data dari
+					perangkat yang anda gunakan untuk kebutuhan analisis kami.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>Expedita, nulla doloribus! Quis, facilis.</ContentTitle>
+				<ContentTitle>Pihak Ketiga</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam Lorem ipsum dolor sit amet
-					consectetur, adipisicing elit. Eveniet, earum.
+					Penggunaan data dari pihak ketiga seperti konten tersemat baik berupa gambar, video,
+					artikel dan lainnya. Pihak ketiga mungkin akan mengumpulkan data dari akun yang anda
+					gunakan.
 				</ContentDescription>
 			</ContentContainer>
 			<ContentContainer>
-				<ContentTitle>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, nemo!
-				</ContentTitle>
+				<ContentTitle>Keamanan Data</ContentTitle>
 				<ContentDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eaque officiis sunt quis
-					sit possimus ad eius facere sequi inventore, perspiciatis molestias ullam deleniti odit
-					corporis nulla beatae ducimus. Distinctio dignissimos, quisquam ratione, quos dicta a
-					atque officiis sunt corrupti nulla molestias quaerat dolore dolorum cumque! Tempore quae
-					maiores est. Corrupti necessitatibus ullam ea similique adipisci aspernatur perferendis
-					assumenda sint?
+					Data yang diperoleh dan diolah akan disimpan dengan aturan keamanan yang kami gunakan
+					untuk memastikan data tetap aman dan tidak terdapat pihak lain yang dapat mengakses,
+					membajak, dan memanfaatkan data anda.
 				</ContentDescription>
 			</ContentContainer>
 		</PrivacyPolicyContainer>
