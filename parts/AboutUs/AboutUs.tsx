@@ -25,32 +25,32 @@ const AboutUs = () => {
 			<AboutUsHero>
 				<HeroTitle>Be Special!</HeroTitle>
 				<HeroDescription>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit sapiente dolores maxime
-					nihil assumenda nesciunt et iure corrupti nostrum repellat aut sunt mollitia aperiam, rem
-					odio. Voluptates perspiciatis quo eos.
+					Jadilah spesial dengan memiliki sesuatu yang unik dan bernilai melalui perantara seni
+					lukisan dengan makna atau memori yang kamu inginkan pada produk- produk yang kamu gunakan.
 				</HeroDescription>
 			</AboutUsHero>
 			<ContentContainer container spacing={{ xs: 2, md: 3, xl: 6 }}>
 				<ContentItem item xs={12} md={6}>
 					<ContentImage>
 						<Image
-							src="/images/2.jpg"
+							src="/images/about-us-2.webp"
 							alt="content image"
 							layout="responsive"
-							width={2560}
-							height={1440}
+							width={1920}
+							height={1080}
 						/>
 					</ContentImage>
 				</ContentItem>
 				<ContentItem item xs={12} md={6}>
 					<Content textLeft>
 						<ContentTag>Informasi</ContentTag>
-						<ContentTitle>Lorem ipsum dolor sit amet consectetur adipisicing elit</ContentTitle>
+						<ContentTitle>Custom Painting Untuk Berbagai Produk</ContentTitle>
 						<ContentDescription>
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate, perspiciatis
-							veritatis! Culpa tempora provident voluptatem iste necessitatibus quisquam odio ad
-							quis itaque deleniti nesciunt iure explicabo labore libero similique, doloribus sint
-							magnam qui! Ipsum, blanditiis assumenda quasi reiciendis quo saepe.
+							Kami menyediakan layanan custom painting untuk berbagai produk dan media berbahan
+							kulit (leather) dan kanvas khususnya produk sepatu. Untuk kustomisasi lainnya,
+							konsumen dapat menghubungi tim Cloversy.id untuk melakukan konsultasi beberapa produk
+							seperti media tas, dompet, penyimpan kartu. Harga custom painting menyesuaikan jenis
+							bahan media lukis dan design yang digunakan.
 						</ContentDescription>
 					</Content>
 				</ContentItem>
@@ -58,25 +58,25 @@ const AboutUs = () => {
 			<ContentContainer container spacing={{ xs: 2, md: 3, xl: 6 }}>
 				<ContentItem item xs={12} md={6}>
 					<Content textLeft>
-						<ContentTag>Hello world</ContentTag>
-						<ContentTitle>Dolor sit amet consectetur adipisicing elit</ContentTitle>
+						<ContentTag>Kualitas</ContentTag>
+						<ContentTitle>Pilihan Cat dan Teknik Pengerjaan</ContentTitle>
 						<ContentDescription>
-							Sit, amet consectetur adipisicing elit. Voluptate, perspiciatis veritatis! Culpa
-							tempora provident voluptatem iste necessitatibus quisquam odio ad quis itaque deleniti
-							nesciunt iure explicabo labore libero similique, doloribus sint magnam qui! Ipsum,
-							blanditiis assumenda quasi reiciendis quo saepe. Lorem ipsum, dolor sit amet
-							consectetur adipisicing elit. Fuga, perspiciatis.
+							Untuk saat ini, kami menggunakan pilihan cat terbaik dari merk &quot;Angelus&quot;
+							tanpa ada campuran cat lokal ataupun aditif lainnya dari brand lain. Kualitas lukisan
+							yang dihasilkan dengan menggunakan cat Angelus memiliki durabilitas yang sangat baik
+							dan sudah kami uji bahkan untuk beberapa test berat seperti <em>stratch test.</em>
+							Pengerjaan custom paint dilakukan dengan lukis tangan / hand paint.
 						</ContentDescription>
 					</Content>
 				</ContentItem>
 				<ContentItem item xs={12} md={6}>
 					<ContentImage>
 						<Image
-							src="/images/3.jpg"
+							src="/images/about-us-3.webp"
 							alt="content image"
 							layout="responsive"
-							width={2560}
-							height={1440}
+							width={1920}
+							height={1080}
 						/>
 					</ContentImage>
 				</ContentItem>
@@ -87,10 +87,10 @@ const AboutUs = () => {
 				</Divider>
 				<ContentItem item xs={12} sx={{ mt: { xs: 3, sm: 7 }, mb: 4 }}>
 					<ContentDescription align="center">
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum dolore aliquid quod nemo
-						iure earum blanditiis obcaecati ab alias, laudantium aliquam officia id? Cumque
-						repudiandae repellat sunt corrupti aperiam labore, nemo expedita! Reiciendis voluptas
-						culpa totam odio veritatis. Vitae, sint!
+						Toko Cloversy.id dibuka pada tanggal 22 Juli 2020 dan mulai melakukan penjualan melalui
+						media sosial Instagram, TikTok dan marketplace Shopee sebagai media pendukung.
+						Berdomisili di Kota Pontianak, Kalbar. Saat ini Cloversy.id menerima pesanan baik
+						langsung melalui website ataupun melalui chat sosial media.
 					</ContentDescription>
 				</ContentItem>
 			</ContentContainer>
