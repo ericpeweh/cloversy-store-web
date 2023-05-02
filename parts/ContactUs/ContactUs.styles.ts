@@ -24,7 +24,7 @@ export const ContactInformation = styled("div")(({ theme }) => ({
 	width: "100%",
 	padding: "4rem",
 	backgroundImage:
-		"linear-gradient(rgba(85, 144, 78, 0.8),rgba(85, 144, 78, 0.5)), url(/images/3.jpg)",
+		"linear-gradient(rgba(85, 144, 78, 0.82),rgba(85, 144, 78, 0.95)), url(/images/about-us-1.webp)",
 	backgroundSize: "cover",
 	backgroundPosition: "center",
 	borderRadius: "0.5rem",

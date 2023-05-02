@@ -96,8 +96,8 @@ const ContactUs = () => {
 						<ContactInformation>
 							<ContactInformationTitle>Informasi Kontak</ContactInformationTitle>
 							<ContactInformationDesc>
-								Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque aspernatur at autem
-								impedit a veritatis voluptates.
+								Untuk memperoleh informasi, konsultasi design, pertanyaan terhadap produk, kerja
+								sama. Berikut kontak kami:
 							</ContactInformationDesc>
 							<ContactInformationList>
 								{contacts.map(contact => (
