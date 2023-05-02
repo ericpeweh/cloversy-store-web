@@ -15,36 +15,26 @@ const ReturnPolicy = () => {
 			<PageTitle>Aturan Pengembalian</PageTitle>
 			<ContentContainer sx={{ mb: { xs: 4, sm: 6, lg: 8, xl: 10 } }}>
 				<ContentDescription>
-					Lorem ipsum dolor <strong>sit amet consectetur</strong> adipisicing elit. Enim ex optio
-					eligendi nesciunt eius quisquam iusto sapiente iure officiis laborum eum, ratione possimus
-					architecto iste ut dolorum! Alias aperiam error accusamus tenetur adipisci modi
-					distinctio. Esse amet aspernatur rerum porro.
+					Produk yang telah dikirim dan telah melalui proses konfirmasi produk sebelum dikirim tidak
+					dapat dikembalikan.
 				</ContentDescription>
 				<ContentDescription>
-					Iste ut dolorum! Alias aperiam error accusamus tenetur adipisci modi distinctio. Esse amet
-					aspernatur rerum porro. Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-					optio animi doloribus dignissimos quasi omnis a voluptatem. Eaque harum eligendi ab
-					aliquid doloremque similique beatae eius eveniet assumenda enim deleniti ad, commodi
-					quisquam reprehenderit tempora nihil dolore non? Eos similique culpa nam vel sed quod
-					natus id eaque consectetur magnam Lorem ipsum dolor sit, amet consectetur adipisicing
-					elit. Nemo doloribus doloremque dignissimos quae maxime expedita minima commodi dolor
-					adipisci rem.
+					Pengembalian produk hanya dapat dikembalikan apabila produk yang dibeli tidak sesuai dalam
+					konteks produk, bukan konteks design. Untuk memastikan design sesuai dengan keinginan
+					konsumen, kami akan melakukan pembuatan mockup untuk setiap pesanan konsumen, dilanjutkan
+					konfirmasi dari konsumen terhadap mockup, hingga update dalam bentuk foto pada saat
+					pengerjaan produk dari tahap ke tahap kepada konsumen. Setelahnya, saat produk akan
+					dikirim, maka akan dilakukan konfirmasi final terkait produk yang dibeli.
 				</ContentDescription>
 				<ContentDescription>
-					Onmnis a voluptatem. Eaque harum eligendi ab aliquid doloremque similique beatae eius
-					eveniet assumenda enim deleniti ad, commodi quisquam reprehenderit tempora nihil dolore
-					non? Eos similique culpa nam vel sed quod natus id eaque consectetur magnam Lorem ipsum
-					dolor sit, amet consectetur adipisicing elit. Nemo doloribus doloremque dignissimos quae
-					maxime expedita minima commodi dolor adipisci rem.
+					Untuk keperluan pengembalian produk lainnya yang tidak dibahas pada halaman website kami,
+					mohon menghubungi admin kami untuk informasi yang lebih lengkap untuk menghindari
+					kesalahan komunikasi dan hal yang tidak diinginkan.
 				</ContentDescription>
 				<ContentDescription>
-					Nemo doloribus doloremque dignissimos quae maxime expedita minima commodi dolor adipisci
-					rem.
-				</ContentDescription>
-				<ContentDescription>
-					Quod natus id eaque consectetur magnam Lorem ipsum dolor sit, amet consectetur adipisicing
-					elit. Nemo doloribus doloremque dignissimos quae maxime expedita minima commodi dolor
-					adipisci rem.
+					Kamu dapat menghubungi admin melalui kontak yang tersedia pada menu &quot;Kontak
+					Kami&quot; atau menggunakan form yang tersedia untuk mengirim pertanyaan langsung melalui
+					laman website kami.
 				</ContentDescription>
 			</ContentContainer>
 		</ReturnPolicyContainer>
