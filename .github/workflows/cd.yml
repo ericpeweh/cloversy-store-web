@@ -18,9 +18,9 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ~/cloversystore
+            cd cloversystore
             cd cloversy-store-web
-            {{ secrets.GH_PULL_SCRIPT }}
+            ${{ secrets.GH_PULL_SCRIPT }}
             npm install
             npm run build
             pm2 restart cloversy-store-web
