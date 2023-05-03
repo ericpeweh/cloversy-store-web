@@ -20,14 +20,7 @@ jobs:
           script: |
             cd ~/cloversystore
             cd cloversy-store-web
-            expect -c '
-              spawn git pull origin main
-              expect "Username for 'https://github.com':"
-              send "${{ secrets.GH_USERNAME }}\r"
-              expect "Password for 'https://${{ secrets.GH_USERNAME }}@github.com':"
-              send "${{ secrets.GH_PASSWORD }}\r"
-              interact
-            '
+            {{ secrets.GH_PULL_SCRIPT }}
             npm install
             npm run build
             pm2 restart cloversy-store-web
