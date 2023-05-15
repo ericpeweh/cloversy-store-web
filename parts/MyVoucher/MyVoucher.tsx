@@ -103,39 +103,40 @@ const MyVoucher = () => {
 					<DialogContentText sx={{ mb: 3 }} component="div">
 						<InfoTitle>Syarat & Ketentuan</InfoTitle>
 						<InfoText>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, aut! Nemo id tempore a
-							maxime! Placeat error consectetur itaque beatae inventore. A, esse aperiam. Ratione id
-							sapiente iure odio nulla?
+							Voucher yang dapat digunakan hanya voucher yang diberikan oleh tim atau sistem
+							Cloversy.id. Setiap voucher yang diberikan memiliki judul, besaran potongan harga,
+							target audiens, dan tanggal berlakunya masing- masing.
 						</InfoText>
 					</DialogContentText>
 					<DialogContentText sx={{ mb: 3 }}>
 						<InfoTitle>Memperoleh Voucher</InfoTitle>
 						<InfoText>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, aut! Nemo id tempore a
-							maxime! Placeat error consectetur itaque beatae inventore. A, esse aperiam. Ratione id
-							sapiente iure odio nulla?
+							Untuk memperoleh voucher, kamu dapat melakukan pembelian produk pada website
+							Cloversy.id. Voucher hanya akan diberikan oleh tim Cloversy.id apabila transaksi
+							memenuhi ketentuan. Kamu juga dapat memperoleh voucher melalui postingan promo
+							Cloversy.id atau melalui penawaran langsung pada email.
 						</InfoText>
 					</DialogContentText>
 					<DialogContentText component="div">
 						<InfoTitle>Cara Pakai</InfoTitle>
 						<UsageList>
 							<li>
-								<InfoText>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, aut! Nemo id
-									tempore a maxime!
-								</InfoText>
+								<InfoText>Masuk ke tahapan checkout produk.</InfoText>
 							</li>
 							<li>
 								<InfoText>
-									Placeat error consectetur itaque beatae inventore. A, esse aperiam. Ratione id
-									sapiente iure odio nulla?
+									Pilih voucher yang kamu punya dan terapkan, atau kamu juga dapat menuliskan kode
+									voucher.
 								</InfoText>
 							</li>
 							<li>
-								<InfoText>Placeat error consectetur itaque beatae inventore.</InfoText>
+								<InfoText>Sistem akan mencoba menerapkan diskon voucher yang kamu pilih.</InfoText>
 							</li>
 							<li>
-								<InfoText>Placeat error consectetur itaque beatae inventore. A,</InfoText>
+								<InfoText>
+									Apabila berhasil, sistem akan menampilkan nama voucher, kode, dan besar potongan
+									yang didapatkan.
+								</InfoText>
 							</li>
 						</UsageList>
 					</DialogContentText>
