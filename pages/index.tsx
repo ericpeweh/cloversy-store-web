@@ -44,12 +44,12 @@ const Home: NextPage<HomePageProps> = ({ recommendedProducts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const response = await axios.get(`${BASE_URL}/products?count=6&page=1`, {
+	const response = await axios.get(`${BASE_URL}/products?count=6&page=1&sortBy=popularity`, {
 		withCredentials: true,
 		headers: {
 			cookie: req.headers.cookie ?? ""
 		}
-	}); // should add &sortBy=popularity later
+	});
 
 	const result: ResponseWithPagination<{ products: Product[] }> = response.data;
 
