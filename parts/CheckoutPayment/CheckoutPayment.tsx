@@ -43,8 +43,7 @@ const paymentMethods = [
 ];
 
 const CheckoutPayment = () => {
-	const { values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue } =
-		useFormikContext<CheckoutFormValues>();
+	const { values, errors, touched, handleChange } = useFormikContext<CheckoutFormValues>();
 
 	return (
 		<Grid item xs={12} lg={7} xl={8}>

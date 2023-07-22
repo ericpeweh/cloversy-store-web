@@ -42,7 +42,7 @@ describe("Product explore flow", () => {
 
 		// Apply filters
 		cy.findByRole("button", { name: /all brands/i }).click();
-		cy.findByRole("option", { name: /nike \(\d+\)/i }).click();
+		cy.findByRole("option", { name: /nike air force 1 \(\d+\)/i }).click();
 		cy.findByRole("button", { name: /terapkan/i }).click();
 		cy.findByTestId("filter-button").contains(/1/i);
 

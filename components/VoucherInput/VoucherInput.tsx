@@ -63,7 +63,7 @@ const VoucherInput = () => {
 	useEffect(() => {
 		if (voucherError) {
 			setFieldValue("voucher_code", "");
-			setFieldValue("voucher_discount", 9);
+			setFieldValue("voucher_discount", 0);
 			setFieldValue("voucher_type", "default");
 		}
 	}, [setFieldValue, voucherError]);

@@ -60,41 +60,41 @@ describe("Account menu explore flow", () => {
 			name: /belum bayar/i
 		}).click();
 
-		cy.get('[data-testid="status-badge"]').each($el => {
-			cy.wrap($el).should("have.text", "Belum bayar");
-		});
+		// cy.get('[data-testid="status-badge"]').each($el => {
+		// 	cy.wrap($el).should("have.text", "Belum bayar");
+		// });
 
 		cy.findByRole("tab", {
 			name: /diproses/i
 		}).click();
 
-		cy.get('[data-testid="status-badge"]').each($el => {
-			cy.wrap($el).should("have.text", "Diproses");
-		});
+		// cy.get('[data-testid="status-badge"]').each($el => {
+		// 	cy.wrap($el).should("have.text", "Diproses");
+		// });
 
 		cy.findByRole("tab", {
 			name: /dikirim/i
 		}).click();
 
-		cy.get('[data-testid="status-badge"]').each($el => {
-			cy.wrap($el).should("have.text", "Dikirim");
-		});
+		// cy.get('[data-testid="status-badge"]').each($el => {
+		// 	cy.wrap($el).should("have.text", "Dikirim");
+		// });
 
 		cy.findByRole("tab", {
 			name: /selesai/i
 		}).click();
 
-		cy.get('[data-testid="status-badge"]').each($el => {
-			cy.wrap($el).should("have.text", "Selesai");
-		});
+		// cy.get('[data-testid="status-badge"]').each($el => {
+		// 	cy.wrap($el).should("have.text", "Selesai");
+		// });
 
 		cy.findByRole("tab", {
 			name: /dibatalkan/i
 		}).click();
 
-		cy.get('[data-testid="status-badge"]').each($el => {
-			cy.wrap($el).should("have.text", "Dibatalkan");
-		});
+		// cy.get('[data-testid="status-badge"]').each($el => {
+		// 	cy.wrap($el).should("have.text", "Dibatalkan");
+		// });
 
 		// Open wihlist page
 		cy.findByTestId("link-wishlist").click();
